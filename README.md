@@ -1,0 +1,57 @@
+# ti60f225_tube_control_card
+
+KiCad 10 migration of the tube control card with an Efinix Ti60F225 FPGA (channel switching, power scaling, bias control; Ethernet) of the tube amplifier, from Proteus. The schematic is redrawn from
+the Proteus PDF and the PCB is rebuilt from the Gerber X2 export, so that every pad, track,
+via and pour carries a net from the new schematic. The IPC-D-356A netlist of the CADCAM export
+is the reference that every check compares against.
+
+This is **rev A, the as-built baseline**. The redesign (ribbon cables, PCB-mount pots, the new
+power section) starts from it. The amplifier project, its specification and the hardware state
+are in [tube_amplifier_kicad](https://github.com/johonkanen/tube_amplifier_kicad), which includes
+this repo as a submodule once the conversion is verified.
+
+## Method
+
+The shared [proteus2kicad](https://github.com/johonkanen/proteus2kicad) tools, a submodule in
+`tools/p2k` (clone with `git clone --recurse-submodules`, or run `git submodule update --init`).
+The phases and checks are in `tools/p2k/CONVERSION_PLAYBOOK.md`. Everything specific to this
+board is in `p2k_config.py`.
+
+## Status
+
+Phase 0 (skeleton and inventory) not started. The sources are in place; `p2k_config.py` holds
+only the paths and placeholder sheet names.
+
+v2.5, built 2025. `source/cadcam_rs274x/` is the earlier RS-274X export of the same version (cross-check only). v1 (built 2024, same outline and mounting holes) is not converted.
+
+## Source
+
+`fpga_boardv2.5.pdsprj` (Proteus 8.12). Exported 2026-11-19 from Proteus 8.12 SP2: schematic PDF, Gerber X2 CADCAM (metric)
+with the IPC-D-356A netlist.
+
+## Mechanical baseline
+
+From the export (the fit reference for the redesign; the KiCad file is
+`mechanical/tube_fpga_board_v2.5.kicad_pcb` in tube_amplifier_kicad):
+
+```
+outline: 97.79 x 55.88 mm, lower-left corner at (13.870, -42.750) in the Proteus frame
+copper layers: 4; components: 146; mounting holes: 4
+mounting holes (relative to the lower-left outline corner, mm):
+  H1: x   93.130  y    3.750  drill 3.00 plated
+  H2: x    4.130  y    3.750  drill 3.00 plated
+  H3: x    4.130  y   51.750  drill 3.00 plated
+  H4: x   93.130  y   51.750  drill 3.00 plated
+```
+
+## Layout
+
+```
+source/         Proteus exports (read-only)
+  cadcam/         Gerber X2 export with the IPC-D-356A netlist (the reference)
+  schematic_pdf/  schematic PDF to redraw from
+  *.pdsprj        Proteus project (schematic values, devices, packages, pin names)
+  cadcam_rs274x/  earlier RS-274X export (cross-check only)
+tools/p2k/       proteus2kicad (submodule)
+p2k_config.py   board configuration for the tools
+```
