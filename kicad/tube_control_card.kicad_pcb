@@ -96,7 +96,7 @@
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C4"
-			(at 0 -1.16 90)
+			(at 1.703809 0 0)
 			(layer "F.SilkS")
 			(uuid "c84fe543-cff0-4c3a-a837-45addd52fa11")
 			(effects
@@ -245,7 +245,7 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R43"
-			(at 0 -1.17 180)
+			(at 0 -1.978095 90)
 			(layer "F.SilkS")
 			(uuid "f9575c67-c69e-4bf9-954f-ea149efba644")
 			(effects
@@ -1061,7 +1061,7 @@
 		(descr "SC-70-6, Proteus pad positions (rows 1.8 mm apart); Proteus pad sizes (tube_control_card, derived from Package_TO_SOT_SMD:SOT-363_SC-70-6)")
 		(tags "SOT TO_SOT_SMD SC-88 SOT-363 SC-70-6 US6 UMT6 S-Mini6 TSSOP6")
 		(property "Reference" "U12"
-			(at 0 -1.8 0)
+			(at -2.981904 0 0)
 			(layer "F.SilkS")
 			(uuid "e8853d19-e48a-444f-b986-0b73abba9dc2")
 			(effects
@@ -1404,7 +1404,7 @@
 		(descr "4 x 0402 resistor array (convex), Proteus pad rows 0.95 mm apart (tube_control_card, derived from Resistor_SMD:R_Array_Convex_4x0402)")
 		(tags "resistor array")
 		(property "Reference" "R17"
-			(at 0 -2.1 90)
+			(at 1.77 0 0)
 			(layer "F.SilkS")
 			(uuid "6bca1d80-c6ce-4c89-9a13-ee7fd56f55ed")
 			(effects
@@ -2090,7 +2090,7 @@
 		(descr "TSSOP-24, Proteus pad sizes (tube_control_card, derived from Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm)")
 		(tags "TSSOP SO")
 		(property "Reference" "U1"
-			(at 0 -4.85 0)
+			(at 0 4.92 0)
 			(layer "F.SilkS")
 			(uuid "d080dfd2-2119-41af-8ae9-db97a780887c")
 			(effects
@@ -2537,7 +2537,7 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R33"
-			(at 0 -1.17 270)
+			(at 0 1.978095 0)
 			(layer "F.SilkS")
 			(uuid "a2cc28ea-d5cc-4b52-9a18-c63259182488")
 			(effects
@@ -2686,7 +2686,7 @@
 		(descr "Capacitor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C54"
-			(at 0 -1.43 180)
+			(at 3.035714 0 0)
 			(layer "F.SilkS")
 			(uuid "97d0127c-305b-414a-968b-ea454b12b831")
 			(effects
@@ -3067,7 +3067,7 @@
 		(descr "4 x 0402 resistor array (convex), Proteus pad rows 0.95 mm apart (tube_control_card, derived from Resistor_SMD:R_Array_Convex_4x0402)")
 		(tags "resistor array")
 		(property "Reference" "R23"
-			(at 0 -2.1 90)
+			(at 0 -2.758095 0)
 			(layer "F.SilkS")
 			(uuid "fcd67768-8d67-4437-a328-4877ba44e3c3")
 			(effects
@@ -3603,7 +3603,7 @@
 		(at 107.4 3.4 90)
 		(descr "Blade wire terminal, two holes both pad 1 (tube_control_card, pads from IPC-D-356A J2)")
 		(property "Reference" "ISO_G"
-			(at 0 -4.82 90)
+			(at 2.067619 0 0)
 			(layer "F.SilkS")
 			(uuid "e6b014d4-a10c-4adf-8b64-a746a50d532f")
 			(effects
@@ -4352,7 +4352,7 @@
 		(descr "4 x 0402 resistor array (convex), Proteus pad rows 0.95 mm apart (tube_control_card, derived from Resistor_SMD:R_Array_Convex_4x0402)")
 		(tags "resistor array")
 		(property "Reference" "R25"
-			(at 0 -2.1 90)
+			(at 0 -2.758095 0)
 			(layer "F.SilkS")
 			(uuid "eabb0208-8bf7-4823-a3f5-98ee3feedcce")
 			(effects
@@ -5841,7 +5841,7 @@
 		(descr "4 x 0402 resistor array (convex), Proteus pad rows 0.95 mm apart (tube_control_card, derived from Resistor_SMD:R_Array_Convex_4x0402)")
 		(tags "resistor array")
 		(property "Reference" "R22"
-			(at 0 -2.1 90)
+			(at 0 -2.758095 0)
 			(layer "F.SilkS")
 			(uuid "158197be-3a3a-4b9a-9513-61555568a4d1")
 			(effects
@@ -6527,7 +6527,7 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R28"
-			(at 0 -1.17 0)
+			(at 0 1.24 0)
 			(layer "F.SilkS")
 			(uuid "a370807f-f308-45c8-bade-5c34963c6b55")
 			(effects
@@ -6676,7 +6676,7 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R26"
-			(at 0 -1.17 270)
+			(at 1.7 0 0)
 			(layer "F.SilkS")
 			(uuid "86ce555a-8088-4c6e-82e9-a3316c144ec7")
 			(effects
@@ -7426,7 +7426,7 @@
 		(at 107 -9)
 		(descr "Plated 3.0 mm mounting hole with a 6.35 mm pad on all copper layers, no net (tube_control_card, board-only)")
 		(property "Reference" "H2"
-			(at 0 -4.375 0)
+			(at -2.606774 4.197507 0)
 			(layer "F.SilkS")
 			(uuid "59f199e5-a60d-4aee-aabe-2344a9fb690d")
 			(effects
@@ -7957,7 +7957,7 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R5"
-			(at 0 -1.17 270)
+			(at -1.7 1.501904 0)
 			(layer "F.SilkS")
 			(uuid "3d5f10ce-3830-4c1c-9436-e6e454735cb0")
 			(effects
@@ -8105,7 +8105,7 @@
 		(at 27.348 19.41)
 		(descr "2.0 x 1.6 mm 4-pad oscillator (MC2016K), Proteus pad positions (1.8 x 1.2 mm) (tube_control_card, derived from Oscillator:Oscillator_SMD_SiT_PQFN-4Pin_2.0x1.6mm)")
 		(property "Reference" "OSC1"
-			(at 0 -2 0)
+			(at -3.555714 0 0)
 			(layer "F.SilkS")
 			(uuid "ffb3e496-10d2-44a0-b8e3-c843258f985e")
 			(effects
@@ -8419,7 +8419,7 @@
 		(at 18 -9)
 		(descr "Plated 3.0 mm mounting hole with a 6.35 mm pad on all copper layers, no net (tube_control_card, board-only)")
 		(property "Reference" "H1"
-			(at 0 -4.375 0)
+			(at 0.001255 4.197507 0)
 			(layer "F.SilkS")
 			(uuid "f31648a5-4111-4903-baf5-9714bd180508")
 			(effects
@@ -10915,7 +10915,7 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R31"
-			(at 0 -1.17 270)
+			(at -1.7 0 0)
 			(layer "F.SilkS")
 			(uuid "6b4a068d-0f1c-4fcf-9abf-a31c0e09f9c5")
 			(effects
@@ -11064,13 +11064,13 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R7"
-			(at 0 -1.17 270)
+			(at 1.585 1.353571 0)
 			(layer "F.SilkS")
 			(uuid "3b884087-379c-49b3-993e-18a574f111a6")
 			(effects
 				(font
-					(size 1 1)
-					(thickness 0.15)
+					(size 0.8 0.8)
+					(thickness 0.12)
 				)
 			)
 		)
@@ -11361,13 +11361,13 @@
 		(at 72.9 36)
 		(descr "SMD test pad, 0.711 mm round, top copper (the 4 Proteus SMD pads without a part) (tube_control_card, board-only)")
 		(property "Reference" "TP3"
-			(at 0 -1.3555 0)
+			(at -2.087195 0 0)
 			(layer "F.SilkS")
 			(uuid "31eb29c1-2468-4d3c-b2f4-ff36a492745c")
 			(effects
 				(font
-					(size 0.8 0.8)
-					(thickness 0.12)
+					(size 1 1)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -11432,7 +11432,7 @@
 		(at 107.4 15 -90)
 		(descr "Blade wire terminal, two holes both pad 1 (tube_control_card, pads from IPC-D-356A J2)")
 		(property "Reference" "RS485A"
-			(at 0 -4.82 270)
+			(at -2.043809 0 0)
 			(layer "F.SilkS")
 			(uuid "21a316e7-ee51-43fe-a7db-313b5fe42cd7")
 			(effects
@@ -12115,13 +12115,13 @@
 		(at 74.4 36)
 		(descr "SMD test pad, 0.711 mm round, top copper (the 4 Proteus SMD pads without a part) (tube_control_card, board-only)")
 		(property "Reference" "TP4"
-			(at 0 -1.3555 0)
+			(at 0.001293 1.396719 0)
 			(layer "F.SilkS")
 			(uuid "3f0971c9-c347-42a9-b198-28bf9e15d32e")
 			(effects
 				(font
-					(size 0.8 0.8)
-					(thickness 0.12)
+					(size 1 1)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -12575,7 +12575,7 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R41"
-			(at 0 -1.17 0)
+			(at 0 1.263809 0)
 			(layer "F.SilkS")
 			(uuid "811fcd7d-7bbe-47bb-aae3-225caa96a713")
 			(effects
@@ -12807,7 +12807,7 @@
 		(descr "4 x 0402 resistor array (convex), Proteus pad rows 0.95 mm apart (tube_control_card, derived from Resistor_SMD:R_Array_Convex_4x0402)")
 		(tags "resistor array")
 		(property "Reference" "R14"
-			(at 0 -2.1 90)
+			(at 1.793809 0 0)
 			(layer "F.SilkS")
 			(uuid "740719d2-1e81-48cc-bce5-ac67f33a514e")
 			(effects
@@ -13046,7 +13046,7 @@
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C67"
-			(at 0 -1.16 90)
+			(at 1.68 0 0)
 			(layer "F.SilkS")
 			(uuid "9eea4bb0-c163-402d-ab82-e4c6b5f87a28")
 			(effects
@@ -13195,7 +13195,7 @@
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C1"
-			(at 0 -1.16 90)
+			(at -1.68 0 0)
 			(layer "F.SilkS")
 			(uuid "2d6b8461-b016-4098-ae14-530022a8a975")
 			(effects
@@ -13343,7 +13343,7 @@
 		(at 107.4 -2.2 90)
 		(descr "Blade wire terminal, two holes both pad 1 (tube_control_card, pads from IPC-D-356A J2)")
 		(property "Reference" "ISO5V"
-			(at 0 -4.82 90)
+			(at 2.02 0 0)
 			(layer "F.SilkS")
 			(uuid "88bd1e20-42a8-4494-af20-6e4b82453202")
 			(effects
@@ -13820,13 +13820,13 @@
 		(at 88.3 26.6)
 		(descr "SMD test pad, 0.711 mm round, top copper (the 4 Proteus SMD pads without a part) (tube_control_card, board-only)")
 		(property "Reference" "TP2"
-			(at 0 -1.3555 0)
+			(at 2.089781 0 0)
 			(layer "F.SilkS")
 			(uuid "aec02ede-cf90-4c8d-adc9-41122f924db7")
 			(effects
 				(font
-					(size 0.8 0.8)
-					(thickness 0.12)
+					(size 1 1)
+					(thickness 0.15)
 				)
 			)
 		)
@@ -14054,7 +14054,7 @@
 		(at 107.4 9.2 -90)
 		(descr "Blade wire terminal, two holes both pad 1 (tube_control_card, pads from IPC-D-356A J2)")
 		(property "Reference" "RS485B"
-			(at 0 -4.82 270)
+			(at -2.043809 0 0)
 			(layer "F.SilkS")
 			(uuid "b99a0a2d-f8a8-4928-817d-202ec06117c1")
 			(effects
@@ -14291,7 +14291,7 @@
 		(descr "TSSOP-14, Proteus pad positions (rows 5.85 mm apart); Proteus pad sizes (tube_control_card, derived from Package_SO:TSSOP-14_4.4x5mm_P0.65mm)")
 		(tags "TSSOP SO")
 		(property "Reference" "U14"
-			(at 0 -3.45 0)
+			(at 5.405714 0 0)
 			(layer "F.SilkS")
 			(uuid "338b7488-aa11-4dfc-b1f5-67dcbc5ee5ba")
 			(effects
@@ -14847,7 +14847,7 @@
 		(descr "4 x 0402 resistor array (convex), Proteus pad rows 0.95 mm apart (tube_control_card, derived from Resistor_SMD:R_Array_Convex_4x0402)")
 		(tags "resistor array")
 		(property "Reference" "R24"
-			(at 0 -2.1 90)
+			(at 0 -2.781904 0)
 			(layer "F.SilkS")
 			(uuid "d929b805-5669-4298-b780-1e6e54e8f8a1")
 			(effects
@@ -15086,8 +15086,9 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R4"
-			(at 0 -1.17 270)
-			(layer "F.SilkS")
+			(at 0 0 0)
+			(layer "F.Fab")
+			(hide yes)
 			(uuid "3a9f8907-a2dc-426c-89cf-f14f16c8f5d6")
 			(effects
 				(font
@@ -15384,7 +15385,7 @@
 		(descr "Capacitor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C53"
-			(at 0 -1.43 90)
+			(at -2.25 0 0)
 			(layer "F.SilkS")
 			(uuid "07abdcc0-1305-44a4-935a-13d327647266")
 			(effects
@@ -15533,7 +15534,7 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R42"
-			(at 0 -1.17 180)
+			(at 0 -1.978095 90)
 			(layer "F.SilkS")
 			(uuid "cdd306aa-1541-4ef7-934f-baf5adcf94de")
 			(effects
@@ -15980,7 +15981,7 @@
 		(descr "SOT-23-6 (ADC121C027), Proteus pin ids A1 A2 COM2 K2 K1 COM1 on pads 1-6, Proteus pad positions (rows 2.65 mm apart); Proteus pad sizes (tube_control_card, derived from Package_TO_SOT_SMD:SOT-23-6)")
 		(tags "SOT TO_SOT_SMD")
 		(property "Reference" "ADC1"
-			(at 0 -2.4 180)
+			(at 4.081904 0 0)
 			(layer "F.SilkS")
 			(uuid "8821d96f-ecb6-4095-8fb4-a6b37e78c38b")
 			(effects
@@ -16323,7 +16324,7 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R6"
-			(at 0 -1.17 270)
+			(at -1.7 1.501904 0)
 			(layer "F.SilkS")
 			(uuid "70d6a61c-d0d7-4206-848c-083e33761a1f")
 			(effects
@@ -17336,7 +17337,7 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R34"
-			(at 0 -1.17 0)
+			(at 0 1.263809 0)
 			(layer "F.SilkS")
 			(uuid "7387fcd1-7945-41f5-9062-8b22f7891ba2")
 			(effects
@@ -17640,8 +17641,9 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R9"
-			(at 0 1.17 0)
-			(layer "B.SilkS")
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
 			(uuid "bd9f2822-4716-4f24-9792-617b790c13c5")
 			(effects
 				(font
@@ -17795,7 +17797,7 @@
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C9"
-			(at 0 1.16 0)
+			(at 0 1.23 0)
 			(layer "B.SilkS")
 			(uuid "4c7071a0-0ac2-40b9-9579-7df9ba9c8011")
 			(effects
@@ -17950,8 +17952,9 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R20"
-			(at 0 1.17 0)
-			(layer "B.SilkS")
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
 			(uuid "b11f1d5f-88a9-467b-b334-138860b0e67a")
 			(effects
 				(font
@@ -18105,7 +18108,7 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R21"
-			(at 0 1.17 0)
+			(at -2.438095 1.24 0)
 			(layer "B.SilkS")
 			(uuid "7a2b3243-9d74-4bd8-8941-7a3883e64e77")
 			(effects
@@ -18260,7 +18263,7 @@
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C15"
-			(at 0 1.16 270)
+			(at -1.68 0 0)
 			(layer "B.SilkS")
 			(uuid "45093a18-1a2d-4ab6-ac0e-92d77538b364")
 			(effects
@@ -18415,7 +18418,7 @@
 		(descr "SOT-23-5, Proteus pad positions (rows 2.39 mm apart) (tube_control_card, derived from Package_TO_SOT_SMD:SOT-23-5)")
 		(tags "SOT TO_SOT_SMD")
 		(property "Reference" "V4"
-			(at 0 2.4 270)
+			(at 2.843809 0 0)
 			(layer "B.SilkS")
 			(uuid "dbcc9717-67af-4da2-a904-d5edf86055a5")
 			(effects
@@ -18961,7 +18964,7 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R1"
-			(at 0 1.17 180)
+			(at 0 -1.24 0)
 			(layer "B.SilkS")
 			(uuid "c1a4193f-5d1e-4280-91d5-bb0fc2582506")
 			(effects
@@ -19270,7 +19273,7 @@
 		(at 40.694 3.634 180)
 		(descr "TI RUG X2QFN-8 1.5 x 1.5 mm (ADS7056), Proteus land pattern (tube_control_card, pads from IPC-D-356A AD2)")
 		(property "Reference" "AD2"
-			(at 0 2.07 0)
+			(at -2.731904 0 0)
 			(layer "B.SilkS")
 			(uuid "245329bf-7132-42b8-81ec-1be19137ac27")
 			(effects
@@ -19581,7 +19584,7 @@
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C56"
-			(at 0 1.16 270)
+			(at 0 1.991904 0)
 			(layer "B.SilkS")
 			(uuid "5973ed05-9682-4807-9f77-0fab51ab67ed")
 			(effects
@@ -20195,7 +20198,7 @@
 		(descr "SOT-23-5, Proteus pad positions (rows 2.39 mm apart); Proteus pad sizes (tube_control_card, derived from Package_TO_SOT_SMD:SOT-23-5)")
 		(tags "SOT TO_SOT_SMD")
 		(property "Reference" "U4"
-			(at 0 2.4 180)
+			(at 0 -2.493809 0)
 			(layer "B.SilkS")
 			(uuid "59e82564-0761-4b7f-8dec-8c61cdde91e8")
 			(effects
@@ -20586,7 +20589,7 @@
 		(descr "Inductor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 80, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "inductor")
 		(property "Reference" "L1"
-			(at 0 1.55 180)
+			(at -2.686666 0 0)
 			(layer "B.SilkS")
 			(uuid "5f045e99-6d48-455d-b577-137d7d3af6e0")
 			(effects
@@ -20741,13 +20744,13 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R27"
-			(at 0 1.17 180)
+			(at 0 -1.125 0)
 			(layer "B.SilkS")
 			(uuid "844285ed-7790-4662-a8da-14bbec1cbb56")
 			(effects
 				(font
-					(size 1 1)
-					(thickness 0.15)
+					(size 0.8 0.8)
+					(thickness 0.12)
 				)
 				(justify mirror)
 			)
@@ -21206,7 +21209,7 @@
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C11"
-			(at 0 1.16 270)
+			(at -1.68 0 0)
 			(layer "B.SilkS")
 			(uuid "b4429a95-5277-4e61-bdce-64f5d3081c9e")
 			(effects
@@ -21516,7 +21519,7 @@
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C17"
-			(at 0 1.16 180)
+			(at 2.465714 0 0)
 			(layer "B.SilkS")
 			(uuid "e61748bd-55ba-41e8-8ffa-32ead7059127")
 			(effects
@@ -21671,7 +21674,7 @@
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C12"
-			(at 0 1.16 270)
+			(at 2.441904 1.23 90)
 			(layer "B.SilkS")
 			(uuid "f24789cc-1b9c-47ee-abc2-27bbe4191032")
 			(effects
@@ -22291,7 +22294,7 @@
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C6"
-			(at 0 1.16 90)
+			(at 1.68 0 0)
 			(layer "B.SilkS")
 			(uuid "0841b5c8-f60f-4c5f-8102-4e502ec55cc6")
 			(effects
@@ -22601,7 +22604,7 @@
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C13"
-			(at 0 1.16 270)
+			(at -1.68 0 0)
 			(layer "B.SilkS")
 			(uuid "3109d9eb-931d-42ab-9427-fbd6e61578ba")
 			(effects
@@ -22756,7 +22759,7 @@
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C14"
-			(at 0 1.16 270)
+			(at 1.703809 2.015714 0)
 			(layer "B.SilkS")
 			(uuid "04844acf-7bb7-4d46-91a5-969f1af67c85")
 			(effects
@@ -23060,8 +23063,9 @@
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C7"
-			(at 0 1.16 180)
-			(layer "B.SilkS")
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
 			(uuid "ce0d16a1-9c8f-476a-b15d-6861242af2c0")
 			(effects
 				(font
@@ -23370,7 +23374,7 @@
 		(descr "SOT-563, Proteus pad positions (rows 1.27 mm apart) (tube_control_card, derived from Package_TO_SOT_SMD:SOT-563)")
 		(tags "SOT TO_SOT_SMD JEDEC-MO-293-UAAD Texas-DRL-6")
 		(property "Reference" "PWR3"
-			(at 0 1.65 270)
+			(at 0.67 -3.053333 0)
 			(layer "B.SilkS")
 			(uuid "8c5ccf34-5512-488c-8de8-f1cefb07c41e")
 			(effects
@@ -23679,7 +23683,7 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R29"
-			(at 0 1.17 180)
+			(at 0 1.24 0)
 			(layer "B.SilkS")
 			(uuid "2ff34a89-7ccf-478f-8017-5cbdb706fc43")
 			(effects
@@ -23834,13 +23838,13 @@
 		(descr "Resistor SMD 0201 (0603 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: https://www.vishay.com/docs/20052/crcw0201e3.pdf)")
 		(tags "resistor")
 		(property "Reference" "R32"
-			(at 0 1.05 180)
+			(at 1.945476 -1.005 0)
 			(layer "B.SilkS")
 			(uuid "334b909a-2a4f-458b-ba41-fca08693daf8")
 			(effects
 				(font
-					(size 1 1)
-					(thickness 0.15)
+					(size 0.8 0.8)
+					(thickness 0.12)
 				)
 				(justify mirror)
 			)
@@ -23983,8 +23987,9 @@
 		(descr "Resistor SMD 0201 (0603 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: https://www.vishay.com/docs/20052/crcw0201e3.pdf)")
 		(tags "resistor")
 		(property "Reference" "R35"
-			(at 0 1.05 180)
-			(layer "B.SilkS")
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
 			(uuid "57704298-6433-4092-9c9b-1e2a4dcff3dc")
 			(effects
 				(font
@@ -24287,7 +24292,7 @@
 		(descr "Capacitor SMD 0201 (0603 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: https://www.vishay.com/docs/20052/crcw0201e3.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C40"
-			(at 0 1.05 0)
+			(at 2.231904 0 0)
 			(layer "B.SilkS")
 			(uuid "353f3038-ae0f-4307-a84d-2a38288dec40")
 			(effects
@@ -24740,8 +24745,9 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R13"
-			(at 0 1.17 270)
-			(layer "B.SilkS")
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
 			(uuid "84aab38b-381d-42dc-a236-940e43f3063d")
 			(effects
 				(font
@@ -24895,7 +24901,7 @@
 		(descr "Resistor SMD 0201 (0603 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: https://www.vishay.com/docs/20052/crcw0201e3.pdf)")
 		(tags "resistor")
 		(property "Reference" "R11"
-			(at 0 1.05 90)
+			(at -1.47 0 0)
 			(layer "B.SilkS")
 			(uuid "d93a1fc7-c0f9-4f42-9681-56585cff3ddb")
 			(effects
@@ -25199,7 +25205,7 @@
 		(descr "Capacitor SMD 0603 (1608 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C20"
-			(at 0 1.43 90)
+			(at 0 -2.261904 0)
 			(layer "B.SilkS")
 			(uuid "8fa39a66-a71a-4158-b0f3-142878e126cc")
 			(effects
@@ -25664,7 +25670,7 @@
 		(descr "Capacitor SMD 0201 (0603 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: https://www.vishay.com/docs/20052/crcw0201e3.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C25"
-			(at 0 1.05 180)
+			(at 0 -1.12 0)
 			(layer "B.SilkS")
 			(uuid "8f9ca1ca-3fdf-4975-91b3-942d3a43859f")
 			(effects
@@ -25962,7 +25968,7 @@
 		(descr "Capacitor SMD 0201 (0603 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: https://www.vishay.com/docs/20052/crcw0201e3.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C29"
-			(at 0 1.05 270)
+			(at -1.47 0 0)
 			(layer "B.SilkS")
 			(uuid "9bff87ed-2035-437d-b5b2-1c53afd80819")
 			(effects
@@ -26111,8 +26117,9 @@
 		(descr "Resistor SMD 0201 (0603 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: https://www.vishay.com/docs/20052/crcw0201e3.pdf)")
 		(tags "resistor")
 		(property "Reference" "R39"
-			(at 0 1.05 0)
-			(layer "B.SilkS")
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
 			(uuid "f4a15dbb-8af1-4a8a-ba97-323c3a2c48a2")
 			(effects
 				(font
@@ -26415,7 +26422,7 @@
 		(descr "SOT-563, Proteus pad positions (rows 1.27 mm apart) (tube_control_card, derived from Package_TO_SOT_SMD:SOT-563)")
 		(tags "SOT TO_SOT_SMD JEDEC-MO-293-UAAD Texas-DRL-6")
 		(property "Reference" "PWR2"
-			(at 0 1.65 270)
+			(at 0.67 -3.053333 0)
 			(layer "B.SilkS")
 			(uuid "3a1b516f-0e1b-4d5c-87e9-c6851bf1f690")
 			(effects
@@ -26879,7 +26886,7 @@
 		(descr "SOT-563, Proteus pad positions (rows 1.27 mm apart) (tube_control_card, derived from Package_TO_SOT_SMD:SOT-563)")
 		(tags "SOT TO_SOT_SMD JEDEC-MO-293-UAAD Texas-DRL-6")
 		(property "Reference" "PWR1"
-			(at 0 1.65 270)
+			(at 0.67 -3.053333 0)
 			(layer "B.SilkS")
 			(uuid "c5edf41c-0554-4abd-b5be-0c417c8561f5")
 			(effects
@@ -27188,13 +27195,13 @@
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C57"
-			(at 0 1.16 270)
+			(at -1.565 1.743572 0)
 			(layer "B.SilkS")
 			(uuid "8cf38343-5290-4638-aa9c-6b850f755f63")
 			(effects
 				(font
-					(size 1 1)
-					(thickness 0.15)
+					(size 0.8 0.8)
+					(thickness 0.12)
 				)
 				(justify mirror)
 			)
@@ -27343,8 +27350,9 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R30"
-			(at 0 1.17 0)
-			(layer "B.SilkS")
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
 			(uuid "f49d9157-9b9d-40fb-90cb-1e233ff25419")
 			(effects
 				(font
@@ -27498,8 +27506,9 @@
 		(descr "Resistor SMD 0201 (0603 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: https://www.vishay.com/docs/20052/crcw0201e3.pdf)")
 		(tags "resistor")
 		(property "Reference" "R40"
-			(at 0 1.05 180)
-			(layer "B.SilkS")
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
 			(uuid "72f8182c-0724-4ca8-bdce-9f55d39ad112")
 			(effects
 				(font
@@ -27647,7 +27656,7 @@
 		(descr "Inductor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 80, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "inductor")
 		(property "Reference" "L4"
-			(at 0 1.55 180)
+			(at -2.710476 0 0)
 			(layer "B.SilkS")
 			(uuid "8145d863-8b56-4d08-a918-c2974961fd95")
 			(effects
@@ -28194,7 +28203,7 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R12"
-			(at 0 1.17 90)
+			(at -1.7 0 0)
 			(layer "B.SilkS")
 			(uuid "24d9601a-387a-4c6f-8679-1af65afab651")
 			(effects
@@ -28349,7 +28358,7 @@
 		(descr "Capacitor SMD 0201 (0603 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: https://www.vishay.com/docs/20052/crcw0201e3.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C22"
-			(at 0 1.05 180)
+			(at 1.47 -1.881904 90)
 			(layer "B.SilkS")
 			(uuid "7487f7ec-6d30-4941-9007-5af6b7fa60b1")
 			(effects
@@ -28498,7 +28507,7 @@
 		(descr "Resistor SMD 0201 (0603 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: https://www.vishay.com/docs/20052/crcw0201e3.pdf)")
 		(tags "resistor")
 		(property "Reference" "R36"
-			(at 0 1.05 270)
+			(at -1.47 0 0)
 			(layer "B.SilkS")
 			(uuid "171bd982-0c59-4770-952f-28fd8fa14a2e")
 			(effects
@@ -28957,7 +28966,7 @@
 		(descr "Inductor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 80, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "inductor")
 		(property "Reference" "L5"
-			(at 0 1.55 180)
+			(at -2.686666 0 0)
 			(layer "B.SilkS")
 			(uuid "ad1d6cb0-55f2-4b06-82a6-02b43c4f9222")
 			(effects
@@ -29267,8 +29276,9 @@
 		(descr "Inductor SMD 0805 (2012 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 80, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "inductor")
 		(property "Reference" "L3"
-			(at 0 1.55 0)
-			(layer "B.SilkS")
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
 			(uuid "ae4620f4-6a03-44b6-8391-6ba53362574b")
 			(effects
 				(font
@@ -29422,7 +29432,7 @@
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C16"
-			(at 0 1.16 270)
+			(at 1.68 1.991904 0)
 			(layer "B.SilkS")
 			(uuid "a3c7d132-d425-4c7d-820d-bbc99ac11ef0")
 			(effects
@@ -30030,7 +30040,7 @@
 		(descr "Capacitor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 76, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C5"
-			(at 0 1.16 270)
+			(at 1.68 1.515714 0)
 			(layer "B.SilkS")
 			(uuid "89c8a11a-dfbe-4eaf-9d7f-f283d93609de")
 			(effects
@@ -30495,7 +30505,7 @@
 		(descr "TSSOP-16, Proteus pad sizes (tube_control_card, derived from Package_SO:TSSOP-16_4.4x5mm_P0.65mm)")
 		(tags "TSSOP SO JEDEC-MO-153-AB Texas_PW0016A Microchip-ST Toshiba-TSSOP16-P-0044-0.65A NXP-SOT403-1 Infineon-P-TSSOP-16-800")
 		(property "Reference" "U3"
-			(at 0 3.45 0)
+			(at 4.905714 0 0)
 			(layer "B.SilkS")
 			(uuid "09f07bff-1304-438b-b618-ca9b0c63da17")
 			(effects
@@ -30884,8 +30894,9 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R10"
-			(at 0 1.17 270)
-			(layer "B.SilkS")
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
 			(uuid "a3a5fe58-af9a-487d-9f19-4ea5f4835dd6")
 			(effects
 				(font
@@ -31039,8 +31050,9 @@
 		(descr "Capacitor SMD 0201 (0603 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: https://www.vishay.com/docs/20052/crcw0201e3.pdf)")
 		(tags "capacitor")
 		(property "Reference" "C23"
-			(at 0 1.05 180)
-			(layer "B.SilkS")
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
 			(uuid "13706a36-65be-4030-a7eb-60dfad8d5839")
 			(effects
 				(font
@@ -31188,8 +31200,9 @@
 		(descr "Resistor SMD 0402 (1005 Metric), square (rectangular) end terminal, IPC-7351 nominal, (Body size source: IPC-SM-782 page 72, https://www.pcb-3d.com/wordpress/wp-content/uploads/ipc-sm-782a_amendment_1_and_2.pdf)")
 		(tags "resistor")
 		(property "Reference" "R2"
-			(at 0 1.17 270)
-			(layer "B.SilkS")
+			(at 0 0 0)
+			(layer "B.Fab")
+			(hide yes)
 			(uuid "35e15293-7dc9-4014-ab33-9900e60b213f")
 			(effects
 				(font

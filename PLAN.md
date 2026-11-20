@@ -58,6 +58,8 @@ As in the playbook, section 3. Board-specific done criteria:
 
 When all phases are done: STATUS.md says so, and the amplifier master repo can add this repo as a
 submodule (that step is done from the master repo, not here).
+(2026-11-20: all phases are done. This card is **not installed** in the amplifier, so the master repo
+does **not** add it as a submodule; the conversion is a reference / starting point only.)
 
 ## 4. Effort
 

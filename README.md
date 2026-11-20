@@ -7,8 +7,8 @@ is the reference that every check compares against.
 
 This is **rev A, the as-built baseline**. The redesign (ribbon cables, PCB-mount pots, the new
 power section) starts from it. The amplifier project, its specification and the hardware state
-are in [tube_amplifier_kicad](https://github.com/johonkanen/tube_amplifier_kicad), which includes
-this repo as a submodule once the conversion is verified.
+are in [tube_amplifier_kicad](https://github.com/johonkanen/tube_amplifier_kicad). This card is not
+installed in the amplifier, so the master repo does not include this repo as a submodule.
 
 ## Method
 
@@ -50,10 +50,15 @@ included; drills and the 2025 Excellon file 377 / 377), the only smaller drill i
 an independent reading of all 876 pins on the 12 PDF pages agrees with the IPC netlist and the KiCad
 schematic (`tools/phase4_reading/`). 28 negative tests; finding 19 (level-shifter direction) resolved: no
 problem. `tools/check_all.sh`: ALL CHECKS PASSED.
-Next: Phase 5, clean-up – only what the user chooses (next_prompt.md).
+**Phase 5 (clean-up) done**, the user's choices: references placed clear of pads and silk by `p2k
+place_refdes` (the last `make_pcb.sh` step; 13 dense passives get their reference on the Fab layer only);
+dangling Proteus copper, the J1 body guess, the FLASH1 land pattern and all pad sizes / drills kept as built.
+DRC warnings 370 → 83 (silk 326 → 39, none of them a reference); `tools/check_all.sh`: ALL CHECKS PASSED.
+**The conversion is complete.** Rev A stays generated (`tools/make_pcb.sh`) until the user's first manual
+layout change. Open, report only (redesign items): findings 1, 9, 24, 25, 26 in STATUS.md.
 
 Note: this Ti60F225 card is **not installed in the amplifier** (the Agilex 3 control card is). The
-conversion is a reference and a starting point only.
+finished conversion is a reference and a starting point only.
 
 v2.5, built 2025. `source/cadcam_rs274x/` is the earlier RS-274X export of the same version (cross-check only). v1 (built 2024, same outline and mounting holes) is not converted.
 

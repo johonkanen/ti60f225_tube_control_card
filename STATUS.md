@@ -9,7 +9,101 @@ Plan: [PLAN.md](PLAN.md). Playbook: `tools/p2k/CONVERSION_PLAYBOOK.md`.
 | 2 Footprints | **done** 2026-11-20 (Opus 5.5): 146/146 parts fit the IPC pads (worst 0.030 mm), pin order checked, findings 9 and 12 answered |
 | 3 PCB | **done** 2026-11-20 (Opus 5.5): board built from the schematic + gerbers (make_pcb byte-identical), Proteus copper 0 shorts / 0 orphans / 0 opens (+5 D1), check_board OK; pad decision A applied (Proteus pads on 15 parts, user decision): DRC 0 shorts / 0 clearance / 0 bridges / 0 hole clearance / 0 parity, only the accepted courtyards and the 5 D1 unconnected items left; `check_all.sh` ALL CHECKS PASSED |
 | 4 Verification | **done** 2026-11-20 (Fable 5.2, fresh session): `ipc356_diff` and `gerber_roundtrip --check` pass with the board's acceptances and are in `check_all.sh`, per-pad drill check, joined-N/C check, all 876 pins of the 12 PDF pages read independently (no difference), 28 negative tests; finding 19 resolved; nothing needs a user decision |
-| 5 Clean-up | not started |
+| 5 Clean-up | **done** 2026-11-20 (Opus 5.5, clean context): user decisions (through the coordinating session) implemented in the generator: `p2k place_refdes` as the last `make_pcb.sh` step; dangling copper, J1 body, FLASH1, pads and drills kept as built; DRC 370 → 83 violations (0 shorts / 0 parity; 32 accepted courtyards, + the 5 accepted D1 unconnected items; silk 326 → 39 warnings, none a reference); ALL CHECKS PASSED. **Conversion complete**: a reference / starting point only (card not installed, no submodule in the master repo); rev A stays generated until the user's first manual layout change |
+
+## Phase 5 – clean-up – done (Opus 5.5, clean context, 2026-11-20): conversion complete
+
+User decisions through the coordinating session (Decisions, "Phase 5"; the choices the user approved for
+the other boards): references placed by `p2k place_refdes`; dangling Proteus copper, the J1 body (Phoenix
+MPT guess), the FLASH1 land pattern and all pad sizes / drills kept as built; rev A stays generated.
+The card is not installed in the amplifier, so **the conversion is complete as a reference / starting
+point only**: the amplifier master repo does not add this repo as a submodule.
+
+**Change (generator only, tools/p2k unchanged at c5682dd):** `tools/make_pcb.sh` step 5
+`kipy -m p2k.place_refdes` after `pours_to_zones` (defaults, no `REFDES_PLACEMENT`; it needs none of the
+`pcb_wrap.py` patches, so it runs unwrapped), also in the `--check` log filter. Result:
+`place_refdes: 13 Fab only, 70 kept, 67 moved, 4 moved, 0.8 mm text (sizes 1.0, 0.8 mm)`. The 13 references
+with no clear silk spot moved to the Fab layer (hidden, the footprint's Fab `${REFERENCE}` text shows the
+part in the assembly drawing): C7 C23 L3 R2 R4 R9 R10 R13 R20 R30 R35 R39 R40 (dense passives around U4,
+J1 and the U10 fan-out). The board diff is only reference positions / sizes / layers (84 positions, 12
+layers, 7 sizes, 13 `hide`); copper, pads and zones are unchanged (check_board, ipc356_diff, the gerber
+round trip with the same track draws 2152 / 72 / 221 / 928; RT_DRAWS unchanged, nothing removed).
+Running place_refdes again on the board keeps all 141 silk references and leaves the file byte-identical.
+
+**DRC (reports/drc.json):**
+
+| Type | Phase 4 | Phase 5 |
+|---|---|---|
+| courtyards_overlap (error, accepted) | 32 | 32 |
+| unconnected (D1, accepted) | 5 | 5 |
+| silk_overlap (warning) | 167 | 11 |
+| silk_over_copper (warning) | 155 | 28 |
+| silk_edge_clearance (warning) | 4 | 0 |
+| track_dangling / via_dangling (warning, finding 26, kept) | 11 / 1 | 11 / 1 |
+| total violations (+ unconnected) | 370 (+5) | 83 (+5) |
+
+The 39 silk warnings left involve **no reference**; all are footprint body silk on the Proteus placement:
+AD2 (8) and RS1 (8) body rectangles over their own pads (project footprints at the Proteus pad
+positions), J1's Phoenix MPT body over / against R4-R7 (14; the J1 guess is kept, user decision),
+PWR1-3 bodies over C15 / C13 / C11 pads, U3 / U4 / V4 bodies over U4 / C7 / C20 pads, R2 against C18 /
+R10, V4 against C20. Silk bodies drawn from the Proteus outlines (tube_psu `silk_bodies.py`) were not
+asked for; report only.
+
+**Negative tests:**
+
+| Mutation | Result |
+|---|---|
+| `place_refdes` removed from `make_pcb.sh` run() | `make_pcb --check`: "kicad/tube_control_card.kicad_pcb is not up to date", exit 1 (restored afterwards: byte-identical) |
+| place_refdes run again on the committed board | 141 kept, 13 not on silk, file byte-identical (idempotent) |
+
+**Open (report only, not Phase 5; redesign items):** finding 1 (D1 split terminals: the second pad of J2,
+ISO5V, ISO_G, RS485A, RS485B has no copper to the first), 9 (ADC1 VA / VIN swapped on the board), 24
+(FLASH1 land pattern), 25 (J11 mirrored numbering, together with tube_hv_supplies J1), 26 (dangling
+Proteus copper, 0.07 mm gaps); the 32 courtyard overlaps and the body-silk warnings above; whether to stop
+generating rev A (the user's call at the first hand edit).
+
+### Phase 5 verification (`tools/check_all.sh`)
+
+```
+(Phase 0-2 steps unchanged)
+== PCB rebuilt from schematic + gerbers, up to date (make_pcb --check)
+build_pcb: 146 footprints placed (0 excluded from board), 4 mounting holes, 4 free pads, 298 nets, 5 outline segments
+gerber_to_tracks: 3373 tracks, 240 vias (IPC 240), 20 pour outlines on User.1-4
+assign_nets: stage A (no pours): 442 groups, 0 shorts, 0 orphans, 5 opens (+4 accepted D1 opens)
+assign_nets: stage B (with pours): 307 groups, 0 shorts, 0 orphans, 0 opens (+5 accepted D1 opens)
+pours_to_zones: 20 pours -> 20 zones; 61 holes closed by the stroke, 402 holes kept
+place_refdes: 13 Fab only, 70 kept, 67 moved, 4 moved, 0.8 mm text (sizes 1.0, 0.8 mm)
+make_pcb: board rebuilt from scratch, byte-identical
+== Board pads, holes, test pads, vias vs IPC (position, size, nets 1:1, D1 merges accepted)
+check_board: 154 footprints, 884 pads, worst pad offset 0.030 mm (limit 0.05), 222 IPC nets mapped 1:1, 4 mounting holes, 4 free pads
+check_board: 3373 tracks, 240 vias, 20 zones
+check_board: OK
+== Board copper connectivity after zone fill (assign_nets --check)
+assign_nets: after zone fill: 307 groups, 0 shorts, 0 orphans, 0 opens (+5 accepted D1 opens), 0 items with a foreign net
+assign_nets: OK (report reports/assign_nets.txt)
+== DRC with schematic parity
+drc: 83 violations, 0 shorts, 5 unconnected, 0 parity issues (reports/drc.json)
+drc:     32 error    courtyards_overlap  accepted: KiCad IPC-7351 courtyards vs the Proteus placement (parts at the Proteus positions)
+drc:     28 warning  silk_over_copper
+drc:     11 warning  track_dangling
+drc:     11 warning  silk_overlap
+drc:      1 warning  via_dangling
+drc_check: accepted (D1, board-local): 5 unconnected items, one per split terminal net: J2-1 5V, ISO5V-1 ISO5V, RS485A-1 Net-(RS1-A), RS485B-1 Net-(RS1-B), ISO_G-1 RS485_GND
+drc_check: OK
+== IPC-D-356 from the board vs Proteus (pads, vias, holes, test pads, nets; D1 merges accepted)
+ipc356_diff: Proteus 1132 records, KiCad 1132; matched 1132 (884 pads incl. 76 N/C, 240 vias, 4 holes, 4 free pads), worst position offset 0.031 mm (limit 0.05)
+ipc356_diff: OK (shared tool alone: FAILED)
+== Smaller board drills are exactly the three decided J8 holes
+check_drill_smaller: OK
+== Gerber round trip vs Proteus (copper XOR incl. pours, coverage, drills, Excellon)
+roundtrip: OK
+roundtrip (board-local): KiCad track draws / flashes per layer F.Cu 2152 / 934, In1.Cu 72 / 377, In2.Cu 221 / 377, B.Cu 928 / 575: as recorded, flashes = Proteus
+== Independent PDF reading vs IPC and KiCad netlist (tools/phase4_reading)
+total 876 pins read of 876 IPC pins on 146 of 146 parts; 222 nets (label classes) of 222 IPC nets (after the D1 union); NC read 76
+reading: no difference
+
+ALL CHECKS PASSED
+```
 
 ## Phase 4 – independent verification – done (Fable 5.2, fresh session, 2026-11-20)
 
@@ -365,7 +459,7 @@ FLASH1, RS1, OSC1, J1, J8, terminals). J7 / J11 (and J3 / J6 in B) then get the 
 | unconnected | 5 | **D1** (accepted by `tools/drc_check.py`, one per split terminal net): ISO5V pad-pad, J2 pad / 5V track, ISO_G RS485_GND, RS485A Net-(RS1-A), RS485B Net-(RS1-B) (R67-1 side); finding 1 |
 | schematic parity | 0 | (1 before the "/" escape in pcb_wrap.py, p2k candidate 25) |
 | courtyards_overlap (error) | 32 | Proteus placed parts closer than KiCad's IPC-7351 courtyards: C12/R13, C13/PWR2, C16/C57, C18/R2, C19/V4, C21/C22, C53/J11, C6/U4, J1/R4, J1/R5, J1/R6, J1/R7 (the Phoenix MPT body of J1 is a guess, decision of 2026-11-20 keeps it), L4/PWR2, L5/PWR3, PWR1/C15, PWR1/L1, PWR3/C11, R10/R2, R12/U4, R14/R15, R14/U5, R17/R18, R17/U14, R23/R22, R24/R25, R8/C57, RS1/C58, U11/R24, U3/U4, U4/C7, U8/C39, V4/C20; parts at the Proteus positions. Accepted (`DRC_ACCEPTED`) |
-| silk_overlap / silk_over_copper / silk_edge_clearance (warning) | 167 / 155 / 4 | KiCad footprint silk and default reference positions on the Proteus placement (edge: references of H1, H2, RS485A, RS485B); Phase 5 |
+| silk_overlap / silk_over_copper / silk_edge_clearance (warning) | 167 / 155 / 4 → Phase 5: **11 / 28 / 0** | KiCad footprint silk and default reference positions on the Proteus placement (edge: references of H1, H2, RS485A, RS485B). After Phase 5 (`place_refdes`) no reference is involved; what is left is footprint body silk ("Phase 5" below) |
 | track_dangling (warning) | 11 | Proteus copper as drawn (finding 26): F.Cu GND 0.009 mm at (41.882, -8.861), F.Cu ADASEL0_ISO 0.005 mm at (62.348, 3.700), B.Cu DATA2 1e-5 mm at (46.970, -11.870) (zero-length draws); B.Cu GND 0.22 mm at (94.6, 10.1) and 5V 0.13 mm at (94.6, 7.1); B.Cu DATA2 0.21 mm at (47.267, -11.574); F.Cu stubs of single-pin nets ADCLK_ISO 2.44 mm and GPIO_BYPASS_RLY_ISOLATED 2.59 mm (U9 B2 / B1, near (26.5, -3.4)), GPIOL_N_18 5.86 mm (U10 A2, ends at (88.354, -23.246)), GPIOL_10 0.21 mm at (79.15, -23.55), GPIOL_9 0.37 mm at (89.897, -26.103) (IPC frame) |
 | via_dangling (warning) | 1 | GPIOL_N_10 via at (40.581, -14.018): ball G2 + a via, nothing else (finding 2) |
 
@@ -1494,5 +1588,16 @@ solved in tools/p2k later (with the ac_psu regression); until then the wrappers 
 - **Use of this board (user information through the coordinating session, 2026-11-20):** the Ti60F225 control card
   v2.5 is **not installed in the amplifier** (the Agilex 3 card is). This conversion is a reference and a starting
   point only; nothing in the verification depends on it.
+
+- **Phase 5 (user decisions, 2026-11-20, through the coordinating session; the same choices the user
+  approved for the other boards):**
+  1. Reference positions: **yes**, `p2k place_refdes` as the last `make_pcb.sh` step (as the other boards).
+  2. Dangling Proteus copper (finding 26): **keep as built**, no REMOVED_TRACKS / REMOVED_VIAS.
+  3. J1 body: **keep the Phoenix MPT guess** (decision above); the FLASH1 land pattern (finding 24) stays
+     as built.
+  4. Pad sizes / drills: **keep as they are** (no Proteus pads on further parts).
+  5. Rev A **stays generated**; stopping generation is the user's call at the first hand edit.
+  The card is not installed, so the amplifier master repo does **not** add this repo as a submodule;
+  the finished conversion is a reference / starting point only.
 
 Open: none.

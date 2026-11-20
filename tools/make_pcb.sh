@@ -9,6 +9,8 @@
 #   2 gerber_to_tracks  copper gerbers -> tracks and vias, pour outlines on User.1-4
 #   3 assign_nets       nets of tracks/vias/pours by copper connectivity -> reports/pour_nets.json
 #   4 pours_to_zones    pours -> zones, zone fill (ZONE_FILLER), saved
+#   5 place_refdes      references clear of pads / silk / edge (else smaller, else Fab only;
+#                       Phase 5 user decision; p2k.place_refdes directly, no wrapper needed)
 # The copper check after the fill (assign_nets --check), check_board and the DRC run in
 # tools/check_all.sh. Footprints and the fit come from tools/gen_footprints.py and
 # p2k.check_footprints (reports/footprint_fit.csv): run those first after footprint changes.
@@ -24,7 +26,7 @@ K=tools/p2k/bin/kipy
 W=tools/pcb_wrap.py
 PCB=kicad/tube_control_card.kicad_pcb
 run() {   # chained with &&: `set -e` does not apply inside a function called in a `||` list
-    $K $W build_pcb && $K $W gerber_to_tracks && $K $W assign_nets && $K $W pours_to_zones
+    $K $W build_pcb && $K $W gerber_to_tracks && $K $W assign_nets && $K $W pours_to_zones && $K -m p2k.place_refdes
 }
 if [ "${1:-}" = "--check" ]; then
     tmp="$PWD/build/tmp/make_pcb_check"
@@ -39,7 +41,7 @@ if [ "${1:-}" = "--check" ]; then
     stages() { sed '/^== after zone fill/,$d' "$1"; }
     [ "$(stages "$tmp/reports/assign_nets.txt")" = "$(stages reports/assign_nets.txt)" ] || { echo "make_pcb: reports/assign_nets.txt is not up to date"; ok=0; }
     cmp -s "$tmp/reports/pour_nets.json" reports/pour_nets.json || { echo "make_pcb: reports/pour_nets.json is not up to date"; ok=0; }
-    grep -E "^(build_pcb|gerber_to_tracks: [0-9]|assign_nets: stage|pours_to_zones)" "$tmp/log" | sed "/^build_pcb/s/ -> .*//"
+    grep -E "^(build_pcb|gerber_to_tracks: [0-9]|assign_nets: stage|pours_to_zones|place_refdes)" "$tmp/log" | sed "/^build_pcb/s/ -> .*//"
     [ $ok -eq 1 ] && echo "make_pcb: board rebuilt from scratch, byte-identical" || exit 1
 else
     run
