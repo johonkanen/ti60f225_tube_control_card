@@ -146,10 +146,10 @@ PROJECT = {
         base="Oscillator:Oscillator_SMD_SiT_PQFN-4Pin_2.0x1.6mm", ipc="OSC1",
         descr="2.0 x 1.6 mm 4-pad oscillator (MC2016K), Proteus pad positions (1.8 x 1.2 mm)"),
     "SOIC-8_7.5x5.85mm_P1.27mm_Proteus": dict(
-        base="Package_SO:SOIC-8_7.5x5.85mm_P1.27mm", ipc="RS1",
+        base="Package_SO:SOIC-8_7.5x5.85mm_P1.27mm", ipc="RS1", max_move=0.8,  # pad 8 moves 0.753 mm (intended)
         descr="wide SOIC-8 (MAX22025), Proteus pad positions (rows 9.14 mm apart, KiCad 10.65)"),
     "SOIC-8_5.3x5.3mm_P1.27mm_Proteus": dict(
-        base="Package_SO:SOIC-8_5.3x5.3mm_P1.27mm", ipc="FLASH1",
+        base="Package_SO:SOIC-8_5.3x5.3mm_P1.27mm", ipc="FLASH1", max_move=1.0,  # rows move 0.985 mm (intended)
         descr="208 mil SOIC-8 (W25Q64JW-SS), Proteus SO8W pad positions (rows 9.14 mm apart, KiCad 7.175)"),
     "Converter_IZB03_SIP7": dict(
         ipc="PWR4", descr="IZB03 isolated DC/DC module, 7 pins at 2.54 mm (pin 4 position empty), Proteus pads"),
