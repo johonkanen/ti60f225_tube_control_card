@@ -21,8 +21,8 @@ board is in `p2k_config.py`.
 
 Conversion plan: [PLAN.md](PLAN.md); progress: [STATUS.md](STATUS.md); prompt for the next agent session: [next_prompt.md](next_prompt.md).
 
-Phase 0 (skeleton and inventory) not started. The sources are in place; `p2k_config.py` holds
-only the paths and placeholder sheet names.
+Phase 0 (skeleton and inventory) done: `p2k_config.py` complete, `reference/` generated,
+`tools/check_all.sh` passes. Next: Phase 1 preparation (part map, symbols, skeleton).
 
 v2.5, built 2025. `source/cadcam_rs274x/` is the earlier RS-274X export of the same version (cross-check only). v1 (built 2024, same outline and mounting holes) is not converted.
 
@@ -54,6 +54,8 @@ source/         Proteus exports (read-only)
   schematic_pdf/  schematic PDF to redraw from
   *.pdsprj        Proteus project (schematic values, devices, packages, pin names)
   cadcam_rs274x/  earlier RS-274X export (cross-check only)
+reference/      tables derived from the IPC netlist (p2k ipc356; do not edit)
+tools/          board scripts: check_all.sh, board-local check wrappers
 tools/p2k/       proteus2kicad (submodule)
 p2k_config.py   board configuration for the tools
 ```
