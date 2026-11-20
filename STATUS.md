@@ -12,7 +12,112 @@ Plan: [PLAN.md](PLAN.md). Playbook: `tools/p2k/CONVERSION_PLAYBOOK.md`.
 | 5 Clean-up | **done** 2026-11-20 (Opus 5.5, clean context): user decisions (through the coordinating session) implemented in the generator: `p2k place_refdes` as the last `make_pcb.sh` step; dangling copper, J1 body, FLASH1, pads and drills kept as built; DRC 370 → 83 violations (0 shorts / 0 parity; 32 accepted courtyards, + the 5 accepted D1 unconnected items; silk 326 → 39 warnings, none a reference); ALL CHECKS PASSED. **Conversion complete**: a reference / starting point only (card not installed, no submodule in the master repo); rev A stays generated until the user's first manual layout change |
 | Design fixes | **done** 2026-11-20 (Opus 5.5): user decisions: AP61202 pin 6 VOUT → PG (finding 12), PDF sheet notes tidied (finding 6), dangling Proteus copper removed (finding 26: 26 draws + 1 via; reverses Phase 5 decision 2); values unchanged; findings 9 / 25 later; DRC 71 violations (0 dangling); ALL CHECKS PASSED |
 | Shared-tool migration | **done** 2026-11-20 (Opus 5.5): tools/p2k c5682dd → a9a286c, every board-local check / wrapper replaced by the shared tools and config keys (14 tools deleted), byte-identical except the accepted re-baselines D-R and D-TC7b; no strict opt-outs; then J11 renumbered to standard (finding 25, D-PIN, with tube_hv_supplies J1); ALL CHECKS PASSED, regress.sh PASS after each commit |
-| Generation stopped | **done** 2026-11-20 (Opus 5.5): user decision; last generated commit **827b0b7**; generators frozen in `tools/generate/` (`make_pcb.sh` refuses without `--force-regenerate`); `check_all.sh` keeps only the checks of the committed files against Proteus and the KiCad rules; ALL CHECKS PASSED |
+| Generation stopped | **done** 2026-11-20 (Opus 5.5): user decision; last generated commit **827b0b7**; generators frozen in `tools/generate/` (`make_pcb.sh` refuses without `--force-regenerate`); `check_all.sh` keeps only the checks of the committed files against Proteus and the KiCad rules; ALL CHECKS PASSED (freeze commit 1b33b3e) |
+| Hand edit: finding 9 | **done** 2026-11-20 (Opus 5.5): ADC1 VA (A1) on 3V3, VIN (COM2) on the R34 / C68 node (net `Net-(ADC1-VIN)`, Proteus #00660); symbol pins VA / VIN exchanged in place + datasheet pin types; 5 F.Cu tracks moved, 5 removed, 8 added around ADC1, no via, DRC unchanged (71: 0 shorts, the 32 accepted courtyards, 5 D1); accepted exactly by `tools/hand_edits.py`; ALL CHECKS PASSED |
+
+## Hand edits after generation stopped
+
+Every change of the committed `lib/` / `kicad/` files since the freeze (1b33b3e), made with scripts in build/tmp (not
+committed; their effect is listed here exactly). Each one is accepted **exactly** by the checks through
+`tools/hand_edits.py` (board-local, data + a thin wrapper over the shared tools, see "How the checks accept it").
+
+### Deviation list (the board vs Proteus, besides the decisions of the conversion)
+
+| # | Date | What | Pins / copper | Accepted by |
+|---|---|---|---|---|
+| H1 | 2026-11-20 | Finding 9: ADC1 (ADC121C027) VA / VIN swap fixed (user decision) | ADC1-A1 (VA, SOT-23-6 pad 1) #00660 → 3V3; ADC1-COM2 (VIN, pad 3) 3V3 → #00660; F.Cu inside x 97.6..101.4, KiCad y 19.3..23.1 (IPC y -23.1..-19.3); F.Cu tracks +3 | `PIN_NETS`, `PIN_LABELS`, `AREAS`, `TRACK_DELTA` in `tools/hand_edits.py` |
+
+### H1 – finding 9, ADC1 VA / VIN (2026-11-20, Opus 5.5)
+
+TI ADC121C027 SOT-23-6: pin 1 VA (supply and reference), 2 GND, 3 VIN (analog input), 4 ADR0, 5 SCL, 6 SDA; the
+Proteus ids are A1 = 1 … (Phase 2 table under finding 9; the land pattern is right, `PIN_ORDER` "ADC1 datasheet"
+shows that the datasheet order fits only mirrored). Proteus wired VA to the filtered BIASFEEDBACK node #00660
+(R34 / C68) and VIN to 3V3. Now: **3V3 on VA (A1), #00660 on VIN (COM2)**; component values unchanged.
+
+- **Schematic** (`lib/tube_control_card.kicad_sym` symbol ADC121C027 and its copy in
+  `kicad/10_connectors_bias_adc.kicad_sch`; script build/tmp/adc1/sch_edit.py): the right-hand pins VA (A1) and
+  VIN (COM2) exchange their positions (VA now at the top, where the 3V3 wire ends; VIN in the middle, on the R34 /
+  C68 wire); no wire moved. Pin types back to the datasheet: **VA power_in, VIN input** (both were passive,
+  bent for ERC because VA sat on a signal net). The sheet note "VIN is on 3V3 and VA on the filtered input, as
+  drawn" → "Hand edit 2026-11-20 (finding 9): VA on 3V3, VIN on the filtered input (the PDF has them swapped)".
+  KiCad now names the node `Net-(ADC1-VIN)` (was `Net-(ADC1-VA)`). ERC 0 errors, 14 warnings (unchanged).
+- **Board** (`kicad/tube_control_card.kicad_pcb`; script build/tmp/adc1/pcb_edit.py, pcbnew): net
+  `Net-(ADC1-VA)` renamed `Net-(ADC1-VIN)`; pad A1 → 3V3, pad COM2 → `Net-(ADC1-VIN)`. F.Cu only, no via,
+  no part moved, zones refilled (no zone near ADC1; fill unchanged). KiCad frame (mm):
+  - removed (5): the #00660 route A1 → C68-2 (99.3,22.1)-(99.72173,22.1)-(100.0738,22.45207)-(100.45207,22.45207)-(100.5,22.5)
+    (4 segments); the 3V3 stub (99.26501,20.16501)-(99.3,20.2) into COM2;
+  - moved (5, 3V3): the three 3V3 branches that met in the COM2 pad (from R31 / R33 above, to C67-2 on the right,
+    to the 3V3 via (98.37349, 21.06007) on the left) now meet at (99.26501, 19.6), above the pad:
+    (99.26501,18.56017)-(99.26501,19.6); (99.26501,19.6)-(98.6,19.6)-(98.37349,19.82651)-(98.37349,21.06007);
+    (99.26501,19.6)-(99.8,19.7);
+  - added (8): 3V3 0.254 mm A1 → the 3V3 via, round the GND via (98.4573, 22.2057) on its left:
+    (99.3,22.1)-(99.3,22.75)-(98.2,22.75)-(97.975,22.525)-(97.975,21.4)-(98.37349,21.06007) (5); `Net-(ADC1-VIN)`
+    0.1524 mm COM2 → C68-2, between the C67 pads and down right of C67 / C68:
+    (99.3,20.15)-(101.05,20.15)-(101.05,22.53)-(100.5,22.53) (3). 0.1524 mm because the C67 pad gap is 0.34 mm
+    (0.094 mm clearance each side; the board rule is 0.07, `PCB_RULES` unchanged). The C67 decoupling stays on
+    the 3V3 node (now ~1.9 mm of track from VA through the via node); C68 / R34 filter VIN as drawn.
+  - Tracks 3347 → 3350, vias 239. DRC: **71 violations, the same items as before** (0 shorts, 0 clearance,
+    0 parity, 32 accepted courtyards, 28 silk_over_copper, 11 silk_overlap, 5 D1 unconnected; item-by-item
+    comparison with a DRC of the freeze board: identical except that KiCad names another track segment of the
+    same accepted RS485A D1 pair). No new accepted item.
+- **Copper connectivity**: `assign_nets --check` 307 groups, 0 shorts / orphans / opens (+5 D1); `check_board`
+  3350 tracks, every track / via net = its copper group's net.
+
+### How the checks accept it (tools/check_all.sh; `H` = tools/hand_edits.py)
+
+| Check | Acceptance |
+|---|---|
+| `compare_netlists` | `H compare_netlists`: wraps `compare_netlists.load_ipc` (SPLIT_PIN_MERGES applied as before); each `PIN_NETS` pin must be in the IPC on its recorded old net and is compared against the new net. Anything else as before (wrong-net pins 0). |
+| `check_board`, `assign_nets --check`, `ipc356_diff` | `H <tool>`: the p2k record filter `pcb.configure(records=)` (the documented hook for "intended deviations of a later design revision") reads exactly the two ADC1 pad records with the new net (net / net_raw / net_id copied from another pad of that net); fails if a pin is missing, doubled or on another old net. `PHASE4_EXPECTED` unchanged (records, nets 227). |
+| `gerber_roundtrip --check` | `H gerber_roundtrip`: `main(in_area=)` with `AREAS` = F.Cu x 97.6..101.4, IPC y -23.1..-19.3 (the 8 difference clusters, 2.20 mm², and the 18 coverage misses inside it are "deviation"); strict `roundtrip_counts`: F.Cu KiCad track draws must be the Proteus count **+3** exactly (`TRACK_DELTA`; 2135 = 2132 + 3); flashes, drills, `roundtrip_pad_match` unchanged. |
+| PDF reading (`tools/phase4_reading/reading.py`) | imports `PIN_LABELS`: for exactly these pins the IPC side keeps the label read in the PDF, the KiCad net must be in the class of the new label (A1 → 3V3, COM2 → the `~adcva` node); a listed pin not read fails. |
+| `check_pin_order` | nothing to accept: pad numbering / land pattern unchanged (the "ADC1 datasheet" entry note updated). |
+| ERC, DRC (parity), `check_symbols`, `check_footprints`, `check_sources`, `ipc356 --check`, `test_no_connect` | unchanged, plain. New: `DRC_EXPECTED_WARNINGS` = {track_dangling 0, via_dangling 0, silk_over_copper 28, silk_overlap 11} (an existing p2k key), so a hand edit cannot add a dangling stub or silk conflict unnoticed. |
+
+PENDING was not used (it is for open user decisions). p2k gaps: candidate 36.
+
+### Negative tests (scratch copies build/tmp/neg2_*, script build/tmp/neg2_mut.py, not committed)
+
+| Mutation | Result |
+|---|---|
+| extra 0.3 mm 3V3 stub inside the area (on the new A1 route) | `gerber_roundtrip` FAILED "counts: F.Cu: 2136 KiCad track draws … +3 (TRACK_DELTA) -> expected 2135"; with `DRC_EXPECTED_WARNINGS` also DRC "1 track_dangling warnings, DRC_EXPECTED_WARNINGS 0" |
+| the C68-2 → R34-2 track (just outside the area) moved 0.15 mm | `gerber_roundtrip` FAILED (1 other cluster near R34-2) |
+| extra unrecorded pin change: ADC1 K1 / COM1 exchanged in the sheet's symbol | `compare_netlists` (2 wrong-net pins), DRC (parity), PDF reading FAILED |
+| fix reverted (board, sheet, library from the freeze commit) | `compare_netlists`, `check_board`, `assign_nets`, `ipc356_diff`, `gerber_roundtrip` (counts 2132, expected 2135), PDF reading FAILED |
+| board reverted only | `check_board`, `assign_nets`, DRC (parity), `ipc356_diff`, `gerber_roundtrip` FAILED |
+| `AREAS` x max 101.4 → 100.9 | `gerber_roundtrip` FAILED (OTHER 0.683 mm² at (100.817, -20.988)) |
+| `PIN_NETS` without the COM2 entry | `compare_netlists` (1 wrong-net pin), `ipc356_diff`, `check_board` FAILED |
+
+### Last check output (`tools/check_all.sh`, after H1; ALL CHECKS PASSED)
+
+```
+ipc356: OK   (reference/ = the Proteus IPC; J11 pin ids renamed as recorded)
+check_sources: OK
+symbols: 25 part types, 146 refdes, 10 power symbols / OK
+erc: 0 errors, 14 warnings (14 isolated_pin_label) (reports/erc.rpt)
+hand_edits: accepted pin-net changes (STATUS.md "Hand edits after generation stopped"): ADC1-A1 #00660 -> 3V3; ADC1-COM2 3V3 -> #00660
+compare: parts 146/146 present, 0 missing, 0 extra; pins compared 876, wrong-net pins 0; IPC nets touched 222, complete 222 (+ 76 N/C / no-net pins)
+check_footprints: 146/146 parts fitted, 884 pads, 29 footprints, worst residual 0.030 mm (limit 0.05)
+check_pin_order: OK (19 checks as recorded)
+check_board: 154 footprints, 884 pads, worst pad offset 0.030 mm (limit 0.05), 222 IPC nets mapped 1:1, 4 mounting holes, 4 free pads
+check_board: 3350 tracks, 239 vias, 20 zones; 3589 track / via nets in the board file = their copper group's net (track_nets); OK
+assign_nets: after zone fill: 307 groups, 0 shorts, 0 orphans, 0 opens (+5 accepted SPLIT_PIN_MERGES opens), 0 items with a foreign net
+drc: 71 violations, 0 shorts, 5 unconnected, 0 parity issues (reports/drc.json)
+drc: warning counts as expected (DRC_EXPECTED_WARNINGS): 28 silk_over_copper, 11 silk_overlap, 0 track_dangling, 0 via_dangling
+drc: accepted (SPLIT_PIN_MERGES): J2-1 5V, ISO5V-1 ISO5V, RS485A-1 Net-(RS1-A), RS485B-1 Net-(RS1-B), ISO_G-1 RS485_GND
+ipc356_diff: Proteus 1132 records, KiCad 1131; matched 1131 (884 pads incl. 76 N/C, 239 vias, 4 holes, 4 free pads), worst position offset 0.031 mm (limit 0.05)
+ipc356_diff: 227 Proteus nets mapped 1:1 onto KiCad nets, 0 mismatches; counts as recorded (PHASE4_EXPECTED: 9 counts); OK
+hand_edits: copper differences accepted only inside F.Cu x 97.6..101.4 y -23.1..-19.3 (AREAS)
+hand_edits: F.Cu: 2135 KiCad track draws = 2132 Proteus + 3 (TRACK_DELTA)
+roundtrip: F.Cu   XOR   30.68 mm^2, beyond 0.05 mm: only Proteus   4.76, only KiCad  10.24 mm^2; clusters >= 0.01 mm^2: 118 pad shape, 8 deviation; draws/flashes off the other copper: 0 Proteus, 0 KiCad (+18 inside deviation areas)
+roundtrip: counts (roundtrip_counts): KiCad track draws / flashes per layer F.Cu 2135 / 933, In1.Cu 72 / 376, In2.Cu 221 / 376, B.Cu 922 / 574: tracks as gerber_to_tracks builds them, flashes = Proteus
+roundtrip: OK
+hand edits (KiCad net in the class of the new label): ADC1-A1 ~adcva -> 3V3; ADC1-COM2 3V3 -> ~adcva
+reading: no difference
+test_no_connect: OK
+
+ALL CHECKS PASSED
+```
 
 ## Generation stopped 2026-11-20 – done (Opus 5.5)
 
@@ -162,7 +267,7 @@ rename needs two regenerate passes locally (regress.sh runs on the committed map
 
    In short: old k → new k + 1 for odd k, k − 1 for even k (pairs 1-2 … 39-40 exchanged).
 
-### Last check output (`tools/check_all.sh`, after the J11 commit; ALL CHECKS PASSED)
+### Check output after the J11 commit (historical; latest: "Hand edits after generation stopped")
 
 ```
 ipc356: pin ids renamed (IPC_PIN_IDS): J11 1->2 2->1 3->4 4->3 … 39->40 40->39
@@ -1593,6 +1698,8 @@ and 26 (dangling copper) are fixed in the KiCad design, the others stay as marke
    as on the three ADCs of tube_hv_supplies (its finding 6). Table in "Phase 2 - pin order". A redesign
    item (and a check of the real board: reworked?).
    **Design fixes 2026-11-20 (user): not now**: a hand edit after generation stops (later step).
+   **FIXED 2026-11-20 (user decision, hand edit H1, "Hand edits after generation stopped")**: 3V3 on VA (A1),
+   the R34 / C68 node on VIN (COM2); symbol pin types VA power_in, VIN input.
 10. **J8** (3-pin connector, rx/tx/ISOGND on page 1) has the value "1k" in the schematic.
    **Design fixes 2026-11-20 (user): value kept** (component values stay as they are).
 11. **Page 1 dashed alias lines** (R11–PWM_G2_ISO, GPIOR_25–ADASEL2_ISO, N14–ADCLK_ISO) are
@@ -1924,6 +2031,16 @@ migration 2026-11-20".
    `tools/generate/README.md` present, or a config key `GENERATION_STOPPED = "<commit>"`) that makes `regen()` skip
    the regenerate step and run only `check_all.sh` + the clean-tree test. Until then: run `tools/check_all.sh` on a
    clean clone with the candidate pin by hand.
+36. **No shared hook for a pin-net change of an existing part, nor for a track-count change** (hand edit H1):
+   `check_board` / `ipc356_diff` `main(added=)` cover only parts added after the Proteus design; the record filter
+   `pcb.configure(records=)` covers check_board / assign_nets / ipc356_diff / gerber_roundtrip but not
+   `compare_netlists` (own `load_ipc`); strict `roundtrip_counts` has no delta. Board-local: `tools/hand_edits.py`
+   (records filter + `compare_netlists.load_ipc` wrapper + `count_check` wrapper + `in_area`). Needed: config keys
+   read by every judging tool, e.g. `CHANGED_PIN_NETS = {(refdes, pin): (old IPC net, new IPC net)}` (applied in
+   `pcb.ipc_records` and `compare_netlists.load_ipc`, each entry must match exactly once),
+   `DEVIATION_AREAS = {layer: [(x0, y0, x1, y1), ...]}` (gerber_roundtrip `in_area`) and
+   `TRACK_COUNT_DELTA = {layer: n}` (roundtrip_counts), so a frozen board needs no wrapper and `p2k <tool>` runs
+   plain. The PDF reading is board-local anyway.
 
 ## Decisions
 
@@ -1999,7 +2116,8 @@ migration 2026-11-20".
   4. Kept as built (no change): finding 1 (split terminals: the fitted terminal joins the pads), 13
      (`bias_feedback` and `biasfeedback` stay separate nets), 23 (1V8 decoupling: left to the redesign),
      24 (FLASH1 land pattern).
-  5. Not now (later steps, report only): finding 9 (ADC1 VA / VIN swap: a hand edit after generation
+  5. Not now (later steps, report only; finding 9 **done** 2026-11-20 as hand edit H1, finding 25 done with
+     `IPC_PIN_IDS`): finding 9 (ADC1 VA / VIN swap: a hand edit after generation
      stops) and finding 25 (J11 renumbering: waits for a new shared-tool pin-renumber key, done together
      with tube_hv_supplies J1). Generation stops later; the board stays generated for now.
 - **J11 ribbon renumbering (user decision 2026-11-20, through the coordinating session; D-PIN, finding 25):**
@@ -2015,6 +2133,6 @@ migration 2026-11-20".
   committed `lib/` and `kicad/` files are the source and are edited directly; every hand edit is listed in
   "Hand edits after generation stopped" and accepted exactly by the checks. This replaces Phase 5 decision 5
   ("rev A stays generated") and PLAN.md rule 4. First hand edit: finding 9 (ADC1 VA / VIN), component values
-  unchanged.
+  unchanged. **Done**: hand edit H1 ("Hand edits after generation stopped").
 
 Open: none.

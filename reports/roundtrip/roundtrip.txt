@@ -3,10 +3,30 @@ raster 0.025 mm/px, tolerance 0.05 mm, clusters >= 0.01 mm^2 counted, positions 
 board outline 13.87 .. 111.66 x -42.75 .. 13.13 mm
 
 == F.Cu: Proteus objects not compared (recorded deviations): 20 Conductor draws (REMOVED_TRACKS), 1 via pads (REMOVED_VIAS)
-== F.Cu: Proteus copper 1176.3 mm^2, KiCad copper 1179.3 mm^2
-   raw XOR 28.28 mm^2; after 0.05 mm tolerance: only Proteus 4.46 mm^2, only KiCad 8.35 mm^2, 264 clusters (146 below 0.01 mm^2)
+== F.Cu: Proteus copper 1176.3 mm^2, KiCad copper 1180.8 mm^2
+   raw XOR 30.68 mm^2; after 0.05 mm tolerance: only Proteus 4.76 mm^2, only KiCad 10.24 mm^2, 272 clusters (146 below 0.01 mm^2)
    pad shape   118 clusters, 12.50 mm^2
-   coverage: Proteus 2137 draws / 933 flashes, 0 not on KiCad copper (0 explained by clearance / pad shape); KiCad 2132 draws / 933 flashes, 0 not on Proteus copper (0 explained by pad shape)
+   deviation     8 clusters, 2.20 mm^2
+   coverage: Proteus 2137 draws / 933 flashes, 0 not on KiCad copper (7 explained by clearance / pad shape); KiCad 2135 draws / 933 flashes, 0 not on Proteus copper (12 explained by pad shape)
+   MISSING   Proteus draw Conductor 0.254 mm at (99.265, -19.363)  12 samples off copper, 0 in clearance/pad shape, of 129; near ADC1-COM2 (#00660) 0.84 mm
+   MISSING   Proteus draw Conductor 0.254 mm at (99.511, -22.100)  5 samples off copper, 0 in clearance/pad shape, of 34; near ADC1-A1 (3V3) 0.21 mm
+   MISSING   Proteus draw Conductor 0.254 mm at (99.898, -22.276)  39 samples off copper, 1 in clearance/pad shape, of 40; near ADC1-A1 (3V3) 0.62 mm
+   explained Proteus draw Conductor 0.254 mm at (100.263, -22.452)  0 samples off copper, 6 in clearance/pad shape, of 31; near C68-2 (#00660) 0.24 mm
+   MISSING   Proteus draw Conductor 0.254 mm at (99.550, -19.950)  5 samples off copper, 3 in clearance/pad shape, of 57; near ADC1-COM2 (#00660) 0.35 mm
+   MISSING   Proteus draw Conductor 0.254 mm at (98.950, -20.200)  28 samples off copper, 0 in clearance/pad shape, of 57; near ADC1-COM2 (#00660) 0.35 mm
+   MISSING   Proteus draw Conductor 0.254 mm at (98.487, -20.313)  7 samples off copper, 0 in clearance/pad shape, of 26; near ADC1-COM2 (#00660) 0.82 mm
+   MISSING   KiCad draw Conductor 0.254 mm at (98.487, -19.713) {'N': '3V3'} 26 samples off copper, 0 in clearance/pad shape, of 26; near R31-2 (GPIOR_28) 0.74 mm
+   MISSING   KiCad draw Conductor 0.254 mm at (99.533, -19.650) {'N': '3V3'} 14 samples off copper, 0 in clearance/pad shape, of 44; near ADC1-COM2 (#00660) 0.60 mm
+   MISSING   KiCad draw Conductor 0.254 mm at (98.174, -21.230) {'N': '3V3'} 22 samples off copper, 0 in clearance/pad shape, of 42; near ADC1-A2 (GND) 1.13 mm
+   MISSING   KiCad draw Conductor 0.254 mm at (98.750, -22.750) {'N': '3V3'} 88 samples off copper, 0 in clearance/pad shape, of 88; near ADC1-A1 (3V3) 0.85 mm
+   MISSING   KiCad draw Conductor 0.254 mm at (97.975, -21.962) {'N': '3V3'} 91 samples off copper, 0 in clearance/pad shape, of 91; near ADC1-COM1 (GPIOR_28) 1.33 mm
+   MISSING   KiCad draw Conductor 0.254 mm at (99.300, -22.425) {'N': '3V3'} 28 samples off copper, 0 in clearance/pad shape, of 52; near ADC1-A1 (3V3) 0.32 mm
+   MISSING   KiCad draw Conductor 0.254 mm at (98.373, -20.443) {'N': '3V3'} 28 samples off copper, 0 in clearance/pad shape, of 99; near ADC1-COM2 (#00660) 0.96 mm
+   MISSING   KiCad draw Conductor 0.254 mm at (98.933, -19.600) {'N': '3V3'} 40 samples off copper, 0 in clearance/pad shape, of 54; near ADC1-COM2 (#00660) 0.70 mm
+   MISSING   KiCad draw Conductor 0.254 mm at (98.088, -22.637) {'N': '3V3'} 26 samples off copper, 0 in clearance/pad shape, of 26; near ADC1-A1 (3V3) 1.33 mm
+   MISSING   KiCad draw Conductor 0.1524 mm at (100.175, -20.150) {'N': 'Net-(ADC1-VIN)'} 111 samples off copper, 0 in clearance/pad shape, of 141; near C67-2 (3V3) 0.56 mm
+   MISSING   KiCad draw Conductor 0.1524 mm at (100.775, -22.530) {'N': 'Net-(ADC1-VIN)'} 17 samples off copper, 0 in clearance/pad shape, of 44; near C68-2 (#00660) 0.28 mm
+   MISSING   KiCad draw Conductor 0.1524 mm at (101.050, -21.340) {'N': 'Net-(ADC1-VIN)'} 191 samples off copper, 0 in clearance/pad shape, of 191; near C68-1 (GND) 0.61 mm
    pad shape    34 clusters, only KiCad   4.81 mm^2, only Proteus   0.00 mm^2  Connector_PinHeader_1.27mm:PinHeader_2x08_P1.27mm_Vertical  (2 parts: J3 J6)
    pad shape     5 clusters, only KiCad   2.21 mm^2, only Proteus   0.00 mm^2  TerminalBlock_Phoenix:TerminalBlock_Phoenix_MPT-0,5-5-2.54_1x05_P2.54mm_Horizontal  (1 parts: J1)
    pad shape    10 clusters, only KiCad   0.10 mm^2, only Proteus   1.85 mm^2  Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical  (1 parts: J8)
@@ -19,6 +39,14 @@ board outline 13.87 .. 111.66 x -42.75 .. 13.13 mm
    pad shape     7 clusters, only KiCad   0.00 mm^2, only Proteus   0.08 mm^2  Capacitor_SMD:C_0603_1608Metric  (3 parts: C51 C53 C54)
    pad shape     3 clusters, only KiCad   0.07 mm^2, only Proteus   0.00 mm^2  tube_control_card:PinHeader_2x15_P1.27mm_Vertical_ProteusPads  (1 parts: J7)
    pad shape     1 clusters, only KiCad   0.00 mm^2, only Proteus   0.04 mm^2  Resistor_SMD:R_0402_1005Metric  (1 parts: R44)
+   deviation  only KiCad    0.864 mm^2 at (  98.409,  -22.318) 1.60x1.78 mm  near ADC1-A1 (3V3) 0.92 mm, via (GND) 0.12 mm
+   deviation  only KiCad    0.683 mm^2 at ( 100.817,  -20.988) 1.45x2.55 mm  near C67-1 (GND) 0.50 mm, via (3V3) 2.44 mm
+   deviation  only KiCad    0.308 mm^2 at (  98.589,  -19.752) 0.83x0.83 mm  near R31-2 (GPIOR_28) 0.81 mm, via (3V3) 1.33 mm
+   deviation  only Proteus  0.152 mm^2 at (  99.909,  -22.284) 0.45x0.62 mm  near C68-2 (#00660) 0.63 mm, via (GND) 1.45 mm
+   deviation  only Proteus  0.098 mm^2 at (  98.742,  -20.211) 0.35x0.33 mm  near ADC1-COM2 (#00660) 0.56 mm, via (3V3) 0.93 mm
+   deviation  only KiCad    0.037 mm^2 at (  99.532,  -19.621) 0.25x0.25 mm  near ADC1-COM2 (#00660) 0.62 mm, via (3V3) 1.85 mm
+   deviation  only Proteus  0.027 mm^2 at (  99.255,  -19.846) 0.28x0.10 mm  near ADC1-COM2 (#00660) 0.36 mm, via (3V3) 1.50 mm
+   deviation  only Proteus  0.026 mm^2 at (  99.615,  -19.900) 0.35x0.18 mm  near ADC1-COM2 (#00660) 0.43 mm, via (3V3) 1.70 mm
    pad shape  only KiCad    1.256 mm^2 at (  71.648,  -14.115) 2.23x2.23 mm  near J1-1 (TDI) 0.04 mm, via (GPIOR_28) 8.70 mm
    pad shape  only Proteus  0.803 mm^2 at (  66.708,   -8.208) 2.08x2.08 mm  near J8-3 (GND) 0.00 mm, via (GND) 6.77 mm
    pad shape  only Proteus  0.737 mm^2 at (  69.180,   -8.185) 2.05x2.08 mm  near J8-2 (GPIOL_1) 0.07 mm, via (GND) 6.26 mm

@@ -32,7 +32,7 @@ decision D2 (no pin of type no_connect, ERC `no_connect_connected` fatal).
 `lib/tube_control_card.pretty` (U10 = KiCad's TFBGA-225 P0.65 footprint unchanged, at 180 deg); all 146
 parts fit their IPC pads within 0.030 mm (`p2k check_footprints --pcbnew`), pin order checked against the
 unmoved KiCad footprints (`p2k check_pin_order`, `PIN_ORDER`). Results: ADC1 has VA / VIN swapped on the board
-(finding 9 confirmed); AP61202 pin 6 is PG, the sequencing is correct (finding 12 resolved); J11 is
+(finding 9 confirmed; fixed 2026-11-20 by hand edit H1); AP61202 pin 6 is PG, the sequencing is correct (finding 12 resolved); J11 is
 numbered as a mirrored header like the HV board's J1, so the ribbon connects as drawn (finding 25; renumbered
 to standard at both ends on 2026-11-20).
 **Phase 3 (PCB) done**: `tools/make_pcb.sh` rebuilds
@@ -73,7 +73,13 @@ migration 2026-11-20"). `tools/check_all.sh`: ALL CHECKS PASSED.
 **Generation stopped 2026-11-20** (user decision; last generated commit 827b0b7): the committed KiCad files
 are the source now and are edited directly; the generators are frozen in `tools/generate/` (history, do not
 run); `tools/check_all.sh` checks the committed files against the Proteus sources and the KiCad rules (no
-regenerate / byte-compare steps). Next: finding 9 (ADC1 VA / VIN), the first hand edit.
+regenerate / byte-compare steps).
+**First hand edit (H1, 2026-11-20): finding 9 fixed** – ADC1 (ADC121C027) now has 3V3 on VA (pad A1 = SOT-23-6
+pin 1) and the filtered BIASFEEDBACK node (R34 / C68) on VIN (pad COM2 = pin 3): the symbol's VA / VIN pins
+exchanged in place with their datasheet pin types, on the board 5 F.Cu tracks moved, 5 removed and 8 added
+around ADC1 (no via, no part moved); DRC unchanged (71 violations: 0 shorts, the accepted courtyards and D1
+items). The checks accept exactly these two pin-net changes, the copper in a small area around ADC1 and the
++3 F.Cu track count (`tools/hand_edits.py`, STATUS.md "Hand edits after generation stopped"); ALL CHECKS PASSED.
 
 Note: this Ti60F225 card is **not installed in the amplifier** (the Agilex 3 control card is). The
 finished conversion is a reference and a starting point only.
@@ -111,8 +117,9 @@ source/         Proteus exports (read-only)
 reference/      tables derived from the IPC netlist (p2k ipc356; do not edit)
 lib/            part_map.csv, tube_control_card.kicad_sym, footprints (generated until 2026-11-20, edited since)
 kicad/          KiCad project: root sheet + one sheet per PDF page
-tools/          board scripts: check_all.sh (every check, all on the shared p2k tools), test_no_connect.py,
-                phase4_reading/ (independent PDF transcript)
+tools/          board scripts: check_all.sh (every check, on the shared p2k tools), hand_edits.py (the recorded
+                hand edits and the wrapper that accepts exactly them), test_no_connect.py, phase4_reading/
+                (independent PDF transcript)
   generate/       FROZEN generators (generation stopped 2026-11-20; history, do not run): make_part_map.py,
                   gen_symbols.py, sheets/, gen_footprints.py, make_pcb.sh
 tools/p2k/       proteus2kicad (submodule)

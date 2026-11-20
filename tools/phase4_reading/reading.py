@@ -1,12 +1,17 @@
 """Phase 4 (independent verification, 2026-11-20): my own reading of source/schematic_pdf (by eye from 300 dpi renders,
 reading_data.py: every pin of every part, the alias pairs of pages 1, 2, 7, 9, 10, 11) vs the raw IPC (own parser) and the KiCad netlist (kicadxml).
 Partition check: labels are joined into classes by the alias pairs I read; pins read on one class must share one IPC net
-and one KiCad net, different classes must be on different nets; NC = N/C in the IPC and unconnected-(...) in KiCad."""
+and one KiCad net, different classes must be on different nets; NC = N/C in the IPC and unconnected-(...) in KiCad.
+Hand edits after generation stopped (tools/hand_edits.py PIN_LABELS, exactly those pins): the IPC side keeps the
+label read in the PDF, the KiCad net must belong to the recorded new label's class instead."""
 import sys, re, collections
 import os
 D = os.path.dirname(os.path.abspath(__file__)) + "/"
 sys.path.insert(0, D)
 import ind
+sys.path.insert(0, os.path.dirname(os.path.dirname(D)))   # tools/ (hand_edits.py: data only, no p2k code)
+from hand_edits import PIN_LABELS
+hand_seen = set()
 names, pins, recs = ind.ipc(); pn, comps = ind.kicad()
 READ = {}
 def R(page, ref, d):
@@ -43,7 +48,12 @@ def see(page, ref, pin, lab):
         if i != ["N/C"] or not k[0].startswith("unconnected-("): errs.append(f"p{page} {ref}-{pin}: read NC, IPC {i}, KiCad {k[0]}")
         return
     if i == ["N/C"] or k[0].startswith("unconnected-("): errs.append(f"p{page} {ref}-{pin}: read {lab}, IPC {i}, KiCad {k[0]}"); return
-    c = find(lab); cls_i[c].add(ifind(i[0])); cls_k[c].add(k[0])
+    kl = lab
+    if (ref, pin) in PIN_LABELS:
+        old, new = PIN_LABELS[(ref, pin)]
+        if lab != old: errs.append(f"p{page} {ref}-{pin}: read {lab}, hand edit recorded for {old}")
+        kl = new; hand_seen.add((ref, pin))
+    c = find(lab); cls_i[c].add(ifind(i[0])); cls_k[find(kl)].add(k[0])
     cls_members[c].append(f"{ref}-{pin}")
 cls_members = collections.defaultdict(list)
 arr = collections.defaultdict(list)
@@ -76,6 +86,7 @@ for (page, ref), units in arr.items():
         if not cand: errs.append(f"p{page} {ref} {pin}: no pin pair on nets read ({a}, {b})"); continue
         _, x, y = cand[0]; used.add(tuple(sorted((x, y), key=int)) if True else None)
         see(page, ref, x, a); see(page, ref, y, b); per[page][0] -= 2
+for rp in sorted(set(PIN_LABELS) - hand_seen): errs.append(f"hand edit {rp[0]}-{rp[1]}: pin not read")
 inv_i = collections.defaultdict(set); inv_k = collections.defaultdict(set)
 for c, ns in cls_i.items():
     if len(ns) != 1: errs.append(f"label class {c}: pins {cls_members[c][:8]} on {len(ns)} IPC nets {sorted(ns)}")
@@ -112,6 +123,7 @@ print(f"total {total} pins read of {len(pins)} IPC pins on {len({k[1] for k in R
 print("IPC nets touched with pins I did not read:", dict(unread) or "none")
 print("IPC name not among the labels of its class:", namediff or "none")
 print("parts not read:", sorted({r for r, _ in pins} - {k[1] for k in READ}))
+print("hand edits (KiCad net in the class of the new label):", "; ".join(f"{r}-{p} {o} -> {n}" for (r, p), (o, n) in PIN_LABELS.items()) or "none")
 for e in errs: print("DIFF", e)
 print("reading:", "no difference" if not errs else f"{len(errs)} differences")
 sys.exit(1 if errs or unread or namediff else 0)

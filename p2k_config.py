@@ -207,6 +207,9 @@ PHASE4_EXPECTED = dict(proteus=1132, kicad=1131, matched=1131, pads=884, nc=76, 
 DRC_ACCEPTED = {
     "courtyards_overlap": "KiCad IPC-7351 courtyards vs the Proteus placement (parts at the Proteus positions)",
 }
+# Exact DRC warning counts (since generation stopped, 2026-11-20): a hand edit must not add a dangling track /
+# via or new silk conflicts unnoticed (the silk counts are the Phase 5 state, footprint body graphics).
+DRC_EXPECTED_WARNINGS = {"track_dangling": 0, "via_dangling": 0, "silk_over_copper": 28, "silk_overlap": 11}
 
 # Dangling Proteus copper (finding 26): REMOVED (user decision 2026-11-20, "Design fixes 2026-11-20";
 # reverses Phase 5 decision 2). Every Proteus Conductor draw that KiCad's DRC flagged track_dangling, and
@@ -270,7 +273,8 @@ PIN_ORDER = [
     dict(name="ADC1 datasheet", refs="ADC1", footprint="Package_TO_SOT_SMD:SOT-23-6",
          renumber={"1": "COM2", "2": "A2", "3": "A1", "4": "COM1", "5": "K1", "6": "K2"}, mirror=None,
          note="VA / VIN exchanged (COM2 on pad 1, A1 on pad 3, the datasheet wiring): fits only mirrored, "
-              "i.e. not on a top-side part"),
+              "i.e. not on a top-side part; so the land pattern is right and finding 9 was fixed in the nets "
+              "(hand edit 2026-11-20: 3V3 on A1 = VA, the R34 / C68 node on COM2 = VIN)"),
     dict(name="SOT-23-5", refs="U4 V4", rule="TLV316IDBVR", mirror=True, res=0.07, note="bottom side, rows 2.39 vs 2.30"),
     dict(name="SC-70-6", refs="U12", rule="AD5622", mirror=False, res=0.07, note="rows 1.80 vs 1.675"),
     dict(name="SOT-563", refs="PWR1 PWR2 PWR3", rule="AP61202", mirror=True, res=0.08, note="bottom side, rows 1.27 vs 1.425"),

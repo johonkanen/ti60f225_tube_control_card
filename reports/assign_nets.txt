@@ -18,7 +18,7 @@ items 4498, groups 307, shorts 0, orphans 0, opens 0
   accepted open (SPLIT_PIN_MERGES): RS485_GND: ISO_G-1 pads in two groups
 == assignment: 3586 tracks/vias got a net, 0 without
 == after zone fill (KiCad pads, tracks, vias, filled zones)
-items 4498, groups 307, shorts 0, orphans 0, opens 0
+items 4501, groups 307, shorts 0, orphans 0, opens 0
   accepted open (SPLIT_PIN_MERGES): 5V: J2-1 pads in two groups
   accepted open (SPLIT_PIN_MERGES): ISO5V: ISO5V-1 pads in two groups
   accepted open (SPLIT_PIN_MERGES): Net-(RS1-A): RS485A-1 pads in two groups

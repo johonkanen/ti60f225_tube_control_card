@@ -1353,8 +1353,8 @@
 						)
 					)
 				)
-				(pin passive line
-					(at 10.16 2.54 180)
+				(pin input line
+					(at 10.16 0 180)
 					(length 2.54)
 					(name "VIN"
 						(effects
@@ -1371,8 +1371,8 @@
 						)
 					)
 				)
-				(pin passive line
-					(at 10.16 0 180)
+				(pin power_in line
+					(at 10.16 2.54 180)
 					(length 2.54)
 					(name "VA"
 						(effects
@@ -5322,7 +5322,7 @@
 		)
 		(uuid "75dad6d6-0601-5989-b53b-9db4bfe610fe")
 	)
-	(text "VIN is on 3V3 and VA on the filtered input, as drawn (STATUS.md finding 9)."
+	(text "Hand edit 2026-11-20 (finding 9): VA on 3V3, VIN on the filtered input (the PDF has them swapped)."
 		(exclude_from_sim no)
 		(at 167.64 170.18 0)
 		(effects
