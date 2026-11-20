@@ -17,6 +17,8 @@ step "Gerber X2 export vs IPC (p2k check_sources + board exceptions)" python3 to
 step "Part map up to date" python3 tools/make_part_map.py --check
 step "Symbol library up to date" python3 tools/gen_symbols.py --check
 step "Symbol pin sets vs IPC" tools/p2k/bin/p2k check_symbols
+step "Sheets up to date (tools/sheets/sheetNN.py)" tools/make_sheets.sh --check
+# fails on errors (except tools/erc_pending.txt) and on no_connect_connected (decision D2)
 step "ERC" tools/erc.sh
 # p2k compare_netlists with the five split terminal nets of decision D1 accepted (board-local);
 # --allow-missing until all 12 sheets are drawn

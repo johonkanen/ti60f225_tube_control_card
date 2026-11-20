@@ -3231,7 +3231,7 @@
 			)
 		)
 		(property "Value" "AP61202"
-			(at -7.62 -6.35 0)
+			(at -7.62 -16.51 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -3269,7 +3269,7 @@
 		(symbol "AP61202_0_1"
 			(rectangle
 				(start -7.62 5.08)
-				(end 7.62 -5.08)
+				(end 7.62 -12.7)
 				(stroke
 					(width 0.254)
 					(type default)
@@ -3316,44 +3316,8 @@
 					)
 				)
 			)
-			(pin input line
-				(at -10.16 -2.54 0)
-				(length 2.54)
-				(name "FB"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "1"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin output line
-				(at 10.16 2.54 180)
-				(length 2.54)
-				(name "SW"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "4"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
 			(pin passive line
-				(at 10.16 0 180)
+				(at 10.16 2.54 180)
 				(length 2.54)
 				(name "VOUT"
 					(effects
@@ -3370,8 +3334,44 @@
 					)
 				)
 			)
-			(pin power_in line
+			(pin output line
+				(at 10.16 0 180)
+				(length 2.54)
+				(name "SW"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin input line
 				(at 10.16 -2.54 180)
+				(length 2.54)
+				(name "FB"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "1"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin power_in line
+				(at 0 -15.24 90)
 				(length 2.54)
 				(name "GND"
 					(effects
@@ -3670,26 +3670,8 @@
 					)
 				)
 			)
-			(pin power_in line
-				(at -10.16 0 0)
-				(length 2.54)
-				(name "GND"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "2"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
 			(pin input line
-				(at -10.16 -2.54 0)
+				(at -10.16 0 0)
 				(length 2.54)
 				(name "EN"
 					(effects
@@ -3706,17 +3688,17 @@
 					)
 				)
 			)
-			(pin passive line
-				(at 10.16 2.54 180)
+			(pin power_in line
+				(at -10.16 -2.54 0)
 				(length 2.54)
-				(name "NR"
+				(name "GND"
 					(effects
 						(font
 							(size 1.27 1.27)
 						)
 					)
 				)
-				(number "4"
+				(number "2"
 					(effects
 						(font
 							(size 1.27 1.27)
@@ -3725,7 +3707,7 @@
 				)
 			)
 			(pin power_out line
-				(at 10.16 0 180)
+				(at 10.16 2.54 180)
 				(length 2.54)
 				(name "VOUT"
 					(effects
@@ -3735,6 +3717,24 @@
 					)
 				)
 				(number "5"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+			)
+			(pin passive line
+				(at 10.16 0 180)
+				(length 2.54)
+				(name "NR"
+					(effects
+						(font
+							(size 1.27 1.27)
+						)
+					)
+				)
+				(number "4"
 					(effects
 						(font
 							(size 1.27 1.27)

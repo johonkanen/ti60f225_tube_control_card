@@ -5,7 +5,7 @@ Plan: [PLAN.md](PLAN.md). Playbook: `tools/p2k/CONVERSION_PLAYBOOK.md`.
 | Phase | State |
 |---|---|
 | 0 Skeleton and inventory | **done** 2026-11-20 (Opus 5.5) |
-| 1 Schematic | preparation **done** 2026-11-20 (Opus 5.5); transcription not started (12 sheets) |
+| 1 Schematic | preparation **done** 2026-11-20 (Opus 5.5); transcription: session T1 **done** 2026-11-20 (Fable 5.2): sheets 1, 11, 10, 8, 3 = 63 of 146 parts; T2 (7, 9, 12, 4) and T3 (2, 5, 6 = U10) to do |
 | 2 Footprints | not started |
 | 3 PCB | not started |
 | 4 Verification | not started |
@@ -164,6 +164,51 @@ So the package has exactly 12 GND balls and every GND and supply ball of the pac
 connected on this board (GND 12, 1V 12 = VCC + VCCA, 1V8 20 = VCCAUX + VCCIO1-4,
 3V3 4 = VCCIO33). The official Efinix pinout spreadsheet needs a login and was not used.
 
+## Phase 1 transcription – session T1 done (Fable 5.2, 2026-11-20)
+
+Sheets 1, 11, 10, 8, 3 drawn by `tools/sheets/sheetNN.py` (63 of 146 parts). Per sheet
+(`python3 tools/compare_netlists.py --allow-missing --sheet N`, run after the last sheet; the
+totals line is the same for every N: `pins compared 247, wrong-net pins 0; IPC nets touched 114,
+complete 31`, `compare: OK`):
+
+| Sheet | Parts | Compare | ERC on the sheet | Notes |
+|---|---|---|---|---|
+| 1 Net aliases and power inputs | 6/6 | 0 missing, 0 wrong-net pins | 0 errors | J4, J2 (D1), J5, J9 with a PWR_FLAG each (GND, 5V, 12V, OPAMP_-15V enter here); J8; R16; all alias pairs as text notes |
+| 11 Bias DAC and RS485 | 17/17 | 0 missing, 0 wrong-net pins | 1 pending error (RS1-2 TXD) | D1 terminals as one pin; B node = R68-2, RS1-7, R67-1, RS485B; PWR4 pins 3, 4, 7 with no-connect flags |
+| 10 Connectors and bias ADC | 9/9 | 0 missing, 0 wrong-net pins | 0 errors | J7 (rotated 180), J6, J3 (mirrored); 7 N/C pins flagged (J6 x6, ADC1-K2) |
+| 8 Power stage connector J11 | 3/3 | 0 missing, 0 wrong-net pins | 0 errors | J11 mirrored (39 top left); 37, 38 N/C |
+| 3 Regulators | 28/28 | 0 missing, 0 wrong-net pins | 0 errors | `buck()` block x3; PWR_FLAG on 1V8, 1V, 3V3 behind the inductors; AD_3V3 driven by V4 VOUT (power output) |
+
+Every render (`reports/render/NN_*.png`, git-ignored) was compared by eye with
+`build/tmp/pdf/hi-NN.png`. Drawing differences (same nets) are listed in each script's docstring.
+
+**ERC: 0 errors, 72 warnings, 1 pending error.**
+- The 72 warnings are all `isolated_pin_label`: global labels of sheets 1, 8, 10, 11 whose other
+  pins are on sheets not drawn yet (pages 2, 4, 5, 7, 9, 12; checked: every one of these nets has
+  2 or more IPC pins). They must disappear in T2 / T3; what remains then are the single-pin nets
+  of the transcription rules.
+- Pending (`tools/erc_pending.txt`): `pin_not_driven RS1 2` – RS1 TXD is an input whose only
+  driver is U10 ball G1 (sheet 2, T3). `tools/erc_check.py` accepts exactly the listed errors and
+  fails on a listed error that no longer occurs, so the list has to be empty at the end of T3.
+
+**New in this session (board-local):**
+- Decision D2 (no pin of type no_connect, `no_connect_connected` fatal), `tools/erc_check.py`,
+  `tools/erc_pending.txt`, `tools/test_no_connect.py` – see Decisions.
+- `tools/sheets/_common.py`: IPC-driven helpers. `net(ref, pin)`, `pin_of(ref, net)`,
+  `net_kind(net)` (power / global / local / wire, from the IPC pads, the part-map pages and the
+  U10 unit pages), `tie(sh, net, point, side, n)` (power symbol, global or local label – chosen by
+  `net_kind`, asserts that the name is an IPC net), `pin_tie(sh, placed, pin, side, n)` (the same
+  for the IPC net of a pin; no-connect flag on an N/C pad), `two(sh, ref, x, y, top=|left=)`
+  (two-pin part oriented by the IPC net or pin number of its top / left pin), `place_pin()`
+  (symbol placed by one of its pins), `header()` (dual-row header in the three PDF orientations
+  with all its pin ties), `note()`. So no net name is typed from the PDF: a wrong orientation or
+  a wrong name fails in the script, a wrong wire in compare.
+- `tools/make_sheets.sh [--check]`: re-runs every sheet script; `--check` (in check_all.sh)
+  fails when a committed sheet is not what the scripts and the library generate.
+- `tools/gen_symbols.py`: AP61202 and TPS73030 pins arranged as in the PDF (AP61202: VIN, EN
+  left; VOUT, SW, FB right; GND bottom. TPS73030: VIN, EN, GND left; VOUT, NR right).
+- `.gitignore`: `reports/render/`.
+
 ### Last verification (`tools/check_all.sh`)
 
 ```
@@ -192,13 +237,15 @@ gen_symbols: lib/tube_control_card.kicad_sym up to date (36 symbols)
 == Symbol pin sets vs IPC
 symbols: 25 part types, 146 refdes, 10 power symbols
 symbols: OK
+== Sheets up to date (tools/sheets/sheetNN.py)
+make_sheets: 5 sheet scripts, kicad/ up to date
 == ERC
-erc: 0 errors, 0 warnings (reports/erc.rpt)
+erc: 0 errors, 72 warnings (72 isolated_pin_label), 1 pending errors (tools/erc_pending.txt) (reports/erc.rpt)
 == Netlist comparison vs IPC (D1 merges accepted)
 accepted (D1, board-local): 5 merged IPC net pairs: ISO5V-1 ISO5V + ISO5V.00299; ISO_G-1 RS485_GND + RS485_GND.00300; J2-1 5V + 5V.00301; RS485A-1 #00670.00259 + #00670.00260; RS485B-1 #00671.00261 + #00671.00262 (with R67-1)
-compare: parts 0/146 present, 146 missing, 0 extra; pins compared 0, wrong-net pins 0; IPC nets touched 0, complete 0
-compare: per sheet (drawn/total) 1:0/6 2:0/19 3:0/28 4:0/15 6:0/18 7:0/11 8:0/3 9:0/9 10:0/9 11:0/17 12:0/11
-WARNING: missing parts (146): (see --verbose or --sheet N)
+compare: parts 63/146 present, 83 missing, 0 extra; pins compared 247, wrong-net pins 0; IPC nets touched 114, complete 31
+compare: per sheet (drawn/total) 1:6/6 2:0/19 3:28/28 4:0/15 6:0/18 7:0/11 8:3/3 9:0/9 10:9/9 11:17/17 12:0/11
+WARNING: missing parts (83): (see --verbose or --sheet N)
 compare: OK
 
 ALL CHECKS PASSED
@@ -240,8 +287,11 @@ ALL CHECKS PASSED
   one sheet (U10 balls count on the page of their unit: A, C → 2; B, D, E, F → 5; G, H → 6),
   local labels for one-sheet nets. The 39 auto-named `#00xxx` nets are plain wires (none
   crosses a sheet).
-- **N/C pins** (no-connect flag): ADC1-K2 J11-37 J11-38 J6-6 J6-8 J6-10 J6-12 J6-13 J6-14
-  PWR1-6 PWR3-6 PWR4-3 PWR4-4 (pin type no_connect: no flag needed) PWR4-7, and the 62 U10
+- **N/C pins: always a no-connect flag, never a pin of type no_connect** (decision D2). Use
+  `pin_tie()`: it places the flag when the IPC pad is N/C. A flag on a wired pin fails ERC
+  (`no_connect_connected` is fatal), a wired N/C pin without a flag fails compare. The pins:
+  ADC1-K2 J11-37 J11-38 J6-6 J6-8 J6-10 J6-12 J6-13 J6-14
+  PWR1-6 PWR3-6 PWR4-3 PWR4-4 PWR4-7 (all flagged in T1), and the 62 U10
   balls C8 C9 C10 C13 D5 D7 D8 D10 D13 E3 E6 E7 E8 E9 E10 E12 F3 F5 F7 F8 F9 F10 F11 F12 F13
   G3 G4 G5 G11 G13 H3 H10 H11 H12 H13 J10 J12 K3 K4 K6 K7 K8 K9 K10 K11 K12 K13 L6 L7 L8 L9
   L11 L12 L13 M6 M7 M8 M9 M10 M14 N6 N8 (the PDF draws these balls without a wire).
@@ -258,6 +308,24 @@ ALL CHECKS PASSED
   with `tools/p2k/bin/p2k render_sheet kicad/NN_*.kicad_sch` and compare with the PDF page.
 - U10 units: `sh.place("TI60F225", "U10", x, y, unit=k)` with k = 1..8 for A..H; give
   `ref_at` / `value_at` per unit (e.g. "U10" above the box as in the PDF).
+- **Use the IPC-driven helpers of `_common.py`** (session T1, list above): `two()` for R / C / L,
+  `place_pin()` for ICs, `pin_tie()` / `tie()` for every label, power symbol and no-connect
+  flag, `header()` for dual-row headers. Type no net name from the PDF; read the PDF only for
+  the placement, the wires of the `#00xxx` nets, the notes and to compare its labels with the
+  IPC names (a difference that is not a known alias is a finding).
+- KiCad details met in T1: a symbol pin on the **middle** of a wire segment is not connected
+  (ERC `pin_not_connected`): end a wire segment at every pin (`sh.wire(a, pin_point, b)`). A
+  wire end on the middle of another wire needs `sh.junction()`. A supply symbol next to
+  horizontal pin rows: `body="left"` / `"right"` in `tie()` / `pin_tie()` so the arrow does not
+  touch the neighbouring wire. `two(..., text="above"|"below")` moves the texts of a horizontal
+  part.
+- **ERC errors that need a later sheet** (an input pin driven only by a U10 ball, a rail
+  generated on an undrawn sheet): add `<type> <refdes> <pin>  # why` to
+  `tools/erc_pending.txt`; never leave another error. Stale entries fail: remove an entry when
+  its sheet is drawn. Empty at the end of T3. PWR_FLAGs so far: GND, 5V, 12V, OPAMP_-15V
+  (sheet 1), 1V8, 1V, 3V3 (sheet 3); AD_3V3, ISO5V, RS485_GND are driven by power outputs.
+- After a change of `tools/gen_symbols.py` run `tools/make_sheets.sh` (all sheets embed the
+  symbols) and, if N/C handling or `tools/erc.sh` / `tools/erc_check.py` changed, `tools/test_no_connect.py`.
 - After each sheet: `python3 tools/compare_netlists.py --allow-missing --sheet N` (the
   board wrapper, not the bare p2k tool) and `tools/erc.sh`, then `tools/check_all.sh`.
   Target per sheet: 0 missing on that sheet, 0 compare errors, 0 ERC errors (warnings
@@ -331,6 +399,24 @@ Reported, not fixed (PLAN.md section 5.3).
    "VOUT" is probably wrong (pin type passive in the symbol). Check the AP61202 pinout in
    Phase 2.
 
+13. **Page 11 label `bias_feedback`** sits on the DAC output node together with `biasref`
+   (IPC net BIASREF: U12-6, R59, C4, J6-15, J6-16). Page 10 spells the ADC input
+   `biasfeedback` (IPC net BIASFEEDBACK: J6-5, R34-1 only). The two names differ by the
+   underscore, so on the board the DAC output and the ADC input are **not** joined; they meet
+   only outside, through J6 (pins 15/16 and 5). Intended (loop closed on the power board) or a
+   naming slip – the user's call in the redesign. Drawn as built (note on sheet 11).
+14. **PWR4 (IZB03) On/Off pin 3 and Ripple pin 7 are N/C** (page 11 draws them as open stubs),
+   as is its pin 4 "NC". Drawn with no-connect flags.
+15. **Unconnected terminals in the PDF:** page 10 has 12 `JFET_GATE_*` terminals and page 8
+   two lists (T_IRQ, T_DO, T_DIN, T_CS, T_CK, MOSI, LED, SCK, MISO, DATA/COMMAND, LCD_RESET,
+   LCD_CS, ISOGND, 3V3; ADB2, ADB1, ADB0, ADB3, ADB4, AGND, ADB5, ADB6) with a wire stub and
+   nothing on it: no nets (leftovers of an older design, cf. "FIX BUGS!"). Page 10 also has
+   loose texts "3V3" and "-15V" beside J7. All carried over as text notes.
+16. **Labels of pages 1, 3, 8, 10, 11 vs IPC:** every pin of the 63 parts drawn in T1 was
+   compared with its PDF label; all differences are the known aliases (page 1, 10, 11 pairs),
+   the case (rs485_gnd, 1V_enable, L1sw, RLY5_enable ...) and DGND / gnd / ISOGND = GND. No
+   other difference.
+
 ## p2k candidates
 
 Shared-tool limitations met on this board, with the board-local workaround used. To be
@@ -393,6 +479,35 @@ solved in tools/p2k later (with the ac_psu regression); until then the wrappers 
    `place_mirrored()` (no mirror option in `sch_builder.Sheet.place`), in
    `tools/sheets/_common.py`.
 
+10. **Pins of type no_connect hide wiring mistakes** (found by the preamp conversion, closed
+   here by decision D2): KiCad 10 keeps such a pin in its own `unconnected-(...)` net even when
+   a wire joins it, so `compare_netlists` sees an N/C pad as N/C although the schematic wires
+   it; ERC only warns `no_connect_connected`. Board-local: no pin of that type
+   (`tools/gen_symbols.py` asserts it), no-connect flags on the sheets, `tools/erc_check.py`
+   fails on `no_connect_connected`; negative test `tools/test_no_connect.py`. Needed in p2k:
+   `check_symbols` (or `symgen.run`) should reject pin type no_connect, the playbook (Phase 1
+   step 2 and section 5 "KiCad 10") should state the rule, and a shared ERC judge should treat
+   `no_connect_connected` as fatal.
+11. **No shared ERC judge:** every board copies `tools/erc.sh` (grep on the report). Board-local
+   here: `tools/erc_check.py` (parses the report, fatal warning types, a pending list for
+   errors that need a sheet not drawn yet, stale entries fail, warnings counted by type). A
+   `p2k erc` with these options would serve every board; the pending list matters for boards
+   with a multi-unit part drawn last.
+12. **IPC-driven sheet helpers** (`net()`, `net_kind()`, `tie()`, `pin_tie()`, `two()`,
+   `place_pin()`, `header()` in `tools/sheets/_common.py`): the label kind (power symbol /
+   global / local / no-connect flag) and the orientation of two-pin parts follow from the IPC
+   netlist and the part map, so they need not be typed per pin. Candidates for `p2k.sheetkit`
+   (they need the per-unit pages of candidate 8 for multi-unit parts). Also `Sheet.place`
+   could take a pin to anchor on, and `make_sheets --check` (sheets reproducible from the
+   scripts) is generic.
+13. `compare_netlists.natkey` / `pinkey` build mixed int / str sort keys and raise `TypeError`
+   when a refdes without a number is drawn next to a numbered one with the same prefix (reported
+   by the PI/FX conversion, e.g. SEND and SEND1). **Not hit on this board**: all 146 refdes and
+   876 pins sort without error (checked; the only refdes without a digit is ISO_G). No wrapper
+   change made; fix in p2k (type-safe key).
+14. `sch_builder`: a pin placed on the middle of a wire segment is not connected in KiCad;
+   `Sheet.wire` could split segments at pin points (or `Sheet.save` could warn).
+
 ## Decisions
 
 - **D1 (decided by the user, 2026-11-20): split terminal nets** (finding 1). The five split
@@ -402,5 +517,23 @@ solved in tools/p2k later (with the ac_psu regression); until then the wrappers 
   checks: `SPLIT_PIN_MERGES` in p2k_config.py, accepted exactly by the board-local
   `tools/compare_netlists.py` (Phase 1); `check_board` / `ipc356_diff` / DRC parity get the
   same acceptance in Phases 3-4 (p2k candidate 1). Pad numbers stay = IPC pin ids (both pads 1).
+
+- **D2 (coordinating session, 2026-11-20): no pin of type no_connect.** KiCad 10 keeps a pin
+  of type no_connect in its own `unconnected-(...)` net even when a wire joins it (ERC only
+  warns `no_connect_connected`), so `compare_netlists` cannot see an N/C pad that is wired by
+  mistake. On this board: (a) no symbol pin has the type – IZB03 pin 4 "NC" (PWR4-4, the only
+  one) is passive, `tools/gen_symbols.py` asserts that the library has none; (b) every N/C pad
+  gets a no-connect flag on its sheet (`pin_tie()`); (c) `tools/erc.sh` (`tools/erc_check.py`)
+  fails on the warning `no_connect_connected`. Negative test `tools/test_no_connect.py` (scratch
+  board in build/tmp/nctest, PWR4 only, the real erc.sh and compare wrapper), result:
+
+  ```
+  ok          ERC pass, compare pass   -> as expected
+  wired_flag  ERC FAIL, compare FAIL   -> as expected   (pin 4 wired to ISO5V, flag kept)
+  wired       ERC pass, compare FAIL   -> as expected   (wired, no flag: N/C mismatch PWR4-4)
+  old_lib     ERC FAIL, compare pass   -> as expected   (pin type no_connect: the blind spot; only the fatal warning catches it)
+  ```
+
+  The 62 N/C balls of U10 already had real pin types (bidirectional GPIOs): flags in T3.
 
 Open: none.

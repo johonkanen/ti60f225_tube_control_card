@@ -24,7 +24,10 @@ Conversion plan: [PLAN.md](PLAN.md); progress: [STATUS.md](STATUS.md); prompt fo
 Phase 0 (skeleton and inventory) and the Phase 1 preparation done: part map, symbol library
 (U10 Ti60F225 as 8 units, pinout checked against Efinix), empty KiCad skeleton, netlist
 comparison with decision D1 (split terminals drawn as one pin); `tools/check_all.sh` passes.
-Next: Phase 1 transcription of the 12 sheets (STATUS.md "Transcription rules").
+Phase 1 transcription, session T1 done: sheets 1, 11, 10, 8, 3 drawn (63 of 146 parts, 0 wrong-net
+pins, ERC 0 errors + 1 pending until the FPGA sheets); decision D2 (no pin of type no_connect,
+ERC `no_connect_connected` fatal).
+Next: session T2 = sheets 7, 9, 12, 4, then T3 = the U10 sheets 2, 5, 6 (next_prompt.md).
 
 v2.5, built 2025. `source/cadcam_rs274x/` is the earlier RS-274X export of the same version (cross-check only). v1 (built 2024, same outline and mounting holes) is not converted.
 
