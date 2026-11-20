@@ -1,0 +1,162 @@
+[
+ {
+  "layer": "B.Cu",
+  "index": 0,
+  "net": "GND",
+  "order": 0,
+  "width": 0.1016,
+  "group": 3
+ },
+ {
+  "layer": "B.Cu",
+  "index": 1,
+  "net": "GND",
+  "order": 36,
+  "width": 0.1016,
+  "group": 3
+ },
+ {
+  "layer": "B.Cu",
+  "index": 2,
+  "net": "1V",
+  "order": 37,
+  "width": 0.1016,
+  "group": 96
+ },
+ {
+  "layer": "B.Cu",
+  "index": 3,
+  "net": "1V8",
+  "order": 70,
+  "width": 0.1016,
+  "group": 7
+ },
+ {
+  "layer": "B.Cu",
+  "index": 4,
+  "net": "1V8",
+  "order": 90,
+  "width": 0.1016,
+  "group": 7
+ },
+ {
+  "layer": "B.Cu",
+  "index": 5,
+  "net": "1V8",
+  "order": 92,
+  "width": 0.1016,
+  "group": 7
+ },
+ {
+  "layer": "B.Cu",
+  "index": 6,
+  "net": "1V8",
+  "order": 101,
+  "width": 0.1016,
+  "group": 7
+ },
+ {
+  "layer": "B.Cu",
+  "index": 7,
+  "net": "3V3",
+  "order": 103,
+  "width": 0.1016,
+  "group": 14
+ },
+ {
+  "layer": "B.Cu",
+  "index": 8,
+  "net": "GND",
+  "order": 112,
+  "width": 0.1016,
+  "group": 3
+ },
+ {
+  "layer": "B.Cu",
+  "index": 9,
+  "net": "GND",
+  "order": 118,
+  "width": 0.1016,
+  "group": 3
+ },
+ {
+  "layer": "B.Cu",
+  "index": 10,
+  "net": "GND",
+  "order": 125,
+  "width": 0.1016,
+  "group": 3
+ },
+ {
+  "layer": "B.Cu",
+  "index": 11,
+  "net": "/03 Regulators/L1SW",
+  "order": 131,
+  "width": 0.254,
+  "group": 781
+ },
+ {
+  "layer": "B.Cu",
+  "index": 12,
+  "net": "/03 Regulators/L4SW",
+  "order": 133,
+  "width": 0.1016,
+  "group": 797
+ },
+ {
+  "layer": "B.Cu",
+  "index": 13,
+  "net": "/03 Regulators/L5SW",
+  "order": 136,
+  "width": 0.1016,
+  "group": 813
+ },
+ {
+  "layer": "B.Cu",
+  "index": 14,
+  "net": "5V",
+  "order": 139,
+  "width": 0.1016,
+  "group": 432
+ },
+ {
+  "layer": "In1.Cu",
+  "index": 0,
+  "net": "GND",
+  "order": 0,
+  "width": 0.1016,
+  "group": 3
+ },
+ {
+  "layer": "In1.Cu",
+  "index": 1,
+  "net": "GND",
+  "order": 184,
+  "width": 0.1016,
+  "group": 3
+ },
+ {
+  "layer": "In2.Cu",
+  "index": 0,
+  "net": "1V",
+  "order": 0,
+  "width": 0.1016,
+  "group": 96
+ },
+ {
+  "layer": "In2.Cu",
+  "index": 1,
+  "net": "1V8",
+  "order": 16,
+  "width": 0.127,
+  "group": 7
+ },
+ {
+  "layer": "In2.Cu",
+  "index": 2,
+  "net": "3V3",
+  "order": 58,
+  "width": 0.1016,
+  "group": 14
+ }
+]

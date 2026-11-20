@@ -6,7 +6,13 @@ set -u
 cd "$(dirname "$0")/.."
 [ -x tools/p2k/bin/p2k ] || { echo "tools/p2k missing: git submodule update --init"; exit 1; }
 fail=0
-step() { echo "== $1"; shift; "$@" || { echo "!! FAILED: $*"; fail=1; }; }
+mkdir -p build/tmp
+log=build/tmp/check_all.log; : > "$log"
+step() {
+    echo "== $1" | tee -a "$log"; shift
+    "$@" 2>&1 | tee -a "$log"
+    [ "${PIPESTATUS[0]}" -eq 0 ] || { echo "!! FAILED: $*" | tee -a "$log"; fail=1; }
+}
 
 step "KiCad environment" tools/p2k/bin/kipy -c "import pcbnew; v = pcbnew.GetBuildVersion(); print('pcbnew', v); assert v.startswith('10.0.7'), v"
 # p2k ipc356 --check / p2k check_sources plus the board-local acceptance of the split terminal
@@ -31,6 +37,17 @@ step "Footprints vs IPC pad geometry (fit and pcbnew placement)" tools/p2k/bin/k
 # check_footprints because p2k.footprints.derive moves the pads); U10 ball A1 orientation (180 deg)
 step "Pin order vs unmoved KiCad base footprints" python3 tools/check_pin_order.py
 
+# Phase 3: PCB. Every step through the board-local wrappers (tools/pcb_wrap.py: D1 split terminals,
+# U10 BGAPad flashes, SMD test pads, "/" in unconnected net names; tools/drc_check.py: D1
+# unconnected items, and the pad conflicts of the open pad-size decision as PENDING USER DECISION)
+step "PCB rebuilt from schematic + gerbers, up to date (make_pcb --check)" tools/make_pcb.sh --check
+step "Board pads, holes, test pads, vias vs IPC (position, size, nets 1:1, D1 merges accepted)" tools/p2k/bin/kipy tools/pcb_wrap.py check_board
+step "Board copper connectivity after zone fill (assign_nets --check)" python3 tools/drc_check.py copper
+step "DRC with schematic parity" python3 tools/drc_check.py drc
+
 echo
-[ $fail -eq 0 ] && echo "ALL CHECKS PASSED" || echo "SOME CHECKS FAILED"
+pending=$(grep -c "PENDING USER DECISION" "$log")
+if [ $fail -ne 0 ]; then echo "SOME CHECKS FAILED"
+elif [ "$pending" -ne 0 ]; then echo "ALL CHECKS PASSED, EXCEPT $pending PENDING USER DECISION(S):"; grep "PENDING USER DECISION" "$log" | sed 's/^/  /'
+else echo "ALL CHECKS PASSED"; fi
 exit $fail

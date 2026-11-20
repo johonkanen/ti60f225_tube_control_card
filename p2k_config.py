@@ -151,3 +151,39 @@ HOLE_VALUE = "MountingHole_3.0mm_PTH"
 FREE_PAD_FOOTPRINT = "tube_control_card:TestPad_SMD_D0.711mm"
 FREE_PAD_VALUE = "TestPad"
 FREE_PAD_PREFIX = "TP"
+
+# --- PCB (Phase 3: tools/make_pcb.sh, p2k build_pcb / pours_to_zones / drc) ----------
+
+# Board thickness: 1.6 mm (user decision 2026-11-20, finding 5; the CADCAM READ-ME stack of
+# 2.34 mm is a Proteus default). Stack-up (agent's choice, a common 4-layer 1.6 mm build; only
+# the total goes into the board, the copper layers are what the checks compare):
+# F.Cu 0.035 / prepreg 0.2104 / In1.Cu 0.0152 / core 1.065 / In2.Cu 0.0152 / prepreg 0.2104 /
+# B.Cu 0.035 = 1.586 mm + 2 x ~0.01 mm solder resist = 1.6 mm.
+PCB_THICKNESS = 1.6
+# Design rules from the Proteus copper as built (STATUS.md "Phase 3", tools/measure_gaps.py), mm.
+# Proteus routed this board at 4 mil (0.1016) almost everywhere; 75 different-net pairs are
+# closer than 0.1 mm, all on F.Cu (BGA fan-out, the TSSOP / resistor-array rows), down to
+# 0.0754 (pad-track, track-via, ball-via: finding 4), so the clearance is 0.07.
+PCB_RULES = dict(
+    min_track=0.1,        # thinnest conductor draw 0.1016 (4 mil) on every layer
+    min_via=0.4,          # all 240 vias 0.419 / 0.2
+    min_annular=0.1,      # (0.419 - 0.2) / 2 = 0.1095
+    min_drill=0.2,
+    clearance=0.07,       # smallest different-net gap 0.0754 (F.Cu); 0.1016 on the inner layers / B.Cu
+    hole_clearance=0.15,  # via drill to other-net copper >= 0.1095 annular + 0.0755
+    hole_to_hole=0.25,    # smallest drill-to-drill 0.320 (two vias at the BGA)
+    edge_clearance=0.4,   # copper to outline >= 0.4826 (In2.Cu pour)
+    track=0.254,          # Default netclass
+    via=0.419,
+    via_drill=0.2,
+)
+
+# KiCad footprint drills smaller than the Proteus drill, accepted (ipc356_diff, gerber_roundtrip).
+DRILL_SMALLER = {
+    (1.016, 1.0): "J8 (KiCad PinHeader_1x03_P2.54mm 1.0 mm, Proteus 1.016 mm): user decision 2026-11-20",
+}
+
+# Error-severity DRC types that remain by design ({type: reason}, STATUS.md "Phase 3").
+DRC_ACCEPTED = {
+    "courtyards_overlap": "KiCad IPC-7351 courtyards vs the Proteus placement (parts at the Proteus positions)",
+}

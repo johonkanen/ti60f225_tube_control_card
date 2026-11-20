@@ -7,9 +7,211 @@ Plan: [PLAN.md](PLAN.md). Playbook: `tools/p2k/CONVERSION_PLAYBOOK.md`.
 | 0 Skeleton and inventory | **done** 2026-11-20 (Opus 5.5) |
 | 1 Schematic | **done** 2026-11-20: preparation (Opus 5.5), transcription sessions T1, T2, T3 (Fable 5.2): 12 sheets, 146 of 146 parts, full netlist comparison clean, ERC 0 errors |
 | 2 Footprints | **done** 2026-11-20 (Opus 5.5): 146/146 parts fit the IPC pads (worst 0.030 mm), pin order checked, findings 9 and 12 answered |
-| 3 PCB | not started |
+| 3 PCB | **generated, stopped on a user decision** 2026-11-20 (Opus 5.5): board built from the schematic + gerbers (make_pcb byte-identical), Proteus copper 0 shorts / 0 orphans / 0 opens (+5 D1), check_board OK; the KiCad pads of 15 parts collide with Proteus copper → pad-size decision (options A / B tested clean) |
 | 4 Verification | not started |
 | 5 Clean-up | not started |
+
+## Phase 3 – PCB – generated, STOPPED on the pad-size decision (Opus 5.5, 2026-11-20)
+
+`kicad/tube_control_card.kicad_pcb` is generated and its copper is the Proteus copper: in the Proteus
+geometry 0 shorts / 0 orphans / 0 opens (besides the five accepted D1 opens), every pad / via / hole /
+test pad on its IPC position and net (`check_board` OK), `make_pcb.sh --check` byte-identical. With the
+Phase 2 footprints (KiCad pad sizes everywhere) the KiCad pads of **15 parts** reach Proteus tracks / vias
+(13 shorts, 85 clearance, 17 solder-mask bridges, 2 hole-clearance errors; 6 short groups in the copper
+check after the fill). Which parts get the Proteus pads is a **user decision** (playbook, PLAN.md 5.7):
+per-refdes table and the tested options below. Until it is made, `tools/drc_check.py` passes exactly
+the recorded conflicts as `PENDING USER DECISION`, so `tools/check_all.sh` prints **`ALL CHECKS PASSED,
+EXCEPT 2 PENDING USER DECISION(S)`**. The user decisions of 2026-11-20 (board thickness 1.6 mm, J8 drill,
+J1 body) are applied (Decisions).
+
+### New (all generated / re-runnable)
+
+- **`p2k_config.py`**: `PCB_THICKNESS = 1.6` (user decision; stack-up = agent's choice, Decisions),
+  `PCB_RULES` (measured, below), `DRILL_SMALLER = {(1.016, 1.0): J8 …}` (user decision, for Phase 4),
+  `DRC_ACCEPTED` (courtyards_overlap).
+- **`tools/pcb_wrap.py`** (board-local, `kipy tools/pcb_wrap.py TOOL`): runs `p2k.build_pcb`,
+  `gerber_to_tracks`, `assign_nets`, `pours_to_zones`, `check_board` (their `main()`, after patching the
+  shared modules in-process; tools/p2k unchanged) with:
+  1. **D1**: the IPC records are filtered (`p2k.pcb.configure(records=)`): first a check that the IPC
+     pins with pads on two nets are exactly `SPLIT_PIN_MERGES` (with exactly those nets), then each
+     merged IPC net is renamed to its kept net in every record (pads incl. R67-1, vias). So
+     `ipc_to_kicad_nets` (build_pcb free pads, assign_nets IPC via nets, check_board) sees 222 IPC nets
+     mapped 1:1, and any other merge / split still fails. The copper of the second pads takes the kept
+     net. The second pad of each split terminal has no copper to the first (finding 1), so each D1 net
+     is open: `assign_nets` accepts an open only when its net is the KiCad net of a D1 pin, it has two
+     groups and the two pads of that pin are in different groups (report: "accepted open (D1,
+     board-local)"); any other open fails `--check`.
+  2. **BGAPad** (p2k candidate 3): `p2k.gerber.parse` renames `BGAPad,CuDef` to `SMDPad,CuDef` (the 225
+     U10 flashes must land on footprint pads; `tools/check_sources.py` proves they are the U10 balls).
+  3. **SMD test pads** (candidates 2 / 21): `build_pcb` places `TestPad_SMD_D0.711mm` (TP1-TP4) on F.Cu
+     with the IPC net unchanged (checked). The 4 Top Copper SMDPad flashes at `SMD_FREE_PADS` (exactly 4,
+     top only, 0.711 mm round) are moved to the OtherPad list so `gerber_to_tracks` wants them on a
+     board-only pad; `check_board` (which expects plated THT free pads) checks them instead as: one
+     board-only pad, SMD, copper on F.Cu only, 0.711 mm, on the IPC net.
+  4. **"/" in an unconnected net name** (new, p2k candidate 25): the kicadxml netlist names PWR4 pin 3
+     "On/Off" `unconnected-(PWR4-On/Off-Pad3)`, the schematic `unconnected-(PWR4-On{slash}Off-Pad3)`:
+     1 DRC parity error. The wrapper escapes "/" inside `unconnected-(…)` names of the exported netlist.
+- **`tools/make_pcb.sh [--check]`** (after tube_hv_supplies): the four steps through `pcb_wrap.py`
+  (pours_to_zones fills the zones with ZONE_FILLER and saves), ≈ 10 s; `--check` rebuilds into
+  `build/tmp/make_pcb_check` with a copy of the `.kicad_pro` and compares the board,
+  `reports/pour_nets.json` and the stage A/B sections of `reports/assign_nets.txt` byte for byte. The
+  steps are chained with `&&` (p2k candidate 26: `set -e` does not act inside a function called in a
+  `||` list, so the HV / psu pattern runs on after a failed step).
+- **`tools/measure_gaps.py`** (after tube_hv_supplies / tube_psu, with the pcb_wrap patches and per-layer
+  tables + track widths; read-only).
+- **`tools/drc_pads.py`**: per-refdes table of the pad-caused DRC errors from `reports/drc.json`.
+- **`tools/drc_check.py drc|copper`** (system python3): `p2k drc` / `pcb_wrap.py assign_nets --check`
+  with (permanent, D1) exactly one unconnected item per D1 terminal net, every item on that net, and
+  (temporary, until the pad decision) exactly the recorded pad conflicts of the 15 PENDING parts →
+  `PENDING USER DECISION`. Anything else fails.
+- **`tools/pad_option_test.sh NAME "REFDES …"`**: tests Proteus pads on a refdes set in a scratch copy
+  (build/tmp/padopt_NAME; refdes= rules + `<footprint>_ProteusPads` specs with `ipc_sizes=True`, as
+  tube_hv_supplies d1c551a), then check_footprints, make_pcb, check_board, copper check, DRC, drc_pads.
+- **`tools/check_all.sh`**: log in build/tmp/check_all.log; + make_pcb --check, check_board (wrapper),
+  copper check and DRC (drc_check.py); summary line counts PENDING USER DECISION lines.
+- `kicad/tube_control_card.kicad_pro`: design settings written by pcbnew's SaveBoard.
+
+### Steps (tools/make_pcb.sh)
+
+| Step | Tool | Result |
+|---|---|---|
+| 3a | `build_pcb` | 146 footprints with nets and symbol links, placed from `reports/footprint_fit.csv` (U10 at 180 deg; J3 THT on the bottom; J11 rows-swapped on top); 4 Cu layers (Top Copper / Inner 1 / Inner 2 / Bottom Copper → F.Cu / In1.Cu / In2.Cu / B.Cu, pour outlines on User.1-4); outline 5 segments (97.79 × 55.88 mm); **H1-H4** plated 3.0 mm / 6.35 mm, no net, at the IPC holes; **TP1-TP4** SMD 0.711 mm on F.Cu at the IPC test pads (JFET_6, JFET_5, GPIOL_10, GPIOL_11); 298 nets; thickness 1.6 mm |
+| 3b | `gerber_to_tracks` | **3373 tracks** (F 2152 / In1 72 / In2 221 / B 928), 8160 pour edge strokes skipped (In1 4050 / In2 1944 / B 2166), **240 vias** (IPC 240, all 0.419 / 0.2, no stacked duplicates), **20 pour outlines** (F 0 / In1 2 / In2 3 / B 15; clear regions 183 / 147 / 133), no NonConductor draws; every pad flash lands on a footprint pad (686 / 133 / 133 / 331, U10 balls incl.), the 4 test-pad flashes on TP1-TP4, every drill on a pad hole or via |
+| 3c | `assign_nets` | stage A (no pours) 442 groups, 0 shorts, 0 orphans, 5 opens (1V, 1V8, 3V3, 5V, GND: through the pours, expected) + 4 accepted D1 opens; **stage B (with pours) 307 groups, 0 shorts, 0 orphans, 0 opens + 5 accepted D1 opens** (J2, ISO5V, ISO_G, RS485A, RS485B); 3613 tracks / vias assigned, 0 without net; 20 / 20 pours have a net |
+| 3d | `pours_to_zones` | 20 zones (61 stroke-closed holes dropped, 402 clearance / thermal holes kept), solid pad connection, priority = Proteus draw order, filled |
+| check | `check_board` (wrapper) | 154 footprints, 884 pads within 0.030 mm and on their IPC nets (222 IPC nets 1:1 after the 5 D1 merges), 4 mounting holes, 4 SMD test pads, 240 vias (size and net), 3373 tracks / 20 zones with a net: **OK** |
+| check | copper after fill | with the KiCad pads: 294 groups, **6 short groups (17 touching pairs, all at KiCad pads of PENDING parts)**, 0 orphans, 0 opens (+5 D1), 0 foreign nets → PENDING. With option A or B: **307 groups, 0 / 0 / 0, OK** |
+| check | DRC | with the KiCad pads: 13 shorts, 85 clearance, 17 solder_mask_bridge, 2 hole_clearance (all at KiCad pads of the 15 parts), 5 unconnected (D1, accepted), 0 parity → PENDING. With option A or B: **0 shorts, 0 clearance, 0 bridges, 0 hole clearance, 5 unconnected (D1), 0 parity** |
+
+### Design rules (p2k_config.py `PCB_RULES`, stored in kicad/tube_control_card.kicad_pro)
+
+Measured (`tools/p2k/bin/kipy tools/measure_gaps.py 0.2`, stage B geometry with the Proteus pad
+flashes): Proteus routed at **4 mil (0.1016 mm)** gap and track almost everywhere, tighter on F.Cu:
+
+| Pair | Smallest different-net gap | Example |
+|---|---|---|
+| pad – track | **0.0754** (F.Cu) | R17-1 / track Net-(R17B-R2.1) at (91.6, -34.1) |
+| track – via | 0.0755 (F.Cu) | GPIOL_P_09 track / DATA2 via (43.969, -14.046) at the BGA |
+| pad – via | 0.0756 (F.Cu) | U10-H3 (N/C) / GPIOL_N_10 via (40.581, -14.018) (finding 4) |
+| track – track | 0.0974 (F.Cu), 0.1012 In2.Cu, 0.1013 B.Cu | GPIOL_P_17 / LOOP_BYPASS_RLY |
+| via – via | 0.1010 | GPIOR_N_09 / GPIOR_N_07 (29.3, -12.4) |
+| pour – via / track / pad / pour | 0.1015 / 0.1016 / 0.1016 / 0.1016 | In2.Cu 3V3 pour, B.Cu 1V / GND pours |
+| pad – pad | 0.1428 (B.Cu), 0.2000 (F.Cu) | C21-2 / C22-1 |
+
+Per layer: F.Cu down to 0.0754; In1.Cu only via–via 0.1010 under 0.2 mm; In2.Cu ≥ 0.1012; B.Cu ≥ 0.1006.
+75 different-net pairs are closer than 0.1 mm (48 < 0.09, 34 < 0.08), all on F.Cu. Track widths: thinnest
+**0.1016** on every layer (F.Cu 0.1016-1.016, In1.Cu only 0.1016, In2.Cu 0.1016-0.508, B.Cu 0.1016-0.762+).
+Copper to outline ≥ 0.4826 (In2.Cu pour); drill to drill ≥ 0.3201 (two vias at the BGA).
+Rules: clearance **0.07** (also the zone clearance), min track 0.1, min via 0.4 / annular 0.1 / drill
+0.2, hole clearance 0.15, hole-to-hole 0.25, copper-to-edge 0.4; Default netclass track 0.254, via
+0.419 / 0.2. A 0.07 mm (2.8 mil) clearance is below most fabs' standard 4-layer capability (typically
+0.09-0.1 mm): it is the as-built Proteus copper (finding 4, extended to finding 26).
+
+### Phase 3 – pad sizes (OPEN USER DECISION)
+
+The DRC with the Phase 2 footprints (KiCad pad sizes everywhere, `FOOTPRINT_PAD_SIZES = "kicad"`) has
+**13 shorts, 85 clearance errors (< 0.07 mm), 17 solder-mask bridges and 2 hole-clearance errors, every
+one between a KiCad pad of one of 15 parts and a Proteus track / via** (`python3 tools/drc_pads.py`;
+Proteus routes 0.075-0.1 mm from its own, smaller pads). U10 (KiCad 0.28 mm balls, Proteus 0.30) and
+all passives, PWR1-3, FLASH1, RS1, OSC1, J3, J6, J8, J1 and the terminals cause **no** error. Per refdes
+(pad (net) / other item, actual clearance mm, error types; S = short, B = mask bridge, H = hole clearance):
+
+| Part (footprint) | Proteus pad → KiCad pad | Conflicts with the KiCad pads |
+|---|---|---|
+| U1 (TSSOP-24, level shifter) | 0.4 × 1.1 → 1.475 × 0.4 | **S** pad 11 GND / GPIOL_N_06 track (+B on 11, 12); pad 10 / GPIOL_N_02 0.001; pads 4-9, 15-18 / neighbouring tracks 0.010-0.036 (12 clearance) |
+| U2 (TSSOP-24) | same | 13 clearance 0.019-0.061: pads 5, 7-11, 16-22 / the tracks between the rows (GPIOB_*, DAB_PWM_*, PWM_TRANS4/6, ADCLK_DAB) |
+| U7 (TSSOP-24) | same | **S** pad 22 GND / ADASEL1_ISO track (+B on 22, 23, 24); pad 11 GND / GPIOB_P_13 0.002; pads 5, 7, 9, 12, 15-21 0.026-0.061 (13 clearance) |
+| U8 (TSSOP-24) | same | **2 S** pads 1, 2 (1V8) / MOS_GATE_1 track (+3 B); pad 10 / GND 0.000, pad 3 / 1V8 0.014; pads 14-24 0.043-0.060 (7 clearance) |
+| U9 (TSSOP-24) | same | 6 clearance 0.042-0.055 (pads 2, 3, 5, 7, 18, 24) |
+| U3 (TSSOP-16, bottom) | same | 3 clearance B.Cu 0.021-0.055 (pads 3-5 / ADB6, GND) |
+| U5 (TSSOP-14) | 0.4 × 1.1 → 1.475 × 0.4 | **S** pad 3 GND / Net-(R14A-R1.1) track (+B); pad 8 (A) / JFET_2 0.012 |
+| U6 (TSSOP-14) | same | **3 S** pads 2 / JFET_7, 3 GND / Net-(R22A-R1.1), 13 / JFET_5 (+3 B); pads 7, 8 0.058-0.062 |
+| U11 (TSSOP-14) | same | **S** pad 2 / JFET_11 track (+B); pad 4 (3V3) / via Net-(R24A-R1.1) 0.019 (+H 0.129 < 0.15); pad 5 / 3V3 0.040 |
+| U14 (TSSOP-14) | same | **S** pad 2 / JFET_14 track (+B); pad 14 / Net-(R17D-R4.1) 0.062 |
+| ADC1 (SOT-23-6) | 0.5 × 0.65 → 0.6 × 1.325 | **2 S**: K2 (N/C) / GPIOR_22 track, **A1 (VA) / GND via** at (98.457, -22.206) (+2 B, +H 0.080); A1 / GND track 0.053, A2 / 3V3 via 0.054, K1 / GPIOR_28 0.068 |
+| U4 (SOT-23-5, bottom) | 0.508 × 0.635 → 0.6 × 1.325 | 2 clearance B.Cu: pad 2 GND / Net-(U3-X) 0.010, pad 5 / GND 0.048 (V4, same footprint: none) |
+| U12 (SC-70-6) | 0.35 × 0.5 → 0.35 × 1.025 | 1 clearance: pad 3 GPIOR_16 / GPIOR_18 track 0.010 |
+| J11 (2x20 1.27 mm, rows swapped) | 0.812 / drill 0.558 → 1.0 / drill 0.65 | 10 clearance 0.007-0.069: pads 14, 16, 18, 19, 20, 24, 26, 28, 30, 34 / F.Cu tracks between the pins |
+| J7 (2x15 1.27 mm) | same | **S** pad 25 MOS_GATE_1 / MOS_GATE_4 track (+B); pads 3, 9, 13, 26 0.043-0.063 |
+
+A smaller clearance rule does not help (shorts and mask bridges remain). Options tested
+(`tools/pad_option_test.sh`, scratch copies, each the full chain: gen_footprints, sheets,
+check_footprints --pcbnew, make_pcb, check_board, copper check, DRC, drc_pads):
+
+| Option | Parts with Proteus pads (size and, for J7 / J11, drill 0.558) | Result |
+|---|---|---|
+| none | – | DRC 13 S / 85 clearance / 17 B / 2 H; copper 6 short groups |
+| **A** | the 15 parts above: **U1 U2 U3 U5 U6 U7 U8 U9 U11 U14 ADC1 U4 U12 J7 J11** | check_footprints 146/146 (worst 0.030); copper after fill 307 groups, 0 / 0 / 0; check_board OK; **DRC 0 shorts, 0 clearance, 0 bridges, 0 hole clearance, 0 parity** (5 D1 unconnected); silk_over_copper 156 → 155. No hidden conflict appeared (KiCad reports each track against its closest pad, so this was the point to check): A is clean as tested |
+| B | whole families: A + **V4** (SOT-23-5) + **J3 J6** (2x8 1.27 mm headers) = 18 parts | same as A (V4, J3, J6 change nothing in the DRC); silk_over_copper 154 |
+
+Question to the user: **option A (15 parts), option B (18 parts, every TSSOP / SOT-23-5/6 / SC-70 /
+1.27 mm header), or another set?** Either keeps KiCad pads on everything else (U10, passives, PWR1-3,
+FLASH1, RS1, OSC1, J1, J8, terminals). J7 / J11 (and J3 / J6 in B) then get the Proteus drill 0.558 mm
+(KiCad 0.65; no `DRILL_SMALLER` entry: the footprint drill equals Proteus).
+
+### Remaining DRC items (with the KiCad pads; the pad-caused errors above are PENDING)
+
+| Type | Count | Why it stays |
+|---|---|---|
+| unconnected | 5 | **D1** (accepted by `tools/drc_check.py`, one per split terminal net): ISO5V pad-pad, J2 pad / 5V track, ISO_G RS485_GND, RS485A Net-(RS1-A), RS485B Net-(RS1-B) (R67-1 side); finding 1 |
+| schematic parity | 0 | (1 before the "/" escape in pcb_wrap.py, p2k candidate 25) |
+| courtyards_overlap (error) | 32 | Proteus placed parts closer than KiCad's IPC-7351 courtyards: C12/R13, C13/PWR2, C16/C57, C18/R2, C19/V4, C21/C22, C53/J11, C6/U4, J1/R4, J1/R5, J1/R6, J1/R7 (the Phoenix MPT body of J1 is a guess, decision of 2026-11-20 keeps it), L4/PWR2, L5/PWR3, PWR1/C15, PWR1/L1, PWR3/C11, R10/R2, R12/U4, R14/R15, R14/U5, R17/R18, R17/U14, R23/R22, R24/R25, R8/C57, RS1/C58, U11/R24, U3/U4, U4/C7, U8/C39, V4/C20; parts at the Proteus positions. Accepted (`DRC_ACCEPTED`) |
+| silk_overlap / silk_over_copper / silk_edge_clearance (warning) | 167 / 156 / 4 | KiCad footprint silk and default reference positions on the Proteus placement (edge: references of H1, H2, RS485A, RS485B); Phase 5 |
+| track_dangling (warning) | 11 | Proteus copper as drawn (finding 26): F.Cu GND 0.009 mm at (41.882, -8.861), F.Cu ADASEL0_ISO 0.005 mm at (62.348, 3.700), B.Cu DATA2 1e-5 mm at (46.970, -11.870) (zero-length draws); B.Cu GND 0.22 mm at (94.6, 10.1) and 5V 0.13 mm at (94.6, 7.1); B.Cu DATA2 0.21 mm at (47.267, -11.574); F.Cu stubs of single-pin nets ADCLK_ISO 2.44 mm and GPIO_BYPASS_RLY_ISOLATED 2.59 mm (U9 B2 / B1, near (26.5, -3.4)), GPIOL_N_18 5.86 mm (U10 A2, ends at (88.354, -23.246)), GPIOL_10 0.21 mm at (79.15, -23.55), GPIOL_9 0.37 mm at (89.897, -26.103) (IPC frame) |
+| via_dangling (warning) | 1 | GPIOL_N_10 via at (40.581, -14.018): ball G2 + a via, nothing else (finding 2) |
+
+### Negative tests (scratch copies build/tmp/neg_*, `P2K_BOARD`, script build/tmp/negtest.sh, not committed)
+
+- **T1 a track moved** (the longest F.Cu GPIOR_22 track, 1.0 mm in x, in the board file) →
+  `make_pcb --check` "not up to date"; copper check FAILED (19 touching pairs, 2 not at pending pads:
+  GPIOR_22 / GPIOR_28); DRC wrapper FAILED (unconnected GPIOR_22, short GPIOR_22 / GPIOR_28, counts ≠
+  recorded); check_board OK (it does not look at tracks' positions). Moved only 0.2 mm (still on its
+  net's copper): only `make_pcb --check` fails – the byte compare is the guard, as on tube_hv_supplies.
+- **T2 a via removed** (DATA2 via (49.219, -10.079)) → make_pcb --check; check_board "IPC via (49.219,
+  -10.079) DATA2: no board via"; copper check FAILED (1 open); DRC wrapper FAILED (unconnected DATA2).
+- **T3 a wrong net on a pad** (R33-1 3V3 → GND) → make_pcb --check; check_board "IPC net 3V3 spans KiCad
+  nets ['3V3', 'GND']" …, FAILED; copper check FAILED (assign_nets stops on the same mapping problem); DRC
+  wrapper FAILED (short R33-1 / 3V3 track, 1 parity issue).
+- **T4 a wrong net on an SMD test pad** (TP3 JFET_6 → GND) → check_board "TP3: SMD test pad … net 'GND'
+  (want … '/09 JFET drivers 1-12/JFET_6')"; copper check (18 touching pairs) and DRC wrapper FAILED.
+- **T5 a D1 merge removed from the table** (RS485A from `SPLIT_PIN_MERGES`) → `pcb_wrap (D1): IPC pin
+  RS485A-1 has pads on ['#00670.00259', '#00670.00260'], not in SPLIT_PIN_MERGES` in make_pcb --check
+  (FAILED), check_board and the copper check; DRC wrapper FAILED ("unconnected: PTH pad 1
+  [Net-(RS1-A)] of RS485A …" no longer accepted). (Found here: the first make_pcb.sh ran on after the
+  failed step, fixed with `&&`, p2k candidate 26.)
+
+### Phase 3 verification (`tools/check_all.sh`)
+
+```
+(KiCad environment, IPC self-check, X2 vs IPC, part map, symbols, sheets: unchanged, see Phase 0-2)
+== ERC
+erc: 0 errors, 14 warnings (14 isolated_pin_label) (reports/erc.rpt)
+== Netlist comparison vs IPC (D1 merges accepted)
+compare: parts 146/146 present, 0 missing, 0 extra; pins compared 876, wrong-net pins 0; IPC nets touched 298, complete 298
+compare: OK
+(Footprint library: up to date; check_footprints 146/146, worst 0.030 mm, OK; check_pin_order OK)
+== PCB rebuilt from schematic + gerbers, up to date (make_pcb --check)
+build_pcb: 146 footprints placed (0 excluded from board), 4 mounting holes, 4 free pads, 298 nets, 5 outline segments
+gerber_to_tracks: 3373 tracks, 240 vias (IPC 240), 20 pour outlines on User.1-4
+assign_nets: stage A (no pours): 442 groups, 0 shorts, 0 orphans, 5 opens (+4 accepted D1 opens)
+assign_nets: stage B (with pours): 307 groups, 0 shorts, 0 orphans, 0 opens (+5 accepted D1 opens)
+pours_to_zones: 20 pours -> 20 zones; 61 holes closed by the stroke, 402 holes kept
+make_pcb: board rebuilt from scratch, byte-identical
+== Board pads, holes, test pads, vias vs IPC (position, size, nets 1:1, D1 merges accepted)
+check_board (board-local): 4 SMD test pads (SMD_FREE_PADS) checked as SMD pads on F.Cu (size, net)
+check_board: 154 footprints, 884 pads, worst pad offset 0.030 mm (limit 0.05), 222 IPC nets mapped 1:1, 4 mounting holes, 4 free pads
+check_board: 3373 tracks, 240 vias, 20 zones
+check_board: OK
+== Board copper connectivity after zone fill (assign_nets --check)
+assign_nets: after zone fill: 294 groups, 6 shorts, 0 orphans, 0 opens (+5 accepted D1 opens), 0 items with a foreign net
+drc_check: PENDING USER DECISION: 17 KiCad pads touching Proteus copper in 6 short groups (STATUS.md Phase 3 - pad sizes)
+== DRC with schematic parity
+drc: 488 violations, 13 shorts, 5 unconnected, 0 parity issues (reports/drc.json)
+drc_check: accepted (D1, board-local): 5 unconnected items, one per split terminal net: J2-1 5V, ISO5V-1 ISO5V, RS485A-1 Net-(RS1-A), RS485B-1 Net-(RS1-B), ISO_G-1 RS485_GND
+drc_check: PENDING USER DECISION: 85 clearance, 2 hole_clearance, 13 shorting_items, 17 solder_mask_bridge between KiCad pads of ADC1 J7 J11 U1 U2 U3 U4 U5 U6 U7 U8 U9 U11 U12 U14 and Proteus copper (STATUS.md Phase 3 - pad sizes)
+
+ALL CHECKS PASSED, EXCEPT 2 PENDING USER DECISION(S)
+```
 
 ## Phase 2 – done (Opus 5.5, 2026-11-20)
 
@@ -183,17 +385,17 @@ far below any normal clearance, so `PCB_RULES.clearance` has to follow the measu
 Switching parts to the Proteus pads (`refdes=` rules with `ipc_sizes`, as tube_psu did) is the user's
 call after the Phase 3 DRC.
 
-### Open questions for the user (not blocking Phase 3)
+### Open questions for the user (Phase 2; state after Phase 3)
 
-1. **Pad sizes** (table above): KiCad pads kept; which parts switch to the Proteus pads follows from the
-   Phase 3 DRC (record per refdes then).
+1. **Pad sizes** (table above): **open**, now measured per refdes in "Phase 3 – pad sizes (OPEN USER
+   DECISION)" (options A / B).
 2. **J8 drill:** the KiCad 1x03 header has a 1.0 mm drill, Proteus 1.016 (the only KiCad drill smaller
-   than Proteus). Accept it (`DRILL_SMALLER = {(1.016, 1.0): ...}` for Phase 4) or give J8 the Proteus
-   pads / drill.
+   than Proteus). **Decided (user, 2026-11-20): accepted**, `DRILL_SMALLER = {(1.016, 1.0): …}`.
 3. **J1 (JTAG, Proteus "TBLOCK-I5 / 5 PIN TERMINAL BLOCK"):** the Proteus outline is a 14 x 3.1 mm
    rectangle centred on the pins (a pin-header-like body), so the KiCad Phoenix MPT terminal block
    (6.2 mm deep) is a guess; a 1x05 2.54 mm pin header would match the outline better (but has a 1.0 mm
-   drill). Phase 5 choice; the copper is the same either way.
+   drill). **Decided (user, 2026-11-20): keep the Phoenix MPT guess** (its body gives the J1/R4-R7
+   courtyard overlaps of Phase 3, accepted).
 4. **FLASH1** (finding 24): reproduced on the Proteus SO8W pad rows; nothing to decide for rev A.
 
 ### Negative tests (scratch copy `build/tmp/neg`, `P2K_BOARD`, script `build/tmp/negtest.sh`, not committed)
@@ -672,6 +874,7 @@ Reported, not fixed (PLAN.md section 5.3).
 5. **Board thickness:** the CADCAM READ-ME stack (0.3 prepreg + 1.6 core + 0.3 prepreg, 4 x
    0.035 Cu) gives 2.34 mm – probably the Proteus default stack, not the ordered board.
    Confirm with the user before setting `PCB_THICKNESS` (Phase 3).
+   **Answered (user, 2026-11-20): the board is 1.6 mm** (`PCB_THICKNESS = 1.6`, stack-up in Decisions).
 6. Notes on the PDF to carry over as text: "FIX BUGS!" (p1), "1v8 oscillator voltage!!!",
    "1v8 flash voltage!!!" (p2), "note, needs to be 0.95V and not 1.0V" (p3, PWR2 = core
    supply 1V), "check logic" (p7, U3), "Possible choises are 2x8 ... 2x25" (p8),
@@ -804,6 +1007,16 @@ Reported, not fixed (PLAN.md section 5.3).
    bottom assembly) where the mirrored fit is the standard one. Redesign item: number both ribbon
    headers as standard together (never only one end).
 
+26. **Copper tighter than 4 mil on F.Cu and dangling copper (Phase 3, measured):** Proteus routed at
+   0.1016 mm (4 mil) gap and width, but 75 different-net pairs on F.Cu are closer than 0.1 mm, down to
+   0.0754 mm (pad-track R17-1, track-via and ball-via at the BGA: finding 4), and two vias are 0.320 mm
+   apart drill to drill. A fab ordering this board needs a 3 mil (0.075 mm) process or the as-built
+   copper had sub-spec gaps. Dangling copper as drawn: three zero-length draws (GND, ADASEL0_ISO, DATA2),
+   short B.Cu stubs (GND, 5V at x 94.6, DATA2), F.Cu stubs on the single-pin nets ADCLK_ISO,
+   GPIO_BYPASS_RLY_ISOLATED, GPIOL_N_18, GPIOL_10, GPIOL_9 and the lone GPIOL_N_10 via (list in "Phase 3,
+   remaining DRC items"). Reproduced; `REMOVED_TRACKS` / `REMOVED_VIAS` candidates for Phase 5 / the
+   redesign.
+
 ## p2k candidates
 
 Shared-tool limitations met on this board, with the board-local workaround used. To be
@@ -933,7 +1146,48 @@ solved in tools/p2k later (with the ac_psu regression); until then the wrappers 
    here J3 really is a bottom part). A side source (Proteus assembly layers, as `tools/check_pin_order.py
    --render` shows) would let the shared check decide.
 
+24. **D1 in the PCB tools** (candidate 1, Phase 3): `ipc_to_kicad_nets` (build_pcb free pads, assign_nets
+   via nets, check_board) reports "KiCad net 5V spans IPC nets [5V, 5V.00301]" and stops; the second pad
+   of each split terminal has no copper to the first, so assign_nets reports opens and the DRC
+   unconnected items. Board-local: `tools/pcb_wrap.py` (record filter through `p2k.pcb.configure`
+   renaming the merged nets after verifying the split pins = `SPLIT_PIN_MERGES`; `assign_nets.analyse`
+   accepts exactly the D1 opens) and `tools/drc_check.py` (one unconnected item per D1 net). Needed in
+   p2k: the `SPLIT_PIN_MERGES` key read by `pcb.ipc_records` / `ipc_to_kicad_nets`, assign_nets and drc
+   accepting the opens / unconnected items of those pins (printed as accepted), and the same in
+   ipc356_diff / gerber_roundtrip (Phase 4).
+25. **`build_pcb` net names of unconnected pins with "/"**: the kicadxml netlist writes
+   `unconnected-(PWR4-On/Off-Pad3)`, the schematic knows `unconnected-(PWR4-On{slash}Off-Pad3)` → 1 DRC
+   parity error. Board-local: `pcb_wrap.py` escapes "/" inside `unconnected-(…)` names of
+   `pcb.export_netlist`. Needed: `pcb.export_netlist` (or build_pcb) re-escaping KiCad's `{slash}` (and
+   the other escapes) in pin-derived net names.
+26. **`make_pcb.sh` pattern (tube_psu, tube_hv_supplies): `set -e` does not act inside `run()` when it is
+   called as `run >log || {…}`**, so after a failed step the later steps run on (found by negative test
+   T5: pours_to_zones failed on a missing pour_nets.json after assign_nets had failed). The overall
+   result was still FAILED, but the log is misleading. Here the steps are chained with `&&`; the
+   playbook's make_pcb template should do the same.
+27. **SMD free pads and BGAPad in the PCB tools** (candidates 2 / 3 / 21, Phase 3): `gerber_to_tracks`
+   raises on `BGAPad,CuDef` and wants the SMD test-pad flashes on a part pad; `check_board` expects free
+   pads plated THT (`PAD_ATTRIB_PTH`, IPC drill). Board-local in `pcb_wrap.py` (gerber.parse rename;
+   test-pad flashes moved to the OtherPad list; an SMD check for `SMD_FREE_PADS`). `build_pcb` itself
+   places the SMD footprint correctly (F.Cu, IPC net). Needed: `BGAPad` = `SMDPad` everywhere, and SMD
+   free pads (`free_pad` records with `is_tht` False) handled in gerber_to_tracks / check_board /
+   ipc356_diff / gerber_roundtrip.
+28. **Pad-decision helpers** worth sharing: `tools/drc_pads.py` (per-refdes table of pad-caused DRC errors
+   from drc.json), `tools/pad_option_test.sh` (refdes set → `_ProteusPads` variants in a scratch copy,
+   full chain; as tube_hv_supplies d1c551a), the pending-decision DRC wrapper, and `measure_gaps.py`
+   with per-layer tables and track widths (tube_psu / hv copies print only the overall minimum per pair).
+
 ## Decisions
+
+- **Board thickness (user decision, 2026-11-20, through the coordinating session; finding 5): 1.6 mm** (`PCB_THICKNESS = 1.6`); the
+  READ-ME stack of 2.34 mm is a Proteus default.
+  **Stack-up (agent's choice, 2026-11-20):** a common 4-layer 1.6 mm build, F.Cu 0.035 / prepreg
+  0.2104 / In1.Cu 0.0152 / core 1.065 / In2.Cu 0.0152 / prepreg 0.2104 / B.Cu 0.035 = 1.586 mm + solder
+  resist ≈ 1.6 mm (as tube_hv_supplies). Only the total is in the board; nothing checked depends on it.
+- **J8 drill (user decision, 2026-11-20, through the coordinating session): the KiCad 1.0 mm drill is accepted** (Proteus 1.016):
+  `DRILL_SMALLER = {(1.016, 1.0): "… user decision 2026-11-20"}` in p2k_config.py (used by Phase 4).
+- **J1 body (user decision, 2026-11-20, through the coordinating session): keep the Phoenix MPT terminal-block guess**
+  (`TerminalBlock_Phoenix_MPT-0,5-5-2.54_1x05_P2.54mm_Horizontal`).
 
 - **D1 (decided by the user, 2026-11-20): split terminal nets** (finding 1). The five split
   terminals J2, ISO5V, ISO_G, RS485A and RS485B are drawn as **one pin each, as the PDF draws
@@ -961,5 +1215,5 @@ solved in tools/p2k later (with the ac_psu regression); until then the wrappers 
 
   The 62 N/C balls of U10 already had real pin types (bidirectional GPIOs): flagged in T3 (62 flags).
 
-Open (not blocking Phase 3): pad sizes per refdes, J8 drill, J1 body – "Phase 2 / open questions";
-the board thickness (finding 5) for Phase 3.
+Open: **the pad sizes** ("Phase 3 – pad sizes (OPEN USER DECISION)": option A 15 parts, option B 18
+parts, or another set).
