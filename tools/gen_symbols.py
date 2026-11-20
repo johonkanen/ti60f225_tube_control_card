@@ -26,7 +26,11 @@ PRJ = board.path("source", "fpga_boardv2.5.pdsprj")
 GROUNDS = ["GND", "RS485_GND"]
 SUPPLIES = ["1V", "1V8", "3V3", "5V", "12V", "AD_3V3", "ISO5V", "OPAMP_-15V"]
 
-NC, BI = "no_connect", "bidirectional"
+BI = "bidirectional"
+# No pin of this library has the type no_connect: KiCad 10 keeps a no_connect pin in its own
+# unconnected-(...) net even when a wire joins it (ERC only warns no_connect_connected), so
+# compare_netlists could not see an N/C pad wired by mistake. N/C pins are passive (or their real
+# type) and get a no-connect flag on the sheet; build() asserts this (STATUS.md decision D2).
 
 
 # ---------------------------------------------------------------- U10 (Ti60F225)
@@ -193,7 +197,7 @@ def build():
             [(4, "SW", OUT), (6, "VOUT", PAS), (2, "GND", PI)],
             desc="Buck converter SOT563, Proteus pin ids 1=FB 2=GND 3=VIN 4=SW 5=EN 6=VOUT"),
         box("IZB03", "PS", [(2, "Vin+", PI), (3, "On/Off", IN), (1, "Vin-", PI)],
-            [(4, "NC", NC), (5, "Vout+", PO), (6, "Vout-", PO), (7, "Ripple", PAS)],
+            [(4, "NC", PAS), (5, "Vout+", PO), (6, "Vout-", PO), (7, "Ripple", PAS)],
             desc="Isolated DC/DC module, 7 pins, Proteus pin ids"),
         box("TPS73030", "V", [(1, "VIN", PI), (2, "GND", PI), (3, "EN", IN)], [(4, "NR", PAS), (5, "VOUT", PO), None],
             desc="LDO SOT-23-5, Proteus pin ids"),
@@ -225,6 +229,8 @@ def build():
 
     syms.append(rename(std_symbol("power", "PWR_FLAG"), "PWR_FLAG"))
     syms += [power(n, True) for n in GROUNDS] + [power(n, False) for n in SUPPLIES]
+    bad = [s[1] for s in syms for p in walk(s, "pin") if len(p) > 1 and str(p[1]) == "no_connect"]
+    assert not bad, f"pin type no_connect is not allowed (decision D2): {sorted(set(bad))}"
     return syms
 
 
