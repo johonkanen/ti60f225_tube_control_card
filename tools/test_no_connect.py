@@ -33,6 +33,9 @@ def draw(variant):
     """Runs in a subprocess with P2K_BOARD = the scratch board."""
     sys.path.insert(0, os.path.join(ROOT, "tools", "sheets"))
     from _common import sheet, flagged_power, power_at, g, sym, sh_value
+    from p2k import board
+    for _, _, fname in board.config().SHEETS:      # the test does not depend on what is drawn so far
+        sheet(fname).save()
     sh = sheet(SHEET)
     p = sh.place(sym("PWR4"), "PWR4", g(80), g(60), value=sh_value("PWR4"))
     for pin, net, dx in ((1, "GND", -6), (2, "5V", -10)):
