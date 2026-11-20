@@ -19,7 +19,12 @@ The coordinated board migration of proteus2kicad (`tools/p2k/docs/CANDIDATES.md`
 D-R, D-TC7b, D-Z, D-PIN, ribbon in its "Decisions"). Pin: **tools/p2k a9a286c** (newest proteus2kicad main;
 all code is in 2fb1563 = batch Z, later commits docs only). After every commit
 `~/dev/proteus2kicad/tools/regress.sh a9a286c ti60f225_tube_control_card` (clean clone of the committed
-board, full regenerate, `check_all.sh`, clean tree) **PASS**.
+board, full regenerate, `check_all.sh`, clean tree) **PASS**: 4e145e4 (bump) PASS 56 s, fe39063 (migration)
+PASS 64 s, 7c14b04 (J11) PASS 54 s.
+
+No proteus2kicad problem met: every shared tool and key behaved as CANDIDATES.md documents. Note for the data
+flow: the sheet scripts read `lib/footprint_map.csv`, which gen_footprints.py writes after them, so a footprint
+rename needs two regenerate passes locally (regress.sh runs on the committed map and is consistent).
 
 ### Commits
 
