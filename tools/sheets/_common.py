@@ -345,3 +345,55 @@ def jfet_quad(sh, amp, r_in, r_fb, at):
     sh.wire(e.pin(vn), P(x + 4, y + 12), P(x - 9, y + 12))     # crosses the feedback wire (no junction)
     tie(sh, net(amp, vn), P(x - 9, y + 12), "left", 3, body="left")
     return [c[:2] for c in cells]
+
+
+def level_shifter(sh, ref, x, y, c_a, c_b):
+    """SN74AXC8T245 block of page 4 with its A1 pin (3) at PDF position (x, y): VCCA (pin 1) with DIR1
+    on the A-side supply line (left, capacitor c_a to the ground line of DIR2), VCCB (pins 24, 23) on
+    the B-side supply line (right, capacitor c_b to the ground line of ~OE), the two GND pins below,
+    A1-A8 labels left and B1-B8 labels right. Every net comes from the IPC pins; the block asserts the
+    strapping it draws (DIR1 = VCCA net, DIR2 = ~OE = GND)."""
+    Q = lambda dx, dy: P(x + dx, y + dy)
+    u = place_pin(sh, ref, 3, Q(0, 0), ref_at=(*Q(12, -17), 0, "left"), value_at=(*Q(12, 27), 0, "left"))
+    assert (u.pin(2), u.pin(11), u.pin(23), u.pin(22)) == (Q(0, -6), Q(0, -4), Q(16, -6), Q(16, -4)), u.pins
+    assert (u.pin(1), u.pin(24), u.pin(12), u.pin(13)) == (Q(6, -16), Q(10, -16), Q(6, 24), Q(10, 24)), u.pins
+    va, vb, gnd = net(ref, 1), net(ref, 24), net(ref, 12)
+    assert net(ref, 2) == va and net(ref, 23) == vb and gnd == "GND"
+    assert net(ref, 11) == net(ref, 22) == net(ref, 13) == gnd
+    YS, YG = -20, -4                                          # supply lines, ground lines
+    # A side: VCCA, DIR1, capacitor, DIR2
+    sh.wire(u.pin(1), Q(6, YS), Q(-4, YS))
+    sh.wire(u.pin(2), Q(-4, -6), Q(-4, YS))
+    sh.wire(Q(-4, YS), Q(-8, YS))
+    sh.junction(*Q(-4, YS))
+    tie(sh, va, Q(-8, YS), "left", 4, body="left")
+    sh.junction(*Q(-8, YS))
+    a, b = two(sh, c_a, *Q(-8, -12), top=va, text="left")
+    sh.wire(a, Q(-8, YS))
+    sh.wire(b, Q(-8, YG))
+    sh.wire(u.pin(11), Q(-8, YG))
+    sh.junction(*Q(-8, YG))
+    tie(sh, gnd, Q(-8, YG), "left", 4, body="left")
+    # B side: VCCB (two pins), capacitor, ~OE
+    sh.wire(u.pin(24), Q(10, YS), Q(20, YS))
+    sh.wire(u.pin(23), Q(20, -6), Q(20, YS))
+    sh.wire(Q(20, YS), Q(24, YS))
+    sh.junction(*Q(20, YS))
+    tie(sh, vb, Q(24, YS), "right", 4, body="right")
+    sh.junction(*Q(24, YS))
+    a, b = two(sh, c_b, *Q(24, -12), top=vb)
+    sh.wire(a, Q(24, YS))
+    sh.wire(b, Q(24, YG))
+    sh.wire(u.pin(22), Q(24, YG))
+    sh.junction(*Q(24, YG))
+    tie(sh, gnd, Q(24, YG), "right", 4, body="right")
+    # ground pins
+    sh.wire(u.pin(13), Q(10, 26), Q(6, 26))
+    sh.wire(u.pin(12), Q(6, 26))
+    sh.junction(*Q(6, 26))
+    tie(sh, gnd, Q(6, 26), "left", 4, body="left")
+    # data pins
+    for k in range(8):
+        pin_tie(sh, u, 3 + k, "left", 6)
+        pin_tie(sh, u, 21 - k, "right", 6)
+    return u
