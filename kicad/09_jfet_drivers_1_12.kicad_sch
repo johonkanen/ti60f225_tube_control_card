@@ -10,6 +10,7180 @@
 		(rev "rev A (as built)")
 		(comment 1 "Redrawn from Proteus fpga_boardv2.5")
 	)
-	(lib_symbols)
+	(lib_symbols
+		(symbol "tube_control_card:TLV9304PWR"
+			(pin_names
+				(offset 0.127)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "U"
+				(at 0 5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "TLV9304PWR"
+				(at 0 -5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" ""
+				(at -1.27 2.54 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 1.27 5.08 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Quad op-amp TSSOP-14, units A-D as in the PDF, unit E = power (4 V+, 11 V-)"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_locked" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "quad opamp 40V rail to rail output"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "TSSOP*4.4x5mm*P0.65mm*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "TLV9304PWR_1_1"
+				(polyline
+					(pts
+						(xy -5.08 5.08) (xy 5.08 0) (xy -5.08 -5.08) (xy -5.08 5.08)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin output line
+					(at 7.62 0 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 -2.54 0)
+					(length 2.54)
+					(name "-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 2.54 0)
+					(length 2.54)
+					(name "+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "TLV9304PWR_2_1"
+				(polyline
+					(pts
+						(xy -5.08 5.08) (xy 5.08 0) (xy -5.08 -5.08) (xy -5.08 5.08)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin input line
+					(at -7.62 2.54 0)
+					(length 2.54)
+					(name "+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 -2.54 0)
+					(length 2.54)
+					(name "-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 7.62 0 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "TLV9304PWR_3_1"
+				(polyline
+					(pts
+						(xy -5.08 5.08) (xy 5.08 0) (xy -5.08 -5.08) (xy -5.08 5.08)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin output line
+					(at 7.62 0 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 -2.54 0)
+					(length 2.54)
+					(name "-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "9"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 2.54 0)
+					(length 2.54)
+					(name "+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "10"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "TLV9304PWR_4_1"
+				(polyline
+					(pts
+						(xy -5.08 5.08) (xy 5.08 0) (xy -5.08 -5.08) (xy -5.08 5.08)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type background)
+					)
+				)
+				(pin input line
+					(at -7.62 2.54 0)
+					(length 2.54)
+					(name "+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "12"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin input line
+					(at -7.62 -2.54 0)
+					(length 2.54)
+					(name "-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "13"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin output line
+					(at 7.62 0 180)
+					(length 2.54)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "14"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "TLV9304PWR_5_1"
+				(pin power_in line
+					(at -2.54 7.62 270)
+					(length 3.81)
+					(name "V+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin power_in line
+					(at -2.54 -7.62 90)
+					(length 3.81)
+					(name "V-"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "11"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "tube_control_card:GND"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#PWR"
+				(at 0 -6.35 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "GND"
+				(at 0 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Power symbol for net \"GND\" (IPC net name)"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "GND_0_1"
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 -1.27) (xy 1.27 -1.27) (xy 0 -2.54) (xy -1.27 -1.27) (xy 0 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "GND_1_1"
+				(pin power_in line
+					(at 0 0 270)
+					(length 0)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "tube_control_card:R_ARRAY4"
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "R"
+				(at 2.032 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "R_ARRAY4"
+				(at 0 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at -2.032 0 90)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "R network parallel topology isolated"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_fp_filters" "DIP* SOIC* R*Array*Concave* R*Array*Convex* MSOP*"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "R_ARRAY4_0_1"
+				(rectangle
+					(start 1.016 2.54)
+					(end -1.016 -2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "R_ARRAY4_1_1"
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "R1.1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "R1.2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "8"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "R_ARRAY4_2_1"
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "R2.1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "R2.2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "7"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "R_ARRAY4_3_1"
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "R3.1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "R3.2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "6"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(symbol "R_ARRAY4_4_1"
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "R4.1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "R4.2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "5"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "tube_control_card:3V3"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#PWR"
+				(at 0 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "3V3"
+				(at 0 3.556 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Power symbol for net \"3V3\" (IPC net name)"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "3V3_0_1"
+				(polyline
+					(pts
+						(xy -0.762 1.27) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "3V3_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "tube_control_card:OPAMP_-15V"
+			(power global)
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+				(hide yes)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(in_pos_files yes)
+			(duplicate_pin_numbers_are_jumpers no)
+			(property "Reference" "#PWR"
+				(at 0 -3.81 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Value" "OPAMP_-15V"
+				(at 0 3.556 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Footprint" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Datasheet" ""
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "Description" "Power symbol for net \"OPAMP_-15V\" (IPC net name)"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(property "ki_keywords" "global power"
+				(at 0 0 0)
+				(show_name no)
+				(do_not_autoplace no)
+				(hide yes)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+				)
+			)
+			(symbol "OPAMP_-15V_0_1"
+				(polyline
+					(pts
+						(xy -0.762 1.27) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 2.54) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0 0) (xy 0 2.54)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "OPAMP_-15V_1_1"
+				(pin power_in line
+					(at 0 0 90)
+					(length 0)
+					(name ""
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:TLV9304PWR")
+		(at 104.14 69.85 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c43130bf-2120-52d5-8e6d-c1e697d0b2df")
+		(property "Reference" "U5"
+			(at 104.14 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TLV9304PWR"
+			(at 104.14 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 102.87 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 105.41 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Quad op-amp TSSOP-14, units A-D as in the PDF, unit E = power (4 V+, 11 V-)"
+			(at 104.14 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "27c69678-12d3-5963-9b3f-526bcbcbd370")
+		)
+		(pin "2"
+			(uuid "e90f44e4-5596-5a1f-8b1c-38c22c92b268")
+		)
+		(pin "3"
+			(uuid "3263bfbe-8f7c-5789-b501-a138bb1d9df7")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "U5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 96.52 67.31) (xy 92.71 67.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6e050288-f798-5dd2-8896-98f2fc375450")
+	)
+	(symbol
+		(lib_id "tube_control_card:GND")
+		(at 92.71 67.31 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5c777744-9940-56bb-95fc-f4b0b7a339cb")
+		(property "Reference" "#PWR001"
+			(at 86.36 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 89.41 67.31 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 92.71 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 92.71 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol for net \"GND\" (IPC net name)"
+			(at 92.71 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "db1d6ddd-4e74-5989-a6f8-bf81f39436fe")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "#PWR001")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 81.28 72.39 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4d6c24da-0eb2-5a6e-9051-0dc84e26985a")
+		(property "Reference" "R14"
+			(at 81.28 69.85 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 81.28 74.93 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 81.28 74.422 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 81.28 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 81.28 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "14e254c4-c746-5be7-b2b4-6ac5956a2fc7")
+		)
+		(pin "8"
+			(uuid "55a1c2c5-cff8-5963-9a53-b9759783b3f2")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R14")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 77.47 72.39) (xy 69.85 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f7a5c899-b5d6-5253-a607-bb8c76cede10")
+	)
+	(wire
+		(pts
+			(xy 69.85 72.39) (xy 69.85 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "47c55969-e3cf-5dd2-adf3-f5723b6a0e68")
+	)
+	(global_label "GPIOT_P_03"
+		(shape passive)
+		(at 69.85 58.42 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "0b464399-8a29-538c-9657-f7e8fd8b00c6")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 69.85 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 85.09 72.39) (xy 90.17 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8948b1e4-4f56-5fea-ad99-4ef7412bc7f9")
+	)
+	(wire
+		(pts
+			(xy 90.17 72.39) (xy 96.52 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "70380848-138a-5d1b-ad56-ebd7530222fe")
+	)
+	(junction
+		(at 90.17 72.39)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c0be658f-9579-5030-982c-d1616edd7aa9")
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 102.87 90.17 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "1961f002-a4f2-53a6-8c53-e1c8c266d3ce")
+		(property "Reference" "R15"
+			(at 102.87 87.63 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "47k"
+			(at 102.87 92.71 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 102.87 92.202 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 102.87 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 102.87 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "488c40b2-554e-53a7-84d6-8742a0c67fa9")
+		)
+		(pin "8"
+			(uuid "1598cc52-205a-55eb-85c3-5b4ef34f8b70")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R15")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 90.17 72.39) (xy 90.17 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9fc246fc-3eb4-527d-8b6b-8ce66a318140")
+	)
+	(wire
+		(pts
+			(xy 90.17 90.17) (xy 99.06 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c36cbeb0-97e7-5a10-aa30-39c01bebb448")
+	)
+	(wire
+		(pts
+			(xy 106.68 90.17) (xy 118.11 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aedc69ee-12ef-5784-87af-dfe4bca9b413")
+	)
+	(wire
+		(pts
+			(xy 118.11 90.17) (xy 118.11 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e4a94483-47e8-54bb-816b-0f08ef347535")
+	)
+	(wire
+		(pts
+			(xy 111.76 69.85) (xy 118.11 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "83e3a09f-80dc-5286-8485-e414df05c8ca")
+	)
+	(junction
+		(at 118.11 69.85)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "8168426b-c4d9-5416-bf46-0137b0cf049d")
+	)
+	(wire
+		(pts
+			(xy 118.11 69.85) (xy 118.11 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c30112b7-46ee-5ae2-aea8-333c657003de")
+	)
+	(label "JFET_3"
+		(at 118.11 55.88 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "45b788cf-b9bc-5c43-a2da-a80698f8a28b")
+	)
+	(symbol
+		(lib_id "tube_control_card:TLV9304PWR")
+		(at 170.18 72.39 0)
+		(unit 2)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "255f0426-4ebe-560d-813e-0d5f33b35379")
+		(property "Reference" "U5"
+			(at 170.18 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TLV9304PWR"
+			(at 170.18 77.47 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 168.91 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 171.45 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Quad op-amp TSSOP-14, units A-D as in the PDF, unit E = power (4 V+, 11 V-)"
+			(at 170.18 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "5"
+			(uuid "a6dcca94-1de8-5ac5-9c64-2a6cf42c2d93")
+		)
+		(pin "6"
+			(uuid "a02d5a7a-b514-554a-9cd9-89be1a5d887d")
+		)
+		(pin "7"
+			(uuid "3044df16-b5d6-5232-84a6-04899c16dc17")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "U5")
+					(unit 2)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 162.56 69.85) (xy 158.75 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a09d41bf-df72-5fb0-bc39-2e96540cec46")
+	)
+	(symbol
+		(lib_id "tube_control_card:GND")
+		(at 158.75 69.85 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c349e8b7-a13a-5cd9-a16d-127edeec4c45")
+		(property "Reference" "#PWR002"
+			(at 152.4 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 155.45 69.85 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 158.75 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 158.75 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol for net \"GND\" (IPC net name)"
+			(at 158.75 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3d081643-84a2-5cfb-bc69-4811693399d4")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "#PWR002")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 147.32 74.93 90)
+		(unit 2)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "09025192-d40f-5ad2-a1c9-cbc46b5293ac")
+		(property "Reference" "R14"
+			(at 147.32 72.39 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 147.32 77.47 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 147.32 76.962 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 147.32 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 147.32 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "45548b0d-5bce-5368-8662-3de5b5708534")
+		)
+		(pin "7"
+			(uuid "f50a2c41-53b0-582f-af1a-30228e5f86b4")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R14")
+					(unit 2)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 143.51 74.93) (xy 135.89 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6f7c7ec2-99c8-5c9d-95dc-9ceac6bdc031")
+	)
+	(wire
+		(pts
+			(xy 135.89 74.93) (xy 135.89 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "23f4c32a-fd53-5332-9704-203f47937514")
+	)
+	(global_label "GPIOL_P_15"
+		(shape passive)
+		(at 135.89 60.96 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "d7e9b933-7f7b-53ee-ae7c-c0c3c72dd32b")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 135.89 60.96 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 151.13 74.93) (xy 156.21 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ef6b4ec6-fd64-5a02-8cab-fbbf61a23792")
+	)
+	(wire
+		(pts
+			(xy 156.21 74.93) (xy 162.56 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2a9e4d58-4820-522f-8d68-8958957689cf")
+	)
+	(junction
+		(at 156.21 74.93)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "40fb48cf-6d12-5a9a-88fc-f4f0ba5b129f")
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 168.91 92.71 90)
+		(unit 2)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "6f5698b3-0f05-57ad-a16d-4c2c935655ab")
+		(property "Reference" "R15"
+			(at 168.91 90.17 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "47k"
+			(at 168.91 95.25 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 168.91 94.742 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 168.91 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 168.91 92.71 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "4a8fdbe1-77e0-55d1-946e-79191983ca4e")
+		)
+		(pin "7"
+			(uuid "da9e0c73-361a-5273-9551-6212e296e60a")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R15")
+					(unit 2)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 156.21 74.93) (xy 156.21 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6b2a5e97-09c3-588f-90a8-7c228027a243")
+	)
+	(wire
+		(pts
+			(xy 156.21 92.71) (xy 165.1 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ec74a805-99da-5a18-830f-773b9020d004")
+	)
+	(wire
+		(pts
+			(xy 172.72 92.71) (xy 184.15 92.71)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "661ae226-317b-5f5d-8a71-58328810ea76")
+	)
+	(wire
+		(pts
+			(xy 184.15 92.71) (xy 184.15 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f6fa937f-e380-570f-9de8-4d28b1342c44")
+	)
+	(wire
+		(pts
+			(xy 177.8 72.39) (xy 184.15 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "56ce781a-3f04-50b1-8633-66e94f24e187")
+	)
+	(junction
+		(at 184.15 72.39)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "0b3c41f9-f6d9-5f4c-b6bf-da6a75a40694")
+	)
+	(wire
+		(pts
+			(xy 184.15 72.39) (xy 184.15 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c8ab3cec-ac37-5f80-8e5b-40e795f605f0")
+	)
+	(label "JFET_4"
+		(at 184.15 58.42 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d9610999-d9dc-58b0-bc32-37d46feae712")
+	)
+	(symbol
+		(lib_id "tube_control_card:TLV9304PWR")
+		(at 227.33 69.85 0)
+		(unit 3)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d998fa91-6008-5f67-9888-239a6f9ac36f")
+		(property "Reference" "U5"
+			(at 227.33 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TLV9304PWR"
+			(at 227.33 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 226.06 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 228.6 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Quad op-amp TSSOP-14, units A-D as in the PDF, unit E = power (4 V+, 11 V-)"
+			(at 227.33 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "8"
+			(uuid "3056d7bb-2a55-5a22-8ad0-f9e427130e8d")
+		)
+		(pin "9"
+			(uuid "ce7c1b93-719a-5602-9bc6-03721f24ec04")
+		)
+		(pin "10"
+			(uuid "14128014-6e70-559e-9f73-ffb8df655aaa")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "U5")
+					(unit 3)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 219.71 67.31) (xy 215.9 67.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "32f9b385-cf18-589d-812e-071d2bfd286f")
+	)
+	(symbol
+		(lib_id "tube_control_card:GND")
+		(at 215.9 67.31 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b7fc081e-58d8-53ec-984c-7ce1457f0fb9")
+		(property "Reference" "#PWR003"
+			(at 209.55 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 212.6 67.31 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 215.9 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 215.9 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol for net \"GND\" (IPC net name)"
+			(at 215.9 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "088754cf-3fdf-5511-8234-bdb457c543c1")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "#PWR003")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 204.47 72.39 90)
+		(unit 3)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "221fdfe7-a1c4-5d55-8e9b-3f699790bfc8")
+		(property "Reference" "R14"
+			(at 204.47 69.85 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 204.47 74.93 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 204.47 74.422 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 204.47 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 204.47 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "e458f981-3a50-5711-a0d4-48bc4920ad6d")
+		)
+		(pin "6"
+			(uuid "51587cb1-cf85-50a3-9106-97223c78644a")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R14")
+					(unit 3)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 200.66 72.39) (xy 193.04 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e36a1893-a6c5-530f-999e-42d0678a7a40")
+	)
+	(wire
+		(pts
+			(xy 193.04 72.39) (xy 193.04 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3e1b7e77-8071-500f-85f8-03b86af7ef25")
+	)
+	(global_label "GPIOL_N_14"
+		(shape passive)
+		(at 193.04 58.42 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "958a1eca-7acb-5391-b67b-a6afe489f403")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 193.04 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 208.28 72.39) (xy 213.36 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1499bcde-597f-59dd-af79-9a738b4c6f96")
+	)
+	(wire
+		(pts
+			(xy 213.36 72.39) (xy 219.71 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a6c5a5fa-fc53-5dee-8502-c35459b63588")
+	)
+	(junction
+		(at 213.36 72.39)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "cdcb4bb4-2d9b-58e1-8fc3-7423c774d7e1")
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 226.06 90.17 90)
+		(unit 3)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "a908c357-d96a-5023-bf46-50fdb589aa37")
+		(property "Reference" "R15"
+			(at 226.06 87.63 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "47k"
+			(at 226.06 92.71 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 226.06 92.202 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 226.06 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 226.06 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "541bfab0-cfd1-531e-995c-504fd74f5903")
+		)
+		(pin "6"
+			(uuid "ce4b90c3-2086-5172-9fdb-da6b2cdbfb87")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R15")
+					(unit 3)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 213.36 72.39) (xy 213.36 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a3ac848d-a004-534a-83a4-82c6acfd9032")
+	)
+	(wire
+		(pts
+			(xy 213.36 90.17) (xy 222.25 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5be8d7c3-4faa-5942-8d0f-15629cd3bbfe")
+	)
+	(wire
+		(pts
+			(xy 229.87 90.17) (xy 241.3 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c5836076-dc42-5a9c-9662-a89a313694b0")
+	)
+	(wire
+		(pts
+			(xy 241.3 90.17) (xy 241.3 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "21b383a9-d4a7-5da8-8e3b-e5619a2c5757")
+	)
+	(wire
+		(pts
+			(xy 234.95 69.85) (xy 241.3 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c960ea28-b324-5553-ba4a-ee695b9cf9ba")
+	)
+	(junction
+		(at 241.3 69.85)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "cf66674b-b40a-5ad5-89bf-a853bb1686f8")
+	)
+	(wire
+		(pts
+			(xy 241.3 69.85) (xy 241.3 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "046d4c5b-1c3f-50da-8ad2-eef2cd25017f")
+	)
+	(global_label "A"
+		(shape passive)
+		(at 241.3 55.88 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "9137f02a-6c56-5676-bee2-0586b593e8cf")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 241.3 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:TLV9304PWR")
+		(at 284.48 69.85 0)
+		(unit 4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e41d260a-1ee7-56f9-99b2-0423c27aa304")
+		(property "Reference" "U5"
+			(at 284.48 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TLV9304PWR"
+			(at 284.48 74.93 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 283.21 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 285.75 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Quad op-amp TSSOP-14, units A-D as in the PDF, unit E = power (4 V+, 11 V-)"
+			(at 284.48 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "12"
+			(uuid "8cc52af3-781f-5bf2-96db-1553988cea22")
+		)
+		(pin "13"
+			(uuid "6906751d-6b8a-5fe1-a738-e26bdf979380")
+		)
+		(pin "14"
+			(uuid "06f09db2-9bcb-50c9-94a0-a25e056e19c9")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "U5")
+					(unit 4)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 276.86 67.31) (xy 273.05 67.31)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9e3686ba-c4ae-5373-a9d8-eafd4979fa83")
+	)
+	(symbol
+		(lib_id "tube_control_card:GND")
+		(at 273.05 67.31 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c34f1f08-a2ce-5d01-bfd5-5b95cee3305e")
+		(property "Reference" "#PWR004"
+			(at 266.7 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 269.75 67.31 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 273.05 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 273.05 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol for net \"GND\" (IPC net name)"
+			(at 273.05 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "09d84e11-86f3-5587-bb62-00f18bf1d265")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "#PWR004")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 261.62 72.39 90)
+		(unit 4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5c7c2a52-91ba-5697-97dc-ec9cd61cb3e5")
+		(property "Reference" "R14"
+			(at 261.62 69.85 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 261.62 74.93 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 261.62 74.422 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 261.62 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 261.62 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "4"
+			(uuid "78656ce9-4ff6-5d79-b16b-196868cf65f2")
+		)
+		(pin "5"
+			(uuid "db2c5d82-420e-5b5a-a286-c753a3151810")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R14")
+					(unit 4)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 257.81 72.39) (xy 250.19 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "aec5abdc-ee77-56b5-9776-48842180290e")
+	)
+	(wire
+		(pts
+			(xy 250.19 72.39) (xy 250.19 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "962cdf33-9d60-59e1-be01-f29547ed347b")
+	)
+	(global_label "GPIOL_P_14"
+		(shape passive)
+		(at 250.19 58.42 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "cb7a0017-9912-5e38-8b44-57ce739803a1")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 250.19 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 265.43 72.39) (xy 270.51 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c0814bc9-55a1-5bbb-81d7-4cf134023caa")
+	)
+	(wire
+		(pts
+			(xy 270.51 72.39) (xy 276.86 72.39)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4ac64a2b-d332-539f-bcf9-7dcf3522e1c3")
+	)
+	(junction
+		(at 270.51 72.39)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c130fae2-788e-5208-9840-2bc75e8a6440")
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 283.21 90.17 90)
+		(unit 4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5e91dc74-f8f6-525c-9225-ca447c0bfb89")
+		(property "Reference" "R15"
+			(at 283.21 87.63 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "47k"
+			(at 283.21 92.71 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 283.21 92.202 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 283.21 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 283.21 90.17 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "4"
+			(uuid "d6bcb0b5-176e-5bcd-92bb-8829bfc9d53b")
+		)
+		(pin "5"
+			(uuid "960af5d4-be92-5562-9573-eddcb6b13305")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R15")
+					(unit 4)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 270.51 72.39) (xy 270.51 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "72f4c53e-6158-52d6-8d25-1a908c28d34d")
+	)
+	(wire
+		(pts
+			(xy 270.51 90.17) (xy 279.4 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7cd671a1-79a8-54be-8d33-9ac846641a7e")
+	)
+	(wire
+		(pts
+			(xy 287.02 90.17) (xy 298.45 90.17)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "948f0210-3bfb-5bbc-b97c-28c832f4159b")
+	)
+	(wire
+		(pts
+			(xy 298.45 90.17) (xy 298.45 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1f244a3f-2d5c-5371-91fa-627abe601e01")
+	)
+	(wire
+		(pts
+			(xy 292.1 69.85) (xy 298.45 69.85)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f50145b8-b35f-50c4-be32-0e878df3356a")
+	)
+	(junction
+		(at 298.45 69.85)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d8bd4459-a963-511a-8273-d7d0cd945a7d")
+	)
+	(wire
+		(pts
+			(xy 298.45 69.85) (xy 298.45 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "afec59c8-3594-5e5d-8017-dbd95e9bc9f1")
+	)
+	(global_label "JFET_2"
+		(shape passive)
+		(at 298.45 55.88 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "89c42953-bf41-5b86-b862-daf834d93d69")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 298.45 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:TLV9304PWR")
+		(at 104.14 69.85 0)
+		(unit 5)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c383e8e2-8139-5885-a595-bff79e88590e")
+		(property "Reference" "U5"
+			(at 107.95 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TLV9304PWR"
+			(at 107.95 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 102.87 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 105.41 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Quad op-amp TSSOP-14, units A-D as in the PDF, unit E = power (4 V+, 11 V-)"
+			(at 104.14 69.85 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "4"
+			(uuid "1937c9aa-badc-5f50-9d21-c9715c464b18")
+		)
+		(pin "11"
+			(uuid "9bc35069-809b-50f2-b172-e49a5e452a36")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "U5")
+					(unit 5)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 101.6 62.23) (xy 101.6 55.88)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d1fb4623-70ae-58c4-9427-26fcf421b0f6")
+	)
+	(symbol
+		(lib_id "tube_control_card:3V3")
+		(at 101.6 55.88 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "cad9e10b-25b0-5112-b9b7-404de0528d4d")
+		(property "Reference" "#PWR005"
+			(at 101.6 59.69 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "3V3"
+			(at 101.6 52.324 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 101.6 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol for net \"3V3\" (IPC net name)"
+			(at 101.6 55.88 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "992fc4df-96a0-5e3d-9acc-9236cc200535")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "#PWR005")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 101.6 77.47) (xy 101.6 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f5780264-8ed3-53da-b0b6-bc8c434a47ca")
+	)
+	(wire
+		(pts
+			(xy 101.6 82.55) (xy 85.09 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9c0f8a3e-72c3-5bd1-9c42-8dd12b4950d5")
+	)
+	(wire
+		(pts
+			(xy 85.09 82.55) (xy 81.28 82.55)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "466e1e15-2396-5061-a485-f6c148fe17ea")
+	)
+	(symbol
+		(lib_id "tube_control_card:OPAMP_-15V")
+		(at 81.28 82.55 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "eb15a9b1-a6f1-5baf-9a32-79f4763ebfd5")
+		(property "Reference" "#PWR006"
+			(at 85.09 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "OPAMP_-15V"
+			(at 77.98 82.55 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 81.28 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 81.28 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol for net \"OPAMP_-15V\" (IPC net name)"
+			(at 81.28 82.55 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c9477540-90e8-5927-b06f-c2608610acfd")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "#PWR006")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:TLV9304PWR")
+		(at 100.33 123.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "18c53b1d-1e38-57cd-9f65-ee58d8c81e09")
+		(property "Reference" "U6"
+			(at 100.33 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TLV9304PWR"
+			(at 100.33 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 99.06 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Quad op-amp TSSOP-14, units A-D as in the PDF, unit E = power (4 V+, 11 V-)"
+			(at 100.33 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "7614acf4-8374-5804-b488-60a7afcd2cc3")
+		)
+		(pin "2"
+			(uuid "cda5828a-c855-53b3-aeec-703ad386c9fa")
+		)
+		(pin "3"
+			(uuid "9575b293-f4f1-5ae1-bae0-b569a7568a20")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "U6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 92.71 120.65) (xy 88.9 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e6a8df2c-46be-5c2f-a463-a09865d4a741")
+	)
+	(symbol
+		(lib_id "tube_control_card:GND")
+		(at 88.9 120.65 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "aedcd990-d733-5c99-838f-4322a7193152")
+		(property "Reference" "#PWR007"
+			(at 82.55 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 85.6 120.65 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 88.9 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 88.9 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol for net \"GND\" (IPC net name)"
+			(at 88.9 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ce8c3ce1-a8a1-5d21-90dd-bc438aaf7fcc")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "#PWR007")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 77.47 125.73 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f1482a44-c531-5d21-ba7c-1d8566384493")
+		(property "Reference" "R22"
+			(at 77.47 123.19 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 77.47 128.27 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 77.47 127.762 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 77.47 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 77.47 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "8ac7a91c-bb2c-5485-a302-30030b260a64")
+		)
+		(pin "8"
+			(uuid "8e4d4624-e9f1-573f-b516-27addf0027fe")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R22")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 73.66 125.73) (xy 66.04 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c6d57874-7e19-56e6-9ecf-294f9d99bc53")
+	)
+	(wire
+		(pts
+			(xy 66.04 125.73) (xy 66.04 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ea75e8c2-f3b9-5d3b-9c48-a33d82105650")
+	)
+	(global_label "GPIOT_N_17"
+		(shape passive)
+		(at 66.04 111.76 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "9a288581-c9d0-5611-846c-4c0cca848c46")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 66.04 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 81.28 125.73) (xy 86.36 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c95e4bc4-e8b2-5356-b40d-23e3827da27d")
+	)
+	(wire
+		(pts
+			(xy 86.36 125.73) (xy 92.71 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "709f1cfb-e250-5a9b-883a-b7a6954cf4b8")
+	)
+	(junction
+		(at 86.36 125.73)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "f278fac7-e52a-5796-b08e-b9658b5a3716")
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 99.06 143.51 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7608f0e5-6989-5226-af4d-116dd15f69b0")
+		(property "Reference" "R23"
+			(at 99.06 140.97 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "47k"
+			(at 99.06 146.05 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 99.06 145.542 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 99.06 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 99.06 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "747453d7-d602-50af-8dc2-3ac5196a2234")
+		)
+		(pin "8"
+			(uuid "abb015d6-f0ab-5e50-96a7-9222a86ca8ae")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R23")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 86.36 125.73) (xy 86.36 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "201c06d0-9d0c-5917-b07c-9282fd371119")
+	)
+	(wire
+		(pts
+			(xy 86.36 143.51) (xy 95.25 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b369e397-5182-5b81-a0a7-d064318bf1d0")
+	)
+	(wire
+		(pts
+			(xy 102.87 143.51) (xy 114.3 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5c620fd2-8137-5817-8f28-facda7f920ad")
+	)
+	(wire
+		(pts
+			(xy 114.3 143.51) (xy 114.3 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3e4beb99-0f42-50dc-b446-83267d93dbf5")
+	)
+	(wire
+		(pts
+			(xy 107.95 123.19) (xy 114.3 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8167eaa8-d7bb-587a-a2cd-056506333f22")
+	)
+	(junction
+		(at 114.3 123.19)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "de3b1603-9c70-5aba-869f-8e57d45a9a6f")
+	)
+	(wire
+		(pts
+			(xy 114.3 123.19) (xy 114.3 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8b4c3a7e-9cfb-52bf-9842-f7388aa6471f")
+	)
+	(global_label "JFET_7"
+		(shape passive)
+		(at 114.3 109.22 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "54ad2bfa-c4f5-585a-87ed-bc1e4835cc8f")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 114.3 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:TLV9304PWR")
+		(at 165.1 125.73 0)
+		(unit 2)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9e50625f-2da7-55e0-84eb-cece8a35c497")
+		(property "Reference" "U6"
+			(at 165.1 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TLV9304PWR"
+			(at 165.1 130.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 163.83 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 166.37 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Quad op-amp TSSOP-14, units A-D as in the PDF, unit E = power (4 V+, 11 V-)"
+			(at 165.1 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "5"
+			(uuid "d6e1bb90-91a8-5acd-abe9-dc7fd2c235cc")
+		)
+		(pin "6"
+			(uuid "b20700a5-aebf-5d3c-94fa-1ac0052da3d2")
+		)
+		(pin "7"
+			(uuid "46e8337d-ba7b-5926-9fe6-71354c687bfc")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "U6")
+					(unit 2)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 157.48 123.19) (xy 153.67 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f401f564-f32b-521e-ab2f-8003f6f3fcdc")
+	)
+	(symbol
+		(lib_id "tube_control_card:GND")
+		(at 153.67 123.19 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7c4688a0-7a37-5ce0-a62e-8b477f68f2e7")
+		(property "Reference" "#PWR008"
+			(at 147.32 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 150.37 123.19 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 153.67 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 153.67 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol for net \"GND\" (IPC net name)"
+			(at 153.67 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "1092d3db-c899-5d38-ba7c-e26910a2dd1e")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "#PWR008")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 142.24 128.27 90)
+		(unit 2)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "f8916efc-8f01-541b-b02e-f739bbaa40b3")
+		(property "Reference" "R22"
+			(at 142.24 125.73 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 142.24 130.81 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 142.24 130.302 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 142.24 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 142.24 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "cd9b2f3b-9c42-5d35-9156-87b4223231b4")
+		)
+		(pin "7"
+			(uuid "4b895343-9509-5ded-a71d-25840e47f162")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R22")
+					(unit 2)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 138.43 128.27) (xy 130.81 128.27)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "abf4174d-47c7-5e00-9d35-c8e244ff2e36")
+	)
+	(wire
+		(pts
+			(xy 130.81 128.27) (xy 130.81 114.3)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "df05df94-12e5-5107-97f8-d2cf9f6e5c8b")
+	)
+	(global_label "GPIOT_P_17"
+		(shape passive)
+		(at 130.81 114.3 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1f563881-a3b4-51d0-aa06-de7c6da43ce3")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 130.81 114.3 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 146.05 128.27) (xy 151.13 128.27)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7673911a-fe5c-5067-be09-3d613ac55458")
+	)
+	(wire
+		(pts
+			(xy 151.13 128.27) (xy 157.48 128.27)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cbc5a5ec-35aa-5077-b2e8-6f3c15933045")
+	)
+	(junction
+		(at 151.13 128.27)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "b08669f7-c715-5033-8d86-bba5dee0c5a8")
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 163.83 146.05 90)
+		(unit 2)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "41fad5f0-1e0c-5159-b3ad-6d251fc7e140")
+		(property "Reference" "R23"
+			(at 163.83 143.51 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "47k"
+			(at 163.83 148.59 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 163.83 148.082 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 163.83 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 163.83 146.05 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "c829dc0b-b5cc-5c40-a4d4-1912b2558e5b")
+		)
+		(pin "7"
+			(uuid "cf944be6-748e-5496-96f0-f2b9b9f2de4c")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R23")
+					(unit 2)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 151.13 128.27) (xy 151.13 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c07095d8-7518-5c32-8a1c-52b8aebd5f31")
+	)
+	(wire
+		(pts
+			(xy 151.13 146.05) (xy 160.02 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cbc4c78b-86dd-5fa3-b509-c58229e5c548")
+	)
+	(wire
+		(pts
+			(xy 167.64 146.05) (xy 179.07 146.05)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8643ac18-7056-5b28-b6c0-ece93c07d5e7")
+	)
+	(wire
+		(pts
+			(xy 179.07 146.05) (xy 179.07 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "63b4105e-20a6-5885-a8db-0e79bbeafcc6")
+	)
+	(wire
+		(pts
+			(xy 172.72 125.73) (xy 179.07 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1fdd63aa-9b50-526e-845f-b1b546fd8786")
+	)
+	(junction
+		(at 179.07 125.73)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "10197e95-98ec-5cfd-b6cd-74604476dcdb")
+	)
+	(wire
+		(pts
+			(xy 179.07 125.73) (xy 179.07 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4539fb75-5194-5e28-b390-f1ab6e6bf7ce")
+	)
+	(global_label "JFET_8"
+		(shape passive)
+		(at 179.07 111.76 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "fc7227ef-4177-5c2e-ac36-077a961889c0")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 179.07 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:TLV9304PWR")
+		(at 224.79 123.19 0)
+		(unit 3)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "89ded49b-8dc7-5dfb-9868-10b04a63cf6e")
+		(property "Reference" "U6"
+			(at 224.79 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TLV9304PWR"
+			(at 224.79 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 223.52 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 226.06 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Quad op-amp TSSOP-14, units A-D as in the PDF, unit E = power (4 V+, 11 V-)"
+			(at 224.79 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "8"
+			(uuid "d234d1ed-e81d-5f55-97f7-65296e357252")
+		)
+		(pin "9"
+			(uuid "b2a17a08-f87d-5624-8622-c91ee63b1f18")
+		)
+		(pin "10"
+			(uuid "280ef156-a1c4-56d3-a3e0-7bb31942bb5e")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "U6")
+					(unit 3)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 217.17 120.65) (xy 213.36 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ed0efe36-fa83-53b4-bbc6-6811c334e465")
+	)
+	(symbol
+		(lib_id "tube_control_card:GND")
+		(at 213.36 120.65 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "319879a3-3149-561a-aa67-67888092bd60")
+		(property "Reference" "#PWR009"
+			(at 207.01 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 210.06 120.65 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 213.36 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 213.36 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol for net \"GND\" (IPC net name)"
+			(at 213.36 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "54d76913-3e28-5afb-8743-cfb44acfb4c2")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "#PWR009")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 201.93 125.73 90)
+		(unit 3)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "bd1950ea-effb-584d-99bd-0e33f1c7c866")
+		(property "Reference" "R22"
+			(at 201.93 123.19 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 201.93 128.27 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 201.93 127.762 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 201.93 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 201.93 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "ee50a64e-fd89-58a3-b0e9-758dfbe5670a")
+		)
+		(pin "6"
+			(uuid "4efbc64d-c5d2-579b-b427-8d970cbcffed")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R22")
+					(unit 3)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 198.12 125.73) (xy 190.5 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8f6b4057-3e8f-507b-bc20-0e3402ae65de")
+	)
+	(wire
+		(pts
+			(xy 190.5 125.73) (xy 190.5 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8ff54497-c034-5369-ba1d-2415208df9d1")
+	)
+	(global_label "GPIOT_N_14"
+		(shape passive)
+		(at 190.5 111.76 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "fd53d222-64df-56be-b972-75636b34b280")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 190.5 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 205.74 125.73) (xy 210.82 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e6f5afcb-e188-5926-b7e2-02315f3e0c18")
+	)
+	(wire
+		(pts
+			(xy 210.82 125.73) (xy 217.17 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c2cd3661-2724-540b-9e15-30fc6d719616")
+	)
+	(junction
+		(at 210.82 125.73)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "45b8feed-4d20-5a3f-87c3-6cd487ac7417")
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 223.52 143.51 90)
+		(unit 3)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9be1b82c-cdcf-51fc-b812-331202e3fc59")
+		(property "Reference" "R23"
+			(at 223.52 140.97 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "47k"
+			(at 223.52 146.05 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 223.52 145.542 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 223.52 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 223.52 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "f2958137-2cc3-57b3-816b-ec44f1ea55ac")
+		)
+		(pin "6"
+			(uuid "4bf5b86b-512a-54a7-9b18-29c3149266b4")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R23")
+					(unit 3)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 210.82 125.73) (xy 210.82 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "64583636-9f24-5431-a8c8-797e13368cc5")
+	)
+	(wire
+		(pts
+			(xy 210.82 143.51) (xy 219.71 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "86a3dfeb-dd76-5b64-bcae-077db13bd38d")
+	)
+	(wire
+		(pts
+			(xy 227.33 143.51) (xy 238.76 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dcc160b1-26c7-5376-b6b9-48ddfefc7d8a")
+	)
+	(wire
+		(pts
+			(xy 238.76 143.51) (xy 238.76 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ce536f3b-b4ea-5e09-9ebc-eebf52e30dee")
+	)
+	(wire
+		(pts
+			(xy 232.41 123.19) (xy 238.76 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6daad90f-bf15-5ea6-9c7a-354e0e7ea77e")
+	)
+	(junction
+		(at 238.76 123.19)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "22cd46c7-7204-5723-9046-ec055a0f1c66")
+	)
+	(wire
+		(pts
+			(xy 238.76 123.19) (xy 238.76 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7804fbe3-715f-5fbd-8831-f00462845854")
+	)
+	(label "JFET_6"
+		(at 238.76 109.22 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "f82fb2b9-4105-526a-a20a-8d09fbcf7503")
+	)
+	(symbol
+		(lib_id "tube_control_card:TLV9304PWR")
+		(at 279.4 123.19 0)
+		(unit 4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2c07f594-dde9-5a53-9de7-8767f88d0413")
+		(property "Reference" "U6"
+			(at 279.4 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TLV9304PWR"
+			(at 279.4 128.27 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 278.13 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 280.67 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Quad op-amp TSSOP-14, units A-D as in the PDF, unit E = power (4 V+, 11 V-)"
+			(at 279.4 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "12"
+			(uuid "da5f2e00-4d19-5e08-b8d5-609a42037395")
+		)
+		(pin "13"
+			(uuid "bba09bd3-bb3a-5bf9-9bd3-68848b1d0d0b")
+		)
+		(pin "14"
+			(uuid "972c0d41-dd35-53bf-ab48-be4c04e2957b")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "U6")
+					(unit 4)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 271.78 120.65) (xy 267.97 120.65)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cae34faa-e081-5bef-a518-daab8f3c83be")
+	)
+	(symbol
+		(lib_id "tube_control_card:GND")
+		(at 267.97 120.65 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c8e879ed-eb5c-5c33-9d80-9c7532c134d8")
+		(property "Reference" "#PWR010"
+			(at 261.62 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 264.67 120.65 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 267.97 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 267.97 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol for net \"GND\" (IPC net name)"
+			(at 267.97 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "ae72a1d1-3c68-5ff2-903f-ec0abc9ca7c3")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "#PWR010")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 256.54 125.73 90)
+		(unit 4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4271cad7-5e2a-54e5-9de6-691c542e02dd")
+		(property "Reference" "R22"
+			(at 256.54 123.19 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 256.54 128.27 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 256.54 127.762 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 256.54 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 256.54 125.73 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "4"
+			(uuid "cb2612e0-39e0-5ee8-b111-3eabc2555994")
+		)
+		(pin "5"
+			(uuid "2061a1ad-1fbe-5570-895b-f1036a2c5a9d")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R22")
+					(unit 4)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 252.73 125.73) (xy 245.11 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e5242ce3-69f1-5c77-913e-ea10f9d8b067")
+	)
+	(wire
+		(pts
+			(xy 245.11 125.73) (xy 245.11 111.76)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "07bfd660-7c6f-5b9a-a483-224ed6a0219b")
+	)
+	(global_label "GPIOT_P_14"
+		(shape passive)
+		(at 245.11 111.76 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1104049d-b576-5c81-9ba5-a20be54c4197")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 245.11 111.76 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 260.35 125.73) (xy 265.43 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "2c468779-f0ae-5ec6-8a2e-196d1b8072fa")
+	)
+	(wire
+		(pts
+			(xy 265.43 125.73) (xy 271.78 125.73)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e050a998-fb59-5eef-bc31-3becf85a07a2")
+	)
+	(junction
+		(at 265.43 125.73)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "456a6a85-2796-508a-ad7f-8dbcd5231583")
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 278.13 143.51 90)
+		(unit 4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2896a31a-dcd1-5bca-b781-e1a3bc7c935f")
+		(property "Reference" "R23"
+			(at 278.13 140.97 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "47k"
+			(at 278.13 146.05 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 278.13 145.542 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 278.13 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 278.13 143.51 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "4"
+			(uuid "d9aa7649-b5b7-5ae7-a43c-bb08edfbf832")
+		)
+		(pin "5"
+			(uuid "f4c265d2-df65-5239-b145-c5818f490d0a")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R23")
+					(unit 4)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 265.43 125.73) (xy 265.43 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "df920064-5135-5701-99fb-fd69699ca231")
+	)
+	(wire
+		(pts
+			(xy 265.43 143.51) (xy 274.32 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5cf2962e-08af-50ea-a073-ff7648576a81")
+	)
+	(wire
+		(pts
+			(xy 281.94 143.51) (xy 293.37 143.51)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c44c4a6d-688a-5d4e-b425-a321ec9af315")
+	)
+	(wire
+		(pts
+			(xy 293.37 143.51) (xy 293.37 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a28ade83-4fd6-525e-aede-28765ac04415")
+	)
+	(wire
+		(pts
+			(xy 287.02 123.19) (xy 293.37 123.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "9189c570-a626-545a-a94c-7480c937ccc5")
+	)
+	(junction
+		(at 293.37 123.19)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "4667389b-1555-5bd8-910f-618afc9cc95b")
+	)
+	(wire
+		(pts
+			(xy 293.37 123.19) (xy 293.37 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d69d6458-4ee3-5a62-81d5-3f119d10ad50")
+	)
+	(label "JFET_5"
+		(at 293.37 109.22 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "639a56be-4d5f-5b05-9f91-0e36fa2f5339")
+	)
+	(symbol
+		(lib_id "tube_control_card:TLV9304PWR")
+		(at 100.33 123.19 0)
+		(unit 5)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "68643c37-8b84-5ca3-b3b8-5e8d8e574a79")
+		(property "Reference" "U6"
+			(at 104.14 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TLV9304PWR"
+			(at 104.14 133.35 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 99.06 120.65 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 118.11 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Quad op-amp TSSOP-14, units A-D as in the PDF, unit E = power (4 V+, 11 V-)"
+			(at 100.33 123.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "4"
+			(uuid "aff4fdf3-77e0-52c9-9aab-6e431aeab875")
+		)
+		(pin "11"
+			(uuid "c6bea8ea-efad-598b-b5ba-550f69f7517c")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "U6")
+					(unit 5)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 97.79 115.57) (xy 97.79 109.22)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3a07db7f-02c6-5e34-9e0e-2077b5aa388e")
+	)
+	(symbol
+		(lib_id "tube_control_card:3V3")
+		(at 97.79 109.22 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "859de63b-d809-5f7a-84c4-c16d0c351fca")
+		(property "Reference" "#PWR011"
+			(at 97.79 113.03 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "3V3"
+			(at 97.79 105.664 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 97.79 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 97.79 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol for net \"3V3\" (IPC net name)"
+			(at 97.79 109.22 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "9c0789d2-f473-5e34-98ac-8c1dd769d701")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "#PWR011")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 97.79 130.81) (xy 97.79 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1ac46cb3-5363-5f05-8eb0-3aeaa0108133")
+	)
+	(wire
+		(pts
+			(xy 97.79 135.89) (xy 81.28 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5eba4cc6-0e44-5255-a63c-bdd5e90c0c2d")
+	)
+	(wire
+		(pts
+			(xy 81.28 135.89) (xy 77.47 135.89)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ed924c98-2c3c-5071-ba34-ef4f98013a86")
+	)
+	(symbol
+		(lib_id "tube_control_card:OPAMP_-15V")
+		(at 77.47 135.89 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b6bb3b15-8557-5511-bc23-98399822b2bc")
+		(property "Reference" "#PWR012"
+			(at 81.28 135.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "OPAMP_-15V"
+			(at 74.17 135.89 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 77.47 135.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 77.47 135.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol for net \"OPAMP_-15V\" (IPC net name)"
+			(at 77.47 135.89 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "111553e6-e372-5e8b-972c-a38e3729de54")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "#PWR012")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:TLV9304PWR")
+		(at 100.33 168.91 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "2b79c280-fb63-532f-bf33-19b2ae902476")
+		(property "Reference" "U11"
+			(at 100.33 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TLV9304PWR"
+			(at 100.33 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 99.06 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Quad op-amp TSSOP-14, units A-D as in the PDF, unit E = power (4 V+, 11 V-)"
+			(at 100.33 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "689dd6f7-bfce-541a-b678-8361d34132a0")
+		)
+		(pin "2"
+			(uuid "a5024825-cf9f-5b8d-8daf-a92f94b95b45")
+		)
+		(pin "3"
+			(uuid "ebcf0b78-4b29-5e32-a130-941315fdd00c")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "U11")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 92.71 166.37) (xy 88.9 166.37)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1efff46e-2a05-540a-bfe9-18303041f246")
+	)
+	(symbol
+		(lib_id "tube_control_card:GND")
+		(at 88.9 166.37 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "fe3dc475-7851-5b50-813b-2249e18ccc8f")
+		(property "Reference" "#PWR013"
+			(at 82.55 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 85.6 166.37 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 88.9 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 88.9 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol for net \"GND\" (IPC net name)"
+			(at 88.9 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d042a098-ac05-56d6-abbe-cf2bd23ff5ba")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "#PWR013")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 77.47 171.45 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "7edf8a60-82bb-514a-9f95-f91a375a1f5e")
+		(property "Reference" "R24"
+			(at 77.47 168.91 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 77.47 173.99 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 77.47 173.482 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 77.47 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 77.47 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "201ded38-4c36-566a-8c71-bb8eb751425b")
+		)
+		(pin "8"
+			(uuid "7ce6d92d-ff1b-5d96-8149-b0e547f93de2")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R24")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 73.66 171.45) (xy 66.04 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "231e11a2-b6b8-58d8-84db-b3c62924f3e4")
+	)
+	(wire
+		(pts
+			(xy 66.04 171.45) (xy 66.04 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "04b19e19-17f3-5226-996b-34b6b1d0a88b")
+	)
+	(global_label "GPIOR_19"
+		(shape passive)
+		(at 66.04 157.48 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "11bc4ef5-902a-5479-bdeb-2e6730ea3e8f")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 66.04 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 81.28 171.45) (xy 86.36 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1afb6cfa-ad87-5910-a034-7161a1199ca1")
+	)
+	(wire
+		(pts
+			(xy 86.36 171.45) (xy 92.71 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "235a4cf4-ddbc-591c-95f0-c512c31b3be9")
+	)
+	(junction
+		(at 86.36 171.45)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "3a7c800a-0f0a-52e9-9c2b-0bed5c71be26")
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 99.06 189.23 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "e74b2a2a-dc9b-582d-8c8d-14ee39881001")
+		(property "Reference" "R25"
+			(at 99.06 186.69 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "47k"
+			(at 99.06 191.77 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 99.06 191.262 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 99.06 189.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 99.06 189.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "2165181c-f72f-5719-96c9-e4b2f48c9f17")
+		)
+		(pin "8"
+			(uuid "ccfb02ed-ef90-5976-b4ce-b30bcfa981ed")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R25")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 86.36 171.45) (xy 86.36 189.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "eec7d823-42ba-531e-a5cf-6fc110ee2914")
+	)
+	(wire
+		(pts
+			(xy 86.36 189.23) (xy 95.25 189.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "62c23ada-b3ac-5325-b7fb-52dbb38ea125")
+	)
+	(wire
+		(pts
+			(xy 102.87 189.23) (xy 114.3 189.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3cd82d98-ea42-5898-a978-8bf26186743c")
+	)
+	(wire
+		(pts
+			(xy 114.3 189.23) (xy 114.3 168.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "47c449e4-0072-5cf5-9d44-d7e7cb14f329")
+	)
+	(wire
+		(pts
+			(xy 107.95 168.91) (xy 114.3 168.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "df14382c-91f5-55d3-b3bc-b76cefe28595")
+	)
+	(junction
+		(at 114.3 168.91)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "fe23b91e-018c-5200-b6d2-7f95fcf610be")
+	)
+	(wire
+		(pts
+			(xy 114.3 168.91) (xy 114.3 154.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "93e90a4b-79f6-5971-aa55-4d32d6046393")
+	)
+	(global_label "JFET_11"
+		(shape passive)
+		(at 114.3 154.94 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "eff3dda4-fb65-5ef7-8976-361699e05b29")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 114.3 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:TLV9304PWR")
+		(at 165.1 171.45 0)
+		(unit 2)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "9565d814-78cd-56ac-975a-da0ebc51bc63")
+		(property "Reference" "U11"
+			(at 165.1 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TLV9304PWR"
+			(at 165.1 176.53 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 163.83 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 166.37 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Quad op-amp TSSOP-14, units A-D as in the PDF, unit E = power (4 V+, 11 V-)"
+			(at 165.1 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "5"
+			(uuid "fe44d4fc-09f3-5f3a-9c80-8b4c08d1f240")
+		)
+		(pin "6"
+			(uuid "63d821b4-985d-52b4-9f5f-196e86e39809")
+		)
+		(pin "7"
+			(uuid "fededd83-08f4-5e25-9c31-82ccb1ef5676")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "U11")
+					(unit 2)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 157.48 168.91) (xy 153.67 168.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "19240f7c-591d-58e9-bb56-1af43ba8054f")
+	)
+	(symbol
+		(lib_id "tube_control_card:GND")
+		(at 153.67 168.91 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ed5b5a9f-b87c-5e11-975b-7aee64b7f636")
+		(property "Reference" "#PWR014"
+			(at 147.32 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 150.37 168.91 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 153.67 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 153.67 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol for net \"GND\" (IPC net name)"
+			(at 153.67 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e0e69378-a2d3-524e-9dee-bac36aaf0e49")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "#PWR014")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 142.24 173.99 90)
+		(unit 2)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "b9e740f8-cc36-5917-9ca2-f83f960e2bbb")
+		(property "Reference" "R24"
+			(at 142.24 171.45 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 142.24 176.53 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 142.24 176.022 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 142.24 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 142.24 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "db8f2b3d-a1ff-537e-9ae4-975978a084ef")
+		)
+		(pin "7"
+			(uuid "46dae25e-612d-5a66-9778-1a7b04c65965")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R24")
+					(unit 2)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 138.43 173.99) (xy 130.81 173.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "62e62bf3-039f-5d39-86a3-2820b3dd9bd4")
+	)
+	(wire
+		(pts
+			(xy 130.81 173.99) (xy 130.81 160.02)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e0af6e7d-cbbb-5ad9-9aec-51e631c7cb3d")
+	)
+	(global_label "GPIOR_12"
+		(shape passive)
+		(at 130.81 160.02 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "2503d2ef-96eb-5dc6-8b32-b940ff959217")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 130.81 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 146.05 173.99) (xy 151.13 173.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3ebd73e9-dcaa-5c21-86e6-0ff92a16f2d5")
+	)
+	(wire
+		(pts
+			(xy 151.13 173.99) (xy 157.48 173.99)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3743f084-f805-52de-a45f-b89b3d776a67")
+	)
+	(junction
+		(at 151.13 173.99)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "c1fdaa35-8bbd-5d16-9e44-7211747e0c9f")
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 163.83 191.77 90)
+		(unit 2)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "d8e12c00-a570-560d-ba6f-21bc75049349")
+		(property "Reference" "R25"
+			(at 163.83 189.23 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "47k"
+			(at 163.83 194.31 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 163.83 193.802 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 163.83 191.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 163.83 191.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "2"
+			(uuid "8c45b45c-db66-5eac-a295-276592885224")
+		)
+		(pin "7"
+			(uuid "e8b27f47-fdb1-595c-97fd-9a0bdbaeb924")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R25")
+					(unit 2)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 151.13 173.99) (xy 151.13 191.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f8be3589-3f22-52da-a0a5-784e4aee943c")
+	)
+	(wire
+		(pts
+			(xy 151.13 191.77) (xy 160.02 191.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "17741833-9026-5188-9663-d26f45caaa0d")
+	)
+	(wire
+		(pts
+			(xy 167.64 191.77) (xy 179.07 191.77)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a475b64f-14a1-5da0-981f-58fd02e3e654")
+	)
+	(wire
+		(pts
+			(xy 179.07 191.77) (xy 179.07 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a8a287a6-e79e-529b-9948-c753131c5816")
+	)
+	(wire
+		(pts
+			(xy 172.72 171.45) (xy 179.07 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f2fc5fdb-fada-5c11-b1b1-7b4d06e0ce4c")
+	)
+	(junction
+		(at 179.07 171.45)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "df778c0b-3a55-5276-8910-8b034082193d")
+	)
+	(wire
+		(pts
+			(xy 179.07 171.45) (xy 179.07 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "3ff2d3e8-4632-5e6f-bedf-a1c276743208")
+	)
+	(global_label "JFET_12"
+		(shape passive)
+		(at 179.07 157.48 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "3fec046d-9948-5b13-9ba1-2619e723e8d4")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 179.07 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:TLV9304PWR")
+		(at 224.79 168.91 0)
+		(unit 3)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "4a3ac492-b8ae-538c-a1a0-2dd1b3d91152")
+		(property "Reference" "U11"
+			(at 224.79 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TLV9304PWR"
+			(at 224.79 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 223.52 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 226.06 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Quad op-amp TSSOP-14, units A-D as in the PDF, unit E = power (4 V+, 11 V-)"
+			(at 224.79 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "8"
+			(uuid "f297e259-248a-50f7-946e-61094f946c9c")
+		)
+		(pin "9"
+			(uuid "ee55e984-92a3-5831-b86a-3592e1f6b514")
+		)
+		(pin "10"
+			(uuid "28197a0b-e586-528b-a19f-1fc433b2f6c2")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "U11")
+					(unit 3)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 217.17 166.37) (xy 213.36 166.37)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bd66d746-7c63-566a-8392-a5fe78257d4a")
+	)
+	(symbol
+		(lib_id "tube_control_card:GND")
+		(at 213.36 166.37 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "70028ee6-5d51-560a-b31d-aeff6ab82e8f")
+		(property "Reference" "#PWR015"
+			(at 207.01 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 210.06 166.37 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 213.36 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 213.36 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol for net \"GND\" (IPC net name)"
+			(at 213.36 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "668ef2f2-242a-523c-980c-218eb8428de0")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "#PWR015")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 201.93 171.45 90)
+		(unit 3)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "eb32116b-857d-5049-98a3-517398b6cde6")
+		(property "Reference" "R24"
+			(at 201.93 168.91 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 201.93 173.99 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 201.93 173.482 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 201.93 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 201.93 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "d33c4ee2-3452-5c36-b0e3-1862fd4c27f9")
+		)
+		(pin "6"
+			(uuid "db1c2bd9-1a1a-59c7-98ed-caf36b003883")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R24")
+					(unit 3)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 198.12 171.45) (xy 190.5 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "db95f553-c11f-5931-9618-b481dc3d2bf6")
+	)
+	(wire
+		(pts
+			(xy 190.5 171.45) (xy 190.5 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d8883f93-3449-544a-a055-283e681fbdb1")
+	)
+	(global_label "GPIOR_15"
+		(shape passive)
+		(at 190.5 157.48 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "2ae21675-c5ab-5822-aab7-38f4717aea40")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 190.5 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 205.74 171.45) (xy 210.82 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d3d38e2a-309b-5f37-8fca-b2967f05b514")
+	)
+	(wire
+		(pts
+			(xy 210.82 171.45) (xy 217.17 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8939f292-d72b-5b02-9623-9c51beb55872")
+	)
+	(junction
+		(at 210.82 171.45)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "33c77e6f-3f77-5ed3-8c0f-39588414922f")
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 223.52 189.23 90)
+		(unit 3)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "344ed5e3-cc1b-5e53-a773-ed7107a4c88f")
+		(property "Reference" "R25"
+			(at 223.52 186.69 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "47k"
+			(at 223.52 191.77 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 223.52 191.262 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 223.52 189.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 223.52 189.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "adea102b-dc4e-5d5f-9c8c-612899b40080")
+		)
+		(pin "6"
+			(uuid "2868068a-c019-529d-ad63-8c0ec73a13da")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R25")
+					(unit 3)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 210.82 171.45) (xy 210.82 189.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "de128377-6d6d-559e-bd12-6417aabdec27")
+	)
+	(wire
+		(pts
+			(xy 210.82 189.23) (xy 219.71 189.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "d5412349-7bf4-5eb7-978a-e73027afa5d3")
+	)
+	(wire
+		(pts
+			(xy 227.33 189.23) (xy 238.76 189.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "5d1ee791-86d4-50a3-9a5f-bfc438f5c39f")
+	)
+	(wire
+		(pts
+			(xy 238.76 189.23) (xy 238.76 168.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6c7772e4-ddf9-5991-abf1-4a336889ed1c")
+	)
+	(wire
+		(pts
+			(xy 232.41 168.91) (xy 238.76 168.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "dffa880c-e934-57e4-a77b-cf7222ecaf43")
+	)
+	(junction
+		(at 238.76 168.91)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "cef9d514-a715-565b-9084-2dc1d2c3ce87")
+	)
+	(wire
+		(pts
+			(xy 238.76 168.91) (xy 238.76 154.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "17b2bcd5-80c5-5eeb-bc0f-3824908924fb")
+	)
+	(global_label "JFET_9"
+		(shape passive)
+		(at 238.76 154.94 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "1b1030c0-7e7e-5a34-9c13-526f519c28fe")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 238.76 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:TLV9304PWR")
+		(at 280.67 168.91 0)
+		(unit 4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "828ca662-0649-5afb-ac74-4e93c3ce821c")
+		(property "Reference" "U11"
+			(at 280.67 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "TLV9304PWR"
+			(at 280.67 173.99 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 279.4 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 281.94 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Quad op-amp TSSOP-14, units A-D as in the PDF, unit E = power (4 V+, 11 V-)"
+			(at 280.67 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "12"
+			(uuid "b7f34587-8d0c-541c-9b2e-827eebebcefa")
+		)
+		(pin "13"
+			(uuid "cd728e8c-9d8c-5f25-8130-ac805f911202")
+		)
+		(pin "14"
+			(uuid "421dace9-857c-5cbb-a6ca-576c39e9d5e1")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "U11")
+					(unit 4)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 273.05 166.37) (xy 269.24 166.37)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "20c1b597-3d77-5ad8-9399-c50cde96e9a8")
+	)
+	(symbol
+		(lib_id "tube_control_card:GND")
+		(at 269.24 166.37 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "1c29059b-7ce9-5622-b474-dc87b2575a36")
+		(property "Reference" "#PWR016"
+			(at 262.89 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 265.94 166.37 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 269.24 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 269.24 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol for net \"GND\" (IPC net name)"
+			(at 269.24 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "c13d796d-735d-5e46-be51-766d02e0909f")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "#PWR016")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 257.81 171.45 90)
+		(unit 4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "cecbf214-6ed2-5173-a761-58c5ee672bc7")
+		(property "Reference" "R24"
+			(at 257.81 168.91 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "10k"
+			(at 257.81 173.99 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 257.81 173.482 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 257.81 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 257.81 171.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "4"
+			(uuid "c25534cc-86df-5f9b-b587-94dd531679fb")
+		)
+		(pin "5"
+			(uuid "7f31e427-9591-50e3-8779-05e1cf0609c2")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R24")
+					(unit 4)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 254 171.45) (xy 246.38 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "87a4481a-2cf8-59c9-a12e-e7cb4fececd6")
+	)
+	(wire
+		(pts
+			(xy 246.38 171.45) (xy 246.38 157.48)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7445ce3e-3de8-5b34-b90f-550345730982")
+	)
+	(global_label "GPIOR_13"
+		(shape passive)
+		(at 246.38 157.48 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "d7b955f9-d218-55af-8548-9d80e56e2090")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 246.38 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 261.62 171.45) (xy 266.7 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6af3bc01-1b5b-5bea-88cb-7296306e09c5")
+	)
+	(wire
+		(pts
+			(xy 266.7 171.45) (xy 273.05 171.45)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f8d65d1f-f096-5435-869c-f8c94b8a2285")
+	)
+	(junction
+		(at 266.7 171.45)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "d14cc2bf-eb02-5cc2-8e29-3b8080ef66c6")
+	)
+	(symbol
+		(lib_id "tube_control_card:R_ARRAY4")
+		(at 279.4 189.23 90)
+		(unit 4)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "fc0b9fa0-9fc3-5aa2-9764-70ecfc963327")
+		(property "Reference" "R25"
+			(at 279.4 186.69 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "47k"
+			(at 279.4 191.77 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 279.4 191.262 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 279.4 189.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "4-resistor array 0508, units A-D = pins 1-8, 2-7, 3-6, 4-5 (Proteus RESISTOR ARRAY 2X1MM)"
+			(at 279.4 189.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "4"
+			(uuid "a5dac77c-a826-5b62-b797-a8706c4e3359")
+		)
+		(pin "5"
+			(uuid "2c060fd7-a577-557d-bd57-ee427c772a6d")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "R25")
+					(unit 4)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 266.7 171.45) (xy 266.7 189.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "b2441c96-e4d7-51fc-a2bd-fe166b0de590")
+	)
+	(wire
+		(pts
+			(xy 266.7 189.23) (xy 275.59 189.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "250beadb-d388-5c86-a231-b4a67c67443e")
+	)
+	(wire
+		(pts
+			(xy 283.21 189.23) (xy 294.64 189.23)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1dca60df-1557-5774-9f32-da6d0363a96d")
+	)
+	(wire
+		(pts
+			(xy 294.64 189.23) (xy 294.64 168.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a3a45dc8-c3c7-5040-81a5-0323b81908bd")
+	)
+	(wire
+		(pts
+			(xy 288.29 168.91) (xy 294.64 168.91)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "f72ea643-6682-53ec-bb38-65d19d6abf78")
+	)
+	(junction
+		(at 294.64 168.91)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "28fcddf8-b2bd-52a3-a482-2fcd0578b6bc")
+	)
+	(wire
+		(pts
+			(xy 294.64 168.91) (xy 294.64 154.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1fba1e97-4b8d-54ad-ad04-6764ed540f82")
+	)
+	(global_label "JFET_10"
+		(shape passive)
+		(at 294.64 154.94 90)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left)
+		)
+		(uuid "813ab7b6-5f35-53ee-8cae-16e8c92da718")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 294.64 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "tube_control_card:TLV9304PWR")
+		(at 100.33 168.91 0)
+		(unit 5)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8bd2afbd-f49b-51d0-bc87-73df7f928cef")
+		(property "Reference" "U11"
+			(at 104.14 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Value" "TLV9304PWR"
+			(at 104.14 179.07 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 99.06 166.37 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 163.83 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Quad op-amp TSSOP-14, units A-D as in the PDF, unit E = power (4 V+, 11 V-)"
+			(at 100.33 168.91 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "4"
+			(uuid "7537a3c5-7493-5523-ad58-952032ea077b")
+		)
+		(pin "11"
+			(uuid "1d81addd-1bcd-5f4f-bdd0-3529aa0f8dee")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "U11")
+					(unit 5)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 97.79 161.29) (xy 97.79 154.94)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "25515985-b07d-5270-8572-b4938b4a6209")
+	)
+	(symbol
+		(lib_id "tube_control_card:3V3")
+		(at 97.79 154.94 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "ee22232c-b780-59f4-93ab-2598907c2d2c")
+		(property "Reference" "#PWR017"
+			(at 97.79 158.75 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "3V3"
+			(at 97.79 151.384 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 97.79 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 97.79 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol for net \"3V3\" (IPC net name)"
+			(at 97.79 154.94 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "4661547a-0567-5e16-abda-656ce9098147")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "#PWR017")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 97.79 176.53) (xy 97.79 181.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "588b6ab7-180e-5ca9-b103-a8c719db0d43")
+	)
+	(wire
+		(pts
+			(xy 97.79 181.61) (xy 81.28 181.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "7d02ac51-abd1-56d4-8f06-dfec10cd1f8b")
+	)
+	(wire
+		(pts
+			(xy 81.28 181.61) (xy 77.47 181.61)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ed216b2b-3215-55f9-b3f1-4e44645d5cdd")
+	)
+	(symbol
+		(lib_id "tube_control_card:OPAMP_-15V")
+		(at 77.47 181.61 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "5ec2eddc-52db-55d4-ae0c-4b83ca0eafb7")
+		(property "Reference" "#PWR018"
+			(at 81.28 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "OPAMP_-15V"
+			(at 74.17 181.61 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 77.47 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 77.47 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol for net \"OPAMP_-15V\" (IPC net name)"
+			(at 77.47 181.61 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "532f2b83-8270-5745-bc60-69eb69104b3c")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/6d47710d-154d-4aa8-9f93-91874f03163e"
+					(reference "#PWR018")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(text "Proteus alias pairs of this page (the IPC name, left, is used on the pins):"
+		(exclude_from_sim no)
+		(at 60.96 199.39 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "18d90021-379f-5523-9389-d5f4b5ac7943")
+	)
+	(text "GPIOR_19 = JFET_GPIO_11"
+		(exclude_from_sim no)
+		(at 63.5 203.2 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "7a93f62c-3579-5951-9d2f-4d2985de316c")
+	)
+	(text "GPIOR_12 = JFET_GPIO_12"
+		(exclude_from_sim no)
+		(at 63.5 205.74 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "d2dadf20-f2e3-576e-8c3e-092b11323c51")
+	)
+	(text "GPIOR_15 = JFET_GPIO_9"
+		(exclude_from_sim no)
+		(at 63.5 208.28 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "1176797a-02fc-580a-9fc4-d86ad4711a25")
+	)
+	(text "GPIOR_13 = JFET_GPIO_10"
+		(exclude_from_sim no)
+		(at 63.5 210.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "502a25c0-8bc4-5ffa-89bd-1eb77716f6c5")
+	)
+	(text "GPIOT_N_17 = JFET_GPIO_7"
+		(exclude_from_sim no)
+		(at 63.5 213.36 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "520c427a-5150-5ac7-830e-471528bff9f8")
+	)
+	(text "GPIOT_P_17 = JFET_GPIO_8"
+		(exclude_from_sim no)
+		(at 63.5 215.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "80156e27-3df0-55dd-8fca-3ef9dac977a8")
+	)
+	(text "GPIOT_N_14 = JFET_GPIO_6"
+		(exclude_from_sim no)
+		(at 120.65 203.2 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "781bde03-9c11-549c-a56c-b2ff73f6d6bd")
+	)
+	(text "GPIOT_P_14 = JFET_GPIO_5"
+		(exclude_from_sim no)
+		(at 120.65 205.74 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "3f890181-0117-5c6f-b172-60b1deca22a8")
+	)
+	(text "GPIOL_10 = JFET_GPIO_3"
+		(exclude_from_sim no)
+		(at 120.65 208.28 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "75043d74-9467-54b8-9667-3a88f5958c12")
+	)
+	(text "GPIOT_P_03 = JFET_GPIO_4"
+		(exclude_from_sim no)
+		(at 120.65 210.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "bbaab61d-da67-5ea7-b0b1-831408cf0c46")
+	)
+	(text "GPIOL_11 = JFET_GPIO_1"
+		(exclude_from_sim no)
+		(at 120.65 213.36 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2ad55a35-244b-5a84-80c4-75b95aba5921")
+	)
+	(text "GPIOL_9 = JFET_GPIO_2"
+		(exclude_from_sim no)
+		(at 120.65 215.9 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "6011ae45-487a-5ab4-ba7d-8078ce034c48")
+	)
+	(text "U5:C output: PDF JFET_1 = IPC net A (alias pair of page 10)"
+		(exclude_from_sim no)
+		(at 177.8 203.2 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a5fea72c-62f4-5341-963e-2f2557c8816c")
+	)
+	(text "PDF: a terminal JFET_GPIO_1 (= GPIOL_11) with an open wire stub stands above U5:C: no connection."
+		(exclude_from_sim no)
+		(at 177.8 205.74 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9238f4c7-016f-5aaf-b43a-ba8e9eb253f7")
+	)
+	(text "JFET_GPIO_1, _2, _3 (GPIOL_11, GPIOL_9, GPIOL_10) feed no driver on this page: the cells of JFET_1, JFET_2"
+		(exclude_from_sim no)
+		(at 177.8 208.28 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "94fb0559-c17d-5b5d-b743-0548b918c248")
+	)
+	(text "and JFET_4 take GPIOL_N_14, GPIOL_P_14 and GPIOL_P_15 (STATUS.md findings)."
+		(exclude_from_sim no)
+		(at 177.8 210.82 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "0d259d1f-cfe8-5e53-8d38-21b4f3514ac8")
+	)
+	(text "JFET_3 and JFET_4 reach no other part; JFET_5 and JFET_6 only an SMD test pad each (STATUS.md findings)."
+		(exclude_from_sim no)
+		(at 177.8 213.36 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "29f77c8e-6008-59ca-aa8d-ab10572c04c5")
+	)
 	(embedded_fonts no)
 )

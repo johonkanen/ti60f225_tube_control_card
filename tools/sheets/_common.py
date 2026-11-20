@@ -5,7 +5,8 @@ glabel_*/label_*, power_at, bus_group, flagged_power, vert2, horiz2); board help
 (part-map lookups, term(), place_mirrored(), P(); the last three are the workarounds of
 tube_power_amp_kicad, STATUS.md "p2k candidates"). Each sheet script starts with
     from _common import *  # noqa: F401,F403
-Add repeated blocks of this board here (JFET driver cell of pages 9 / 12, level shifter, ...).
+Repeated blocks of this board are at the end (jfet_quad() / jfet_cell() of pages 9 and 12,
+level_shifter() of page 4).
 """
 import csv
 import os
@@ -267,3 +268,80 @@ def header(sh, ref, top_left, pt, n=8, n_power=3, skip=()):
         else:
             pin_tie(sh, p, pin, side, n)
     return p
+
+
+# --- repeated blocks ---------------------------------------------------------------------------------
+def unit_of(ref, pin):
+    """Unit number (1 = A) of `pin` in the library symbol of `ref`."""
+    for sub in find_all(lib()[sym(ref)], "symbol"):
+        if any(find(p, "number")[1] == str(pin) for p in find_all(sub, "pin")):
+            return int(sub[1].rsplit("_", 2)[1])
+    raise KeyError(f"{ref} pin {pin}")
+
+
+def unit_pins(ref, unit):
+    """{pin name: pin number} of one unit of the library symbol of `ref` ('' = the unnamed op-amp output)."""
+    return {find(p, "name")[1]: find(p, "number")[1]
+            for sub in find_all(lib()[sym(ref)], "symbol") if int(sub[1].rsplit("_", 2)[1]) == unit
+            for p in find_all(sub, "pin")}
+
+
+def array_r(sh, ref, x, y, left=None, right=None):
+    """One resistor of the array `ref` (R_ARRAY4, units A-D = pins 1-8, 2-7, 3-6, 4-5), horizontal at
+    (x, y): the unit that has a pin on the IPC net `left` (or `right`), that pin on that side. Returns
+    (left point, right point, unit, net of the other pin)."""
+    pin = int(pin_of(ref, left if left is not None else right))
+    unit = unit_of(ref, pin)
+    other = next(int(n) for n in unit_pins(ref, unit).values() if int(n) != pin)
+    assert {pin, other} == {unit, 9 - unit}, (ref, pin, other)
+    a, b = two(sh, ref, x, y, left=pin if left is not None else other, unit=unit)
+    return a, b, unit, net(ref, other)
+
+
+def jfet_cell(sh, amp, unit, x, y, r_in, r_fb):
+    """JFET driver cell of pages 9 and 12: inverting amplifier with unit `unit` (1-4) of the quad
+    op-amp `amp`, its + input at PDF position (x, y) on GND, the input resistor (a unit of the array
+    r_in) from the input label to the - input, the feedback resistor (a unit of r_fb) from the - input
+    to the output, the output label above. The array units and every net come from the IPC pins of the
+    op-amp unit; returns (input net, output net, r_in unit, r_fb unit)."""
+    Q = lambda dx, dy: P(x + dx, y + dy)
+    pins = unit_pins(amp, unit)
+    u = place_pin(sh, amp, pins["+"], Q(0, 0), unit=unit)
+    assert u.pin(pins["-"]) == Q(0, 4) and u.pin(pins[""]) == Q(12, 2), u.pins
+    inv, out = net(amp, pins["-"]), net(amp, pins[""])
+    assert net_kind(inv) == "wire", inv
+    pin_tie(sh, u, pins["+"], "left", 3, body="left")
+    # input resistor: label - R - inverting node
+    a, b, ui, n_in = array_r(sh, r_in, *Q(-12, 4), right=inv)
+    sh.wire(a, Q(-21, 4), Q(-21, -7))
+    tie(sh, n_in, Q(-21, -7), "up", 0)
+    sh.wire(b, Q(-5, 4))
+    sh.wire(Q(-5, 4), u.pin(pins["-"]))
+    sh.junction(*Q(-5, 4))
+    # feedback resistor: inverting node - R - output
+    c, d, uf, n_out = array_r(sh, r_fb, *Q(5, 18), left=inv)
+    assert n_out == out, (amp, unit, r_fb, n_out, out)
+    sh.wire(Q(-5, 4), Q(-5, 18), c)
+    sh.wire(d, Q(17, 18), Q(17, 2))
+    sh.wire(u.pin(pins[""]), Q(17, 2))
+    sh.junction(*Q(17, 2))
+    sh.wire(Q(17, 2), Q(17, -9))
+    tie(sh, out, Q(17, -9), "up", 0)
+    return n_in, out, ui, uf
+
+
+def jfet_quad(sh, amp, r_in, r_fb, at):
+    """The four driver cells of one quad op-amp (units A-D with their + inputs at the PDF positions
+    `at`) and its power unit E, laid over unit A as in the PDF (V+ and V- taken from the IPC pins 4 and
+    11). Every unit of both resistor arrays must be used once. Returns [(input net, output net)] A-D."""
+    cells = [jfet_cell(sh, amp, k + 1, x, y, r_in, r_fb) for k, (x, y) in enumerate(at)]
+    assert sorted(c[2] for c in cells) == [1, 2, 3, 4] and sorted(c[3] for c in cells) == [1, 2, 3, 4], cells
+    x, y = at[0]
+    e = sh.place(sym(amp), amp, *P(x + 6, y + 2), unit=5, value=sh_value(amp),
+                 ref_at=(*P(x + 9, y - 6), 0, None), value_at=(*P(x + 9, y + 10), 0, None))
+    vp, vn = unit_pins(amp, 5)["V+"], unit_pins(amp, 5)["V-"]
+    assert e.pin(vp) == P(x + 4, y - 4) and e.pin(vn) == P(x + 4, y + 8), e.pins
+    pin_tie(sh, e, vp, "up", 5)
+    sh.wire(e.pin(vn), P(x + 4, y + 12), P(x - 9, y + 12))     # crosses the feedback wire (no junction)
+    tie(sh, net(amp, vn), P(x - 9, y + 12), "left", 3, body="left")
+    return [c[:2] for c in cells]
