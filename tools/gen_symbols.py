@@ -177,9 +177,9 @@ def build():
     ]
 
     syms += [
-        box("ADS7056", "AD", [(6, "AVDD", PI), (4, "DVDD", PI), (7, "AINP", IN), (8, "AINM", IN)],
-            [(1, "~{CS}", IN), (3, "SCLK", IN), (2, "SDO", OUT), (5, "GND", PI)],
-            desc="14-bit ADC X2QFN-8, Proteus pin ids"),
+        box("ADS7056", "AD", [(8, "AINM", IN), (7, "AINP", IN), (6, "AVDD", PI), (5, "GND", PI)],
+            [(1, "~{CS}", IN), (2, "SDO", OUT), (3, "SCLK", IN), (4, "DVDD", PI)],
+            desc="14-bit ADC X2QFN-8, Proteus pin ids, pins arranged as in the PDF"),
         # Proteus pin ids of this SOT-26 device are diode-style (A1 A2 COM1 COM2 K1 K2). As drawn,
         # VIN is on 3V3 and VA on the analog input (STATUS.md findings): both passive so that ERC
         # does not flag the signal net as an undriven power pin.
@@ -204,17 +204,17 @@ def build():
         box("MAX22025", "U", [(1, "RXD", OUT), (2, "TXD", IN), (3, "VDDA", PI), (4, "GNDA", PI)],
             [(8, "VDDB", PI), (7, "B", BI), (6, "A", BI), (5, "GNDB", PI)],
             desc="Isolated RS485 half-duplex transceiver SOIC-8 wide, Proteus pin ids"),
+        # pins arranged as in the PDF (page 4: VCCA / VCCB on top, GND below; page 7: X0-X7 and the
+        # select inputs left, X right; the supply pins of U3 are hidden in Proteus: here below the body)
         box("SN74AXC8T245", "U",
-            [(1, "VCCA", PI), (2, "DIR1", IN), (11, "DIR2", IN), (22, "~{OE}", IN), None]
-            + [(i + 2, f"A{i}", BI) for i in range(1, 9)] + [None, (12, "GND", PI), (13, "GND", PI)],
-            [(24, "VCCB", PI), (23, "VCCB", PI), None, None, None]
-            + [(22 - i, f"B{i}", BI) for i in range(1, 9)],
+            [(2, "DIR1", IN), (11, "DIR2", IN), None] + [(i + 2, f"A{i}", BI) for i in range(1, 9)],
+            [(23, "VCCB", PI), (22, "~{OE}", IN), None] + [(22 - i, f"B{i}", BI) for i in range(1, 9)],
+            top=[(1, "VCCA", PI), (24, "VCCB", PI)], bottom=[(12, "GND", PI), (13, "GND", PI)],
             desc="Octal dual-supply bus transceiver TSSOP-24, Proteus pin ids"),
         box("SN74LV4051", "U",
-            [(16, "VDD", PI), (11, "A", IN), (10, "B", IN), (9, "C", IN), (6, "INH", IN), None,
-             (8, "VSS", PI), (7, "VEE", PI)],
-            [(3, "X", PAS), None, (13, "X0", PAS), (14, "X1", PAS), (15, "X2", PAS), (12, "X3", PAS),
-             (1, "X4", PAS), (2, "X6", PAS), (5, "X5", PAS), (4, "X7", PAS)],
+            [(13, "X0", PAS), (14, "X1", PAS), (15, "X2", PAS), (12, "X3", PAS), (1, "X4", PAS), (5, "X5", PAS),
+             (2, "X6", PAS), (4, "X7", PAS), None, (11, "A", IN), (10, "B", IN), (9, "C", IN), (6, "INH", IN)],
+            [(3, "X", PAS)], bottom=[(16, "VDD", PI), (7, "VEE", PI), (8, "VSS", PI)],
             desc="8-channel analog multiplexer TSSOP-16, Proteus pin ids"),
     ]
     for n, nm in ((16, "2X8"), (30, "2X15"), (40, "2X20")):

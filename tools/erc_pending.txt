@@ -3,3 +3,8 @@
 # An entry that ERC no longer reports makes tools/erc.sh fail: remove it then. Must be empty when
 # Phase 1 is done.
 pin_not_driven RS1 2   # TXD input: its only driver is U10 ball G1 (unit C, sheet 2), session T3
+pin_not_driven AD2 1   # ~CS input: its only driver is U10 ball P2 (GPIOL_P_00_PLLIN0), session T3
+pin_not_driven AD2 3   # SCLK input: its only driver is U10 ball P5 (GPIOB_N_00), session T3
+pin_not_driven U3 11   # A input: driven by U9 B5 (ADBSEL0, sheet 4), later in session T2
+pin_not_driven U3 10   # B input: driven by U9 B6 (ADBSEL1, sheet 4), later in session T2
+pin_not_driven U3 9    # C input: driven by U9 B7 (ADBSEL2, sheet 4), later in session T2
