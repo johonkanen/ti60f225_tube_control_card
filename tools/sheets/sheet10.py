@@ -12,35 +12,11 @@ from _common import *  # noqa: F401,F403
 sh = sheet("10_connectors_bias_adc.kicad_sch")
 
 
-def header_ties(p, npins, n=8):
-    """Labels / power symbols / no-connect flags on every pin of a placed dual-row header."""
-    xs = sorted({pt[0] for pt in p.pins.values()})
-    for pin in range(1, npins + 1):
-        side = "left" if p.pin(pin)[0] == xs[0] else "right"
-        if net(p.ref, pin) in RAILS:
-            pin_tie(sh, p, pin, side, 3, body=side)
-        else:
-            pin_tie(sh, p, pin, side, n)
-
-
-# J7: pin 30 top left, 29 top right, 1 bottom right (the symbol rotated by 180 deg)
-x7, y7 = P(39, 12)
-j7 = place_pin(sh, "J7", 30, (x7, y7), 180, ref_at=(x7 + g(6), y7 - g(3), 0, None),
-               value_at=(x7 + g(6), P(0, 43)[1], 0, None))
-header_ties(j7, 30)
-
-# J6: pin 1 top left
-j6 = place_pin(sh, "J6", 1, P(103, 15))
-header_ties(j6, 16)
-
-# J3: pin 15 top left, 1 bottom left (the symbol mirrored about its X axis); even pins on a GND bus
-x3, y3 = P(176, 26)
-j3 = place_mirrored(sh, sym("J3"), "J3", x3, y3, "x", value=sh_value("J3"),
-                    ref_at=(x3, y3 - g(10), 0, None), value_at=(x3, y3 + g(11), 0, None))
-assert j3.pin(15) == P(170, 20) and j3.pin(1) == P(170, 34), (j3.pin(15), j3.pin(1))
+header(sh, "J7", 30, P(39, 12))        # pin 30 top left, 29 top right, 1 bottom right
+header(sh, "J6", 1, P(103, 15))        # pin 1 top left
+# J3: pin 15 top left, 1 bottom left; the even pins on a GND bus
+j3 = header(sh, "J3", 15, P(170, 20), skip=range(2, 17, 2))
 xb = P(186, 0)[0]
-for pin in range(1, 16, 2):
-    pin_tie(sh, j3, pin, "left", 8)
 for pin in range(2, 17, 2):
     assert net("J3", pin) == "GND"
     q = (xb, j3.pin(pin)[1])

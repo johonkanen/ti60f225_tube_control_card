@@ -221,3 +221,49 @@ def place_pin(sh, ref, pin, pt, rot=0, unit=1, **kw):
 def note(sh, s, x, y, size=1.27):
     """Text note at PDF render position (x, y)."""
     sh.text(s, *P(x, y), size=size)
+
+
+def header(sh, ref, top_left, pt, n=8, n_power=3, skip=()):
+    """Dual-row header `ref` (HEADER_2Xn_50MIL: odd pins left, pin 1 top) placed so that pin `top_left`
+    is the top left pin at point pt: pin 1 = as the symbol, the last pin = rotated by 180 deg (odd pins
+    right, pin 1 bottom), the last odd pin = mirrored about the X axis (odd pins left, pin 1 bottom).
+    Every pin not in `skip` gets its IPC net by pin_tie(): labels n grid units out, rail symbols n_power
+    units out pointing sideways, no-connect flags on N/C pads. Reference above, value below the body."""
+    npins = sum(len(find_all(sub, "pin")) for sub in find_all(lib()[sym(ref)], "symbol"))
+    rows = npins // 2
+    if top_left == 1:
+        rot, mirror = 0, False
+    elif top_left == npins:
+        rot, mirror = 180, False
+    elif top_left == npins - 1:
+        rot, mirror = 0, True
+    else:
+        raise ValueError(f"{ref}: top left pin {top_left}?")
+    # symbol origin from the library position of the top-left pin
+    for sub in find_all(lib()[sym(ref)], "symbol"):
+        for p in find_all(sub, "pin"):
+            if find(p, "number")[1] == str(top_left):
+                at = find(p, "at")
+                lx, ly = float(at[1]), float(at[2])
+    if rot == 180:
+        ox, oy = pt[0] + lx, pt[1] - ly
+    elif mirror:
+        ox, oy = pt[0] - lx, pt[1] - ly
+    else:
+        ox, oy = pt[0] - lx, pt[1] + ly
+    ox, oy = round(ox, 4), round(oy, 4)
+    xmid = round(pt[0] + g(6), 4)
+    kw = dict(value=sh_value(ref), ref_at=(xmid, round(pt[1] - g(3), 4), 0, None),
+              value_at=(xmid, round(pt[1] + g(2 * rows + 1), 4), 0, None))
+    p = place_mirrored(sh, sym(ref), ref, ox, oy, "x", **kw) if mirror else sh.place(sym(ref), ref, ox, oy, rot, **kw)
+    assert p.pin(top_left) == (round(pt[0], 4), round(pt[1], 4)), (ref, p.pin(top_left), pt)
+    assert all(q[0] >= pt[0] - 1e-6 and q[1] >= pt[1] - 1e-6 for q in p.pins.values()), f"{ref}: {top_left} is not top left"
+    for pin in range(1, npins + 1):
+        if pin in skip:
+            continue
+        side = "left" if abs(p.pin(pin)[0] - pt[0]) < 1e-6 else "right"
+        if net(ref, pin) in RAILS:
+            pin_tie(sh, p, pin, side, n_power, body=side)
+        else:
+            pin_tie(sh, p, pin, side, n)
+    return p

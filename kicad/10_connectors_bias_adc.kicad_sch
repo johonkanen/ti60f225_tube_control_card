@@ -3003,21 +3003,19 @@
 		(dnp no)
 		(uuid "f4e5cd53-8507-5d64-b3be-e8d395355f79")
 		(property "Reference" "J6"
-			(at 184.15 53.34 0)
+			(at 189.23 53.34 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Value" "16 PIN HEADER 50TH"
-			(at 184.15 78.74 0)
+			(at 189.23 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
-				(justify left)
 			)
 		)
 		(property "Footprint" ""
@@ -3623,7 +3621,7 @@
 		(dnp no)
 		(uuid "b3165b34-2f46-5528-8a9f-a2e752e0bb8c")
 		(property "Reference" "J3"
-			(at 274.32 58.42 0)
+			(at 274.32 59.69 0)
 			(effects
 				(font
 					(size 1.27 1.27)
