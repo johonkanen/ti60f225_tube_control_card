@@ -5,7 +5,7 @@ Plan: [PLAN.md](PLAN.md). Playbook: `tools/p2k/CONVERSION_PLAYBOOK.md`.
 | Phase | State |
 |---|---|
 | 0 Skeleton and inventory | **done** 2026-11-20 (Opus 5.5) |
-| 1 Schematic | preparation **done** 2026-11-20 (Opus 5.5); transcription: sessions T1 and T2 **done** 2026-11-20 (Fable 5.2): sheets 1, 11, 10, 8, 3, 7, 9, 12, 4 = 109 of 146 parts; T3 (2, 5, 6 = U10) to do |
+| 1 Schematic | **done** 2026-11-20: preparation (Opus 5.5), transcription sessions T1, T2, T3 (Fable 5.2): 12 sheets, 146 of 146 parts, full netlist comparison clean, ERC 0 errors |
 | 2 Footprints | not started |
 | 3 PCB | not started |
 | 4 Verification | not started |
@@ -251,6 +251,56 @@ asserted in sheet09.py / sheet12.py (IPC name or its alias).
 - `tools/sheets/_common.py`: `unit_of()`, `unit_pins()`, `array_r()` (one unit of an R_ARRAY4 chosen
   by the IPC net of a pin), `jfet_cell()` / `jfet_quad()` (pages 9 and 12), `level_shifter()` (page 4).
 
+## Phase 1 transcription – session T3 done (Fable 5.2, 2026-11-20): Phase 1 complete
+
+Sheets 2, 5, 6 drawn by `tools/sheets/sheet02.py`, `sheet05.py`, `sheet06.py` (37 parts + all eight
+units of U10; 146 of 146 now). The three sheets were checked together (compare reports the balls of
+unplaced units as errors) and committed together.
+
+| Sheet | Parts | Compare (full, no `--allow-missing`) | ERC on the sheet | Notes |
+|---|---|---|---|---|
+| 2 FPGA configuration and clock | 19/19 + U10 units A, C | 0 missing, 0 wrong-net pins | 0 errors; 3 expected warnings (GPIOL_N_10, GPIOL_N_18, GPIOL_P_18) | CDONE / CRESET_N nets (#00113, #00114) as wires; 9 no-connect flags (unit C); alias pairs and the two hand notes as text |
+| 5 FPGA IO banks | 0 + U10 units B, D, E, F | 0 wrong-net pins | 0 errors; 5 expected warnings (GPIOL_10, GPIOL_11, GPIOR_20, GPIOR_N_11, GPIOT_N_01) | 53 no-connect flags (D 22, E 15, F 16, B 0); the six alias balls of unit B carry the IPC name, pairs as a note |
+| 6 FPGA power | 18/18 + U10 units G, H | 0 missing, 0 wrong-net pins | 0 errors, 0 warnings | supply groups on bus lines with one power symbol each (`rail_bus()`), REF_RES nets #00388-#00395 as wires to the eight 10k0 resistors |
+
+**Full comparison** (`python3 tools/compare_netlists.py`): parts 146/146 present, 0 missing, 0 extra;
+pins compared 876, **wrong-net pins 0**; IPC nets touched 298, **complete 298** (= 227 IPC nets − 5
+merged by D1 + 76 N/C pads, each its own net). No-connect flags on U10: **62** (9 + 53), the list of
+the transcription rules.
+
+**ERC: 0 errors, 14 warnings, `tools/erc_pending.txt` empty** (the entries RS1-2, AD2-1, AD2-3 were
+resolved by balls G1, P2, P5). The 80 warnings open after T2 are gone. The 14 remaining warnings are all
+`isolated_pin_label` = the single-pin nets of the board (finding 2), a label on one pin each:
+
+| Label | Pin | Sheet | Why it stays |
+|---|---|---|---|
+| PWM_Q7, GPIO_BYPASS_RLY_ISO, PWM_TRANS5, PWM_Q8 | U1 B1-B4 (21, 20, 19, 18) | 4 | level-shifter outputs that go nowhere |
+| GPIO_BYPASS_RLY_ISOLATED, ADCLK_ISO | U9 B1, B2 (21, 20) | 4 | level-shifter outputs that go nowhere |
+| GPIOL_N_10 | U10 G2 | 2 | ball + one via only (Phase 3) |
+| GPIOL_N_18, GPIOL_P_18 | U10 A2, B2 | 2 | balls with a label, no other pin |
+| GPIOL_10, GPIOL_11 | U10 B5, C5 | 5 | ball + an SMD test pad each (board-only pads, Phase 3) |
+| GPIOR_20, GPIOR_N_11, GPIOT_N_01 | U10 D12, G14, C6 | 5 | balls with a label, no other pin |
+
+Renders (`reports/render/02_*.png`, `05_*.png`, `06_*.png`) compared by eye with
+`build/tmp/pdf/hi-02/05/06.png`; drawing differences (same nets) are in each script's docstring: uniform
+2.54 mm ball pitch (the PDF spaces the pairs), power symbols instead of terminals, the reference
+resistors at an even pitch.
+
+**New in this session (board-local):**
+- `tools/gen_symbols.py`: unit C draws GPIOL 15, 16 and 18 N before P, as the PDF does (`N_FIRST`);
+  afterwards the order of the balls on every side of every unit equals the PDF order (checked against
+  the PDF text layer). Pin sets and types unchanged; `make_sheets` (0 files changed), `check_symbols`
+  and `test_no_connect.py` re-run: OK.
+- `tools/sheets/_common.py`: `fpga_unit()` (one U10 unit: reference / value at the body, `pin_tie()`
+  over all its balls with the side from the pin position; global labels stand beyond the local labels
+  of the same side so the texts do not overlap at the 2.54 mm pitch), `ball_texts()` (pin name and
+  terminal label of every ball from the PDF text layer), `rail_bus()` (supply bus of unit G).
+  `fpga_unit()` **asserts for every ball**: PDF pin name = symbol pin name; no PDF label ⇔ N/C, rail or
+  auto-named net; PDF label = IPC net (case-insensitive) or a listed alias, and every listed alias is
+  used. Negative-tested: an alias removed (`U10-N13: PDF label GPIOR_24, IPC net MOS_GATE_1`) and an
+  unused alias added both fail.
+- `tools/check_all.sh`: the netlist comparison runs without `--allow-missing`.
+
 ### Last verification (`tools/check_all.sh`)
 
 ```
@@ -263,20 +313,19 @@ gen_symbols: lib/tube_control_card.kicad_sym up to date (36 symbols)
 symbols: 25 part types, 146 refdes, 10 power symbols
 symbols: OK
 == Sheets up to date (tools/sheets/sheetNN.py)
-make_sheets: 9 sheet scripts, kicad/ up to date
+make_sheets: 12 sheet scripts, kicad/ up to date
 == ERC
-erc: 0 errors, 86 warnings (86 isolated_pin_label), 3 pending errors (tools/erc_pending.txt) (reports/erc.rpt)
+erc: 0 errors, 14 warnings (14 isolated_pin_label) (reports/erc.rpt)
 == Netlist comparison vs IPC (D1 merges accepted)
 accepted (D1, board-local): 5 merged IPC net pairs: ISO5V-1 ISO5V + ISO5V.00299; ISO_G-1 RS485_GND + RS485_GND.00300; J2-1 5V + 5V.00301; RS485A-1 #00670.00259 + #00670.00260; RS485B-1 #00671.00261 + #00671.00262 (with R67-1)
-compare: parts 109/146 present, 37 missing, 0 extra; pins compared 568, wrong-net pins 0; IPC nets touched 206, complete 117
-compare: per sheet (drawn/total) 1:6/6 2:0/19 3:28/28 4:15/15 6:0/18 7:11/11 8:3/3 9:9/9 10:9/9 11:17/17 12:11/11
-WARNING: missing parts (37): (see --verbose or --sheet N)
+compare: parts 146/146 present, 0 missing, 0 extra; pins compared 876, wrong-net pins 0; IPC nets touched 298, complete 298
+compare: per sheet (drawn/total) 1:6/6 2:19/19 3:28/28 4:15/15 6:18/18 7:11/11 8:3/3 9:9/9 10:9/9 11:17/17 12:11/11
 compare: OK
 
 ALL CHECKS PASSED
 ```
 
-### Transcription rules (for the sheet sessions)
+### Transcription rules (used by the sheet sessions; Phase 1 is done)
 
 - Use only `tube_control_card:` symbols, exactly the `lib_id` of `lib/part_map.csv` per
   refdes and that file's value (`sym()`, `sh_value()` in `_common.py`). Refdes = IPC refdes.
@@ -472,6 +521,32 @@ Reported, not fixed (PLAN.md section 5.3).
    alias pairs (JFET_GPIO_n), JFET_1 = A, the case (gnd) and AGND / DGND = GND. `GPIOB_N12`
    (U2-9, U10-P9) is spelled without the second underscore in both the PDF and the IPC.
 
+21. **Labels of pages 2, 5, 6 vs IPC:** `fpga_unit()` compares every one of the 225 balls with the PDF
+   text layer. All pin names agree with the symbol. The only label differences are Proteus aliases:
+   page 2 GPIOL_N_09 = TXD (G1), GPIOL_P_10 = RXD (H2), GPIOL_N_16 = POWERSCL (C1), GPIOL_N_17 =
+   POWERSDA (C2); page 5 GPIOL_6 = LOOP_BYPASS_RLY (C3), GPIOR_21 = RLY3_ENABLE (N14), GPIOR_24 =
+   MOS_GATE_1 (N13), GPIOR_25 = MOS_GATE_3 (P15), GPIOR_27 = MDATA_DAB (P13), GPIOR_29 = SDATA1_ISO
+   (R13); plus the case (FLASH_nCE, 3v3, 1v) and DGND = GND, and clk32Mhz = GPIOR_P_19_PLLIN0 (OSC1 OUT,
+   ball C14). Unit B labels GPIOL_1 ... GPIOL_9 are the IPC names (pin names GPIOL_01 ...). The other
+   parts of pages 2 and 6 were compared by eye: no difference. **Correction of finding 2:** GPIOR_25,
+   GPIOR_27 and GPIOR_29 are not names that "occur nowhere else": they are the page-5 labels of balls
+   P15, P13 and R13, so the page-1 pairs MOS_GATE_3 = GPIOR_25, GPIOR_27 = MDATA_DAB and SDATA1_ISO =
+   GPIOR_29 do connect those balls (as the IPC shows).
+22. **FPGA configuration (page 2), as built:** CRESET_N (J5) has only R21 330k to 1V8 and C17 1u to GND
+   (power-on RC, no supervisor, no access from J1); CDONE (L3) only the pull-up R27 100k (no LED, no test
+   point). CBSEL0 / CBSEL1 (F3, E3) are N/C. The JTAG pull-ups R4-R7 (4.7k, also on TDO) go to **3V3**
+   while the configuration pull-ups go to 1V8; J1 carries TDI, TCK, TMS, TDO, GND and **no supply pin**
+   for the programmer's reference. TEST_N (E2, GPIOL_N_15) and CSI (N2, GPIOL_P_02) have 100k pull-ups
+   to 1V8; DATA2 / DATA3 (flash IO2 / IO3 = WP / HOLD) have no pull-up. The oscillator OSC1 (EN tied to
+   VCC) drives ball C14 directly (no series resistor). To check against the Efinix Titanium
+   configuration guide in the redesign; drawn as built.
+23. **FPGA decoupling (page 6), as built:** page 6 has six 47n on 1V (12 balls) and four 47n on 3V3
+   (4 balls) and **no capacitor on 1V8**, which feeds 20 balls (VCCAUX and all eight VCCIO banks). The
+   1V8 capacitors of the whole board are C1, C2 (flash, oscillator), the five level-shifter capacitors
+   of page 4, C51 (page 11), C71 1u (page 7) and the regulator output C16 10u. Whether some of those sit
+   at the BGA is a Phase 3 question (placement). The eight REF_RES pins each have their own 10k0 to GND.
+   The PDF value is `10k0` for these and `47n` for all FPGA capacitors.
+
 ## p2k candidates
 
 Shared-tool limitations met on this board, with the board-local workaround used. To be
@@ -571,6 +646,15 @@ solved in tools/p2k later (with the ac_psu regression); until then the wrappers 
    (resistor-array unit chosen by the IPC net) and the power unit laid over unit A
    (`jfet_quad()`) – are candidates for `p2k.sheetkit` together with candidate 12.
 
+17. **U10 sheet helpers** (`fpga_unit()`, `ball_texts()`, `rail_bus()` in `tools/sheets/_common.py`): a
+   multi-unit part placed unit by unit with all its pin ties, and the **PDF text layer used as a check**
+   (pin name and terminal label of every pin vs symbol and IPC net, aliases listed explicitly).
+   `p2k.pdftext` could offer "the words left / right of a pin-number word on its row" so every sheet
+   script can assert its labels instead of comparing them by eye (candidates 12 and 16).
+18. `sch_builder` / `sheetkit`: at a 2.54 mm pin pitch a local label (text above its wire) lies on the
+   global label of the row above. Board-local: `fpga_unit()` puts the global labels of a side beyond
+   its longest local label. A shared helper could do the same (or draw local labels below the stub).
+
 ## Decisions
 
 - **D1 (decided by the user, 2026-11-20): split terminal nets** (finding 1). The five split
@@ -597,6 +681,6 @@ solved in tools/p2k later (with the ac_psu regression); until then the wrappers 
   old_lib     ERC FAIL, compare pass   -> as expected   (pin type no_connect: the blind spot; only the fatal warning catches it)
   ```
 
-  The 62 N/C balls of U10 already had real pin types (bidirectional GPIOs): flags in T3.
+  The 62 N/C balls of U10 already had real pin types (bidirectional GPIOs): flagged in T3 (62 flags).
 
 Open: none.

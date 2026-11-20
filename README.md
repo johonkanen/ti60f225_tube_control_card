@@ -24,10 +24,11 @@ Conversion plan: [PLAN.md](PLAN.md); progress: [STATUS.md](STATUS.md); prompt fo
 Phase 0 (skeleton and inventory) and the Phase 1 preparation done: part map, symbol library
 (U10 Ti60F225 as 8 units, pinout checked against Efinix), empty KiCad skeleton, netlist
 comparison with decision D1 (split terminals drawn as one pin); `tools/check_all.sh` passes.
-Phase 1 transcription, sessions T1 and T2 done: sheets 1, 11, 10, 8, 3, 7, 9, 12, 4 drawn (109 of 146
-parts, 0 wrong-net pins, ERC 0 errors + 3 pending until the FPGA sheets); decision D2 (no pin of
-type no_connect, ERC `no_connect_connected` fatal).
-Next: session T3 = the U10 sheets 2, 5, 6 and the full netlist comparison (next_prompt.md).
+**Phase 1 (schematic) done**: all 12 sheets drawn by `tools/sheets/sheetNN.py` (146 of 146 parts, all
+eight units of U10 with 62 no-connect flags); full netlist comparison against the IPC netlist: 0 missing
+parts, 0 wrong-net pins, every net complete; ERC 0 errors, 14 explained warnings (single-pin nets);
+decision D2 (no pin of type no_connect, ERC `no_connect_connected` fatal).
+Next: Phase 2 = footprints (next_prompt.md).
 
 v2.5, built 2025. `source/cadcam_rs274x/` is the earlier RS-274X export of the same version (cross-check only). v1 (built 2024, same outline and mounting holes) is not converted.
 
