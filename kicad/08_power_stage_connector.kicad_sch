@@ -1352,8 +1352,7 @@
 	)
 	(symbol
 		(lib_id "tube_control_card:HEADER_2X20_50MIL")
-		(at 123.19 101.6 0)
-		(mirror x)
+		(at 123.19 101.6 180)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -1376,7 +1375,7 @@
 				)
 			)
 		)
-		(property "Footprint" "tube_control_card:PinHeader_2x20_P1.27mm_Vertical_RowsSwapped_ProteusPads"
+		(property "Footprint" "tube_control_card:PinHeader_2x20_P1.27mm_Vertical_ProteusPads"
 			(at 123.19 101.6 0)
 			(effects
 				(font
@@ -1534,45 +1533,13 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 127) (xy 102.87 127)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "6c942e5f-f1e0-58d5-a0c3-840c19265812")
-	)
-	(global_label "ADB0"
-		(shape passive)
-		(at 102.87 127 180)
-		(fields_autoplaced yes)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right)
-		)
-		(uuid "e89fc07d-fd84-5073-8916-6c26eb1f21ab")
-		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 102.87 127 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify right)
-				(hide yes)
-			)
-		)
-	)
-	(wire
-		(pts
 			(xy 130.81 127) (xy 143.51 127)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "bd60e62a-9346-58a1-b09c-45e3f8202642")
+		(uuid "6c942e5f-f1e0-58d5-a0c3-840c19265812")
 	)
 	(global_label "ADB7"
 		(shape passive)
@@ -1584,7 +1551,7 @@
 			)
 			(justify left)
 		)
-		(uuid "20fedc85-34a9-59d3-817f-81b5602126dd")
+		(uuid "e89fc07d-fd84-5073-8916-6c26eb1f21ab")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 143.51 127 0)
 			(effects
@@ -1598,17 +1565,17 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 124.46) (xy 102.87 124.46)
+			(xy 115.57 127) (xy 102.87 127)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "7cbad24c-87da-5d08-a31d-6972faab43a5")
+		(uuid "bd60e62a-9346-58a1-b09c-45e3f8202642")
 	)
-	(global_label "ADB1"
+	(global_label "ADB0"
 		(shape passive)
-		(at 102.87 124.46 180)
+		(at 102.87 127 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1616,9 +1583,9 @@
 			)
 			(justify right)
 		)
-		(uuid "c8667e74-a9a5-5b63-b843-7e95adab3adb")
+		(uuid "20fedc85-34a9-59d3-817f-81b5602126dd")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 102.87 124.46 0)
+			(at 102.87 127 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1636,7 +1603,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "4df09042-3b59-57b9-8434-d872157e5d26")
+		(uuid "7cbad24c-87da-5d08-a31d-6972faab43a5")
 	)
 	(global_label "ADB6"
 		(shape passive)
@@ -1648,7 +1615,7 @@
 			)
 			(justify left)
 		)
-		(uuid "74ff199c-b3e6-58d0-86d4-4d06e85cfd9e")
+		(uuid "c8667e74-a9a5-5b63-b843-7e95adab3adb")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 143.51 124.46 0)
 			(effects
@@ -1662,17 +1629,17 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 121.92) (xy 102.87 121.92)
+			(xy 115.57 124.46) (xy 102.87 124.46)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "62d203bc-6f1e-5c40-8995-1ff013badb01")
+		(uuid "4df09042-3b59-57b9-8434-d872157e5d26")
 	)
-	(global_label "ADB2"
+	(global_label "ADB1"
 		(shape passive)
-		(at 102.87 121.92 180)
+		(at 102.87 124.46 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1680,9 +1647,9 @@
 			)
 			(justify right)
 		)
-		(uuid "524eba1b-cbba-59ed-bdfb-364eedc7cd8d")
+		(uuid "74ff199c-b3e6-58d0-86d4-4d06e85cfd9e")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 102.87 121.92 0)
+			(at 102.87 124.46 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1700,7 +1667,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "8555e802-6ee5-5573-a19d-7988a5018033")
+		(uuid "62d203bc-6f1e-5c40-8995-1ff013badb01")
 	)
 	(global_label "ADB5"
 		(shape passive)
@@ -1712,7 +1679,7 @@
 			)
 			(justify left)
 		)
-		(uuid "850b4c1f-fbd8-527f-902d-1bdc1a612449")
+		(uuid "524eba1b-cbba-59ed-bdfb-364eedc7cd8d")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 143.51 121.92 0)
 			(effects
@@ -1726,17 +1693,17 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 119.38) (xy 102.87 119.38)
+			(xy 115.57 121.92) (xy 102.87 121.92)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "37b7590f-5ccc-515d-804c-4bf622464481")
+		(uuid "8555e802-6ee5-5573-a19d-7988a5018033")
 	)
-	(global_label "ADB3"
+	(global_label "ADB2"
 		(shape passive)
-		(at 102.87 119.38 180)
+		(at 102.87 121.92 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1744,9 +1711,9 @@
 			)
 			(justify right)
 		)
-		(uuid "7b466a00-5982-5693-afed-7a63b7847e94")
+		(uuid "850b4c1f-fbd8-527f-902d-1bdc1a612449")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 102.87 119.38 0)
+			(at 102.87 121.92 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1764,7 +1731,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "240d441b-9ad7-54b3-a89e-0c7bb951e74b")
+		(uuid "37b7590f-5ccc-515d-804c-4bf622464481")
 	)
 	(global_label "ADB4"
 		(shape passive)
@@ -1776,7 +1743,7 @@
 			)
 			(justify left)
 		)
-		(uuid "590b17f0-4491-5986-ac0a-ce41dc9683f2")
+		(uuid "7b466a00-5982-5693-afed-7a63b7847e94")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 143.51 119.38 0)
 			(effects
@@ -1790,17 +1757,17 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 116.84) (xy 102.87 116.84)
+			(xy 115.57 119.38) (xy 102.87 119.38)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "269ae16e-dbb2-5129-86ec-a802e4f76a57")
+		(uuid "240d441b-9ad7-54b3-a89e-0c7bb951e74b")
 	)
-	(global_label "ADASEL1_ISO"
+	(global_label "ADB3"
 		(shape passive)
-		(at 102.87 116.84 180)
+		(at 102.87 119.38 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1808,9 +1775,9 @@
 			)
 			(justify right)
 		)
-		(uuid "23c71229-3a37-506e-b852-ace96a220f32")
+		(uuid "590b17f0-4491-5986-ac0a-ce41dc9683f2")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 102.87 116.84 0)
+			(at 102.87 119.38 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1828,7 +1795,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f42c7654-f5a8-56e9-a84b-bdbd5ca9fedf")
+		(uuid "269ae16e-dbb2-5129-86ec-a802e4f76a57")
 	)
 	(global_label "ADASEL2_ISO"
 		(shape passive)
@@ -1840,7 +1807,7 @@
 			)
 			(justify left)
 		)
-		(uuid "d156790c-5ae4-571b-b01f-8c48a0ad2415")
+		(uuid "23c71229-3a37-506e-b852-ace96a220f32")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 143.51 116.84 0)
 			(effects
@@ -1854,17 +1821,17 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 114.3) (xy 102.87 114.3)
+			(xy 115.57 116.84) (xy 102.87 116.84)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "c0d66165-6c2c-506b-85b3-9176b6ae6c1b")
+		(uuid "f42c7654-f5a8-56e9-a84b-bdbd5ca9fedf")
 	)
-	(global_label "SDATA1_ISO"
+	(global_label "ADASEL1_ISO"
 		(shape passive)
-		(at 102.87 114.3 180)
+		(at 102.87 116.84 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1872,9 +1839,9 @@
 			)
 			(justify right)
 		)
-		(uuid "aa5e3085-2415-5d1e-b732-1746e528ce3e")
+		(uuid "d156790c-5ae4-571b-b01f-8c48a0ad2415")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 102.87 114.3 0)
+			(at 102.87 116.84 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1892,7 +1859,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "e46f8889-987d-5ae7-bc89-6167f16bdf43")
+		(uuid "c0d66165-6c2c-506b-85b3-9176b6ae6c1b")
 	)
 	(global_label "ADASEL0_ISO"
 		(shape passive)
@@ -1904,7 +1871,7 @@
 			)
 			(justify left)
 		)
-		(uuid "64d230a0-93b0-5d0a-9836-d6b640f94718")
+		(uuid "aa5e3085-2415-5d1e-b732-1746e528ce3e")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 143.51 114.3 0)
 			(effects
@@ -1918,17 +1885,17 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 111.76) (xy 102.87 111.76)
+			(xy 115.57 114.3) (xy 102.87 114.3)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "6bceeace-c3c3-5158-b31d-fff43ce02b16")
+		(uuid "e46f8889-987d-5ae7-bc89-6167f16bdf43")
 	)
-	(global_label "CLK1_ISO"
+	(global_label "SDATA1_ISO"
 		(shape passive)
-		(at 102.87 111.76 180)
+		(at 102.87 114.3 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -1936,9 +1903,9 @@
 			)
 			(justify right)
 		)
-		(uuid "aed42318-622e-5308-b511-8dc4ef7ea6bb")
+		(uuid "64d230a0-93b0-5d0a-9836-d6b640f94718")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 102.87 111.76 0)
+			(at 102.87 114.3 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -1956,7 +1923,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "d351eed4-08a5-5ff5-bf1c-231a5bb455ca")
+		(uuid "6bceeace-c3c3-5158-b31d-fff43ce02b16")
 	)
 	(global_label "CS1_ISO"
 		(shape passive)
@@ -1968,7 +1935,7 @@
 			)
 			(justify left)
 		)
-		(uuid "bb4b1293-9643-5ebd-94a2-7915e85e9120")
+		(uuid "aed42318-622e-5308-b511-8dc4ef7ea6bb")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 143.51 111.76 0)
 			(effects
@@ -1982,17 +1949,17 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 109.22) (xy 102.87 109.22)
+			(xy 115.57 111.76) (xy 102.87 111.76)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "b15fc946-b66a-5b71-8731-dfefd0e0e7af")
+		(uuid "d351eed4-08a5-5ff5-bf1c-231a5bb455ca")
 	)
-	(global_label "PWM_TRANS2_ISO"
+	(global_label "CLK1_ISO"
 		(shape passive)
-		(at 102.87 109.22 180)
+		(at 102.87 111.76 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2000,9 +1967,9 @@
 			)
 			(justify right)
 		)
-		(uuid "787799b7-6a83-56a2-8def-951596ec8874")
+		(uuid "bb4b1293-9643-5ebd-94a2-7915e85e9120")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 102.87 109.22 0)
+			(at 102.87 111.76 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2020,7 +1987,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "c347ca20-97b3-5b24-9167-057664820edb")
+		(uuid "b15fc946-b66a-5b71-8731-dfefd0e0e7af")
 	)
 	(global_label "PWM_TRANS1_ISO"
 		(shape passive)
@@ -2032,7 +1999,7 @@
 			)
 			(justify left)
 		)
-		(uuid "38146a4f-0dac-5001-b9de-3b0f65510d7e")
+		(uuid "787799b7-6a83-56a2-8def-951596ec8874")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 143.51 109.22 0)
 			(effects
@@ -2046,17 +2013,17 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 106.68) (xy 102.87 106.68)
+			(xy 115.57 109.22) (xy 102.87 109.22)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "10eaf3f3-5d22-52ef-b0ea-ba5df3a7ea4d")
+		(uuid "c347ca20-97b3-5b24-9167-057664820edb")
 	)
-	(global_label "PWM_G4_ISO"
+	(global_label "PWM_TRANS2_ISO"
 		(shape passive)
-		(at 102.87 106.68 180)
+		(at 102.87 109.22 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2064,9 +2031,9 @@
 			)
 			(justify right)
 		)
-		(uuid "ac0ef92f-6a59-5de6-83fb-d246970445e4")
+		(uuid "38146a4f-0dac-5001-b9de-3b0f65510d7e")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 102.87 106.68 0)
+			(at 102.87 109.22 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2084,7 +2051,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "dc95d7ef-ed81-58d3-ab28-b8f11e528f35")
+		(uuid "10eaf3f3-5d22-52ef-b0ea-ba5df3a7ea4d")
 	)
 	(global_label "PWM_TRANS3_ISO"
 		(shape passive)
@@ -2096,7 +2063,7 @@
 			)
 			(justify left)
 		)
-		(uuid "076678e6-f2aa-5d2f-aebe-ce4973debb0c")
+		(uuid "ac0ef92f-6a59-5de6-83fb-d246970445e4")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 143.51 106.68 0)
 			(effects
@@ -2110,17 +2077,17 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 104.14) (xy 102.87 104.14)
+			(xy 115.57 106.68) (xy 102.87 106.68)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "f5413fc0-668f-568d-998d-b385d11ada4c")
+		(uuid "dc95d7ef-ed81-58d3-ab28-b8f11e528f35")
 	)
-	(global_label "PWM_G1_ISO"
+	(global_label "PWM_G4_ISO"
 		(shape passive)
-		(at 102.87 104.14 180)
+		(at 102.87 106.68 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2128,9 +2095,9 @@
 			)
 			(justify right)
 		)
-		(uuid "76576fce-d900-51ae-b595-ce08fd4b9108")
+		(uuid "076678e6-f2aa-5d2f-aebe-ce4973debb0c")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 102.87 104.14 0)
+			(at 102.87 106.68 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2148,7 +2115,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "6bae7092-669a-5902-b4a9-d1dcd90228c7")
+		(uuid "f5413fc0-668f-568d-998d-b385d11ada4c")
 	)
 	(global_label "PWM_G2_ISO"
 		(shape passive)
@@ -2160,7 +2127,7 @@
 			)
 			(justify left)
 		)
-		(uuid "dd9e0d5f-5840-5bd6-9d93-d81e9c731bbb")
+		(uuid "76576fce-d900-51ae-b595-ce08fd4b9108")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 143.51 104.14 0)
 			(effects
@@ -2174,17 +2141,17 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 101.6) (xy 102.87 101.6)
+			(xy 115.57 104.14) (xy 102.87 104.14)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "9a7cc285-5762-5d17-8ea7-d4da55e02366")
+		(uuid "6bae7092-669a-5902-b4a9-d1dcd90228c7")
 	)
-	(global_label "DAB_PWM_PRI_HI_ISO"
+	(global_label "PWM_G1_ISO"
 		(shape passive)
-		(at 102.87 101.6 180)
+		(at 102.87 104.14 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2192,9 +2159,9 @@
 			)
 			(justify right)
 		)
-		(uuid "56cb813f-516f-56cc-9171-2fa9d9383f39")
+		(uuid "dd9e0d5f-5840-5bd6-9d93-d81e9c731bbb")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 102.87 101.6 0)
+			(at 102.87 104.14 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2212,7 +2179,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "91546fcd-b166-5f89-ae92-91a09d0dbe81")
+		(uuid "9a7cc285-5762-5d17-8ea7-d4da55e02366")
 	)
 	(global_label "PWM_G3_ISO"
 		(shape passive)
@@ -2224,7 +2191,7 @@
 			)
 			(justify left)
 		)
-		(uuid "736205ea-c731-580e-b3f8-46112ff08b92")
+		(uuid "56cb813f-516f-56cc-9171-2fa9d9383f39")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 143.51 101.6 0)
 			(effects
@@ -2238,17 +2205,17 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 99.06) (xy 102.87 99.06)
+			(xy 115.57 101.6) (xy 102.87 101.6)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "b0ddb0d8-9d55-5503-be9d-4ae80378bb01")
+		(uuid "91546fcd-b166-5f89-ae92-91a09d0dbe81")
 	)
-	(global_label "ADCLK_DAB"
+	(global_label "DAB_PWM_PRI_HI_ISO"
 		(shape passive)
-		(at 102.87 99.06 180)
+		(at 102.87 101.6 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2256,9 +2223,9 @@
 			)
 			(justify right)
 		)
-		(uuid "90ac29c1-8641-551c-80bd-cd92b0bab7af")
+		(uuid "736205ea-c731-580e-b3f8-46112ff08b92")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 102.87 99.06 0)
+			(at 102.87 101.6 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2276,7 +2243,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "0b3e41e3-7dda-538a-b572-df155136d32b")
+		(uuid "b0ddb0d8-9d55-5503-be9d-4ae80378bb01")
 	)
 	(global_label "DAB_PWM_PRI_LO_ISO"
 		(shape passive)
@@ -2288,7 +2255,7 @@
 			)
 			(justify left)
 		)
-		(uuid "4337ba24-14a9-5409-b7a6-828a9cf68ce9")
+		(uuid "90ac29c1-8641-551c-80bd-cd92b0bab7af")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 143.51 99.06 0)
 			(effects
@@ -2302,17 +2269,17 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 96.52) (xy 102.87 96.52)
+			(xy 115.57 99.06) (xy 102.87 99.06)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "481c253b-85b4-5f87-b0f0-b56f4e30f798")
+		(uuid "0b3e41e3-7dda-538a-b572-df155136d32b")
 	)
-	(global_label "MDATA_DAB"
+	(global_label "ADCLK_DAB"
 		(shape passive)
-		(at 102.87 96.52 180)
+		(at 102.87 99.06 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2320,9 +2287,9 @@
 			)
 			(justify right)
 		)
-		(uuid "e603a0c1-2e94-5447-8910-97c363bc3299")
+		(uuid "4337ba24-14a9-5409-b7a6-828a9cf68ce9")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 102.87 96.52 0)
+			(at 102.87 99.06 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2340,7 +2307,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "5b5ed36c-fd38-5f28-bfdf-30028fd197a4")
+		(uuid "481c253b-85b4-5f87-b0f0-b56f4e30f798")
 	)
 	(global_label "PWM_TRANS4"
 		(shape passive)
@@ -2352,7 +2319,7 @@
 			)
 			(justify left)
 		)
-		(uuid "220ac075-0c86-5da0-b916-b1570e8cee81")
+		(uuid "e603a0c1-2e94-5447-8910-97c363bc3299")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 143.51 96.52 0)
 			(effects
@@ -2366,17 +2333,17 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 93.98) (xy 102.87 93.98)
+			(xy 115.57 96.52) (xy 102.87 96.52)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "81d3d5c1-b8e8-5f58-8fbd-013c94c3ef4c")
+		(uuid "5b5ed36c-fd38-5f28-bfdf-30028fd197a4")
 	)
-	(global_label "PWM_TRANS6"
+	(global_label "MDATA_DAB"
 		(shape passive)
-		(at 102.87 93.98 180)
+		(at 102.87 96.52 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2384,9 +2351,9 @@
 			)
 			(justify right)
 		)
-		(uuid "41434835-f204-5db6-8071-32ad904a19f4")
+		(uuid "220ac075-0c86-5da0-b916-b1570e8cee81")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 102.87 93.98 0)
+			(at 102.87 96.52 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2404,7 +2371,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "5a4c887e-e89d-5f15-809c-a70122c9351c")
+		(uuid "81d3d5c1-b8e8-5f58-8fbd-013c94c3ef4c")
 	)
 	(global_label "DAB_PWM_HI_SEC"
 		(shape passive)
@@ -2416,7 +2383,7 @@
 			)
 			(justify left)
 		)
-		(uuid "b18a27d9-00cd-542c-8d94-1454a1267473")
+		(uuid "41434835-f204-5db6-8071-32ad904a19f4")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 143.51 93.98 0)
 			(effects
@@ -2430,17 +2397,17 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 91.44) (xy 102.87 91.44)
+			(xy 115.57 93.98) (xy 102.87 93.98)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "ceab6eaf-1f11-5883-8afa-ba94e9ccf02e")
+		(uuid "5a4c887e-e89d-5f15-809c-a70122c9351c")
 	)
-	(global_label "PWM_Q5"
+	(global_label "PWM_TRANS6"
 		(shape passive)
-		(at 102.87 91.44 180)
+		(at 102.87 93.98 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2448,9 +2415,9 @@
 			)
 			(justify right)
 		)
-		(uuid "a131f0ad-e996-58be-b84c-80f8ce5becdb")
+		(uuid "b18a27d9-00cd-542c-8d94-1454a1267473")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 102.87 91.44 0)
+			(at 102.87 93.98 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2468,7 +2435,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "ebb15758-38a3-523f-8082-4903034459c4")
+		(uuid "ceab6eaf-1f11-5883-8afa-ba94e9ccf02e")
 	)
 	(global_label "DAB_PWM_LO_SEC"
 		(shape passive)
@@ -2480,7 +2447,7 @@
 			)
 			(justify left)
 		)
-		(uuid "45a3bbbb-6ab9-5e85-ad06-446e726abae4")
+		(uuid "a131f0ad-e996-58be-b84c-80f8ce5becdb")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 143.51 91.44 0)
 			(effects
@@ -2494,17 +2461,17 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 88.9) (xy 102.87 88.9)
+			(xy 115.57 91.44) (xy 102.87 91.44)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "9c8b742a-c541-56ec-ad61-7536d869b17d")
+		(uuid "ebb15758-38a3-523f-8082-4903034459c4")
 	)
-	(global_label "INU_ADCLK"
+	(global_label "PWM_Q5"
 		(shape passive)
-		(at 102.87 88.9 180)
+		(at 102.87 91.44 180)
 		(fields_autoplaced yes)
 		(effects
 			(font
@@ -2512,9 +2479,9 @@
 			)
 			(justify right)
 		)
-		(uuid "f26ac790-e6b5-5bc5-8f40-d8fcf99fff65")
+		(uuid "45a3bbbb-6ab9-5e85-ad06-446e726abae4")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
-			(at 102.87 88.9 0)
+			(at 102.87 91.44 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2532,7 +2499,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "a1af88f8-f996-5629-bfc1-0463ca5b6f7b")
+		(uuid "9c8b742a-c541-56ec-ad61-7536d869b17d")
 	)
 	(global_label "PWM_Q6"
 		(shape passive)
@@ -2544,7 +2511,7 @@
 			)
 			(justify left)
 		)
-		(uuid "60380948-cf95-5999-aad5-77c2e9f50433")
+		(uuid "f26ac790-e6b5-5bc5-8f40-d8fcf99fff65")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 143.51 88.9 0)
 			(effects
@@ -2558,77 +2525,33 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 86.36) (xy 111.76 86.36)
+			(xy 115.57 88.9) (xy 102.87 88.9)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "90d0e4a6-3908-54ec-9bcd-6310572daaa7")
+		(uuid "a1af88f8-f996-5629-bfc1-0463ca5b6f7b")
 	)
-	(symbol
-		(lib_id "tube_control_card:GND")
-		(at 111.76 86.36 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "93da1a6e-bcd5-5e72-a6b1-234701fb4116")
-		(property "Reference" "#PWR001"
-			(at 105.41 86.36 0)
+	(global_label "INU_ADCLK"
+		(shape passive)
+		(at 102.87 88.9 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "60380948-cf95-5999-aad5-77c2e9f50433")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 102.87 88.9 0)
 			(effects
 				(font
 					(size 1.27 1.27)
 				)
+				(justify right)
 				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 108.46 86.36 270)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 111.76 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 111.76 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol for net \"GND\" (IPC net name)"
-			(at 111.76 86.36 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "07255aff-d78d-5203-a3e2-6c47496f1f5a")
-		)
-		(instances
-			(project "tube_control_card"
-				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/f535a586-c153-4a08-8c56-3d6574126e61"
-					(reference "#PWR001")
-					(unit 1)
-				)
 			)
 		)
 	)
@@ -2640,7 +2563,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "15ad368c-f6f6-5f01-86af-51802b967baa")
+		(uuid "90d0e4a6-3908-54ec-9bcd-6310572daaa7")
 	)
 	(symbol
 		(lib_id "tube_control_card:GND")
@@ -2650,8 +2573,8 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "02e01e23-d0cd-5e87-b8a7-35e4d87ddb86")
-		(property "Reference" "#PWR002"
+		(uuid "93da1a6e-bcd5-5e72-a6b1-234701fb4116")
+		(property "Reference" "#PWR001"
 			(at 140.97 86.36 0)
 			(effects
 				(font
@@ -2697,6 +2620,82 @@
 			)
 		)
 		(pin "1"
+			(uuid "07255aff-d78d-5203-a3e2-6c47496f1f5a")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/f535a586-c153-4a08-8c56-3d6574126e61"
+					(reference "#PWR001")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 115.57 86.36) (xy 111.76 86.36)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "15ad368c-f6f6-5f01-86af-51802b967baa")
+	)
+	(symbol
+		(lib_id "tube_control_card:GND")
+		(at 111.76 86.36 270)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "02e01e23-d0cd-5e87-b8a7-35e4d87ddb86")
+		(property "Reference" "#PWR002"
+			(at 105.41 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 108.46 86.36 270)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 111.76 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 111.76 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol for net \"GND\" (IPC net name)"
+			(at 111.76 86.36 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
 			(uuid "97b0c6de-b2c9-5e80-8fdf-37081cfbea51")
 		)
 		(instances
@@ -2710,7 +2709,7 @@
 	)
 	(wire
 		(pts
-			(xy 115.57 83.82) (xy 111.76 83.82)
+			(xy 130.81 83.82) (xy 134.62 83.82)
 		)
 		(stroke
 			(width 0)
@@ -2720,7 +2719,7 @@
 	)
 	(symbol
 		(lib_id "tube_control_card:3V3")
-		(at 111.76 83.82 90)
+		(at 134.62 83.82 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2728,82 +2727,6 @@
 		(dnp no)
 		(uuid "217b601f-56b7-5787-83c7-3bb6cf38cbfb")
 		(property "Reference" "#PWR003"
-			(at 115.57 83.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "3V3"
-			(at 108.46 83.82 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 111.76 83.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 111.76 83.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol for net \"3V3\" (IPC net name)"
-			(at 111.76 83.82 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "fd78c755-4b9e-53b9-af95-9918b4bc0b18")
-		)
-		(instances
-			(project "tube_control_card"
-				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/f535a586-c153-4a08-8c56-3d6574126e61"
-					(reference "#PWR003")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 130.81 83.82) (xy 134.62 83.82)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "a98cfccf-bf59-5184-897f-4f1d4849d137")
-	)
-	(symbol
-		(lib_id "tube_control_card:3V3")
-		(at 134.62 83.82 270)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "416a5a33-2847-591f-9427-7820e0d1a7fd")
-		(property "Reference" "#PWR004"
 			(at 130.81 83.82 0)
 			(effects
 				(font
@@ -2849,6 +2772,82 @@
 			)
 		)
 		(pin "1"
+			(uuid "fd78c755-4b9e-53b9-af95-9918b4bc0b18")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/f535a586-c153-4a08-8c56-3d6574126e61"
+					(reference "#PWR003")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 115.57 83.82) (xy 111.76 83.82)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a98cfccf-bf59-5184-897f-4f1d4849d137")
+	)
+	(symbol
+		(lib_id "tube_control_card:3V3")
+		(at 111.76 83.82 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "416a5a33-2847-591f-9427-7820e0d1a7fd")
+		(property "Reference" "#PWR004"
+			(at 115.57 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "3V3"
+			(at 108.46 83.82 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 111.76 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 111.76 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol for net \"3V3\" (IPC net name)"
+			(at 111.76 83.82 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
 			(uuid "3aa0d302-41b0-57ea-a0cb-2a8a81dddf8e")
 		)
 		(instances
@@ -2861,88 +2860,12 @@
 		)
 	)
 	(no_connect
-		(at 115.57 81.28)
+		(at 130.81 81.28)
 		(uuid "940260a8-dd69-5592-8134-66272c5745ca")
 	)
 	(no_connect
-		(at 130.81 81.28)
+		(at 115.57 81.28)
 		(uuid "d44a86d4-0a11-5f1c-b5d0-d73187cb6c2c")
-	)
-	(wire
-		(pts
-			(xy 115.57 78.74) (xy 111.76 78.74)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "df1e39c8-89ee-550b-a2c4-9622b602755a")
-	)
-	(symbol
-		(lib_id "tube_control_card:12V")
-		(at 111.76 78.74 90)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "b947bdd3-e285-5994-a595-e670cfa487a5")
-		(property "Reference" "#PWR005"
-			(at 115.57 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Value" "12V"
-			(at 108.46 78.74 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 111.76 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 111.76 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "Power symbol for net \"12V\" (IPC net name)"
-			(at 111.76 78.74 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "e8f2e724-5cf5-53aa-8023-cc7c927f0bdf")
-		)
-		(instances
-			(project "tube_control_card"
-				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/f535a586-c153-4a08-8c56-3d6574126e61"
-					(reference "#PWR005")
-					(unit 1)
-				)
-			)
-		)
 	)
 	(wire
 		(pts
@@ -2952,7 +2875,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "0dbcb481-2e68-5cd5-8c62-de21ea1a025f")
+		(uuid "df1e39c8-89ee-550b-a2c4-9622b602755a")
 	)
 	(symbol
 		(lib_id "tube_control_card:12V")
@@ -2962,8 +2885,8 @@
 		(in_bom yes)
 		(on_board yes)
 		(dnp no)
-		(uuid "0b803333-97b9-5de9-a95a-9f6d6e3e8f07")
-		(property "Reference" "#PWR006"
+		(uuid "b947bdd3-e285-5994-a595-e670cfa487a5")
+		(property "Reference" "#PWR005"
 			(at 130.81 78.74 0)
 			(effects
 				(font
@@ -3001,6 +2924,82 @@
 		)
 		(property "Description" "Power symbol for net \"12V\" (IPC net name)"
 			(at 134.62 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "e8f2e724-5cf5-53aa-8023-cc7c927f0bdf")
+		)
+		(instances
+			(project "tube_control_card"
+				(path "/bc97a51e-2829-48fa-a8bc-a9442e093866/f535a586-c153-4a08-8c56-3d6574126e61"
+					(reference "#PWR005")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(wire
+		(pts
+			(xy 115.57 78.74) (xy 111.76 78.74)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0dbcb481-2e68-5cd5-8c62-de21ea1a025f")
+	)
+	(symbol
+		(lib_id "tube_control_card:12V")
+		(at 111.76 78.74 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0b803333-97b9-5de9-a95a-9f6d6e3e8f07")
+		(property "Reference" "#PWR006"
+			(at 115.57 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "12V"
+			(at 108.46 78.74 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 111.76 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 111.76 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" "Power symbol for net \"12V\" (IPC net name)"
+			(at 111.76 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)

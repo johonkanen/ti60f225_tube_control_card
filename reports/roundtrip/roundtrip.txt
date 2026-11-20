@@ -15,7 +15,7 @@ board outline 13.87 .. 111.66 x -42.75 .. 13.13 mm
    pad shape     4 clusters, only KiCad   0.63 mm^2, only Proteus   0.00 mm^2  Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder  (1 parts: R68)
    pad shape    10 clusters, only KiCad   0.45 mm^2, only Proteus   0.00 mm^2  tube_control_card:Oscillator_SMD_2.0x1.6mm_Proteus  (1 parts: OSC1)
    pad shape     3 clusters, only KiCad   0.00 mm^2, only Proteus   0.16 mm^2  Capacitor_SMD:C_0402_1005Metric  (3 parts: C1 C2 C39)
-   pad shape     4 clusters, only KiCad   0.08 mm^2, only Proteus   0.00 mm^2  tube_control_card:PinHeader_2x20_P1.27mm_Vertical_RowsSwapped_ProteusPads  (1 parts: J11)
+   pad shape     4 clusters, only KiCad   0.08 mm^2, only Proteus   0.00 mm^2  tube_control_card:PinHeader_2x20_P1.27mm_Vertical_ProteusPads  (1 parts: J11)
    pad shape     7 clusters, only KiCad   0.00 mm^2, only Proteus   0.08 mm^2  Capacitor_SMD:C_0603_1608Metric  (3 parts: C51 C53 C54)
    pad shape     3 clusters, only KiCad   0.07 mm^2, only Proteus   0.00 mm^2  tube_control_card:PinHeader_2x15_P1.27mm_Vertical_ProteusPads  (1 parts: J7)
    pad shape     1 clusters, only KiCad   0.00 mm^2, only Proteus   0.04 mm^2  Resistor_SMD:R_0402_1005Metric  (1 parts: R44)
@@ -123,10 +123,10 @@ board outline 13.87 .. 111.66 x -42.75 .. 13.13 mm
    pad shape  only Proteus  0.021 mm^2 at (  97.745,  -14.408) 0.20x0.15 mm  near RS1-5 (RS485_GND) 0.99 mm, via (3V3) 6.68 mm
    pad shape  only KiCad    0.021 mm^2 at (  28.665,  -18.589) 0.10x0.25 mm  near OSC1-3 (GPIOR_P_19_PLLIN0) 0.47 mm, via (3V3) 1.10 mm
    pad shape  only KiCad    0.021 mm^2 at (  28.665,  -19.026) 0.10x0.25 mm  near OSC1-3 (GPIOR_P_19_PLLIN0) 0.47 mm, via (GND) 1.42 mm
-   pad shape  only KiCad    0.020 mm^2 at (  56.112,    9.463) 0.20x0.20 mm  near J11-2 (ADB7) 0.49 mm, via (1V8) 4.32 mm
-   pad shape  only KiCad    0.020 mm^2 at (  56.803,    9.463) 0.20x0.20 mm  near J11-2 (ADB7) 0.49 mm, via (1V8) 4.29 mm
-   pad shape  only KiCad    0.020 mm^2 at (  56.112,    8.772) 0.20x0.20 mm  near J11-2 (ADB7) 0.49 mm, via (1V8) 3.64 mm
-   pad shape  only KiCad    0.020 mm^2 at (  56.803,    8.772) 0.20x0.20 mm  near J11-2 (ADB7) 0.49 mm, via (1V8) 3.60 mm
+   pad shape  only KiCad    0.020 mm^2 at (  56.112,    9.463) 0.20x0.20 mm  near J11-1 (ADB7) 0.49 mm, via (1V8) 4.32 mm
+   pad shape  only KiCad    0.020 mm^2 at (  56.803,    9.463) 0.20x0.20 mm  near J11-1 (ADB7) 0.49 mm, via (1V8) 4.29 mm
+   pad shape  only KiCad    0.020 mm^2 at (  56.112,    8.772) 0.20x0.20 mm  near J11-1 (ADB7) 0.49 mm, via (1V8) 3.64 mm
+   pad shape  only KiCad    0.020 mm^2 at (  56.803,    8.772) 0.20x0.20 mm  near J11-1 (ADB7) 0.49 mm, via (1V8) 3.60 mm
    pad shape  only KiCad    0.017 mm^2 at (  27.856,  -19.771) 0.10x0.25 mm  near OSC1-2 (GND) 0.46 mm, via (GND) 0.32 mm
    pad shape  only Proteus  0.016 mm^2 at (  76.775,    6.346) 0.18x0.20 mm  near C54-2 (GND) 0.62 mm, via (GND) 1.61 mm
    pad shape  only Proteus  0.011 mm^2 at (  82.652,  -15.276) 0.08x0.20 mm  near C51-1 (1V8) 0.62 mm, via (1V8) 0.87 mm
@@ -147,7 +147,7 @@ board outline 13.87 .. 111.66 x -42.75 .. 13.13 mm
    pad shape     4 clusters, only KiCad   1.55 mm^2, only Proteus   0.00 mm^2  TerminalBlock_Phoenix:TerminalBlock_Phoenix_MPT-0,5-5-2.54_1x05_P2.54mm_Horizontal  (1 parts: J1)
    pad shape     9 clusters, only KiCad   0.10 mm^2, only Proteus   1.07 mm^2  Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical  (1 parts: J8)
    pad shape     4 clusters, only KiCad   0.09 mm^2, only Proteus   0.00 mm^2  tube_control_card:PinHeader_2x15_P1.27mm_Vertical_ProteusPads  (1 parts: J7)
-   pad shape     4 clusters, only KiCad   0.08 mm^2, only Proteus   0.00 mm^2  tube_control_card:PinHeader_2x20_P1.27mm_Vertical_RowsSwapped_ProteusPads  (1 parts: J11)
+   pad shape     4 clusters, only KiCad   0.08 mm^2, only Proteus   0.00 mm^2  tube_control_card:PinHeader_2x20_P1.27mm_Vertical_ProteusPads  (1 parts: J11)
    pad shape  only KiCad    0.832 mm^2 at (  71.635,  -14.112) 2.23x2.23 mm  near J1-1 (TDI) 0.05 mm, via (GPIOR_28) 8.71 mm
    pad shape  only Proteus  0.761 mm^2 at (  69.203,   -8.208) 2.05x2.08 mm  near J8-2 (GPIOL_1) 0.05 mm, via (GND) 6.28 mm
    pad shape  only KiCad    0.319 mm^2 at (  88.518,  -39.125) 1.03x1.03 mm  near J3-1 (A) 0.03 mm, via (JFET_14) 2.77 mm
@@ -187,10 +187,10 @@ board outline 13.87 .. 111.66 x -42.75 .. 13.13 mm
    pad shape  only KiCad    0.023 mm^2 at (  72.149,  -38.641) 0.20x0.20 mm  near J7-1 (GPIOT_P_01) 0.50 mm, via (#00536) 6.35 mm
    pad shape  only KiCad    0.023 mm^2 at (  71.441,  -39.349) 0.20x0.20 mm  near J7-1 (GPIOT_P_01) 0.50 mm, via (#00522) 7.20 mm
    pad shape  only KiCad    0.023 mm^2 at (  72.149,  -39.349) 0.20x0.20 mm  near J7-1 (GPIOT_P_01) 0.49 mm, via (#00536) 7.04 mm
-   pad shape  only KiCad    0.020 mm^2 at (  56.112,    9.463) 0.20x0.20 mm  near J11-2 (ADB7) 0.49 mm, via (1V8) 4.32 mm
-   pad shape  only KiCad    0.020 mm^2 at (  56.803,    9.463) 0.20x0.20 mm  near J11-2 (ADB7) 0.49 mm, via (1V8) 4.29 mm
-   pad shape  only KiCad    0.020 mm^2 at (  56.112,    8.772) 0.20x0.20 mm  near J11-2 (ADB7) 0.49 mm, via (1V8) 3.64 mm
-   pad shape  only KiCad    0.020 mm^2 at (  56.803,    8.772) 0.20x0.20 mm  near J11-2 (ADB7) 0.49 mm, via (1V8) 3.60 mm
+   pad shape  only KiCad    0.020 mm^2 at (  56.112,    9.463) 0.20x0.20 mm  near J11-1 (ADB7) 0.49 mm, via (1V8) 4.32 mm
+   pad shape  only KiCad    0.020 mm^2 at (  56.803,    9.463) 0.20x0.20 mm  near J11-1 (ADB7) 0.49 mm, via (1V8) 4.29 mm
+   pad shape  only KiCad    0.020 mm^2 at (  56.112,    8.772) 0.20x0.20 mm  near J11-1 (ADB7) 0.49 mm, via (1V8) 3.64 mm
+   pad shape  only KiCad    0.020 mm^2 at (  56.803,    8.772) 0.20x0.20 mm  near J11-1 (ADB7) 0.49 mm, via (1V8) 3.60 mm
 
 == In2.Cu: Proteus objects not compared (recorded deviations): 1 via pads (REMOVED_VIAS)
 == In2.Cu: Proteus copper 3451.9 mm^2, KiCad copper 3462.2 mm^2
@@ -201,7 +201,7 @@ board outline 13.87 .. 111.66 x -42.75 .. 13.13 mm
    pad shape    10 clusters, only KiCad   0.10 mm^2, only Proteus   1.87 mm^2  Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical  (1 parts: J8)
    pad shape     5 clusters, only KiCad   1.88 mm^2, only Proteus   0.00 mm^2  TerminalBlock_Phoenix:TerminalBlock_Phoenix_MPT-0,5-5-2.54_1x05_P2.54mm_Horizontal  (1 parts: J1)
    pad shape     4 clusters, only KiCad   0.09 mm^2, only Proteus   0.00 mm^2  tube_control_card:PinHeader_2x15_P1.27mm_Vertical_ProteusPads  (1 parts: J7)
-   pad shape     4 clusters, only KiCad   0.08 mm^2, only Proteus   0.00 mm^2  tube_control_card:PinHeader_2x20_P1.27mm_Vertical_RowsSwapped_ProteusPads  (1 parts: J11)
+   pad shape     4 clusters, only KiCad   0.08 mm^2, only Proteus   0.00 mm^2  tube_control_card:PinHeader_2x20_P1.27mm_Vertical_ProteusPads  (1 parts: J11)
    pad shape  only KiCad    0.906 mm^2 at (  71.653,  -14.120) 2.23x2.23 mm  near J1-1 (TDI) 0.04 mm, via (GPIOR_28) 8.69 mm
    pad shape  only Proteus  0.803 mm^2 at (  66.708,   -8.208) 2.08x2.08 mm  near J8-3 (GND) 0.00 mm, via (GND) 6.77 mm
    pad shape  only Proteus  0.761 mm^2 at (  69.203,   -8.208) 2.05x2.08 mm  near J8-2 (GPIOL_1) 0.05 mm, via (GND) 6.28 mm
@@ -253,10 +253,10 @@ board outline 13.87 .. 111.66 x -42.75 .. 13.13 mm
    pad shape  only KiCad    0.023 mm^2 at (  72.149,  -38.641) 0.20x0.20 mm  near J7-1 (GPIOT_P_01) 0.50 mm, via (#00536) 6.35 mm
    pad shape  only KiCad    0.023 mm^2 at (  71.441,  -39.349) 0.20x0.20 mm  near J7-1 (GPIOT_P_01) 0.50 mm, via (#00522) 7.20 mm
    pad shape  only KiCad    0.023 mm^2 at (  72.149,  -39.349) 0.20x0.20 mm  near J7-1 (GPIOT_P_01) 0.49 mm, via (#00536) 7.04 mm
-   pad shape  only KiCad    0.020 mm^2 at (  56.112,    9.463) 0.20x0.20 mm  near J11-2 (ADB7) 0.49 mm, via (1V8) 4.32 mm
-   pad shape  only KiCad    0.020 mm^2 at (  56.803,    9.463) 0.20x0.20 mm  near J11-2 (ADB7) 0.49 mm, via (1V8) 4.29 mm
-   pad shape  only KiCad    0.020 mm^2 at (  56.112,    8.772) 0.20x0.20 mm  near J11-2 (ADB7) 0.49 mm, via (1V8) 3.64 mm
-   pad shape  only KiCad    0.020 mm^2 at (  56.803,    8.772) 0.20x0.20 mm  near J11-2 (ADB7) 0.49 mm, via (1V8) 3.60 mm
+   pad shape  only KiCad    0.020 mm^2 at (  56.112,    9.463) 0.20x0.20 mm  near J11-1 (ADB7) 0.49 mm, via (1V8) 4.32 mm
+   pad shape  only KiCad    0.020 mm^2 at (  56.803,    9.463) 0.20x0.20 mm  near J11-1 (ADB7) 0.49 mm, via (1V8) 4.29 mm
+   pad shape  only KiCad    0.020 mm^2 at (  56.112,    8.772) 0.20x0.20 mm  near J11-1 (ADB7) 0.49 mm, via (1V8) 3.64 mm
+   pad shape  only KiCad    0.020 mm^2 at (  56.803,    8.772) 0.20x0.20 mm  near J11-1 (ADB7) 0.49 mm, via (1V8) 3.60 mm
 
 == B.Cu: Proteus objects not compared (recorded deviations): 6 Conductor draws (REMOVED_TRACKS), 1 via pads (REMOVED_VIAS)
 == B.Cu: Proteus copper 2214.6 mm^2, KiCad copper 2223.1 mm^2

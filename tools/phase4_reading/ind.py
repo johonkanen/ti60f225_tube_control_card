@@ -15,6 +15,10 @@ def ipc():
             recs.append(dict(op=l[:3],net=net,ref=ref,pin=pin,drill=int(m[1] or 0)/1000,acc=m[3],x=int(m[4])/1000,y=int(m[5])/1000,w=int(m[6])/1000,h=int(m[7] or m[6])/1000))
             if ref and ref!="-": pins[(ref,pin)].append(net)
     return names,pins,recs
+# KiCad pin -> Proteus pin where the KiCad design renumbered a part (the PDF and the IPC use the Proteus ids):
+# J11 has the standard 2x20 numbering since 2026-11-20 (finding 25, user decision): KiCad pin k = Proteus pin
+# k - 1 for even k, k + 1 for odd k (pairs 1-2 ... 39-40 exchanged).
+KICAD_TO_PROTEUS = {"J11": {str(k): str(k - 1 if k % 2 == 0 else k + 1) for k in range(1, 41)}}
 def kicad():
     with tempfile.TemporaryDirectory() as tmp:
         out = os.path.join(tmp, "net.xml")
@@ -23,7 +27,7 @@ def kicad():
         root = ET.parse(out).getroot()
     pn={}; 
     for n in root.iter("net"):
-        for nd in n.findall("node"): pn[(nd.get("ref"),nd.get("pin"))]=(n.get("name"),nd.get("pinfunction"),nd.get("pintype"))
+        for nd in n.findall("node"): pn[(nd.get("ref"),KICAD_TO_PROTEUS.get(nd.get("ref"),{}).get(nd.get("pin"),nd.get("pin")))]=(n.get("name"),nd.get("pinfunction"),nd.get("pintype"))
     comps={c.get("ref"):(c.findtext("value"),c.findtext("footprint"),c.find("sheetpath").get("names")) for c in root.iter("comp")}
     return pn,comps
 if __name__=="__main__":

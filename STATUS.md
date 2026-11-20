@@ -69,6 +69,97 @@ board, full regenerate, `check_all.sh`, clean tree) **PASS**.
    smaller, not in the entry's pad set"; `ERC_FATAL_WARNINGS` + isolated_pin_label → 14 FATAL WARNING, exit 1.
    `tools/test_no_connect.py`: all six variants as expected.
 
+3. **J11 ribbon renumbering** (design commit; finding 25 **done**; user decision 2026-11-20: standard numbering
+   at both ends of the ribbon, copper unchanged, square pin-1 pad on the real pin 1; D-PIN). The other end,
+   tube_hv_supplies J1, is renumbered the same way in its own repo (not touched here).
+   - `p2k_config.py`: `IPC_PIN_IDS = {"J11": {str(k): str(k + 1 if k % 2 else k - 1) for k in range(1, 41)}}`
+     (applied once in `p2k ipc356`, so every check sees the KiCad pad numbers; stdout "pin ids renamed").
+   - Footprint `PinHeader_2x20_P1.27mm_Vertical_ProteusPads` = the stock 2x20 1.27 mm header, `ipc="J11"`,
+     `ipc_sizes=True`, no renumbering (replaces `…_RowsSwapped_ProteusPads`). Its square pad is pad 1, at KiCad's
+     pin-1 position, where the old pad "2" (Proteus pin 2) was square already: **copper identical** (pcbnew dump
+     of every pad position / size / shape / drill / layers / net, track, via, zone and edge item of the old and
+     the new board, J11 pad numbers and the two `unconnected-(J11-PadNN)` names left out: no difference; the
+     footprint file differs only in name, descr and the pad numbers).
+   - Symbol `HEADER_2X20_50MIL` was already standard; sheet 8 places J11 with KiCad pin 40 (= Proteus 39) top
+     left, odd pins right, so every net sits where the PDF draws it. `PIN_ORDER`: the two J11 entries (rows
+     swapped / KiCad mirrored) → one, `rule="HEADER_2X20_50MIL"`, unmirrored, residual 0.000 (19 entries).
+   - `tools/phase4_reading/ind.py` (the independent reader, Proteus pin ids as in the PDF) maps the KiCad J11
+     pins back to the Proteus ids (`KICAD_TO_PROTEUS`, written there, not read from p2k): reading unchanged.
+   - Changed generated files: `reference/*` (J11 pin ids), `lib/footprint_map.csv`, the footprint file (renamed),
+     `kicad/08_power_stage_connector.kicad_sch`, `kicad/tube_control_card.kicad_pcb` (J11 pad numbers; item
+     order), `reports/footprint_fit.csv`, `reports/footprint_pads.csv`, `reports/assign_nets.txt` (one line: the
+     GND groups name J11-34 / J11-33), `reports/roundtrip/roundtrip.txt` (footprint name, "near J11-1"). Every
+     check passes, `PHASE4_EXPECTED` unchanged.
+   - Negative tests (scratch build/tmp/neg8): pin 40 missing from `IPC_PIN_IDS` → `ipc356` "IPC pins … listed …"
+     fails; `IPC_PIN_IDS = {}` with the stock footprint → check_pin_order "J11: mirrored 0.000, expected
+     unmirrored" and compare 64 errors.
+
+   **J11 mapping, old → new** (old = Proteus / rev A KiCad numbering = HV J1's Proteus numbering; pair it with
+   HV J1's mapping; the straight IDC ribbon still connects pin n to pin n at both ends):
+
+   | old pin → new pin | net | old pin → new pin | net |
+   |---|---|---|---|
+   | 1 → 2 | ADB0 | 2 → 1 | ADB7 |
+   | 3 → 4 | ADB1 | 4 → 3 | ADB6 |
+   | 5 → 6 | ADB2 | 6 → 5 | ADB5 |
+   | 7 → 8 | ADB3 | 8 → 7 | ADB4 |
+   | 9 → 10 | ADASEL1_ISO | 10 → 9 | ADASEL2_ISO |
+   | 11 → 12 | SDATA1_ISO | 12 → 11 | ADASEL0_ISO |
+   | 13 → 14 | CLK1_ISO | 14 → 13 | CS1_ISO |
+   | 15 → 16 | PWM_TRANS2_ISO | 16 → 15 | PWM_TRANS1_ISO |
+   | 17 → 18 | PWM_G4_ISO | 18 → 17 | PWM_TRANS3_ISO |
+   | 19 → 20 | PWM_G1_ISO | 20 → 19 | PWM_G2_ISO |
+   | 21 → 22 | DAB_PWM_PRI_HI_ISO | 22 → 21 | PWM_G3_ISO |
+   | 23 → 24 | ADCLK_DAB | 24 → 23 | DAB_PWM_PRI_LO_ISO |
+   | 25 → 26 | MDATA_DAB | 26 → 25 | PWM_TRANS4 |
+   | 27 → 28 | PWM_TRANS6 | 28 → 27 | DAB_PWM_HI_SEC |
+   | 29 → 30 | PWM_Q5 | 30 → 29 | DAB_PWM_LO_SEC |
+   | 31 → 32 | INU_ADCLK | 32 → 31 | PWM_Q6 |
+   | 33 → 34 | GND | 34 → 33 | GND |
+   | 35 → 36 | 3V3 | 36 → 35 | 3V3 |
+   | 37 → 38 | N/C | 38 → 37 | N/C |
+   | 39 → 40 | 12V | 40 → 39 | 12V |
+
+   In short: old k → new k + 1 for odd k, k − 1 for even k (pairs 1-2 … 39-40 exchanged).
+
+### Last check output (`tools/check_all.sh`, after the J11 commit; ALL CHECKS PASSED)
+
+```
+ipc356: pin ids renamed (IPC_PIN_IDS): J11 1->2 2->1 3->4 4->3 … 39->40 40->39
+ipc356: OK
+check_sources: OK
+make_part_map: lib/part_map.csv up to date, 146 parts (146 on the board); per sheet 1:6 2:19 3:28 4:15 6:18 7:11 8:3 9:9 10:9 11:17 12:11
+gen_symbols: lib/tube_control_card.kicad_sym up to date (36 symbols)
+symbols: OK
+sheets: 12 sheet scripts, kicad/*.kicad_sch up to date
+erc: 0 errors, 14 warnings (14 isolated_pin_label) (reports/erc.rpt)
+accepted (SPLIT_PIN_MERGES): 5 merged IPC net pairs: … (with R67-1)
+compare: parts 146/146 present, 0 missing, 0 extra; pins compared 876, wrong-net pins 0; IPC nets touched 222, complete 222 (+ 76 N/C / no-net pins)
+compare: OK
+gen_footprints: 146 parts, 29 footprints (19 project), up to date
+check_footprints: 146/146 parts fitted, 884 pads, 29 footprints, worst residual 0.030 mm (limit 0.05)
+check_footprints: OK
+check_pin_order: OK (19 checks as recorded)
+gerber_to_tracks: 3347 tracks, 239 vias (IPC 239), 20 pour outlines on User.1-4; removed as recorded: 26 tracks (REMOVED_TRACKS), 1 vias (REMOVED_VIAS)
+make_pcb: board rebuilt from scratch, byte-identical
+check_board: 154 footprints, 884 pads, worst pad offset 0.030 mm (limit 0.05), 222 IPC nets mapped 1:1, 4 mounting holes, 4 free pads
+check_board: 3586 track / via nets in the board file = their copper group's net (track_nets)
+check_board: OK
+assign_nets: after zone fill: 307 groups, 0 shorts, 0 orphans, 0 opens (+5 accepted SPLIT_PIN_MERGES opens), 0 items with a foreign net
+assign_nets: OK (report reports/assign_nets.txt)
+drc: 71 violations, 0 shorts, 5 unconnected, 0 parity issues (reports/drc.json)
+drc: accepted (SPLIT_PIN_MERGES): J2-1 5V, ISO5V-1 ISO5V, RS485A-1 Net-(RS1-A), RS485B-1 Net-(RS1-B), ISO_G-1 RS485_GND
+drc: OK
+ipc356_diff: Proteus 1132 records, KiCad 1131; matched 1131 (884 pads incl. 76 N/C, 239 vias, 4 holes, 4 free pads), worst position offset 0.031 mm (limit 0.05)
+ipc356_diff: counts as recorded (PHASE4_EXPECTED: 9 counts)
+ipc356_diff: OK
+roundtrip: counts (roundtrip_counts): KiCad track draws / flashes per layer F.Cu 2132 / 933, In1.Cu 72 / 376, In2.Cu 221 / 376, B.Cu 922 / 574: tracks as gerber_to_tracks builds them, flashes = Proteus
+roundtrip: OK
+reading: no difference
+
+ALL CHECKS PASSED
+```
+
 ### p2k candidates (section "p2k candidates" below): state at p2k a9a286c
 
 | # | State |
@@ -1582,6 +1673,9 @@ and 26 (dangling copper) are fixed in the KiCad design, the others stay as marke
    headers as standard together (never only one end).
    **Design fixes 2026-11-20 (user): not now**: waits for a new shared-tool pin-renumber key, together with
    tube_hv_supplies J1.
+   **Done 2026-11-20 (user decision, D-PIN; "Shared-tool migration 2026-11-20", commit 3):** J11 has the
+   standard numbering (`IPC_PIN_IDS`, stock header footprint, square pad on pin 1, copper unchanged); HV J1 the
+   same in its repo. Mapping old → new: k → k + 1 for odd k, k − 1 for even k.
 
 26. **Copper tighter than 4 mil on F.Cu and dangling copper (Phase 3, measured):** Proteus routed at
    0.1016 mm (4 mil) gap and width, but 75 different-net pairs on F.Cu are closer than 0.1 mm, down to
@@ -1860,5 +1954,12 @@ migration 2026-11-20".
   5. Not now (later steps, report only): finding 9 (ADC1 VA / VIN swap: a hand edit after generation
      stops) and finding 25 (J11 renumbering: waits for a new shared-tool pin-renumber key, done together
      with tube_hv_supplies J1). Generation stops later; the board stays generated for now.
+- **J11 ribbon renumbering (user decision 2026-11-20, through the coordinating session; D-PIN, finding 25):**
+  renumber to the standard numbering at both ends (this J11 and tube_hv_supplies J1), copper unchanged, the
+  square pin-1 pad on the real pin 1 (on this board the pad at KiCad's pin-1 position is square already).
+  Done with `IPC_PIN_IDS` ("Shared-tool migration 2026-11-20", commit 3).
+- **Shared-tool migration (coordinating session, 2026-11-20; proteus2kicad CANDIDATES.md section 7.5):** accepted
+  re-baselines D-R (reference/*.md report texts, with the bump) and D-TC7b (the 14 `accepted open` tags of
+  reports/assign_nets.txt); strict checks on by default (D-Z) with no opt-out (spec `max_move` on RS1 / FLASH1).
 
 Open: none.

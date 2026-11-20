@@ -83,8 +83,8 @@ RULES = [
      "208 mil SOIC-8 on the Proteus SO8W pattern (pad rows 9.14 mm apart, finding 24)"),
     ("IZB03", dict(), P + "Converter_IZB03_SIP7", "IZB03 isolated DC/DC, 7 pins (SIP-8 with pin 4 position empty)"),
     # --- connectors, terminals
-    ("HEADER_2X20_50MIL", dict(refdes=PROTEUS_PADS), P + "PinHeader_2x20_P1.27mm_Vertical_RowsSwapped_ProteusPads",
-     "2x20 1.27 mm header (IDC), Proteus numbering with the odd / even rows swapped (finding 25), pins 37 / 38 N/C, "
+    ("HEADER_2X20_50MIL", dict(refdes=PROTEUS_PADS), P + "PinHeader_2x20_P1.27mm_Vertical_ProteusPads",
+     "2x20 1.27 mm header (IDC), standard numbering (IPC_PIN_IDS: Proteus rows swapped, finding 25), pins 37 / 38 N/C, "
      "Proteus pad size and drill"),
     ("HEADER_2X15_50MIL", dict(refdes=PROTEUS_PADS), P + "PinHeader_2x15_P1.27mm_Vertical_ProteusPads",
      "2x15 1.27 mm header, Proteus pad size and drill"),
@@ -149,15 +149,14 @@ PROJECT = {
         descr="208 mil SOIC-8 (W25Q64JW-SS), Proteus SO8W pad positions (rows 9.14 mm apart, KiCad 7.175)"),
     "Converter_IZB03_SIP7": dict(
         ipc="PWR4", descr="IZB03 isolated DC/DC module, 7 pins at 2.54 mm (pin 4 position empty), Proteus pads"),
-    # J11: the Proteus IDC footprint is numbered as the mirror image of a standard header seen from the
-    # top (check_pin_order: the KiCad header fits only mirrored, but J11 is a top-side part by the
-    # Proteus top assembly). Swapping the odd / even pad numbers gives the Proteus pattern on top
-    # (as tube_hv_supplies J1, the other end of the ribbon; finding 25).
-    "PinHeader_2x20_P1.27mm_Vertical_RowsSwapped_ProteusPads": dict(
-        base="Connector_PinHeader_1.27mm:PinHeader_2x20_P1.27mm_Vertical",
-        renumber={str(k): str(k + 1 if k % 2 else k - 1) for k in range(1, 41)}, ipc="J11", ipc_sizes=True,
-        descr="2x20 1.27 mm header, Proteus numbering: odd / even pad numbers swapped (pad 1 at KiCad's "
-              "pad 2 position, KiCad's pin-1 marking stays at the pad now numbered 2); Proteus pad sizes and drill"),
+    # J11: Proteus numbers the IDC header as the mirror image of a standard header seen from the top (odd /
+    # even rows swapped; finding 25). Since 2026-11-20 (user decision, D-PIN, together with tube_hv_supplies J1)
+    # the board uses the standard numbering: p2k_config.IPC_PIN_IDS renames the IPC pins (Proteus k -> k + 1 for
+    # odd k, k - 1 for even k), so the stock header fits unmirrored; its square pad 1 is KiCad's pin-1 position,
+    # where the Proteus pin 2 pad was square already (copper unchanged).
+    "PinHeader_2x20_P1.27mm_Vertical_ProteusPads": dict(
+        base="Connector_PinHeader_1.27mm:PinHeader_2x20_P1.27mm_Vertical", ipc="J11", ipc_sizes=True,
+        descr="2x20 1.27 mm header, standard numbering; Proteus pad sizes and drill"),
     "PinHeader_2x15_P1.27mm_Vertical_ProteusPads": dict(
         base="Connector_PinHeader_1.27mm:PinHeader_2x15_P1.27mm_Vertical", ipc="J7", ipc_sizes=True,
         descr="2x15 1.27 mm header, Proteus pad sizes and drill"),

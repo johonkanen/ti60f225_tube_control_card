@@ -33,7 +33,8 @@ decision D2 (no pin of type no_connect, ERC `no_connect_connected` fatal).
 parts fit their IPC pads within 0.030 mm (`p2k check_footprints --pcbnew`), pin order checked against the
 unmoved KiCad footprints (`p2k check_pin_order`, `PIN_ORDER`). Results: ADC1 has VA / VIN swapped on the board
 (finding 9 confirmed); AP61202 pin 6 is PG, the sequencing is correct (finding 12 resolved); J11 is
-numbered as a mirrored header like the HV board's J1, so the ribbon connects as drawn (finding 25).
+numbered as a mirrored header like the HV board's J1, so the ribbon connects as drawn (finding 25; renumbered
+to standard at both ends on 2026-11-20).
 **Phase 3 (PCB) done**: `tools/make_pcb.sh` rebuilds
 `kicad/tube_control_card.kicad_pcb` (4 layers, 1.6 mm, 3373 tracks, 240 vias, 20 zones, U10 BGA, SMD test
 pads TP1-TP4) byte-identically; the Proteus copper is clean (0 shorts / 0 orphans / 0 opens besides the
@@ -60,13 +61,17 @@ layout change.
 renamed VOUT → PG (finding 12), the obsolete PDF sheet notes dropped (finding 6), the dangling Proteus
 copper removed (finding 26: 26 draws `REMOVED_TRACKS` incl. the 56 mm GPIOL_N_18 stub, the lone GPIOL_N_10
 via `REMOVED_VIAS`; 3347 tracks / 239 vias); DRC 83 → 71 violations, 0 dangling; `tools/check_all.sh`: ALL
-CHECKS PASSED. Later steps: finding 9 (ADC1 VA / VIN, a hand edit once generation stops) and finding 25
-(J11 renumbering, with the HV supplies J1). Kept as built: findings 1, 13, 23, 24.
+CHECKS PASSED. Kept as built: findings 1, 13, 23, 24.
 **Shared-tool migration 2026-11-20**: `tools/p2k` bumped to a9a286c and every board-local check wrapper
 replaced by the shared proteus2kicad tools and `p2k_config.py` keys (`SPLIT_PIN_MERGES`, `SMD_FREE_PADS`,
 `BGA_REFDES`, `PIN_ORDER`, `PHASE4_EXPECTED`, `DRILL_SMALLER` pad set, `ERC_FATAL_WARNINGS`, …); 14 board
 tools deleted, generated files identical except the accepted report re-baselines; no strict-check opt-outs
-(STATUS.md "Shared-tool migration 2026-11-20").
+Then **J11 renumbered to the standard 2x20 numbering** (finding 25, user decision, together with the HV
+supplies J1 at the other end of the ribbon): `IPC_PIN_IDS` (old pin k → new k + 1 for odd k, k − 1 for even
+k), the stock header footprint with its square pad on pin 1, copper unchanged (STATUS.md "Shared-tool
+migration 2026-11-20"). `tools/check_all.sh`: ALL CHECKS PASSED.
+Remaining: stopping generation of rev A (the user's call), then finding 9 (ADC1 VA / VIN, a hand edit of
+the board).
 
 Note: this Ti60F225 card is **not installed in the amplifier** (the Agilex 3 control card is). The
 finished conversion is a reference and a starting point only.

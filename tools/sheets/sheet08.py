@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
 """Sheet 8 - Power stage connector J11 (PDF page 8): the 40-pin header to the HV supplies (ADC mux
 bus ADB0-7, isolated PWM / ADC signals, 3V3, 12V, GND = PDF DGND) with the decoupling capacitors C53
-(12V) and C54 (3V3). Pins 37 and 38 are N/C. The unconnected terminal lists of the page are text notes."""
+(12V) and C54 (3V3). Pins 37 and 38 are N/C. J11 has the standard 2x20 numbering (Proteus pin k = KiCad
+pin k + 1 for odd k, k - 1 for even k; p2k_config.IPC_PIN_IDS). The unconnected terminal lists of the page are text notes."""
 from _common import *  # noqa: F401,F403
 
 sh = sheet("08_power_stage_connector.kicad_sch")
 
-header(sh, "J11", 39, P(51, 32), n=10)     # pin 39 top left, 1 bottom left
+# standard numbering (IPC_PIN_IDS, finding 25): KiCad pin 40 = Proteus pin 39 top left, as in the PDF
+header(sh, "J11", 40, P(51, 32), n=10)     # pin 40 top left, 39 top right, 1 bottom right
 
 a, b = two(sh, "C53", *P(18, 34), top="12V")
 tie(sh, "12V", a, "up", 2)

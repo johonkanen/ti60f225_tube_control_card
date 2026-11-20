@@ -54,31 +54,31 @@ usually test points or connections made through the ignored-by-IPC copper.
 | #00706 | 3 | 0 | R17-4 R18-5 U14-13 |
 | #00711 | 3 | 0 | R17-1 R18-8 U14-2 |
 | A | 3 | 0 | J3-1 R15-3 U5-8 |
-| ADASEL0_ISO | 2 | 0 | J11-12 U7-20 |
-| ADASEL1_ISO | 2 | 0 | J11-9 U7-21 |
-| ADASEL2_ISO | 2 | 2 | J11-10 U9-19 |
-| ADB0 | 2 | 1 | J11-1 U3-15 |
-| ADB1 | 2 | 1 | J11-3 U3-14 |
-| ADB2 | 2 | 1 | J11-5 U3-13 |
-| ADB3 | 2 | 1 | J11-7 U3-12 |
-| ADB4 | 2 | 1 | J11-8 U3-1 |
-| ADB5 | 2 | 1 | J11-6 U3-2 |
-| ADB6 | 2 | 1 | J11-4 U3-4 |
-| ADB7 | 2 | 1 | J11-2 U3-5 |
+| ADASEL0_ISO | 2 | 0 | J11-11 U7-20 |
+| ADASEL1_ISO | 2 | 0 | J11-10 U7-21 |
+| ADASEL2_ISO | 2 | 2 | J11-9 U9-19 |
+| ADB0 | 2 | 1 | J11-2 U3-15 |
+| ADB1 | 2 | 1 | J11-4 U3-14 |
+| ADB2 | 2 | 1 | J11-6 U3-13 |
+| ADB3 | 2 | 1 | J11-8 U3-12 |
+| ADB4 | 2 | 1 | J11-7 U3-1 |
+| ADB5 | 2 | 1 | J11-5 U3-2 |
+| ADB6 | 2 | 1 | J11-3 U3-4 |
+| ADB7 | 2 | 1 | J11-1 U3-5 |
 | ADBSEL0 | 2 | 1 | U3-11 U9-17 |
 | ADBSEL1 | 2 | 1 | U3-10 U9-16 |
 | ADBSEL2 | 2 | 1 | U3-9 U9-15 |
-| ADCLK_DAB | 2 | 0 | J11-23 U2-18 |
+| ADCLK_DAB | 2 | 0 | J11-24 U2-18 |
 | ADCLK_ISO | 1 | 0 | U9-20 |
 | AD_3V3 | 5 | 0 | C9-2 C10-2 L3-2 U3-16 V4-5 |
 | BIASFEEDBACK | 2 | 0 | J6-5 R34-1 |
 | BIASREF | 5 | 2 | C4-2 J6-15 J6-16 R59-2 U12-6 |
-| CLK1_ISO | 2 | 0 | J11-13 U7-18 |
-| CS1_ISO | 2 | 0 | J11-14 U7-19 |
-| DAB_PWM_HI_SEC | 2 | 0 | J11-28 U2-21 |
-| DAB_PWM_LO_SEC | 2 | 0 | J11-30 U1-14 |
-| DAB_PWM_PRI_HI_ISO | 2 | 0 | J11-21 U2-16 |
-| DAB_PWM_PRI_LO_ISO | 2 | 0 | J11-24 U2-17 |
+| CLK1_ISO | 2 | 0 | J11-14 U7-18 |
+| CS1_ISO | 2 | 0 | J11-13 U7-19 |
+| DAB_PWM_HI_SEC | 2 | 0 | J11-27 U2-21 |
+| DAB_PWM_LO_SEC | 2 | 0 | J11-29 U1-14 |
+| DAB_PWM_PRI_HI_ISO | 2 | 0 | J11-22 U2-16 |
+| DAB_PWM_PRI_LO_ISO | 2 | 0 | J11-23 U2-17 |
 | DATA0 | 3 | 2 | FLASH1-5 R41-2 U10-M1 |
 | DATA1 | 3 | 2 | FLASH1-2 R44-2 U10-L1 |
 | DATA2 | 2 | 3 | FLASH1-3 U10-H5 |
@@ -173,7 +173,7 @@ usually test points or connections made through the ignored-by-IPC copper.
 | GPIOT_P_17 | 2 | 0 | R22-7 U10-A11 |
 | GPIO_BYPASS_RLY_ISO | 1 | 0 | U1-20 |
 | GPIO_BYPASS_RLY_ISOLATED | 1 | 0 | U9-21 |
-| INU_ADCLK | 2 | 0 | J11-31 U1-17 |
+| INU_ADCLK | 2 | 0 | J11-32 U1-17 |
 | ISO5V | 5 | 0 | C58-1 ISO5V-1 PWR4-5 R68-1 RS1-8 |
 | ISO5V.00299 | 1 | 0 | ISO5V-1 |
 | JFET_2 | 3 | 2 | J3-3 R15-4 U5-14 |
@@ -195,7 +195,7 @@ usually test points or connections made through the ignored-by-IPC copper.
 | L4SW | 2 | 0 | L4-1 PWR2-4 |
 | L5SW | 2 | 0 | L5-1 PWR3-4 |
 | LOOP_BYPASS_RLY | 2 | 0 | J3-15 U10-C3 |
-| MDATA_DAB | 2 | 0 | J11-25 U10-P13 |
+| MDATA_DAB | 2 | 0 | J11-26 U10-P13 |
 | MOS_GATE_1 | 2 | 0 | J7-25 U10-N13 |
 | MOS_GATE_2 | 2 | 0 | J7-19 U8-16 |
 | MOS_GATE_3 | 2 | 0 | J7-18 U10-P15 |
@@ -204,20 +204,20 @@ usually test points or connections made through the ignored-by-IPC copper.
 | OPAMP_-15V | 9 | 4 | C59-1 C61-1 C63-1 C65-1 J9-1 U5-11 U6-11 U11-11 U14-11 |
 | POWERSCL | 2 | 0 | J6-11 U10-C1 |
 | POWERSDA | 2 | 0 | J6-9 U10-C2 |
-| PWM_G1_ISO | 2 | 0 | J11-19 U2-14 |
-| PWM_G2_ISO | 2 | 2 | J11-20 U9-18 |
-| PWM_G3_ISO | 2 | 0 | J11-22 U2-15 |
-| PWM_G4_ISO | 2 | 0 | J11-17 U7-14 |
-| PWM_Q5 | 2 | 0 | J11-29 U1-15 |
-| PWM_Q6 | 2 | 0 | J11-32 U1-16 |
+| PWM_G1_ISO | 2 | 0 | J11-20 U2-14 |
+| PWM_G2_ISO | 2 | 2 | J11-19 U9-18 |
+| PWM_G3_ISO | 2 | 0 | J11-21 U2-15 |
+| PWM_G4_ISO | 2 | 0 | J11-18 U7-14 |
+| PWM_Q5 | 2 | 0 | J11-30 U1-15 |
+| PWM_Q6 | 2 | 0 | J11-31 U1-16 |
 | PWM_Q7 | 1 | 0 | U1-21 |
 | PWM_Q8 | 1 | 0 | U1-18 |
-| PWM_TRANS1_ISO | 2 | 0 | J11-16 U7-17 |
-| PWM_TRANS2_ISO | 2 | 0 | J11-15 U7-16 |
-| PWM_TRANS3_ISO | 2 | 0 | J11-18 U7-15 |
-| PWM_TRANS4 | 2 | 0 | J11-26 U2-19 |
+| PWM_TRANS1_ISO | 2 | 0 | J11-15 U7-17 |
+| PWM_TRANS2_ISO | 2 | 0 | J11-16 U7-16 |
+| PWM_TRANS3_ISO | 2 | 0 | J11-17 U7-15 |
+| PWM_TRANS4 | 2 | 0 | J11-25 U2-19 |
 | PWM_TRANS5 | 1 | 0 | U1-19 |
-| PWM_TRANS6 | 2 | 0 | J11-27 U2-20 |
+| PWM_TRANS6 | 2 | 0 | J11-28 U2-20 |
 | RLY1_ENABLE | 2 | 0 | J7-23 U8-20 |
 | RLY2_ENABLE | 2 | 0 | J7-22 U8-17 |
 | RLY3_ENABLE | 2 | 0 | J7-20 U10-N14 |
@@ -228,7 +228,7 @@ usually test points or connections made through the ignored-by-IPC copper.
 | RS485_GND | 5 | 0 | C58-2 ISO_G-1 PWR4-6 R69-2 RS1-5 |
 | RS485_GND.00300 | 1 | 0 | ISO_G-1 |
 | RXD | 2 | 0 | RS1-1 U10-H2 |
-| SDATA1_ISO | 2 | 0 | J11-11 U10-R13 |
+| SDATA1_ISO | 2 | 0 | J11-12 U10-R13 |
 | TCK | 3 | 1 | J1-2 R7-2 U10-N4 |
 | TDI | 3 | 1 | J1-1 R4-2 U10-P3 |
 | TDO | 3 | 1 | J1-4 R6-2 U10-M4 |

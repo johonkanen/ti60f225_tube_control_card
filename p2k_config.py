@@ -52,6 +52,12 @@ TRUNCATED_NETS = {}
 # Every Proteus refdes is usable in KiCad ([A-Za-z][A-Za-z0-9_]*: ISO_G, ISO5V, RS485A ...).
 KICAD_REFDES = {}
 
+# J11 (40-pin ribbon to the HV supplies board, finding 25): Proteus numbers the header as the mirror image
+# of a standard header (odd / even rows swapped). Renumbered to the standard numbering at both ends of the
+# ribbon (user decision 2026-11-20, D-PIN; tube_hv_supplies J1 the same way): Proteus pin k = KiCad pad
+# k + 1 for odd k, k - 1 for even k (1 <-> 2, 3 <-> 4, ..., 39 <-> 40). Positions, nets, copper unchanged.
+IPC_PIN_IDS = {"J11": {str(k): str(k + 1 if k % 2 else k - 1) for k in range(1, 41)}}
+
 NET_ALIASES = {
     "GND=POWER": "GND",          # GND, DGND, AGND, gnd, ISOGND of the PDF are one Proteus net
     "VCC/VDD=POWER": "AD_3V3",   # V4 VOUT, L3, C9, C10, U3 VDD: labelled AD_3V3 (pages 3, 7)
@@ -275,11 +281,8 @@ PIN_ORDER = [
     dict(name="OSC1", refs="OSC1", rule="MC2016K_OSC", mirror=False, res=0.16, note="pads 1.8 x 1.2 vs KiCad 1.5 x 1.1"),
     dict(name="SO8W RS1", refs="RS1", rule="MAX22025", mirror=False, res=0.76, note="rows 9.14 vs KiCad 10.65"),
     dict(name="SO8W FLASH1", refs="FLASH1", rule="W25Q64JWSSIQ", mirror=False, res=0.99, note="rows 9.14 vs KiCad 7.175"),
-    dict(name="J11 rows swapped", refs="J11", rule="HEADER_2X20_50MIL", mirror=False, res=0.01,
-         note="odd / even swapped: fits on top"),
-    dict(name="J11 KiCad", refs="J11", footprint="Connector_PinHeader_1.27mm:PinHeader_2x20_P1.27mm_Vertical",
-         mirror=True, res=0.01,
-         note="standard numbering fits only MIRRORED (bottom), but J11 is on top (as tube_hv_supplies J1)"),
+    dict(name="J11", refs="J11", rule="HEADER_2X20_50MIL", mirror=False, res=0.01,
+         note="standard numbering (IPC_PIN_IDS) fits on top"),
     dict(name="J3", refs="J3", rule="HEADER_2X8_50MIL", mirror=True, res=0.01,
          note="standard numbering, fits mirrored: J3 is a bottom-side part (Proteus bottom assembly)"),
     dict(name="J6", refs="J6", rule="HEADER_2X8_50MIL", mirror=False, res=0.01, note="standard numbering fits on top"),

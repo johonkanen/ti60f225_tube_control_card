@@ -71,7 +71,7 @@ J6,tube_control_card:HEADER_2X8_50MIL,Connector_PinHeader_1.27mm:PinHeader_2x08_
 J7,tube_control_card:HEADER_2X15_50MIL,tube_control_card:PinHeader_2x15_P1.27mm_Vertical_ProteusPads,"2x15 1.27 mm header, Proteus pad size and drill"
 J8,tube_control_card:CONN_01X03,Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical,1x3 2.54 mm (FCI)
 J9,tube_control_card:TERMINAL,tube_control_card:Terminal_2x1_P5.00mm_D2.0mm_Drill1.4mm,"blade terminal, two holes both pad 1 (D1)"
-J11,tube_control_card:HEADER_2X20_50MIL,tube_control_card:PinHeader_2x20_P1.27mm_Vertical_RowsSwapped_ProteusPads,"2x20 1.27 mm header (IDC), Proteus numbering with the odd / even rows swapped (finding 25), pins 37 / 38 N/C, Proteus pad size and drill"
+J11,tube_control_card:HEADER_2X20_50MIL,tube_control_card:PinHeader_2x20_P1.27mm_Vertical_ProteusPads,"2x20 1.27 mm header (IDC), standard numbering (IPC_PIN_IDS: Proteus rows swapped, finding 25), pins 37 / 38 N/C, Proteus pad size and drill"
 L1,tube_control_card:L,Inductor_SMD:L_0805_2012Metric,0805 (IND805)
 L3,tube_control_card:L,Inductor_SMD:L_0805_2012Metric,0805 (IND805)
 L4,tube_control_card:L,Inductor_SMD:L_0805_2012Metric,0805 (IND805)

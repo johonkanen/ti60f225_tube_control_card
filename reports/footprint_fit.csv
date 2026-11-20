@@ -63,7 +63,7 @@ FLASH1,tube_control_card:SOIC-8_5.3x5.3mm_P1.27mm_Proteus,top,0,52.3760,-9.4450,
 ISO5V,tube_control_card:Terminal_2x1_P5.00mm_D2.0mm_Drill1.4mm,top,90,107.4000,2.2000,107.4000,-2.2000,90,0.0000,0.000,0.000,0
 ISO_G,tube_control_card:Terminal_2x1_P5.00mm_D2.0mm_Drill1.4mm,top,90,107.4000,-3.4000,107.4000,3.4000,90,0.0000,0.000,0.000,0
 J1,"TerminalBlock_Phoenix:TerminalBlock_Phoenix_MPT-0,5-5-2.54_1x05_P2.54mm_Horizontal",top,180,71.6880,-14.1100,71.6880,14.1100,180,0.0000,0.168,0.084,0
-J11,tube_control_card:PinHeader_2x20_P1.27mm_Vertical_RowsSwapped_ProteusPads,top,90,56.4580,9.1190,56.4580,-9.1190,90,0.0000,0.000,0.000,0
+J11,tube_control_card:PinHeader_2x20_P1.27mm_Vertical_ProteusPads,top,90,56.4580,9.1190,56.4580,-9.1190,90,0.0000,0.000,0.000,0
 J2,tube_control_card:Terminal_2x1_P5.00mm_D2.0mm_Drill1.4mm,top,0,35.8000,-34.3000,35.8000,34.3000,0,0.0000,0.000,0.000,0
 J3,Connector_PinHeader_1.27mm:PinHeader_2x08_P1.27mm_Vertical,bottom,90,88.5100,-39.1000,88.5100,39.1000,270,0.0000,0.188,0.092,0
 J4,tube_control_card:Terminal_2x1_P5.00mm_D2.0mm_Drill1.4mm,top,0,30.0000,-34.3000,30.0000,34.3000,0,0.0000,0.000,0.000,0
