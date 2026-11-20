@@ -5,7 +5,7 @@ Plan: [PLAN.md](PLAN.md). Playbook: `tools/p2k/CONVERSION_PLAYBOOK.md`.
 | Phase | State |
 |---|---|
 | 0 Skeleton and inventory | **done** 2026-11-20 (Opus 5.5) |
-| 1 Schematic | preparation **done** 2026-11-20 (Opus 5.5); transcription: session T1 **done** 2026-11-20 (Fable 5.2): sheets 1, 11, 10, 8, 3 = 63 of 146 parts; T2 (7, 9, 12, 4) and T3 (2, 5, 6 = U10) to do |
+| 1 Schematic | preparation **done** 2026-11-20 (Opus 5.5); transcription: sessions T1 and T2 **done** 2026-11-20 (Fable 5.2): sheets 1, 11, 10, 8, 3, 7, 9, 12, 4 = 109 of 146 parts; T3 (2, 5, 6 = U10) to do |
 | 2 Footprints | not started |
 | 3 PCB | not started |
 | 4 Verification | not started |
@@ -209,27 +209,52 @@ Every render (`reports/render/NN_*.png`, git-ignored) was compared by eye with
   left; VOUT, SW, FB right; GND bottom. TPS73030: VIN, EN, GND left; VOUT, NR right).
 - `.gitignore`: `reports/render/`.
 
+## Phase 1 transcription – session T2 done (Fable 5.2, 2026-11-20)
+
+Sheets 7, 9, 12, 4 drawn by `tools/sheets/sheetNN.py` (46 parts; 109 of 146 now). Per sheet
+(`python3 tools/compare_netlists.py --allow-missing --sheet N`; totals after the last sheet:
+`pins compared 568, wrong-net pins 0; IPC nets touched 206, complete 117`, `compare: OK`):
+
+| Sheet | Parts | Compare | ERC on the sheet | Notes |
+|---|---|---|---|---|
+| 7 ADC multiplexer | 11/11 | 0 missing, 0 wrong-net pins | 2 pending errors (AD2-1 ~CS, AD2-3 SCLK) | U3 hidden supply pins drawn below the body; PWR_FLAG on the filtered analog supply behind L3 (#00427); AGND = DGND = GND |
+| 9 JFET drivers 1-12 | 9/9 | 0 missing, 0 wrong-net pins | 0 errors | `jfet_quad()` x3: U5, U6, U11 units A-D + power unit E over unit A; R14/R15, R22/R23, R24/R25 units A-D; the 12 alias pairs as notes |
+| 12 JFET drivers 13-16 | 11/11 | 0 missing, 0 wrong-net pins | 0 errors | `jfet_quad()` for U14 / R17 / R18; 8 decoupling capacitors |
+| 4 Level shifters | 15/15 | 0 missing, 0 wrong-net pins | 0 errors | `level_shifter()` x5; direction table as a note |
+
+Every render (`reports/render/NN_*.png`) was compared by eye with `build/tmp/pdf/hi-NN.png`; drawing
+differences (same nets) are in each script's docstring. Unit / pin assignment checked against
+`reference/pin_nets_by_component.md` by the helpers themselves: `jfet_cell()` takes the array unit
+from the IPC net of the op-amp pin and asserts pins {k, 9-k}, the feedback resistor's other pin = the
+output net, and every unit of both arrays used once; the PDF label of every cell input / output is
+asserted in sheet09.py / sheet12.py (IPC name or its alias).
+
+**ERC: 0 errors, 86 warnings, 3 pending errors.**
+- The 86 warnings are all `isolated_pin_label`:
+  - **6 stay for good** (single-pin nets, finding 2): PWM_Q7, GPIO_BYPASS_RLY_ISO, PWM_TRANS5, PWM_Q8
+    (U1 B1-B4), GPIO_BYPASS_RLY_ISOLATED, ADCLK_ISO (U9 B1-B2);
+  - **80 still open**: labels of nets whose only other pin is a U10 ball (checked by script: each of
+    the 80 nets has a U10 pin in the IPC). They must disappear in T3; then the 6 above plus the 8
+    single-ball nets of U10 (transcription rules) remain.
+- Pending (`tools/erc_pending.txt`, 3): `pin_not_driven RS1 2` (TXD, U10 G1), `pin_not_driven AD2 1`
+  (~CS, U10 P2), `pin_not_driven AD2 3` (SCLK, U10 P5): inputs driven only by a U10 ball, session
+  T3. The three U3 select inputs (pending after sheet 7) were resolved by sheet 4 (U9 B5-B7) and
+  removed.
+- PWR_FLAGs added: one on the analog supply node behind L3 (sheet 7).
+
+**New in this session (board-local):**
+- `tools/gen_symbols.py`: ADS7056, SN74LV4051 and SN74AXC8T245 pins arranged as in the PDF
+  (SN74AXC8T245: VCCA / VCCB on top, the two GND pins below, DIR left, VCCB / ~OE right;
+  SN74LV4051: X0-X7 and A, B, C, INH left, X right, the Proteus-hidden VDD / VEE / VSS below).
+  Pin sets and types unchanged; make_sheets (0 files changed), check_symbols and
+  test_no_connect.py re-run: OK.
+- `tools/sheets/_common.py`: `unit_of()`, `unit_pins()`, `array_r()` (one unit of an R_ARRAY4 chosen
+  by the IPC net of a pin), `jfet_cell()` / `jfet_quad()` (pages 9 and 12), `level_shifter()` (page 4).
+
 ### Last verification (`tools/check_all.sh`)
 
 ```
-== KiCad environment
-pcbnew 10.0.7
-== IPC-D-356A parser self-check (p2k ipc356 --check + board exceptions)
-ipc356: nets=227, records=1132, refdes_raw=147, tht_records=377, smd_records=755, smd_top=557, smd_bottom=198, nc_pads=76, vias=240, free_pads=4, holes=4, parts=146
-  accepted (board-local): 5 two-pad pins on split nets (SPLIT_PIN_NETS): ISO5V-1, ISO_G-1, J2-1, RS485A-1, RS485B-1
-  accepted (board-local): 4 SMD test pads without refdes (SMD_FREE_PADS)
-ipc356: OK
-== Gerber X2 export vs IPC (p2k check_sources + board exceptions)
-  14 gerbers, one SameCoordinates id
-  Top Copper: Draw:Conductor 2152, Draw:Profile 5, Flash:ComponentPad 133, Flash:OtherPad,Unknown 4, Flash:SMDPad,CuDef 332, Flash:SMDPad,CuDef,BGAPad 225, Flash:ViaPad 240
-  Inner  1: Draw:Conductor 4122, Draw:Profile 5, Flash:ComponentPad 133, Flash:OtherPad,Unknown 4, Flash:ViaPad 240, Region:- 185
-  Inner  2: Draw:Conductor 2165, Draw:Profile 5, Flash:ComponentPad 133, Flash:OtherPad,Unknown 4, Flash:ViaPad 240, Region:- 150
-  Bottom Copper: Draw:Conductor 3094, Draw:Profile 5, Flash:ComponentPad 133, Flash:OtherPad,Unknown 4, Flash:SMDPad,CuDef 198, Flash:ViaPad 240, Region:- 148
-  drills: 377 plated, 0 non-plated
-  outline 97.8 x 55.9 mm at (13.87, -42.75)
-check_sources: OK
-  board-local: 225 BGAPad flashes = 225 U10 balls; 4 SMD test pads matched as SMD pads only
-check_sources (board wrapper): OK
+(KiCad environment, IPC self-check, X2 vs IPC: unchanged, see Phase 0 / T1)
 == Part map up to date
 make_part_map: lib/part_map.csv up to date (146 parts)
 == Symbol library up to date
@@ -238,14 +263,14 @@ gen_symbols: lib/tube_control_card.kicad_sym up to date (36 symbols)
 symbols: 25 part types, 146 refdes, 10 power symbols
 symbols: OK
 == Sheets up to date (tools/sheets/sheetNN.py)
-make_sheets: 5 sheet scripts, kicad/ up to date
+make_sheets: 9 sheet scripts, kicad/ up to date
 == ERC
-erc: 0 errors, 72 warnings (72 isolated_pin_label), 1 pending errors (tools/erc_pending.txt) (reports/erc.rpt)
+erc: 0 errors, 86 warnings (86 isolated_pin_label), 3 pending errors (tools/erc_pending.txt) (reports/erc.rpt)
 == Netlist comparison vs IPC (D1 merges accepted)
 accepted (D1, board-local): 5 merged IPC net pairs: ISO5V-1 ISO5V + ISO5V.00299; ISO_G-1 RS485_GND + RS485_GND.00300; J2-1 5V + 5V.00301; RS485A-1 #00670.00259 + #00670.00260; RS485B-1 #00671.00261 + #00671.00262 (with R67-1)
-compare: parts 63/146 present, 83 missing, 0 extra; pins compared 247, wrong-net pins 0; IPC nets touched 114, complete 31
-compare: per sheet (drawn/total) 1:6/6 2:0/19 3:28/28 4:0/15 6:0/18 7:0/11 8:3/3 9:0/9 10:9/9 11:17/17 12:0/11
-WARNING: missing parts (83): (see --verbose or --sheet N)
+compare: parts 109/146 present, 37 missing, 0 extra; pins compared 568, wrong-net pins 0; IPC nets touched 206, complete 117
+compare: per sheet (drawn/total) 1:6/6 2:0/19 3:28/28 4:15/15 6:0/18 7:11/11 8:3/3 9:9/9 10:9/9 11:17/17 12:11/11
+WARNING: missing parts (37): (see --verbose or --sheet N)
 compare: OK
 
 ALL CHECKS PASSED
@@ -323,7 +348,7 @@ ALL CHECKS PASSED
   generated on an undrawn sheet): add `<type> <refdes> <pin>  # why` to
   `tools/erc_pending.txt`; never leave another error. Stale entries fail: remove an entry when
   its sheet is drawn. Empty at the end of T3. PWR_FLAGs so far: GND, 5V, 12V, OPAMP_-15V
-  (sheet 1), 1V8, 1V, 3V3 (sheet 3); AD_3V3, ISO5V, RS485_GND are driven by power outputs.
+  (sheet 1), 1V8, 1V, 3V3 (sheet 3), the analog supply #00427 behind L3 (sheet 7); AD_3V3, ISO5V, RS485_GND are driven by power outputs.
 - After a change of `tools/gen_symbols.py` run `tools/make_sheets.sh` (all sheets embed the
   symbols) and, if N/C handling or `tools/erc.sh` / `tools/erc_check.py` changed, `tools/test_no_connect.py`.
 - After each sheet: `python3 tools/compare_netlists.py --allow-missing --sheet N` (the
@@ -333,8 +358,8 @@ ALL CHECKS PASSED
 - **Order** (easy sheets first to build the label vocabulary; U10 last and in one go, because
   compare reports the balls of unplaced U10 units as missing pins = errors, and ERC an
   unplaced power unit G as an error, until all eight units are drawn):
-  session T1: 1 net aliases/power inputs → 11 bias DAC/RS485 (D1) → 10 connectors/bias ADC →
-  8 J11 → 3 regulators; session T2: 7 ADC mux → 9 JFET drivers 1-12 → 12 JFET drivers 13-16
+  session T1 (done): 1 net aliases/power inputs → 11 bias DAC/RS485 (D1) → 10 connectors/bias ADC →
+  8 J11 → 3 regulators; session T2 (done): 7 ADC mux → 9 JFET drivers 1-12 → 12 JFET drivers 13-16
   → 4 level shifters; session T3: 2 FPGA config/clock + 5 IO banks + 6 FPGA power (all U10
   units), then the full compare without `--allow-missing`.
 
@@ -416,6 +441,36 @@ Reported, not fixed (PLAN.md section 5.3).
    compared with its PDF label; all differences are the known aliases (page 1, 10, 11 pairs),
    the case (rs485_gnd, 1V_enable, L1sw, RLY5_enable ...) and DGND / gnd / ISOGND = GND. No
    other difference.
+
+17. **Page 7 multiplexer channel order** (PDF note "check logic"): ADB2 → X0, ADB1 → X1, ADB0 → X2,
+   ADB3 → X3, ADB4 → X4, ADB7 → X5, ADB5 → X6, ADB6 → X7 (U3 pins 13, 14, 15, 12, 1, 5, 2, 4), so
+   the select code is not the ADB index. INH, VEE and VSS on GND, VDD on AD_3V3 (hidden pins in
+   Proteus). AD2 AINM is on GND; its AVDD, U4 V+, C6 and C7 hang on AD_3V3 through L3 (22uH),
+   DVDD on 1V8. The page ties the terminals AGND and DGND together (one net GND).
+18. **JFET driver inputs and outputs (pages 9, 12):**
+   - The alias table of page 9 names JFET_GPIO_1 = GPIOL_11, JFET_GPIO_2 = GPIOL_9, JFET_GPIO_3 =
+     GPIOL_10, but the drivers of JFET_1 (IPC net A), JFET_2 and JFET_4 take GPIOL_N_14, GPIOL_P_14
+     and GPIOL_P_15, and the JFET_3 driver takes JFET_GPIO_4 (GPIOT_P_03). GPIOL_10 and GPIOL_11
+     are single-ball nets (plus a test pad each); a terminal JFET_GPIO_1 with an open stub stands
+     above U5:C. GPIOL_9 (= JFET_GPIO_2) is the input of the **JFET_14** driver on page 12.
+   - **JFET_3 and JFET_4 (U5 A, B outputs) reach no other part** (only R15 and U5); JFET_5 and
+     JFET_6 (U6 D, C) only an SMD test pad each. Compare the unconnected JFET_GATE terminals of
+     page 10 (finding 15).
+   - All four quad op-amps (TLV9304 x3, TL084H) run from 3V3 / OPAMP_-15V with the + inputs on GND
+     (inverting, gain -4.7): drawn as built.
+19. **Page 4 direction table – to verify against the datasheet.** All five SN74AXC8T245 have DIR1 on
+   1V8 (H), DIR2 and ~OE on GND (L). The table on the page says H / L = "A to B" for bits 1:4 **and**
+   5:8. If DIR2 = L means B to A for bits 5-8 (DIR1 for A1-A4, DIR2 for A5-A8, H = A to B, as the
+   TI text says for the two banks), then B5-B8 of every shifter run from the 3V3 side to the FPGA –
+   among them ADBSEL0-2 (U3 select), RLY7_ENABLE, RLY2/5/6_ENABLE, MOS_GATE_2, PWM_Q5/Q6,
+   PWM_TRANS1-3_ISO, PWM_G1/G3/G4_ISO. A text extract of TI's online datasheet (Table 7-1) was
+   read in this session but its rows came out misaligned, so this is **not confirmed**: check the
+   function table by eye (and the built board) before the redesign. Drawn as built; the PDF table
+   is a text note on sheet 4.
+20. **Labels of pages 4, 7, 9, 12 vs IPC:** every pin of the 46 parts drawn in T2 was compared with
+   its PDF label (pages 9 / 12 by assertions in the scripts): the only differences are the page 9
+   alias pairs (JFET_GPIO_n), JFET_1 = A, the case (gnd) and AGND / DGND = GND. `GPIOB_N12`
+   (U2-9, U10-P9) is spelled without the second underscore in both the PDF and the IPC.
 
 ## p2k candidates
 
@@ -507,6 +562,14 @@ solved in tools/p2k later (with the ac_psu regression); until then the wrappers 
    change made; fix in p2k (type-safe key).
 14. `sch_builder`: a pin placed on the middle of a wire segment is not connected in KiCad;
    `Sheet.wire` could split segments at pin points (or `Sheet.save` could warn).
+
+15. `symgen.box`: top / bottom pins get a body margin sized for the pin name inside the body
+   (VCCA → 7.62 mm), so a symbol with supply pins on top is 4 grid rows taller than the Proteus
+   one and page 4 does not fit at the PDF pitch (U2, U9 moved down). An option for the margin
+   (or names outside) would keep the PDF layout.
+16. Multi-unit helpers of `tools/sheets/_common.py` – `unit_of()`, `unit_pins()`, `array_r()`
+   (resistor-array unit chosen by the IPC net) and the power unit laid over unit A
+   (`jfet_quad()`) – are candidates for `p2k.sheetkit` together with candidate 12.
 
 ## Decisions
 
