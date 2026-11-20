@@ -5223,28 +5223,6 @@
 			)
 		)
 	)
-	(text "3V3"
-		(exclude_from_sim no)
-		(at 62.23 63.5 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "eed044a9-79b3-592c-8586-70d29360cc8f")
-	)
-	(text "-15V"
-		(exclude_from_sim no)
-		(at 60.96 82.55 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "09227a29-5783-513c-91f6-145a83fd7650")
-	)
 	(text "Proteus alias pairs of this page (the IPC name is used on the pins):"
 		(exclude_from_sim no)
 		(at 228.6 99.06 0)
@@ -5254,7 +5232,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "5761f238-0fd0-5190-af5d-a47b6e0a1892")
+		(uuid "eed044a9-79b3-592c-8586-70d29360cc8f")
 	)
 	(text "GPIOL_6 = LOOP_BYPASS_RLY (IPC LOOP_BYPASS_RLY, J3 pin 15)"
 		(exclude_from_sim no)
@@ -5265,7 +5243,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "da7dffeb-45b3-5b02-84cc-1c5f0bc7303d")
+		(uuid "09227a29-5783-513c-91f6-145a83fd7650")
 	)
 	(text "JFET_1 = A (IPC A, J3 pin 1)"
 		(exclude_from_sim no)
@@ -5276,7 +5254,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "bcb66ad0-ba7a-53c9-be7a-4155809ae9c8")
+		(uuid "5761f238-0fd0-5190-af5d-a47b6e0a1892")
 	)
 	(text "JFET_13 = C' (IPC JFET_13, J3 pin 7)"
 		(exclude_from_sim no)
@@ -5287,7 +5265,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "a2323bdb-3ff5-580b-b723-49c336cd94b1")
+		(uuid "da7dffeb-45b3-5b02-84cc-1c5f0bc7303d")
 	)
 	(text "JFET_15 = D' (IPC JFET_15, J3 pin 9)"
 		(exclude_from_sim no)
@@ -5298,7 +5276,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "3fa49a1e-4e3c-5077-bf4e-ea2c64a456e1")
+		(uuid "bcb66ad0-ba7a-53c9-be7a-4155809ae9c8")
 	)
 	(text "POWERSDA = GPIOL_N_17 (IPC POWERSDA, J6 pin 9)"
 		(exclude_from_sim no)
@@ -5309,7 +5287,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "fbaea2eb-c5fb-5038-80ce-8bf62f085ef1")
+		(uuid "a2323bdb-3ff5-580b-b723-49c336cd94b1")
 	)
 	(text "POWERSCL = GPIOL_N_16 (IPC POWERSCL, J6 pin 11)"
 		(exclude_from_sim no)
@@ -5320,7 +5298,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "75dad6d6-0601-5989-b53b-9db4bfe610fe")
+		(uuid "3fa49a1e-4e3c-5077-bf4e-ea2c64a456e1")
 	)
 	(text "Unconnected terminals in the PDF (no net): JFET_GATE_x3, _x1, _10, _8, _5, _9, _x2, _3, _2, _6, _7, _4"
 		(exclude_from_sim no)
@@ -5331,7 +5309,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "25a2a2c8-ae09-55aa-8798-d40866183537")
+		(uuid "fbaea2eb-c5fb-5038-80ce-8bf62f085ef1")
 	)
 	(text "ADC1: Proteus pin ids A1 = VA, A2 = GND, COM1 = SDA, COM2 = VIN, K1 = SCL, K2 = ADR0;"
 		(exclude_from_sim no)
@@ -5342,7 +5320,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "6a5593fa-c61d-59d8-89e1-4e022dab0771")
+		(uuid "75dad6d6-0601-5989-b53b-9db4bfe610fe")
 	)
 	(text "VIN is on 3V3 and VA on the filtered input, as drawn (STATUS.md finding 9)."
 		(exclude_from_sim no)
@@ -5353,7 +5331,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "c42d6fe6-09e0-5b0a-8528-54ee2926cec8")
+		(uuid "25a2a2c8-ae09-55aa-8798-d40866183537")
 	)
 	(embedded_fonts no)
 )

@@ -2522,17 +2522,6 @@
 			)
 		)
 	)
-	(text "check logic"
-		(exclude_from_sim no)
-		(at 97.79 104.14 0)
-		(effects
-			(font
-				(size 2 2)
-			)
-			(justify left bottom)
-		)
-		(uuid "0a3aa818-70e5-584e-8b35-d13f3b8eb83c")
-	)
 	(text "Proteus hidden pins: VDD=AD_3V3, VEE=AGND, VSS=AGND"
 		(exclude_from_sim no)
 		(at 90.17 175.26 0)
@@ -2542,7 +2531,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "290de727-4cbc-5047-8242-53f838c3b5b3")
+		(uuid "0a3aa818-70e5-584e-8b35-d13f3b8eb83c")
 	)
 	(symbol
 		(lib_id "tube_control_card:TLV316IDBVR")
@@ -2631,7 +2620,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "b2e94916-f9f9-5831-8454-f7dc7db5c84d")
+		(uuid "290de727-4cbc-5047-8242-53f838c3b5b3")
 	)
 	(wire
 		(pts
@@ -2641,7 +2630,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "221db05e-4868-5659-b716-ea079442ce0a")
+		(uuid "b2e94916-f9f9-5831-8454-f7dc7db5c84d")
 	)
 	(wire
 		(pts
@@ -2651,7 +2640,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "367d1f36-256f-5a42-a8d2-8123b2e06947")
+		(uuid "221db05e-4868-5659-b716-ea079442ce0a")
 	)
 	(wire
 		(pts
@@ -2661,7 +2650,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "8c9c9001-1cc4-5ff8-894f-c6612cfe015c")
+		(uuid "367d1f36-256f-5a42-a8d2-8123b2e06947")
 	)
 	(wire
 		(pts
@@ -2671,7 +2660,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "d6671500-996e-5222-8c22-51081afbe537")
+		(uuid "8c9c9001-1cc4-5ff8-894f-c6612cfe015c")
 	)
 	(wire
 		(pts
@@ -2681,13 +2670,13 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "a4ffad20-874d-5396-a4a5-11d06c598b34")
+		(uuid "d6671500-996e-5222-8c22-51081afbe537")
 	)
 	(junction
 		(at 156.21 118.11)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "d17901f2-c79f-5b7e-9ac2-2721f1a87ec4")
+		(uuid "a4ffad20-874d-5396-a4a5-11d06c598b34")
 	)
 	(symbol
 		(lib_id "tube_control_card:R")
@@ -2764,7 +2753,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "0681157f-832b-5b23-a597-31a0a1c9d2e5")
+		(uuid "d17901f2-c79f-5b7e-9ac2-2721f1a87ec4")
 	)
 	(symbol
 		(lib_id "tube_control_card:ADS7056")
@@ -2861,7 +2850,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "699233a7-94b3-5f50-95fb-db877ba43c91")
+		(uuid "0681157f-832b-5b23-a597-31a0a1c9d2e5")
 	)
 	(wire
 		(pts
@@ -2871,13 +2860,13 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "0c931860-8c7a-555a-9750-0e7910ef703c")
+		(uuid "699233a7-94b3-5f50-95fb-db877ba43c91")
 	)
 	(junction
 		(at 171.45 118.11)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "3f9802e6-1c92-5858-b746-328f705858cd")
+		(uuid "0c931860-8c7a-555a-9750-0e7910ef703c")
 	)
 	(symbol
 		(lib_id "tube_control_card:C")
@@ -2954,7 +2943,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "e78bc0ef-66c8-5a39-ba28-ed044fb51b2f")
+		(uuid "3f9802e6-1c92-5858-b746-328f705858cd")
 	)
 	(wire
 		(pts
@@ -2964,7 +2953,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "8db43e49-4ff8-5f03-b336-07a5fcd9f5ad")
+		(uuid "e78bc0ef-66c8-5a39-ba28-ed044fb51b2f")
 	)
 	(wire
 		(pts
@@ -2974,7 +2963,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "054704fd-bba6-51ee-bc08-7b3e1b11ece8")
+		(uuid "8db43e49-4ff8-5f03-b336-07a5fcd9f5ad")
 	)
 	(global_label "GPIOL_P_00_PLLIN0"
 		(shape passive)
@@ -2986,7 +2975,7 @@
 			)
 			(justify left)
 		)
-		(uuid "4c5a0cb8-0e4a-5f27-8d6f-969ef826f402")
+		(uuid "054704fd-bba6-51ee-bc08-7b3e1b11ece8")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 233.68 115.57 0)
 			(effects
@@ -3006,7 +2995,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "0bf9a1c7-e4ed-5229-8d45-d292ed154054")
+		(uuid "4c5a0cb8-0e4a-5f27-8d6f-969ef826f402")
 	)
 	(global_label "GPIOL_N_00"
 		(shape passive)
@@ -3018,7 +3007,7 @@
 			)
 			(justify left)
 		)
-		(uuid "f9f81c1d-7847-51b1-9f51-fd087c713202")
+		(uuid "0bf9a1c7-e4ed-5229-8d45-d292ed154054")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 233.68 118.11 0)
 			(effects
@@ -3038,7 +3027,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f0f76143-dfb3-59b4-88e3-74523fe24608")
+		(uuid "f9f81c1d-7847-51b1-9f51-fd087c713202")
 	)
 	(global_label "GPIOB_N_00"
 		(shape passive)
@@ -3050,7 +3039,7 @@
 			)
 			(justify left)
 		)
-		(uuid "136f08a2-15e0-5bca-b1d9-a25d63734f53")
+		(uuid "f0f76143-dfb3-59b4-88e3-74523fe24608")
 		(property "Intersheetrefs" "${INTERSHEET_REFS}"
 			(at 233.68 120.65 0)
 			(effects
@@ -3070,7 +3059,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "1f1ad175-1a3c-5c91-97a5-57499eb8b45d")
+		(uuid "136f08a2-15e0-5bca-b1d9-a25d63734f53")
 	)
 	(wire
 		(pts
@@ -3080,7 +3069,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "0cb4374a-1bad-583c-8729-9cb5306f8cd0")
+		(uuid "1f1ad175-1a3c-5c91-97a5-57499eb8b45d")
 	)
 	(wire
 		(pts
@@ -3090,7 +3079,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "2b00f73b-fc8f-51f7-83b3-126cf1c91418")
+		(uuid "0cb4374a-1bad-583c-8729-9cb5306f8cd0")
 	)
 	(symbol
 		(lib_id "tube_control_card:1V8")
@@ -3232,7 +3221,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "4a50055d-a120-5d03-9a22-d528371232b3")
+		(uuid "2b00f73b-fc8f-51f7-83b3-126cf1c91418")
 	)
 	(symbol
 		(lib_id "tube_control_card:AD_3V3")
@@ -3307,7 +3296,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "9f6ad2a8-0894-5100-8352-7e2d211e2879")
+		(uuid "4a50055d-a120-5d03-9a22-d528371232b3")
 	)
 	(wire
 		(pts
@@ -3317,7 +3306,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "ffa03f63-9503-5c42-a397-9bc3d5ae11ec")
+		(uuid "9f6ad2a8-0894-5100-8352-7e2d211e2879")
 	)
 	(wire
 		(pts
@@ -3327,19 +3316,19 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "fa1ac336-c20c-5788-8190-6289c6f6b001")
+		(uuid "ffa03f63-9503-5c42-a397-9bc3d5ae11ec")
 	)
 	(junction
 		(at 186.69 109.22)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "78764f50-c18f-51c0-bcf4-4ea4277a0a05")
+		(uuid "fa1ac336-c20c-5788-8190-6289c6f6b001")
 	)
 	(junction
 		(at 186.69 120.65)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "6c4fdec4-cd43-5186-a9c2-cb74478ed8e4")
+		(uuid "78764f50-c18f-51c0-bcf4-4ea4277a0a05")
 	)
 	(symbol
 		(lib_id "tube_control_card:C")
@@ -3416,7 +3405,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "c7146cd4-2394-5c12-8e33-6fa6949a7e35")
+		(uuid "6c4fdec4-cd43-5186-a9c2-cb74478ed8e4")
 	)
 	(wire
 		(pts
@@ -3426,7 +3415,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "6a4aa438-35b6-57a2-95ee-4b9c170cb92d")
+		(uuid "c7146cd4-2394-5c12-8e33-6fa6949a7e35")
 	)
 	(wire
 		(pts
@@ -3436,7 +3425,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "8ac7d90e-0684-5a0b-bb1a-30ca074f48a5")
+		(uuid "6a4aa438-35b6-57a2-95ee-4b9c170cb92d")
 	)
 	(wire
 		(pts
@@ -3446,7 +3435,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "23d17416-1652-53ab-b476-e873e8f7c8b0")
+		(uuid "8ac7d90e-0684-5a0b-bb1a-30ca074f48a5")
 	)
 	(wire
 		(pts
@@ -3456,7 +3445,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "7f37fa14-5a76-5c32-a30d-b3893b53e32a")
+		(uuid "23d17416-1652-53ab-b476-e873e8f7c8b0")
 	)
 	(symbol
 		(lib_id "tube_control_card:PWR_FLAG")
@@ -3531,13 +3520,13 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "8fb17c14-243e-5e83-9034-68bb3f04aaa6")
+		(uuid "7f37fa14-5a76-5c32-a30d-b3893b53e32a")
 	)
 	(junction
 		(at 139.7 101.6)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "3228fa00-ae77-53cd-92cf-fcba2f32ba0c")
+		(uuid "8fb17c14-243e-5e83-9034-68bb3f04aaa6")
 	)
 	(symbol
 		(lib_id "tube_control_card:C")
@@ -3614,7 +3603,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "eeaf8096-22e0-5af0-b2bf-149eb3a75a7b")
+		(uuid "3228fa00-ae77-53cd-92cf-fcba2f32ba0c")
 	)
 	(wire
 		(pts
@@ -3624,7 +3613,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "f35a2081-1c61-5454-986a-f54261d442f6")
+		(uuid "eeaf8096-22e0-5af0-b2bf-149eb3a75a7b")
 	)
 	(wire
 		(pts
@@ -3634,7 +3623,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "06b72640-c6cb-571e-ab83-8b2b9a40bbaf")
+		(uuid "f35a2081-1c61-5454-986a-f54261d442f6")
 	)
 	(wire
 		(pts
@@ -3644,7 +3633,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "de3ae3ed-f168-5409-9ac2-04a7358b3644")
+		(uuid "06b72640-c6cb-571e-ab83-8b2b9a40bbaf")
 	)
 	(wire
 		(pts
@@ -3654,7 +3643,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "4f80f1ad-3045-54b5-a607-889940660aee")
+		(uuid "de3ae3ed-f168-5409-9ac2-04a7358b3644")
 	)
 	(wire
 		(pts
@@ -3664,13 +3653,13 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "86b83ede-3208-591f-a1d2-42f0fef84ee0")
+		(uuid "4f80f1ad-3045-54b5-a607-889940660aee")
 	)
 	(junction
 		(at 139.7 142.24)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "e5d0a369-481a-5a63-9938-6244f5550cbf")
+		(uuid "86b83ede-3208-591f-a1d2-42f0fef84ee0")
 	)
 	(wire
 		(pts
@@ -3680,7 +3669,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "645ea84c-415a-518d-8ea5-e6f101c21a9a")
+		(uuid "e5d0a369-481a-5a63-9938-6244f5550cbf")
 	)
 	(symbol
 		(lib_id "tube_control_card:GND")
@@ -3755,13 +3744,13 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "6159cf0e-fe85-5b8c-a365-28d233c2dd9b")
+		(uuid "645ea84c-415a-518d-8ea5-e6f101c21a9a")
 	)
 	(junction
 		(at 186.69 139.7)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "4b6e0720-3d2b-5282-a118-07d494c75675")
+		(uuid "6159cf0e-fe85-5b8c-a365-28d233c2dd9b")
 	)
 	(wire
 		(pts
@@ -3771,7 +3760,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "c001fe1e-ad3c-5264-8356-56b5be98c75b")
+		(uuid "4b6e0720-3d2b-5282-a118-07d494c75675")
 	)
 	(symbol
 		(lib_id "tube_control_card:GND")
@@ -3846,7 +3835,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "814c4944-6755-5611-9a29-6075061847b8")
+		(uuid "c001fe1e-ad3c-5264-8356-56b5be98c75b")
 	)
 	(wire
 		(pts
@@ -3856,7 +3845,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "22171b0e-89bf-5230-8ba4-6291dcdf1bab")
+		(uuid "814c4944-6755-5611-9a29-6075061847b8")
 	)
 	(wire
 		(pts
@@ -3866,7 +3855,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "feb71a56-869d-5803-b7bb-cc98db88d388")
+		(uuid "22171b0e-89bf-5230-8ba4-6291dcdf1bab")
 	)
 	(wire
 		(pts
@@ -3876,7 +3865,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "565d3a30-391e-534e-8114-53c1b7eea8b3")
+		(uuid "feb71a56-869d-5803-b7bb-cc98db88d388")
 	)
 	(wire
 		(pts
@@ -3886,13 +3875,13 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "28487d79-71eb-5962-a0ff-e8692518c93c")
+		(uuid "565d3a30-391e-534e-8114-53c1b7eea8b3")
 	)
 	(junction
 		(at 199.39 123.19)
 		(diameter 0)
 		(color 0 0 0 0)
-		(uuid "ab05497b-be62-5aeb-b9e5-3d15e215e603")
+		(uuid "28487d79-71eb-5962-a0ff-e8692518c93c")
 	)
 	(symbol
 		(lib_id "tube_control_card:C")
@@ -3969,7 +3958,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "81481b00-95f9-5cec-b6cd-3a0fa519b6cb")
+		(uuid "ab05497b-be62-5aeb-b9e5-3d15e215e603")
 	)
 	(symbol
 		(lib_id "tube_control_card:AD_3V3")
@@ -4044,7 +4033,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "8f282391-61ee-5a77-9282-1f947f136cf1")
+		(uuid "81481b00-95f9-5cec-b6cd-3a0fa519b6cb")
 	)
 	(symbol
 		(lib_id "tube_control_card:GND")
@@ -4186,7 +4175,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "eec4e2aa-3f77-581b-ac88-47c9034006b0")
+		(uuid "8f282391-61ee-5a77-9282-1f947f136cf1")
 	)
 	(symbol
 		(lib_id "tube_control_card:1V8")
@@ -4261,7 +4250,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "4311e3dd-012b-5f19-b342-cb1650f1ba31")
+		(uuid "eec4e2aa-3f77-581b-ac88-47c9034006b0")
 	)
 	(symbol
 		(lib_id "tube_control_card:GND")
@@ -4403,7 +4392,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "e977120a-96fc-53e0-82d6-ba75b3bda5c2")
+		(uuid "4311e3dd-012b-5f19-b342-cb1650f1ba31")
 	)
 	(symbol
 		(lib_id "tube_control_card:AD_3V3")
@@ -4478,7 +4467,7 @@
 			(width 0)
 			(type default)
 		)
-		(uuid "ed522538-c1ee-5c6d-bd98-a3eefd05c3f8")
+		(uuid "e977120a-96fc-53e0-82d6-ba75b3bda5c2")
 	)
 	(symbol
 		(lib_id "tube_control_card:GND")
@@ -4554,7 +4543,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "db5aa71f-a0e2-5cdc-baea-b615d4518328")
+		(uuid "ed522538-c1ee-5c6d-bd98-a3eefd05c3f8")
 	)
 	(embedded_fonts no)
 )

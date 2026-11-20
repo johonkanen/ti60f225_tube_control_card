@@ -26,7 +26,7 @@ a, b = two(sh, "R16", *P(135, 26), top="3V3")
 tie(sh, "3V3", a, "up", 1)
 tie(sh, net("R16", pin_of("R16", "GPIOL_1")), b, "down", 1)
 
-note(sh, "FIX BUGS!", 48, 50)
+# PDF note "FIX BUGS!" dropped (obsolete; user decision 2026-11-20, STATUS.md "Design fixes 2026-11-20")
 note(sh, "Proteus alias pairs of this page (two terminal labels joined by a line). The KiCad sheets use the IPC net name on", 8, 3)
 note(sh, "every pin; a pair whose second name occurs nowhere else adds no connection (STATUS.md findings 2 and 11).", 8, 5)
 PAIRS_TOP = ["L1 = PWM_TRANS5", "N1 = PWM_Q8", "P1 = PWM_Q6", "T3 = DAB_PWM_LO_SEC", "T4 = DAB_PWM_HI_SEC",

@@ -1,5 +1,5 @@
 == stage A: pads + tracks + vias (Proteus pad flashes)
-items 4505, groups 442, shorts 0, orphans 0, opens 5
+items 4478, groups 442, shorts 0, orphans 0, opens 5
   open 1V: 17 groups [U10-E5] [U10-E13] [U10-G7] [U10-G9] [U10-G10] [U10-H6 U10-J7] [U10-H8] [C24-1 C25-1 U10-J9 U10-L10] [U10-L5] [U10-M3] [C21-1] [C22-1] [C23-1] [C14-2 L4-2 R10-2] [C18-2] [C40-1] [C70-2]
   open 1V8: 27 groups [FLASH1-8] [C16-2 C2-2 C57-2 L1-2 OSC1-1 ...] [U10-C7 U10-D4 U10-D6] [U10-C11] [R3-1 U10-D2] [U10-D9] [U10-E11] [U10-F4] [U10-F14 U10-G12] [R27-1 U10-J4 U10-L2 U10-L4] [C39-2 U10-J11 U8-1 U8-2] [U10-L14] [U10-M11 U10-N11] [U10-N5 U10-N7] [U10-N9] [U1-1 U1-2 U2-1 U2-2 U7-1 ...] [C35-2 U9-1 U9-2] [C1-2 R43-1 R44-1] [R28-1] [R41-1 R42-1] [C51-1 RS1-3] [AD2-4] [R21-1] [C26-2] [C28-2] [C32-2] [C71-2]
   open 3V3: 11 groups [C27-2 C31-2 C36-1 C37-2 C54-1 ...] [C30-1 C33-1 L5-2 U10-B13 U10-B4] [C29-1 U10-N15] [C34-2 C38-2 U8-23 U8-24] [C62-2 C64-2 C66-2 R19-2 R26-2 ...] [ADC1-COM2 C67-2 J6-1 J6-2 R31-1 ...] [J7-29 J7-30] [C60-2 U14-4] [R29-2] [C12-2] [C56-2]
@@ -10,15 +10,15 @@ items 4505, groups 442, shorts 0, orphans 0, opens 5
   accepted open (D1, board-local): Net-(RS1-B): RS485B-1 pads in two groups
   accepted open (D1, board-local): RS485_GND: ISO_G-1 pads in two groups
 == stage B: + Proteus pours
-items 4525, groups 307, shorts 0, orphans 0, opens 0
+items 4498, groups 307, shorts 0, orphans 0, opens 0
   accepted open (D1, board-local): 5V: J2-1 pads in two groups
   accepted open (D1, board-local): ISO5V: ISO5V-1 pads in two groups
   accepted open (D1, board-local): Net-(RS1-A): RS485A-1 pads in two groups
   accepted open (D1, board-local): Net-(RS1-B): RS485B-1 pads in two groups
   accepted open (D1, board-local): RS485_GND: ISO_G-1 pads in two groups
-== assignment: 3613 tracks/vias got a net, 0 without
+== assignment: 3586 tracks/vias got a net, 0 without
 == after zone fill (KiCad pads, tracks, vias, filled zones)
-items 4525, groups 307, shorts 0, orphans 0, opens 0
+items 4498, groups 307, shorts 0, orphans 0, opens 0
   accepted open (D1, board-local): 5V: J2-1 pads in two groups
   accepted open (D1, board-local): ISO5V: ISO5V-1 pads in two groups
   accepted open (D1, board-local): Net-(RS1-A): RS485A-1 pads in two groups

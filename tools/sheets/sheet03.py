@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Sheet 3 - Regulators (PDF page 3): the LDO V4 (TPS73030, 5V -> AD_3V3, the analog supply) and the
 three AP61202 buck converters from 5V: PWR1 / L1 -> 1V8, PWR2 / L4 -> 1V (core), PWR3 / L5 -> 3V3.
-PWR2 pin 6 (Proteus name VOUT) drives 1V_ENABLE (pull-up R1 to 5V) = the EN pins of PWR1 and PWR3;
+PWR2 pin 6 PG (open-drain power good; Proteus name VOUT, renamed) drives 1V_ENABLE (pull-up R1 to 5V) = the EN pins of PWR1 and PWR3;
 PWR2's own EN is on 5V (STATUS.md finding 12). Pin 6 of PWR1 and PWR3 is N/C.
 
 The rails AD_3V3, 1V8, 1V and 3V3 are generated here: V4 VOUT is a power output; the buck outputs
@@ -38,7 +38,7 @@ def buck(ref, x, y, coil, r_up, c_ff, r_low, c_in, c_out, enable_from_5v=False, 
         sh.junction(*Q(-3, 0))
     else:
         pin_tie(sh, u, 5, "left", 10)
-    # pin 6 (VOUT): N/C, or the enable output with its pull-up
+    # pin 6 (PG, open drain): N/C, or the enable output with its pull-up
     if pullup:
         sh.wire(u.pin(6), Q(34, 0))
         tie(sh, net(ref, 6), Q(34, 0), "right", 4)
@@ -93,7 +93,9 @@ def buck(ref, x, y, coil, r_up, c_ff, r_low, c_in, c_out, enable_from_5v=False, 
 buck("PWR1", 116, 13, "L1", "R8", "C57", ["R9"], "C15", ["C16"])
 buck("PWR2", 116, 72, "L4", "R10", "C70", ["R20", "R2"], "C13", ["C14", "C18"], enable_from_5v=True, pullup="R1")
 buck("PWR3", 31, 97, "L5", "R29", "C56", ["R30", "R13"], "C11", ["C12"])
-note(sh, "note, needs to be 0.95V and not 1.0V", 110, 58, size=3.0)
+# PDF note "note, needs to be 0.95V and not 1.0V" replaced by what the divider sets (the to-do is done;
+# user decision 2026-11-20, STATUS.md "Design fixes 2026-11-20"): FB 0.6 V x (1 + 200k / (680k || 680k)) = 0.953 V
+note(sh, "1V rail = 0.95 V (Ti60 core VCC): 0.6 V x (1 + R10 / (R20 || R2)) = 0.953 V", 110, 58, size=2.0)
 
 # --- V4: 5V -> AD_3V3 (Proteus VCC/VDD) --------------------------------------------------------------
 v4 = place_pin(sh, "V4", 1, P(39, 8))

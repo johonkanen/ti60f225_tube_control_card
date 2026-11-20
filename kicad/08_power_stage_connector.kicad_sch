@@ -3454,17 +3454,6 @@
 			)
 		)
 	)
-	(text "Possible choises are 2x8, 2x10, 2x13, 2x15, 2x17, 2x20, 2x25"
-		(exclude_from_sim no)
-		(at 91.44 58.42 0)
-		(effects
-			(font
-				(size 3 3)
-			)
-			(justify left bottom)
-		)
-		(uuid "ab3c1100-7940-56da-b488-ed0969237afb")
-	)
 	(text "Unconnected terminals in the PDF (no net):"
 		(exclude_from_sim no)
 		(at 203.2 80.01 0)
@@ -3474,7 +3463,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "d2bf879b-b1c7-53bb-afe7-87b45523b6d4")
+		(uuid "ab3c1100-7940-56da-b488-ed0969237afb")
 	)
 	(text "T_IRQ, T_DO, T_DIN, T_CS, T_CK, MOSI, LED, SCK, MISO, DATA/COMMAND, LCD_RESET, LCD_CS, ISOGND, 3V3"
 		(exclude_from_sim no)
@@ -3485,7 +3474,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "03c952e6-f7b1-5879-9501-90cfec68b30c")
+		(uuid "d2bf879b-b1c7-53bb-afe7-87b45523b6d4")
 	)
 	(text "Unconnected terminals in the PDF (no net): ADB2, ADB1, ADB0, ADB3, ADB4, AGND, ADB5, ADB6"
 		(exclude_from_sim no)
@@ -3496,7 +3485,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "dab59ddc-bfe5-5131-8c7c-5811f4be09b1")
+		(uuid "03c952e6-f7b1-5879-9501-90cfec68b30c")
 	)
 	(text "PDF DGND = GND (one net with AGND, gnd, ISOGND)."
 		(exclude_from_sim no)
@@ -3507,7 +3496,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "583a2ece-e66c-5e96-80d0-d58b12ac37ad")
+		(uuid "dab59ddc-bfe5-5131-8c7c-5811f4be09b1")
 	)
 	(embedded_fonts no)
 )

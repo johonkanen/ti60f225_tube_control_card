@@ -15,7 +15,8 @@ a, b = two(sh, "C54", *P(100, 34), top="3V3")
 tie(sh, "3V3", a, "up", 2)
 tie(sh, "GND", b, "down", 2)
 
-note(sh, "Possible choises are 2x8, 2x10, 2x13, 2x15, 2x17, 2x20, 2x25", 32, 16, size=3.0)
+# PDF note "Possible choises are 2x8 ... 2x25" dropped (obsolete: J11 is the 2x20; user decision 2026-11-20,
+# STATUS.md "Design fixes 2026-11-20")
 note(sh, "Unconnected terminals in the PDF (no net):", 120, 33)
 note(sh, "T_IRQ, T_DO, T_DIN, T_CS, T_CK, MOSI, LED, SCK, MISO, DATA/COMMAND, LCD_RESET, LCD_CS, ISOGND, 3V3", 120, 35)
 note(sh, "Unconnected terminals in the PDF (no net): ADB2, ADB1, ADB0, ADB3, ADB4, AGND, ADB5, ADB6", 64, 84)

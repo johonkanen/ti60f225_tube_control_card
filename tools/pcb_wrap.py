@@ -30,6 +30,12 @@ STATUS.md "p2k candidates" 1, 2/21, 3; the shared tools run unchanged on adapted
    `unconnected-(PWR4-On{slash}Off-Pad3)`, so build_pcb's pad net fails the parity check. The
    wrapper escapes "/" inside the parentheses of `unconnected-(...)` names of the exported
    netlist (KiCad's own escaping; hierarchical "/" separators of other nets are untouched).
+5. REMOVED_TRACKS in the drawn direction (finding 26, design fixes 2026-11-20): `p2k.pcb.removed_track`
+   matches an entry in either direction, so a draw and its reverse (the zero-length / back-and-forth
+   draws, GND on F.Cu and DATA2 on B.Cu) both match the first entry and gerber_to_tracks fails on the
+   duplicate. The wrapper first looks for an entry equal to the draw in the drawn direction (to 1e-6 mm:
+   the DATA2 pair differs by 1e-5 mm, under the shared 0.001 mm tolerance), then falls back to the shared
+   match, so an entry listed once for a draw that has a reverse still fails.
 """
 import math
 import os
@@ -216,6 +222,23 @@ def patch_check_board():
     cb.check_board_only = check_board_only
 
 
+# ---------------------------------------------------------------- 5. REMOVED_TRACKS direction
+
+def patch_removed_track():
+    shared = pcb.removed_track
+
+    def removed_track(klayer, x1, y1, x2, y2, tol=0.001):
+        exact = 1e-6
+        for key, why in (getattr(pcb.cfg(), "REMOVED_TRACKS", {}) or {}).items():
+            lay, a1, b1, a2, b2 = key
+            if lay == klayer and abs(a1 - x1) <= exact and abs(b1 - y1) <= exact and abs(a2 - x2) <= exact \
+                    and abs(b2 - y2) <= exact:
+                return key, why
+        return shared(klayer, x1, y1, x2, y2, tol)
+
+    pcb.removed_track = removed_track
+
+
 def main():
     if len(sys.argv) < 2:
         sys.exit(__doc__)
@@ -227,6 +250,7 @@ def main():
     patch_gerber_to_tracks()
     patch_assign_nets()
     patch_export_netlist()
+    patch_removed_track()
     if tool == "check_board":
         patch_check_board()
     sys.argv = [f"p2k.{tool}"] + sys.argv[2:]

@@ -3257,7 +3257,7 @@
 				)
 			)
 		)
-		(property "Description" "Buck converter SOT563, Proteus pin ids 1=FB 2=GND 3=VIN 4=SW 5=EN 6=VOUT"
+		(property "Description" "Buck converter SOT563, Proteus pin ids 1=FB 2=GND 3=VIN 4=SW 5=EN 6=PG (open-drain power good)"
 			(at 0 0 0)
 			(hide yes)
 			(effects
@@ -3316,10 +3316,10 @@
 					)
 				)
 			)
-			(pin passive line
+			(pin open_collector line
 				(at 10.16 2.54 180)
 				(length 2.54)
-				(name "VOUT"
+				(name "PG"
 					(effects
 						(font
 							(size 1.27 1.27)

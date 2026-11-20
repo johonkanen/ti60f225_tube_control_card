@@ -2,10 +2,11 @@ Gerber round trip: KiCad plot of kicad/tube_control_card.kicad_pcb vs the Proteu
 raster 0.025 mm/px, tolerance 0.05 mm, clusters >= 0.01 mm^2 counted, positions in the IPC frame (mm, Y up)
 board outline 13.87 .. 111.66 x -42.75 .. 13.13 mm
 
-== F.Cu: Proteus copper 1184.3 mm^2, KiCad copper 1187.2 mm^2
+== F.Cu: Proteus objects not compared (recorded deviations): 20 Conductor draws (REMOVED_TRACKS), 1 via pads (REMOVED_VIAS)
+== F.Cu: Proteus copper 1176.3 mm^2, KiCad copper 1179.3 mm^2
    raw XOR 28.28 mm^2; after 0.05 mm tolerance: only Proteus 4.46 mm^2, only KiCad 8.35 mm^2, 264 clusters (146 below 0.01 mm^2)
    pad shape   118 clusters, 12.50 mm^2
-   coverage: Proteus 2157 draws / 934 flashes, 0 not on KiCad copper (0 explained by clearance / pad shape); KiCad 2152 draws / 934 flashes, 0 not on Proteus copper (0 explained by pad shape)
+   coverage: Proteus 2137 draws / 933 flashes, 0 not on KiCad copper (0 explained by clearance / pad shape); KiCad 2132 draws / 933 flashes, 0 not on Proteus copper (0 explained by pad shape)
    pad shape    34 clusters, only KiCad   4.81 mm^2, only Proteus   0.00 mm^2  Connector_PinHeader_1.27mm:PinHeader_2x08_P1.27mm_Vertical  (2 parts: J3 J6)
    pad shape     5 clusters, only KiCad   2.21 mm^2, only Proteus   0.00 mm^2  TerminalBlock_Phoenix:TerminalBlock_Phoenix_MPT-0,5-5-2.54_1x05_P2.54mm_Horizontal  (1 parts: J1)
    pad shape    10 clusters, only KiCad   0.10 mm^2, only Proteus   1.85 mm^2  Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical  (1 parts: J8)
@@ -137,10 +138,11 @@ board outline 13.87 .. 111.66 x -42.75 .. 13.13 mm
    pad shape  only Proteus  0.010 mm^2 at (  79.226,    6.332) 0.12x0.15 mm  near C54-1 (3V3) 0.63 mm, via (3V3) 0.82 mm
    pad shape  only Proteus  0.010 mm^2 at (  97.758,  -13.854) 0.18x0.10 mm  near RS1-5 (RS485_GND) 0.98 mm, via (3V3) 7.23 mm
 
-== In1.Cu: Proteus copper 4177.5 mm^2, KiCad copper 4184.3 mm^2
+== In1.Cu: Proteus objects not compared (recorded deviations): 1 via pads (REMOVED_VIAS)
+== In1.Cu: Proteus copper 4177.3 mm^2, KiCad copper 4184.2 mm^2
    raw XOR 15.35 mm^2; after 0.05 mm tolerance: only Proteus 1.07 mm^2, only KiCad 5.26 mm^2, 43 clusters (0 below 0.01 mm^2)
    pad shape    43 clusters, 6.33 mm^2
-   coverage: Proteus 4127 draws / 377 flashes, 0 not on KiCad copper (0 explained by clearance / pad shape); KiCad 72 draws / 377 flashes, 0 not on Proteus copper (0 explained by pad shape)
+   coverage: Proteus 4127 draws / 376 flashes, 0 not on KiCad copper (0 explained by clearance / pad shape); KiCad 72 draws / 376 flashes, 0 not on Proteus copper (0 explained by pad shape)
    pad shape    22 clusters, only KiCad   3.44 mm^2, only Proteus   0.00 mm^2  Connector_PinHeader_1.27mm:PinHeader_2x08_P1.27mm_Vertical  (2 parts: J3 J6)
    pad shape     4 clusters, only KiCad   1.55 mm^2, only Proteus   0.00 mm^2  TerminalBlock_Phoenix:TerminalBlock_Phoenix_MPT-0,5-5-2.54_1x05_P2.54mm_Horizontal  (1 parts: J1)
    pad shape     9 clusters, only KiCad   0.10 mm^2, only Proteus   1.07 mm^2  Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical  (1 parts: J8)
@@ -190,10 +192,11 @@ board outline 13.87 .. 111.66 x -42.75 .. 13.13 mm
    pad shape  only KiCad    0.020 mm^2 at (  56.112,    8.772) 0.20x0.20 mm  near J11-2 (ADB7) 0.49 mm, via (1V8) 3.64 mm
    pad shape  only KiCad    0.020 mm^2 at (  56.803,    8.772) 0.20x0.20 mm  near J11-2 (ADB7) 0.49 mm, via (1V8) 3.60 mm
 
-== In2.Cu: Proteus copper 3452.1 mm^2, KiCad copper 3462.3 mm^2
+== In2.Cu: Proteus objects not compared (recorded deviations): 1 via pads (REMOVED_VIAS)
+== In2.Cu: Proteus copper 3451.9 mm^2, KiCad copper 3462.2 mm^2
    raw XOR 18.58 mm^2; after 0.05 mm tolerance: only Proteus 1.87 mm^2, only KiCad 7.16 mm^2, 55 clusters (0 below 0.01 mm^2)
    pad shape    55 clusters, 9.03 mm^2
-   coverage: Proteus 2170 draws / 377 flashes, 0 not on KiCad copper (0 explained by clearance / pad shape); KiCad 221 draws / 377 flashes, 0 not on Proteus copper (0 explained by pad shape)
+   coverage: Proteus 2170 draws / 376 flashes, 0 not on KiCad copper (0 explained by clearance / pad shape); KiCad 221 draws / 376 flashes, 0 not on Proteus copper (0 explained by pad shape)
    pad shape    32 clusters, only KiCad   5.00 mm^2, only Proteus   0.00 mm^2  Connector_PinHeader_1.27mm:PinHeader_2x08_P1.27mm_Vertical  (2 parts: J3 J6)
    pad shape    10 clusters, only KiCad   0.10 mm^2, only Proteus   1.87 mm^2  Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical  (1 parts: J8)
    pad shape     5 clusters, only KiCad   1.88 mm^2, only Proteus   0.00 mm^2  TerminalBlock_Phoenix:TerminalBlock_Phoenix_MPT-0,5-5-2.54_1x05_P2.54mm_Horizontal  (1 parts: J1)
@@ -255,10 +258,11 @@ board outline 13.87 .. 111.66 x -42.75 .. 13.13 mm
    pad shape  only KiCad    0.020 mm^2 at (  56.112,    8.772) 0.20x0.20 mm  near J11-2 (ADB7) 0.49 mm, via (1V8) 3.64 mm
    pad shape  only KiCad    0.020 mm^2 at (  56.803,    8.772) 0.20x0.20 mm  near J11-2 (ADB7) 0.49 mm, via (1V8) 3.60 mm
 
-== B.Cu: Proteus copper 2214.7 mm^2, KiCad copper 2223.3 mm^2
+== B.Cu: Proteus objects not compared (recorded deviations): 6 Conductor draws (REMOVED_TRACKS), 1 via pads (REMOVED_VIAS)
+== B.Cu: Proteus copper 2214.6 mm^2, KiCad copper 2223.1 mm^2
    raw XOR 26.69 mm^2; after 0.05 mm tolerance: only Proteus 3.23 mm^2, only KiCad 8.79 mm^2, 303 clusters (232 below 0.01 mm^2)
    pad shape    71 clusters, 11.55 mm^2
-   coverage: Proteus 3099 draws / 575 flashes, 0 not on KiCad copper (0 explained by clearance / pad shape); KiCad 928 draws / 575 flashes, 0 not on Proteus copper (0 explained by pad shape)
+   coverage: Proteus 3093 draws / 574 flashes, 0 not on KiCad copper (0 explained by clearance / pad shape); KiCad 922 draws / 574 flashes, 0 not on Proteus copper (0 explained by pad shape)
    pad shape    32 clusters, only KiCad   5.00 mm^2, only Proteus   0.00 mm^2  Connector_PinHeader_1.27mm:PinHeader_2x08_P1.27mm_Vertical  (2 parts: J3 J6)
    pad shape     5 clusters, only KiCad   2.14 mm^2, only Proteus   0.00 mm^2  TerminalBlock_Phoenix:TerminalBlock_Phoenix_MPT-0,5-5-2.54_1x05_P2.54mm_Horizontal  (1 parts: J1)
    pad shape    10 clusters, only KiCad   0.10 mm^2, only Proteus   1.84 mm^2  Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical  (1 parts: J8)
@@ -339,8 +343,9 @@ board outline 13.87 .. 111.66 x -42.75 .. 13.13 mm
    pad shape  only Proteus  0.016 mm^2 at (  27.730,   -9.874) 0.20x0.18 mm  near C20-1 (#00127) 0.62 mm, via (GPIOR_N_06) 1.22 mm
    pad shape  only Proteus  0.011 mm^2 at (  26.856,   -9.862) 0.18x0.12 mm  near C20-1 (#00127) 0.63 mm, via (GPIOR_N_06) 1.92 mm
 
-== plated drills: Proteus 377, KiCad 377, matched 377 within 0.05 mm
-    240 x Proteus 0.2000 mm -> KiCad 0.2000 mm
+== plated drills: 1 Proteus via drills not compared (REMOVED_VIAS)
+== plated drills: Proteus 376, KiCad 376, matched 376 within 0.05 mm
+    239 x Proteus 0.2000 mm -> KiCad 0.2000 mm
      70 x Proteus 0.5588 mm -> KiCad 0.5580 mm
      32 x Proteus 0.5588 mm -> KiCad 0.6500 mm  KiCad footprint drill kept (larger)
       7 x Proteus 0.7620 mm -> KiCad 0.7620 mm

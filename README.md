@@ -55,7 +55,13 @@ place_refdes` (the last `make_pcb.sh` step; 13 dense passives get their referenc
 dangling Proteus copper, the J1 body guess, the FLASH1 land pattern and all pad sizes / drills kept as built.
 DRC warnings 370 → 83 (silk 326 → 39, none of them a reference); `tools/check_all.sh`: ALL CHECKS PASSED.
 **The conversion is complete.** Rev A stays generated (`tools/make_pcb.sh`) until the user's first manual
-layout change. Open, report only (redesign items): findings 1, 9, 24, 25, 26 in STATUS.md.
+layout change.
+**Design fixes 2026-11-20** (user decisions; generators only, component values unchanged): AP61202 pin 6
+renamed VOUT → PG (finding 12), the obsolete PDF sheet notes dropped (finding 6), the dangling Proteus
+copper removed (finding 26: 26 draws `REMOVED_TRACKS` incl. the 56 mm GPIOL_N_18 stub, the lone GPIOL_N_10
+via `REMOVED_VIAS`; 3347 tracks / 239 vias); DRC 83 → 71 violations, 0 dangling; `tools/check_all.sh`: ALL
+CHECKS PASSED. Later steps: finding 9 (ADC1 VA / VIN, a hand edit once generation stops) and finding 25
+(J11 renumbering, with the HV supplies J1). Kept as built: findings 1, 13, 23, 24.
 
 Note: this Ti60F225 card is **not installed in the amplifier** (the Agilex 3 control card is). The
 finished conversion is a reference and a starting point only.

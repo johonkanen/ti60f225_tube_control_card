@@ -10,6 +10,132 @@ Plan: [PLAN.md](PLAN.md). Playbook: `tools/p2k/CONVERSION_PLAYBOOK.md`.
 | 3 PCB | **done** 2026-11-20 (Opus 5.5): board built from the schematic + gerbers (make_pcb byte-identical), Proteus copper 0 shorts / 0 orphans / 0 opens (+5 D1), check_board OK; pad decision A applied (Proteus pads on 15 parts, user decision): DRC 0 shorts / 0 clearance / 0 bridges / 0 hole clearance / 0 parity, only the accepted courtyards and the 5 D1 unconnected items left; `check_all.sh` ALL CHECKS PASSED |
 | 4 Verification | **done** 2026-11-20 (Fable 5.2, fresh session): `ipc356_diff` and `gerber_roundtrip --check` pass with the board's acceptances and are in `check_all.sh`, per-pad drill check, joined-N/C check, all 876 pins of the 12 PDF pages read independently (no difference), 28 negative tests; finding 19 resolved; nothing needs a user decision |
 | 5 Clean-up | **done** 2026-11-20 (Opus 5.5, clean context): user decisions (through the coordinating session) implemented in the generator: `p2k place_refdes` as the last `make_pcb.sh` step; dangling copper, J1 body, FLASH1, pads and drills kept as built; DRC 370 → 83 violations (0 shorts / 0 parity; 32 accepted courtyards, + the 5 accepted D1 unconnected items; silk 326 → 39 warnings, none a reference); ALL CHECKS PASSED. **Conversion complete**: a reference / starting point only (card not installed, no submodule in the master repo); rev A stays generated until the user's first manual layout change |
+| Design fixes | **done** 2026-11-20 (Opus 5.5): user decisions: AP61202 pin 6 VOUT → PG (finding 12), PDF sheet notes tidied (finding 6), dangling Proteus copper removed (finding 26: 26 draws + 1 via; reverses Phase 5 decision 2); values unchanged; findings 9 / 25 later; DRC 71 violations (0 dangling); ALL CHECKS PASSED |
+
+## Design fixes 2026-11-20 – done (Opus 5.5)
+
+User decisions through the coordinating session ("Decisions", "Design fixes"): the card is not installed,
+it is a reference / starting point, so design findings are fixed in the KiCad design; **component values
+stay as they are** (finding 10: J8 keeps "1k"). Everything in the generators (tools/p2k unchanged at
+c5682dd), regenerated, `tools/check_all.sh`: ALL CHECKS PASSED. The board stays generated.
+
+| Finding | Change |
+|---|---|
+| 12 AP61202 pin 6 | **renamed VOUT → PG**, pin type open_collector (open-drain power good, Diodes DS44251) in `tools/gen_symbols.py`; schematic only (lib + sheet 3; pin number and nets unchanged; ERC 0 errors / 14 warnings as before) |
+| 6 PDF sheet notes | **tidied** in `tools/sheets/sheetNN.py` (dropped list below); kept: "1v8 oscillator voltage!!!", "1v8 flash voltage!!!" (p2: OSC1 and FLASH1 are on 1V8), "I2C address = 11", "3-state io", "use reference" (p11, U12), "VDDA either 3v3 or 1v8", "VDDB max 5.25v" (p11, RS1); the conversion notes (aliases, unconnected PDF terminals, D1) stay |
+| 26 dangling copper | **removed**: 26 Proteus Conductor draws (`REMOVED_TRACKS`, F.Cu 20, B.Cu 6) and the lone GPIOL_N_10 via (`REMOVED_VIAS`) in `p2k_config.py`; reverses Phase 5 decision 2 |
+| 1, 13, 23, 24 | kept as built (user decision; no change) |
+| 9, 25 | not now (later steps, report only; see below) |
+
+**Dropped PDF notes (finding 6):**
+
+| Sheet | Note | Why |
+|---|---|---|
+| 1 | "FIX BUGS!" | obsolete to-do |
+| 3 | "note, needs to be 0.95V and not 1.0V" | the to-do is done: R10 200k / (R20 680k ‖ R2 680k) with FB 0.6 V gives 0.953 V. Replaced by the fact: "1V rail = 0.95 V (Ti60 core VCC): 0.6 V x (1 + R10 / (R20 \|\| R2)) = 0.953 V" |
+| 7 | "check logic" (U3) | obsolete to-do; the channel order is finding 17 |
+| 8 | "Possible choises are 2x8, 2x10, 2x13, 2x15, 2x17, 2x20, 2x25" | obsolete: J11 is the 2x20 |
+| 10 | loose texts "3V3" and "-15V" beside J7 | no wire; J7 carries 3V3 on pins 29 / 30 (labelled) and no -15V |
+
+**Finding 26, what is removed.** Every draw that KiCad's DRC flagged `track_dangling` (11) plus every
+draw that dangles once those are gone (the rest of a stub that runs from one pad to nowhere), found
+iteratively with pcbnew's `TestTrackEndpointDangling` restricted to the DRC items (scratch script
+build/tmp/fix26/find.py, not committed), each matched to its gerber draw exactly:
+
+- zero-length / back-and-forth draws: F.Cu GND 0.009 mm out and back at (41.882, -8.861), F.Cu ADASEL0_ISO
+  0.005 mm at (62.348, 3.700), B.Cu DATA2 1e-5 mm out and back at (46.970, -11.870);
+- short stubs on nets connected elsewhere: B.Cu GND 0.22 mm (+ its 0.002 mm end) and 5V 0.13 mm at x 94.6,
+  B.Cu DATA2 0.21 mm at (47.267, -11.574), F.Cu GPIOL_9 0.37 mm at (89.897, -26.103), F.Cu GPIOL_10
+  0.21 mm draw back along its own track at (79.15, -23.55);
+- whole stubs of single-pin nets: ADCLK_ISO (3 draws, 3.78 mm, U9 B2) and GPIO_BYPASS_RLY_ISOLATED
+  (3 draws, 3.67 mm, U9 B1); **GPIOL_N_18: 8 draws, 56.5 mm** from U10 A2 across the board to an open end
+  at (92.5, -27.39) (an unfinished route; the net is the single ball A2, finding 2); GPIOL_N_10: the
+  0.48 mm track from ball G2 to the via, and the via itself (40.581, -14.018).
+
+The pads of those nets stay (single-pin nets, finding 2). Results: tracks 3373 → 3347, vias 240 → 239;
+KiCad track draws F.Cu 2152 → 2132, B.Cu 928 → 922 (`RT_DRAWS` in `tools/phase4_wrap.py`); ipc356_diff
+KiCad 1132 → 1131 records, 239 vias (`EXPECT`), the GPIOL_N_10 via record "removed as recorded"; DRC 83 →
+71 violations (`track_dangling` 11 → 0, `via_dangling` 1 → 0); copper groups unchanged (307, 0 / 0 / 0
++ 5 D1). The 0.07 mm gaps of finding 26 are unchanged (a redesign item).
+
+Tool changes (board-local):
+- `tools/pcb_wrap.py` patch 5: `p2k.pcb.removed_track` matches an entry in either direction with
+  0.001 mm, so a draw and its reverse (the GND / DATA2 pairs; the DATA2 pair differs only by 1e-5 mm) both
+  matched the first entry and gerber_to_tracks failed on the duplicate. The wrapper first looks for the
+  entry equal to the draw in the drawn direction (1e-6 mm), then falls back to the shared match (p2k
+  candidate 34).
+- `tools/check_drill_smaller.py`: an IPC via record at a `REMOVED_VIAS` position must have no board hole,
+  exactly one record per entry.
+
+**Not now (report only):** finding 9 (ADC1 VA / VIN swapped: a hand edit of the board after generation
+stops; the user's call when) and finding 25 (J11 renumbering to the standard numbering: waits for a new
+shared-tool pin-renumber key, done together with tube_hv_supplies J1). Kept as built: findings 1, 13,
+23, 24; finding 10 (J8 value "1k").
+
+### Negative tests (in place, restored after each; script build/tmp/neg_fix/neg.sh, not committed)
+
+| Mutation | Check | Result |
+|---|---|---|
+| REMOVED_TRACKS entry GPIOL_N_18 (3/8) removed | make_pcb --check | assign_nets FAILED (the kept piece is an orphan), exit 1 |
+| bogus REMOVED_TRACKS entry (F.Cu 10,-10 → 11,-10) | make_pcb --check | "REMOVED_TRACKS: 27 listed, found 26 draws (missing [...])", exit 1 |
+| one entry of a reverse pair removed (DATA2 back) | make_pcb --check | "25 listed, found 26 draws" (the duplicate match), exit 1 |
+| REMOVED_VIAS emptied | make_pcb --check | board / assign_nets.txt not up to date, exit 1 |
+| | check_board (committed board) | "IPC via (40.58, -14.018) GPIOL_N_10: no board via", exit 1 |
+| | ipc356_diff | "Proteus via at (40.58, -14.018): nearest KiCad record 0.646 mm away", exit 1 |
+| | check_drill_smaller | 0 board holes at the record, exit 1 |
+| bogus REMOVED_VIAS entry (50, -20) | make_pcb --check | "REMOVED_VIAS entries without an IPC via record", exit 1 |
+| | check_board | "REMOVED_VIAS lists 2 vias, 1 IPC via records found there", exit 1 |
+| | check_drill_smaller | "REMOVED_VIAS (50.0, -20.0): 0 IPC drilled records there", exit 1 |
+| old RT_DRAWS (2152 / 928) | gerber_roundtrip --check | "F.Cu: 2132 KiCad track draws, recorded 2152", "B.Cu: 922 … 928", exit 1 |
+| pin 6 back to VOUT / passive in gen_symbols.py | gen_symbols --check | "lib/tube_control_card.kicad_sym is out of date", exit 1 (also before the regeneration with the renamed generator) |
+
+All files restored byte-identical afterwards; `tools/check_all.sh` passes on the committed state.
+
+### Verification (`tools/check_all.sh`, after the design fixes)
+
+```
+(Phase 0-2 steps unchanged: symbols up to date 36; sheets up to date; ERC 0 errors, 14 warnings
+ (14 isolated_pin_label); compare 146/146, 876 pins, 0 wrong-net, 298 complete; footprints, pin order OK)
+== PCB rebuilt from schematic + gerbers, up to date (make_pcb --check)
+build_pcb: 146 footprints placed (0 excluded from board), 4 mounting holes, 4 free pads, 298 nets, 5 outline segments
+gerber_to_tracks: 3347 tracks, 239 vias (IPC 239), 20 pour outlines on User.1-4; removed as recorded: 26 tracks (REMOVED_TRACKS), 1 vias (REMOVED_VIAS)
+assign_nets: stage A (no pours): 442 groups, 0 shorts, 0 orphans, 5 opens (+4 accepted D1 opens)
+assign_nets: stage B (with pours): 307 groups, 0 shorts, 0 orphans, 0 opens (+5 accepted D1 opens)
+pours_to_zones: 20 pours -> 20 zones; 61 holes closed by the stroke, 402 holes kept
+place_refdes: 13 Fab only, 70 kept, 67 moved, 4 moved, 0.8 mm text (sizes 1.0, 0.8 mm)
+make_pcb: board rebuilt from scratch, byte-identical
+== Board pads, holes, test pads, vias vs IPC (position, size, nets 1:1, D1 merges accepted)
+check_board: 154 footprints, 884 pads, worst pad offset 0.030 mm (limit 0.05), 222 IPC nets mapped 1:1, 4 mounting holes, 4 free pads
+check_board: 1 IPC via records without board via as recorded (REMOVED_VIAS)
+check_board: 3347 tracks, 239 vias, 20 zones
+check_board: OK
+== Board copper connectivity after zone fill (assign_nets --check)
+assign_nets: after zone fill: 307 groups, 0 shorts, 0 orphans, 0 opens (+5 accepted D1 opens), 0 items with a foreign net
+assign_nets: OK (report reports/assign_nets.txt)
+== DRC with schematic parity
+drc: 71 violations, 0 shorts, 5 unconnected, 0 parity issues (reports/drc.json)
+drc:     32 error    courtyards_overlap  accepted: KiCad IPC-7351 courtyards vs the Proteus placement (parts at the Proteus positions)
+drc:     28 warning  silk_over_copper
+drc:     11 warning  silk_overlap
+drc_check: accepted (D1, board-local): 5 unconnected items, one per split terminal net: J2-1 5V, ISO5V-1 ISO5V, RS485A-1 Net-(RS1-A), RS485B-1 Net-(RS1-B), ISO_G-1 RS485_GND
+drc_check: OK
+== IPC-D-356 from the board vs Proteus (pads, vias, holes, test pads, nets; D1 merges accepted)
+ipc356_diff: 1 Proteus via records removed as recorded (REMOVED_VIAS): (40.58, -14.018) GPIOL_N_10
+ipc356_diff: Proteus 1132 records, KiCad 1131; matched 1131 (884 pads incl. 76 N/C, 239 vias, 4 holes, 4 free pads), worst position offset 0.031 mm (limit 0.05)
+ipc356_diff: OK (shared tool alone: FAILED)
+== Smaller board drills are exactly the three decided J8 holes
+check_drill_smaller: 377 IPC drilled records (1 at REMOVED_VIAS, no board hole), 376 board holes; smaller board drills: 3 (decided: 3x 1.016->1.0 (J8)); larger (KiCad footprint kept): J1 5x 1.016->1.1, J3 16x 0.558->0.65, J6 16x 0.558->0.65
+check_drill_smaller: OK
+== Gerber round trip vs Proteus (copper XOR incl. pours, coverage, drills, Excellon)
+roundtrip: Proteus objects not compared (recorded deviations, all layers): 26 Conductor draws (REMOVED_TRACKS), 4 via pads (REMOVED_VIAS)
+roundtrip: OK
+roundtrip (board-local): KiCad track draws / flashes per layer F.Cu 2132 / 933, In1.Cu 72 / 376, In2.Cu 221 / 376, B.Cu 922 / 574: as recorded, flashes = Proteus
+== Independent PDF reading vs IPC and KiCad netlist (tools/phase4_reading)
+total 876 pins read of 876 IPC pins on 146 of 146 parts; 222 nets (label classes) of 222 IPC nets (after the D1 union); NC read 76
+reading: no difference
+
+ALL CHECKS PASSED
+```
 
 ## Phase 5 – clean-up – done (Opus 5.5, clean context, 2026-11-20): conversion complete
 
@@ -460,8 +586,8 @@ FLASH1, RS1, OSC1, J1, J8, terminals). J7 / J11 (and J3 / J6 in B) then get the 
 | schematic parity | 0 | (1 before the "/" escape in pcb_wrap.py, p2k candidate 25) |
 | courtyards_overlap (error) | 32 | Proteus placed parts closer than KiCad's IPC-7351 courtyards: C12/R13, C13/PWR2, C16/C57, C18/R2, C19/V4, C21/C22, C53/J11, C6/U4, J1/R4, J1/R5, J1/R6, J1/R7 (the Phoenix MPT body of J1 is a guess, decision of 2026-11-20 keeps it), L4/PWR2, L5/PWR3, PWR1/C15, PWR1/L1, PWR3/C11, R10/R2, R12/U4, R14/R15, R14/U5, R17/R18, R17/U14, R23/R22, R24/R25, R8/C57, RS1/C58, U11/R24, U3/U4, U4/C7, U8/C39, V4/C20; parts at the Proteus positions. Accepted (`DRC_ACCEPTED`) |
 | silk_overlap / silk_over_copper / silk_edge_clearance (warning) | 167 / 155 / 4 → Phase 5: **11 / 28 / 0** | KiCad footprint silk and default reference positions on the Proteus placement (edge: references of H1, H2, RS485A, RS485B). After Phase 5 (`place_refdes`) no reference is involved; what is left is footprint body silk ("Phase 5" below) |
-| track_dangling (warning) | 11 | Proteus copper as drawn (finding 26): F.Cu GND 0.009 mm at (41.882, -8.861), F.Cu ADASEL0_ISO 0.005 mm at (62.348, 3.700), B.Cu DATA2 1e-5 mm at (46.970, -11.870) (zero-length draws); B.Cu GND 0.22 mm at (94.6, 10.1) and 5V 0.13 mm at (94.6, 7.1); B.Cu DATA2 0.21 mm at (47.267, -11.574); F.Cu stubs of single-pin nets ADCLK_ISO 2.44 mm and GPIO_BYPASS_RLY_ISOLATED 2.59 mm (U9 B2 / B1, near (26.5, -3.4)), GPIOL_N_18 5.86 mm (U10 A2, ends at (88.354, -23.246)), GPIOL_10 0.21 mm at (79.15, -23.55), GPIOL_9 0.37 mm at (89.897, -26.103) (IPC frame) |
-| via_dangling (warning) | 1 | GPIOL_N_10 via at (40.581, -14.018): ball G2 + a via, nothing else (finding 2) |
+| track_dangling (warning) | 11 → **0** (design fixes 2026-11-20: removed) | Proteus copper as drawn (finding 26): F.Cu GND 0.009 mm at (41.882, -8.861), F.Cu ADASEL0_ISO 0.005 mm at (62.348, 3.700), B.Cu DATA2 1e-5 mm at (46.970, -11.870) (zero-length draws); B.Cu GND 0.22 mm at (94.6, 10.1) and 5V 0.13 mm at (94.6, 7.1); B.Cu DATA2 0.21 mm at (47.267, -11.574); F.Cu stubs of single-pin nets ADCLK_ISO 2.44 mm and GPIO_BYPASS_RLY_ISOLATED 2.59 mm (U9 B2 / B1, near (26.5, -3.4)), GPIOL_N_18 5.86 mm (U10 A2, ends at (88.354, -23.246)), GPIOL_10 0.21 mm at (79.15, -23.55), GPIOL_9 0.37 mm at (89.897, -26.103) (IPC frame) |
+| via_dangling (warning) | 1 → **0** (removed 2026-11-20) | GPIOL_N_10 via at (40.581, -14.018): ball G2 + a via, nothing else (finding 2) |
 
 ### Negative tests (scratch copies build/tmp/neg_*, `P2K_BOARD`, script build/tmp/negtest.sh, not committed)
 
@@ -1179,7 +1305,8 @@ ALL CHECKS PASSED
 
 ## Findings about the original design
 
-Reported, not fixed (PLAN.md section 5.3).
+Reported, not fixed (PLAN.md section 5.3); since the design fixes of 2026-11-20 (user decisions) findings 6, 12
+and 26 (dangling copper) are fixed in the KiCad design, the others stay as marked.
 
 1. **Split terminal nets.** The terminals J2, J4, J5, J9, ISO5V, ISO_G, RS485A, RS485B have
    two 1.4 mm holes 5 mm apart, both pin 1. On J2, ISO5V, ISO_G, RS485A and RS485B the two
@@ -1189,6 +1316,7 @@ Reported, not fixed (PLAN.md section 5.3).
    (`#00671.00262` = RS485B-1 + R67-1; `#00671.00261` = RS485B-1 + R68-2 + RS1-7). The PDF
    (page 11) draws R67, R68, RS1 B and RS485B as one node, so the board joins R67 to the
    RS485 B line only through whatever is fitted in the two RS485B holes. See decision D1.
+   **Design fixes 2026-11-20 (user): kept as built** (the fitted terminal joins the two pads).
 2. **Level-shifter outputs and FPGA balls that go nowhere** (single-pin nets): U1 B1-B4
    (PWM_Q7, GPIO_BYPASS_RLY_ISO, PWM_TRANS5, PWM_Q8), U9 B1-B2 (GPIO_BYPASS_RLY_ISOLATED,
    ADCLK_ISO); U10 A2 GPIOL_N_18, B2 GPIOL_P_18, C6 GPIOT_N_01, D12 GPIOR_20, G2 GPIOL_N_10
@@ -1216,6 +1344,8 @@ Reported, not fixed (PLAN.md section 5.3).
    supply 1V), "check logic" (p7, U3), "Possible choises are 2x8 ... 2x25" (p8),
    "I2C address = 11, 3-state io", "use reference", "VDDA either 3v3 or 1v8, VDDB max 5.25v"
    (p11).
+   **Design fixes 2026-11-20 (user): tidied**: "FIX BUGS!", "check logic", "Possible choises ...", the loose
+   "3V3" / "-15V" (p10) dropped, the 0.95 V note replaced by the divider fact; the rest kept ("Design fixes 2026-11-20").
 7. Net naming: GND, DGND, AGND, gnd and ISOGND of the PDF are one net (`GND=POWER`; AGND and
    DGND are tied on page 7, ISOGND via the page 1 alias), so J8 pin 3 "ISOGND" is plain GND.
    The isolated RS485 ground is RS485_GND. `VCC/VDD=POWER` is the AD_3V3 rail (V4 output,
@@ -1235,7 +1365,9 @@ Reported, not fixed (PLAN.md section 5.3).
    ADR0 N/C, K1 = pad 5 SCL, COM1 = pad 6 SDA): the supply and the input are swapped on the built board,
    as on the three ADCs of tube_hv_supplies (its finding 6). Table in "Phase 2 - pin order". A redesign
    item (and a check of the real board: reworked?).
+   **Design fixes 2026-11-20 (user): not now**: a hand edit after generation stops (later step).
 10. **J8** (3-pin connector, rx/tx/ISOGND on page 1) has the value "1k" in the schematic.
+   **Design fixes 2026-11-20 (user): value kept** (component values stay as they are).
 11. **Page 1 dashed alias lines** (R11–PWM_G2_ISO, GPIOR_25–ADASEL2_ISO, N14–ADCLK_ISO) are
    not connections in Proteus (the IPC keeps the nets apart); the solid pairs are joins.
 12. **AP61202 pin 6 "VOUT"** (Proteus name) is N/C on PWR1 and PWR3; on PWR2 (the 1V core
@@ -1248,6 +1380,7 @@ Reported, not fixed (PLAN.md section 5.3).
    ids. So the circuit is a correct PG sequencing (PWR2 = 1V core enables PWR1 / PWR3 through R1 10k to
    5V); only the Proteus pin name "VOUT" is wrong (copied from the AP61200). Nothing to change but the
    name in the redesign.
+   **Design fixes 2026-11-20 (user): renamed to PG** (open_collector) in `tools/gen_symbols.py`; schematic only.
 
 13. **Page 11 label `bias_feedback`** sits on the DAC output node together with `biasref`
    (IPC net BIASREF: U12-6, R59, C4, J6-15, J6-16). Page 10 spells the ADC input
@@ -1255,6 +1388,7 @@ Reported, not fixed (PLAN.md section 5.3).
    underscore, so on the board the DAC output and the ADC input are **not** joined; they meet
    only outside, through J6 (pins 15/16 and 5). Intended (loop closed on the power board) or a
    naming slip – the user's call in the redesign. Drawn as built (note on sheet 11).
+   **Design fixes 2026-11-20 (user): kept as built** (two separate nets).
 14. **PWR4 (IZB03) On/Off pin 3 and Ripple pin 7 are N/C** (page 11 draws them as open stubs),
    as is its pin 4 "NC". Drawn with no-connect flags.
 15. **Unconnected terminals in the PDF:** page 10 has 12 `JFET_GATE_*` terminals and page 8
@@ -1328,6 +1462,7 @@ Reported, not fixed (PLAN.md section 5.3).
    of page 4, C51 (page 11), C71 1u (page 7) and the regulator output C16 10u. Whether some of those sit
    at the BGA is a Phase 3 question (placement). The eight REF_RES pins each have their own 10k0 to GND.
    The PDF value is `10k0` for these and `47n` for all FPGA capacitors.
+   **Design fixes 2026-11-20 (user): left to the redesign.**
 
 24. **FLASH1 (W25Q64JWSSIQ, 208 mil SOIC-8) sits on a wide-body pad pattern:** both SO8W parts (RS1
    MAX22025, a 7.5 mm wide-body part, and FLASH1) have pad rows 9.14 mm apart with 2.03 mm long pads
@@ -1335,6 +1470,7 @@ Reported, not fixed (PLAN.md section 5.3).
    lead tips span about 7.9-8.3 mm, so its feet overlap the pads only by roughly 0.4-0.6 mm at the inner
    end: solderable by hand, but not the land pattern for that package (IPC: rows about 7.2-7.4 mm).
    Reproduced as built (KiCad 208 mil body graphics, pads on the Proteus rows). A redesign item.
+   **Design fixes 2026-11-20 (user): kept as built.**
 25. **J11 (40-pin ribbon to the HV supplies board) is numbered as the mirror image of a standard 2x20
    header** while mounted on the top side (Proteus top assembly outline and top silk "J11"): the KiCad
    2x20 1.27 mm header fits only mirrored (1.270 mm unmirrored, 0.000 mirrored); with odd / even pad
@@ -1348,6 +1484,8 @@ Reported, not fixed (PLAN.md section 5.3).
    other 1.27 mm headers are standard: J6, J7 on top, J3 (16 pins) on the **bottom** side (Proteus
    bottom assembly) where the mirrored fit is the standard one. Redesign item: number both ribbon
    headers as standard together (never only one end).
+   **Design fixes 2026-11-20 (user): not now**: waits for a new shared-tool pin-renumber key, together with
+   tube_hv_supplies J1.
 
 26. **Copper tighter than 4 mil on F.Cu and dangling copper (Phase 3, measured):** Proteus routed at
    0.1016 mm (4 mil) gap and width, but 75 different-net pairs on F.Cu are closer than 0.1 mm, down to
@@ -1358,6 +1496,8 @@ Reported, not fixed (PLAN.md section 5.3).
    GPIO_BYPASS_RLY_ISOLATED, GPIOL_N_18, GPIOL_10, GPIOL_9 and the lone GPIOL_N_10 via (list in "Phase 3,
    remaining DRC items"). Reproduced; `REMOVED_TRACKS` / `REMOVED_VIAS` candidates for Phase 5 / the
    redesign.
+   **Design fixes 2026-11-20 (user): the dangling copper is removed** (26 draws in `REMOVED_TRACKS`, the via in
+   `REMOVED_VIAS`; "Design fixes 2026-11-20"); the 0.07 mm gaps stay (redesign).
 
 ## p2k candidates
 
@@ -1541,6 +1681,11 @@ solved in tools/p2k later (with the ac_psu regression); until then the wrappers 
    missing without an area or coverage difference (0.43 mm ball-to-via stub). Board-local: recorded KiCad
    track draws per layer and flashes = Proteus flashes, from the report. Needed: the tool comparing the
    KiCad track count per layer with the Proteus Conductor draws that became tracks (gerber_to_tracks' count).
+34. **`pcb.removed_track` matches either direction** (design fixes 2026-11-20): a Proteus draw and its reverse
+   (zero-length / back-and-forth draws) cannot be listed as two `REMOVED_TRACKS` entries: both draws match the
+   first entry and gerber_to_tracks fails on the duplicate. Board-local: `tools/pcb_wrap.py` patch 5 (drawn
+   direction first, 1e-6 mm). Needed: a direction-exact match first in the shared tool. Also: board-local
+   `check_drill_smaller.py` had to learn `REMOVED_VIAS`.
 
 ## Decisions
 
@@ -1593,11 +1738,30 @@ solved in tools/p2k later (with the ac_psu regression); until then the wrappers 
   approved for the other boards):**
   1. Reference positions: **yes**, `p2k place_refdes` as the last `make_pcb.sh` step (as the other boards).
   2. Dangling Proteus copper (finding 26): **keep as built**, no REMOVED_TRACKS / REMOVED_VIAS.
+     **Reversed by the user on 2026-11-20** ("Design fixes" below): removed.
   3. J1 body: **keep the Phoenix MPT guess** (decision above); the FLASH1 land pattern (finding 24) stays
      as built.
   4. Pad sizes / drills: **keep as they are** (no Proteus pads on further parts).
   5. Rev A **stays generated**; stopping generation is the user's call at the first hand edit.
   The card is not installed, so the amplifier master repo does **not** add this repo as a submodule;
   the finished conversion is a reference / starting point only.
+
+- **Design fixes (user decisions, 2026-11-20, through the coordinating session):** the card is not installed;
+  it is a reference / starting point, so design findings are fixed in the KiCad design, **component values
+  stay as they are** (finding 10: J8 keeps "1k"). Implemented in the generators, never by hand ("Design
+  fixes 2026-11-20").
+  1. Finding 12: AP61202 pin 6 is renamed **VOUT → PG** (open-drain power-good output) in
+     `tools/gen_symbols.py`; schematic only.
+  2. Finding 6: the leftover PDF sheet notes are tidied: notes that are obsolete are dropped, notes that
+     still describe the design are kept; the dropped ones are listed in "Design fixes 2026-11-20".
+  3. Finding 26: the dangling Proteus copper is **removed** (the zero-length draws, the B.Cu and F.Cu stubs,
+     the lone GPIOL_N_10 via) with `REMOVED_TRACKS` / `REMOVED_VIAS`; this **reverses Phase 5 decision 2**.
+     RT_DRAWS in `tools/phase4_wrap.py` and the recorded counts follow.
+  4. Kept as built (no change): finding 1 (split terminals: the fitted terminal joins the pads), 13
+     (`bias_feedback` and `biasfeedback` stay separate nets), 23 (1V8 decoupling: left to the redesign),
+     24 (FLASH1 land pattern).
+  5. Not now (later steps, report only): finding 9 (ADC1 VA / VIN swap: a hand edit after generation
+     stops) and finding 25 (J11 renumbering: waits for a new shared-tool pin-renumber key, done together
+     with tube_hv_supplies J1). Generation stops later; the board stays generated for now.
 
 Open: none.

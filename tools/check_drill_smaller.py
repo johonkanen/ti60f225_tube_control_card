@@ -8,7 +8,9 @@ whose footprint drill became 1.0 mm (J1 has five such holes) would pass and only
 board-local check closes that. It reads the Proteus IPC-D-356A file with its own small parser (no
 p2k code), finds the board hole (pad or via, pcbnew) at every 317 record position (0.05 mm) and requires
 
-  - exactly one plated board hole at every Proteus drilled record, and no other board hole,
+  - exactly one plated board hole at every Proteus drilled record, and no other board hole; except the
+    via records at a REMOVED_VIAS position of p2k_config.py (finding 26, design fixes 2026-11-20): no board
+    hole there, and exactly one such record per entry,
   - the holes whose board drill is smaller than the Proteus drill (by more than 0.005 mm) to be
     exactly EXPECTED (user decision 2026-11-20: J8 pins 1-3, 1.016 -> 1.0), with those diameters,
   - the pairs of DRILL_SMALLER to be exactly the pairs of EXPECTED.
@@ -73,8 +75,17 @@ def main():
             holes.append((mm(p.x), -mm(p.y), mm(t.GetDrill()), True, ("via", f"{mm(p.x):.3f},{-mm(p.y):.3f}")))
     recs = ipc_records(os.path.join(BOARD, cfg.IPC))
     errors, smaller, larger, used = [], {}, Counter(), set()
+    removed_vias = getattr(cfg, "REMOVED_VIAS", {}) or {}
+    removed_found = Counter()
     for x, y, d, plated, ref, pin in recs:
         near = [i for i, h in enumerate(holes) if math.hypot(h[0] - x, h[1] - y) <= POS_TOL]
+        rm = [k for k in removed_vias if math.hypot(k[0] - x, k[1] - y) <= 0.01]
+        if rm:
+            removed_found[rm[0]] += 1
+            if ref or near:
+                errors.append(f"IPC record {ref or 'via'} at ({x}, {y}) is a REMOVED_VIAS position: "
+                              f"refdes {ref!r}, {len(near)} board holes there (want a via record, no hole)")
+            continue
         if len(near) != 1:
             errors.append(f"IPC record {ref}-{pin} at ({x}, {y}): {len(near)} board holes within {POS_TOL} mm")
             continue
@@ -93,6 +104,9 @@ def main():
     for i, h in enumerate(holes):
         if i not in used:
             errors.append(f"board hole {h[4][0]}-{h[4][1]} at ({h[0]:.3f}, {h[1]:.3f}): no IPC record")
+    for k in removed_vias:
+        if removed_found[k] != 1:
+            errors.append(f"REMOVED_VIAS {k}: {removed_found[k]} IPC drilled records there (want 1)")
     want = {pad: pair for pair, pads in EXPECTED.items() for pad in pads}
     for pad in sorted(set(smaller) - set(want)):
         errors.append(f"{pad[0]}-{pad[1]}: board drill {smaller[pad][1]} < Proteus {smaller[pad][0]}, not a decided hole")
@@ -107,7 +121,8 @@ def main():
     for e in errors:
         print("check_drill_smaller:", e)
     counts = ", ".join(f"{len(pads)}x {a}->{b} ({' '.join(sorted({r for r, _ in pads}))})" for (a, b), pads in sorted(EXPECTED.items()))
-    print(f"check_drill_smaller: {len(recs)} IPC drilled records, {len(holes)} board holes; smaller board drills: "
+    print(f"check_drill_smaller: {len(recs)} IPC drilled records ({sum(removed_found.values())} at REMOVED_VIAS, no board hole), "
+          f"{len(holes)} board holes; smaller board drills: "
           f"{len(smaller)} (decided: {counts}); larger (KiCad footprint kept): "
           + (", ".join(f"{ref} {n}x {a}->{b}" for (ref, a, b), n in sorted(larger.items())) or "none"))
     print("check_drill_smaller: " + ("OK" if not errors else f"FAILED ({len(errors)} errors)"))

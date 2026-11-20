@@ -199,8 +199,10 @@ def build():
         box("MC2016K_OSC", "OSC", [(1, "EN", IN), (4, "VCC", PI)], [(3, "OUT", OUT)], bottom=[(2, "GND", PI)],
             desc="Oscillator 2016, Proteus pin ids"),
         box("AP61202", "U", [(3, "VIN", PI), (5, "EN", IN), None],
-            [(6, "VOUT", PAS), (4, "SW", OUT), (1, "FB", IN)], bottom=[(2, "GND", PI)],
-            desc="Buck converter SOT563, Proteus pin ids 1=FB 2=GND 3=VIN 4=SW 5=EN 6=VOUT"),
+            [(6, "PG", "open_collector"), (4, "SW", OUT), (1, "FB", IN)], bottom=[(2, "GND", PI)],
+            # pin 6 is PG (open-drain power good) on the AP61202 (Diodes DS44251); Proteus calls it
+            # VOUT (the AP61200 name). Renamed: user decision 2026-11-20 (STATUS.md finding 12)
+            desc="Buck converter SOT563, Proteus pin ids 1=FB 2=GND 3=VIN 4=SW 5=EN 6=PG (open-drain power good)"),
         box("IZB03", "PS", [(2, "Vin+", PI), (3, "On/Off", IN), (1, "Vin-", PI)],
             [(4, "NC", PAS), (5, "Vout+", PO), (6, "Vout-", PO), (7, "Ripple", PAS)],
             desc="Isolated DC/DC module, 7 pins, Proteus pin ids"),

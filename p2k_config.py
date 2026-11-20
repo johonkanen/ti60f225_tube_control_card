@@ -187,3 +187,46 @@ DRILL_SMALLER = {
 DRC_ACCEPTED = {
     "courtyards_overlap": "KiCad IPC-7351 courtyards vs the Proteus placement (parts at the Proteus positions)",
 }
+
+# Dangling Proteus copper (finding 26): REMOVED (user decision 2026-11-20, "Design fixes 2026-11-20";
+# reverses Phase 5 decision 2). Every Proteus Conductor draw that KiCad's DRC flagged track_dangling, and
+# every draw that dangles once those are gone (the rest of a stub that leads from one pad to nowhere),
+# found iteratively with pcbnew's TestTrackEndpointDangling (scratch script build/tmp/fix26/find.py, not
+# committed). Keys = the gerber draws exactly (IPC frame), in the drawn direction: a draw and its
+# reverse (the zero-length / back-and-forth draws) are separate entries; tools/pcb_wrap.py (patch 5)
+# matches the drawn direction first, so each entry takes exactly its own draw. 26 draws: F.Cu 20, B.Cu 6.
+REMOVED_TRACKS = {
+    # zero-length / back-and-forth draws (copper covered by the joined tracks)
+    ("F.Cu", 41.8819, -8.86052, 41.87295, -8.86052): "GND 0.009 mm draw (out)",
+    ("F.Cu", 41.87295, -8.86052, 41.8819, -8.86052): "GND 0.009 mm draw (back)",
+    ("F.Cu", 62.34813, 3.70007, 62.35152, 3.69668): "ADASEL0_ISO 0.005 mm draw",
+    ("B.Cu", 46.97032, -11.87033, 46.97032, -11.87032): "DATA2 1e-5 mm draw (out)",
+    ("B.Cu", 46.97032, -11.87032, 46.97032, -11.87033): "DATA2 1e-5 mm draw (back)",
+    # short stubs on nets that are connected elsewhere
+    ("B.Cu", 94.6, 10.1, 94.6, 9.88143): "GND stub 0.22 mm at x 94.6",
+    ("B.Cu", 94.6, 9.88143, 94.60143, 9.88): "GND stub 0.002 mm (end of the 0.22 mm stub)",
+    ("B.Cu", 94.6, 7.1, 94.6, 7.22784): "5V stub 0.13 mm at x 94.6",
+    ("B.Cu", 47.26658, -11.57406, 47.41318, -11.42747): "DATA2 stub 0.21 mm",
+    ("F.Cu", 89.89728, -26.10272, 90.16045, -26.36589): "GPIOL_9 stub 0.37 mm",
+    ("F.Cu", 79.15, -23.55, 79.3, -23.7): "GPIOL_10 0.21 mm draw back along its own track",
+    # whole stubs of single-pin nets (one pad, copper to nowhere)
+    ("F.Cu", 26.04813, -2.21034, 26.04813, -2.90577): "ADCLK_ISO stub from U9 B2 (1/3)",
+    ("F.Cu", 26.04813, -2.90577, 26.50028, -3.35792): "ADCLK_ISO stub (2/3)",
+    ("F.Cu", 26.50028, -3.35792, 26.50028, -5.8): "ADCLK_ISO stub (3/3, open end)",
+    ("F.Cu", 26.69813, -2.21034, 26.69813, -3.00633): "GPIO_BYPASS_RLY_ISOLATED stub from U9 B1 (1/3)",
+    ("F.Cu", 26.69813, -3.00633, 26.89983, -3.20803): "GPIO_BYPASS_RLY_ISOLATED stub (2/3)",
+    ("F.Cu", 26.89983, -3.20803, 26.89983, -5.8): "GPIO_BYPASS_RLY_ISOLATED stub (3/3, open end)",
+    ("F.Cu", 40.92313, -18.26034, 40.92313, -18.62313): "GPIOL_N_18 track from U10 A2 to nowhere (1/8)",
+    ("F.Cu", 40.92313, -18.62313, 42.5, -20.2): "GPIOL_N_18 (2/8)",
+    ("F.Cu", 42.5, -20.2, 59.20001, -20.2): "GPIOL_N_18 (3/8)",
+    ("F.Cu", 59.20001, -20.2, 60.00001, -19.4): "GPIOL_N_18 (4/8)",
+    ("F.Cu", 60.00001, -19.4, 77.2, -19.4): "GPIOL_N_18 (5/8)",
+    ("F.Cu", 77.2, -19.4, 81.04593, -23.24593): "GPIOL_N_18 (6/8)",
+    ("F.Cu", 81.04593, -23.24593, 88.35363, -23.24593): "GPIOL_N_18 (7/8)",
+    ("F.Cu", 88.35363, -23.24593, 92.5, -27.3923): "GPIOL_N_18 (8/8, open end)",
+    ("F.Cu", 40.92313, -14.36034, 40.58081, -14.01802): "GPIOL_N_10 track from U10 G2 to the lone via",
+}
+# The lone GPIOL_N_10 via (ball G2 + this via, nothing on the other layers; finding 2 / 26).
+REMOVED_VIAS = {
+    (40.5808, -14.018): "GPIOL_N_10 via: connected only to ball G2 on F.Cu (removed with its track)",
+}

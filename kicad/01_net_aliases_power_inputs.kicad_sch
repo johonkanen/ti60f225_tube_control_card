@@ -2495,17 +2495,6 @@
 			)
 		)
 	)
-	(text "FIX BUGS!"
-		(exclude_from_sim no)
-		(at 111.76 101.6 0)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "7e33ab72-ea21-5248-a20c-9cba72cafc55")
-	)
 	(text "Proteus alias pairs of this page (two terminal labels joined by a line). The KiCad sheets use the IPC net name on"
 		(exclude_from_sim no)
 		(at 60.96 41.91 0)
@@ -2515,7 +2504,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "b752ceae-488d-5b18-802e-23018a945e03")
+		(uuid "7e33ab72-ea21-5248-a20c-9cba72cafc55")
 	)
 	(text "every pin; a pair whose second name occurs nowhere else adds no connection (STATUS.md findings 2 and 11)."
 		(exclude_from_sim no)
@@ -2526,7 +2515,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "272af99b-91b8-5641-b580-d89202ba84aa")
+		(uuid "b752ceae-488d-5b18-802e-23018a945e03")
 	)
 	(text "L1 = PWM_TRANS5"
 		(exclude_from_sim no)
@@ -2537,7 +2526,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "15b7d64a-a3cb-523d-a762-70667b1b3b8b")
+		(uuid "272af99b-91b8-5641-b580-d89202ba84aa")
 	)
 	(text "N1 = PWM_Q8"
 		(exclude_from_sim no)
@@ -2548,7 +2537,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "fddd0c8e-f4f6-544c-8198-51c2f8e164c7")
+		(uuid "15b7d64a-a3cb-523d-a762-70667b1b3b8b")
 	)
 	(text "P1 = PWM_Q6"
 		(exclude_from_sim no)
@@ -2559,7 +2548,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "60b9db79-2e0c-55a1-97bb-08cf4320d91a")
+		(uuid "fddd0c8e-f4f6-544c-8198-51c2f8e164c7")
 	)
 	(text "T3 = DAB_PWM_LO_SEC"
 		(exclude_from_sim no)
@@ -2570,7 +2559,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "bc789a64-49f0-5955-88c5-1341ee2641ac")
+		(uuid "60b9db79-2e0c-55a1-97bb-08cf4320d91a")
 	)
 	(text "T4 = DAB_PWM_HI_SEC"
 		(exclude_from_sim no)
@@ -2581,7 +2570,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "460d6f9c-fefe-590f-9cc4-08666d9ba2bf")
+		(uuid "bc789a64-49f0-5955-88c5-1341ee2641ac")
 	)
 	(text "RGB1_R = PWM_TRANS4"
 		(exclude_from_sim no)
@@ -2592,7 +2581,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "b5cb119f-ca92-5bc2-8f21-e1eb4ed3ae62")
+		(uuid "460d6f9c-fefe-590f-9cc4-08666d9ba2bf")
 	)
 	(text "P8 = DAB_PWM_PRI_LO_ISO"
 		(exclude_from_sim no)
@@ -2603,7 +2592,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "282a1b76-5bd4-5d6b-8ac6-d1bba75fcb8e")
+		(uuid "b5cb119f-ca92-5bc2-8f21-e1eb4ed3ae62")
 	)
 	(text "R10 = PWM_G3_ISO"
 		(exclude_from_sim no)
@@ -2614,7 +2603,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "13d92852-33d5-5583-beb6-3b342c370256")
+		(uuid "282a1b76-5bd4-5d6b-8ac6-d1bba75fcb8e")
 	)
 	(text "R11 - - PWM_G2_ISO (dashed: not joined)"
 		(exclude_from_sim no)
@@ -2625,7 +2614,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "eeaa035b-5d69-5dd0-9922-b35164bc40cd")
+		(uuid "13d92852-33d5-5583-beb6-3b342c370256")
 	)
 	(text "R12 = PWM_TRANS3_ISO"
 		(exclude_from_sim no)
@@ -2636,7 +2625,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "c9961105-5983-5d9f-a763-dbebe5569fee")
+		(uuid "eeaa035b-5d69-5dd0-9922-b35164bc40cd")
 	)
 	(text "R13 = PWM_TRANS1_ISO"
 		(exclude_from_sim no)
@@ -2647,7 +2636,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "4927abce-5fa4-5c3d-9b93-dd7c9e0cf00b")
+		(uuid "c9961105-5983-5d9f-a763-dbebe5569fee")
 	)
 	(text "R14 = CS1_ISO"
 		(exclude_from_sim no)
@@ -2658,7 +2647,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "ec1e517b-7753-562d-a70b-e2b37bdd3bac")
+		(uuid "4927abce-5fa4-5c3d-9b93-dd7c9e0cf00b")
 	)
 	(text "T15 = ADASEL0_ISO"
 		(exclude_from_sim no)
@@ -2669,7 +2658,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "970d7818-b20d-5f7a-8ce7-456c353a62a7")
+		(uuid "ec1e517b-7753-562d-a70b-e2b37bdd3bac")
 	)
 	(text "GPIOR_25 - - ADASEL2_ISO (dashed: not joined)"
 		(exclude_from_sim no)
@@ -2680,7 +2669,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "8357df89-61ec-507c-ab5f-9319f787515a")
+		(uuid "970d7818-b20d-5f7a-8ce7-456c353a62a7")
 	)
 	(text "N14 - - ADCLK_ISO (dashed: not joined)"
 		(exclude_from_sim no)
@@ -2691,7 +2680,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "414fccce-8a7e-5d88-a5dc-37317b31ac83")
+		(uuid "8357df89-61ec-507c-ab5f-9319f787515a")
 	)
 	(text "ADB1 = ISOADA2"
 		(exclude_from_sim no)
@@ -2702,7 +2691,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "cdd5e08c-a393-5605-b315-51c47906d7c4")
+		(uuid "414fccce-8a7e-5d88-a5dc-37317b31ac83")
 	)
 	(text "ADB2 = ISOADA3"
 		(exclude_from_sim no)
@@ -2713,7 +2702,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "44411ee3-3139-5dfe-b288-213391641363")
+		(uuid "cdd5e08c-a393-5605-b315-51c47906d7c4")
 	)
 	(text "GPIOR_28 = MDATA_INU"
 		(exclude_from_sim no)
@@ -2724,7 +2713,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "d1d94f3a-688f-52cd-a535-f5af4cb2ff31")
+		(uuid "44411ee3-3139-5dfe-b288-213391641363")
 	)
 	(text "R3 = PWM_Q5"
 		(exclude_from_sim no)
@@ -2735,7 +2724,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "fd6a2bef-703f-532f-831c-9b953e2c2dd6")
+		(uuid "d1d94f3a-688f-52cd-a535-f5af4cb2ff31")
 	)
 	(text "R4 = PWM_TRANS6"
 		(exclude_from_sim no)
@@ -2746,7 +2735,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "f9653e70-232e-5bb1-b3a3-312ee8ee6900")
+		(uuid "fd6a2bef-703f-532f-831c-9b953e2c2dd6")
 	)
 	(text "GPIOR_27 = MDATA_DAB"
 		(exclude_from_sim no)
@@ -2757,7 +2746,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "179c42c2-c54c-5403-8d52-947becfb8fe8")
+		(uuid "f9653e70-232e-5bb1-b3a3-312ee8ee6900")
 	)
 	(text "T7 = ADCLK_DAB"
 		(exclude_from_sim no)
@@ -2768,7 +2757,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "ed61dfb6-3322-5e46-8695-267a7b8f5b6f")
+		(uuid "179c42c2-c54c-5403-8d52-947becfb8fe8")
 	)
 	(text "N8 = DAB_PWM_PRI_HI_ISO"
 		(exclude_from_sim no)
@@ -2779,7 +2768,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "209caeea-b3d7-5387-ac95-e5b997d011e1")
+		(uuid "ed61dfb6-3322-5e46-8695-267a7b8f5b6f")
 	)
 	(text "PWM_G4_ISO = T11"
 		(exclude_from_sim no)
@@ -2790,7 +2779,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "c92b47ad-8d39-5d5e-8aef-b04f4e9a7598")
+		(uuid "209caeea-b3d7-5387-ac95-e5b997d011e1")
 	)
 	(text "PWM_TRANS2_ISO = T12"
 		(exclude_from_sim no)
@@ -2801,7 +2790,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "585a8257-269f-5c1d-972a-feb05f021d87")
+		(uuid "c92b47ad-8d39-5d5e-8aef-b04f4e9a7598")
 	)
 	(text "CLK1_ISO = T13"
 		(exclude_from_sim no)
@@ -2812,7 +2801,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "21167303-bbf0-56cd-af18-b0d111374efd")
+		(uuid "585a8257-269f-5c1d-972a-feb05f021d87")
 	)
 	(text "SDATA1_ISO = GPIOR_29"
 		(exclude_from_sim no)
@@ -2823,7 +2812,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "4d595550-9030-5ab0-83e4-25299b0c2de6")
+		(uuid "21167303-bbf0-56cd-af18-b0d111374efd")
 	)
 	(text "ADASEL1_ISO = R16"
 		(exclude_from_sim no)
@@ -2834,7 +2823,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "7915bd44-3e7b-5b74-b4ab-6246b51d21c6")
+		(uuid "4d595550-9030-5ab0-83e4-25299b0c2de6")
 	)
 	(text "MOS_GATE_3 = GPIOR_25"
 		(exclude_from_sim no)
@@ -2845,7 +2834,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "3656c4d2-92d9-5192-8317-4a11adc979b4")
+		(uuid "7915bd44-3e7b-5b74-b4ab-6246b51d21c6")
 	)
 	(text "ISOADA1 = ADB0"
 		(exclude_from_sim no)
@@ -2856,7 +2845,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "f45ec58c-b56b-5233-b089-5580cbf394a0")
+		(uuid "3656c4d2-92d9-5192-8317-4a11adc979b4")
 	)
 	(text "gnd = ISOGND (J8 pin 3 is GND)"
 		(exclude_from_sim no)
@@ -2867,7 +2856,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "1d642bc0-75bd-5d25-8f24-036e7c396d50")
+		(uuid "f45ec58c-b56b-5233-b089-5580cbf394a0")
 	)
 	(text "rx = T6"
 		(exclude_from_sim no)
@@ -2878,7 +2867,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "8d508fa7-c50e-53a1-95b1-c0d5b8d13d17")
+		(uuid "1d642bc0-75bd-5d25-8f24-036e7c396d50")
 	)
 	(text "tx = R6"
 		(exclude_from_sim no)
@@ -2889,7 +2878,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "39c043b0-af2c-5f82-b8cb-34de7626a537")
+		(uuid "8d508fa7-c50e-53a1-95b1-c0d5b8d13d17")
 	)
 	(text "rx = GPIOL_2 (J8 pin 1)"
 		(exclude_from_sim no)
@@ -2900,7 +2889,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "d6ac577a-6354-5ecd-9fa2-13a51dbb22b3")
+		(uuid "39c043b0-af2c-5f82-b8cb-34de7626a537")
 	)
 	(text "tx = GPIOL_1 (J8 pin 2, R16)"
 		(exclude_from_sim no)
@@ -2911,7 +2900,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "f28864f5-9275-53f5-8702-bc713b9685b0")
+		(uuid "d6ac577a-6354-5ecd-9fa2-13a51dbb22b3")
 	)
 	(text "RLY3_ENABLE = GPIOR_21"
 		(exclude_from_sim no)
@@ -2922,7 +2911,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "7b50bf9d-569b-5b78-b81e-c93a628da5b3")
+		(uuid "f28864f5-9275-53f5-8702-bc713b9685b0")
 	)
 	(text "MOS_GATE_1 = GPIOR_24"
 		(exclude_from_sim no)
@@ -2933,7 +2922,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "63a79a5a-6f35-57cc-a3a0-cb3572063d5e")
+		(uuid "7b50bf9d-569b-5b78-b81e-c93a628da5b3")
 	)
 	(text "T_IRQ = GPIOR_22"
 		(exclude_from_sim no)
@@ -2944,7 +2933,7 @@
 			)
 			(justify left bottom)
 		)
-		(uuid "4d02a69e-4b3f-594c-b5dc-5b79e607bcbd")
+		(uuid "63a79a5a-6f35-57cc-a3a0-cb3572063d5e")
 	)
 	(embedded_fonts no)
 )

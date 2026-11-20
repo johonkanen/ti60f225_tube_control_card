@@ -57,8 +57,8 @@ a, b = two(sh, "C67", *P(96, 76), top="3V3")
 tie(sh, "3V3", a, "up", 2)
 tie(sh, "GND", b, "down", 2)
 
-note(sh, "3V3", 9, 20)
-note(sh, "-15V", 8, 35)
+# PDF loose texts "3V3" and "-15V" beside J7 dropped (obsolete: no wire; J7 carries 3V3 on pins 29 / 30 and
+# no -15V; user decision 2026-11-20, STATUS.md "Design fixes 2026-11-20")
 for i, s in enumerate(["Proteus alias pairs of this page (the IPC name is used on the pins):",
                        "GPIOL_6 = LOOP_BYPASS_RLY (IPC LOOP_BYPASS_RLY, J3 pin 15)",
                        "JFET_1 = A (IPC A, J3 pin 1)",

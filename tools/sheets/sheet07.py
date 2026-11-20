@@ -18,7 +18,8 @@ for pin in (13, 14, 15, 12, 1, 5, 2, 4, 11, 10, 9):
 pin_tie(sh, u3, 6, "left", 4, body="left")                    # INH on GND
 for pin, n in ((16, 6), (7, 2), (8, 2)):                      # hidden supply pins of the PDF
     pin_tie(sh, u3, pin, "down", n)
-note(sh, "check logic", 37, 52, size=2.0)
+# PDF note "check logic" dropped (obsolete to-do; the channel order is STATUS.md finding 17; user decision
+# 2026-11-20, STATUS.md "Design fixes 2026-11-20")
 note(sh, "Proteus hidden pins: VDD=AD_3V3, VEE=AGND, VSS=AGND", 31, 108)
 
 # --- U4 buffer ---------------------------------------------------------------------------------------

@@ -57,10 +57,12 @@ CFG = board.config()
 MERGES = CFG.SPLIT_PIN_MERGES
 SMD_FREE = CFG.SMD_FREE_PADS
 BGA_REF = "U10"
-# recorded result of the shared tool (STATUS.md "Phase 4")
-EXPECT = dict(proteus=1132, kicad=1132, matched=1132, pads=884, nc=76, vias=240, holes=4, free=4, nets=227)
-# KiCad track draws per layer (= gerber_to_tracks: 3373 tracks, F 2152 / In1 72 / In2 221 / B 928)
-RT_DRAWS = {"F.Cu": 2152, "In1.Cu": 72, "In2.Cu": 221, "B.Cu": 928}
+# recorded result of the shared tool (STATUS.md "Phase 4"; since the design fixes of 2026-11-20 the lone
+# GPIOL_N_10 via is a REMOVED_VIAS entry: KiCad 1131 records, 239 vias, the Proteus record removed as recorded)
+EXPECT = dict(proteus=1132, kicad=1131, matched=1131, pads=884, nc=76, vias=239, holes=4, free=4, nets=227)
+# KiCad track draws per layer (= gerber_to_tracks: 3347 tracks, F 2132 / In1 72 / In2 221 / B 922; the 26
+# REMOVED_TRACKS draws of finding 26 (design fixes 2026-11-20) are not built: F.Cu 2152 - 20, B.Cu 928 - 6)
+RT_DRAWS = {"F.Cu": 2132, "In1.Cu": 72, "In2.Cu": 221, "B.Cu": 922}
 COVER = re.compile(r"coverage: Proteus (\d+) draws / (\d+) flashes, .*; KiCad (\d+) draws / (\d+) flashes")
 SUMMARY = re.compile(r"ipc356_diff: Proteus (\d+) records, KiCad (\d+); matched (\d+) \((\d+) pads incl\. (\d+) N/C, "
                      r"(\d+) vias, (\d+) holes, (\d+) free pads\)")
