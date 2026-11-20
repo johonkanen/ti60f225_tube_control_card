@@ -12,11 +12,18 @@ This wrapper checks that the IPC split pins are exactly `SPLIT_PIN_MERGES` of p2
 e.g. R67-1 on RS485B's second net), and then runs the shared comparison unchanged on that
 IPC side. Any other merge, split or wrong-net pin still fails.
 
+Phase 4 addition (joined N/C pins): the shared compare treats every pin of a KiCad net named
+`unconnected-(...)` as a singleton, so two N/C pins wired to each other with a no-connect flag
+on the wire (KiCad then puts both in ONE such net) pass as two N/C pins (tools/test_no_connect.py
+variant `joined_flag`: "compare: OK"; only the fatal ERC warning no_connect_connected caught it).
+Here the netlist must also have exactly one pin in every `unconnected-(...)` net.
+
   python3 tools/compare_netlists.py [p2k compare_netlists options, e.g. --allow-missing --sheet 11]
 """
 import json
 import os
 import sys
+import xml.etree.ElementTree as ET
 from collections import defaultdict
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -62,7 +69,29 @@ def load_ipc_d1():
     return out
 
 
+_shared_load_kicad, _joined = compare_netlists.load_kicad, []
+
+
+def load_kicad_nc(path):
+    for net in ET.parse(path).getroot().iter("net"):
+        nodes = sorted((n.get("ref"), n.get("pin")) for n in net.findall("node"))
+        if net.get("name", "").startswith("unconnected-(") and len(nodes) != 1:
+            _joined.append((net.get("name"), nodes))
+    return _shared_load_kicad(path)
+
+
+def main():
+    rc = compare_netlists.main()
+    for name, nodes in _joined:
+        print(f"ERROR: KiCad net {name} joins {len(nodes)} pins: " + " ".join(f"{r}-{p}" for r, p in nodes)
+              + " (N/C pins wired together)")
+    if _joined:
+        print(f"compare: FAILED ({len(_joined)} unconnected-(...) nets with more than one pin)")
+    return 1 if _joined else rc
+
+
 compare_netlists.load_ipc = load_ipc_d1
+compare_netlists.load_kicad = load_kicad_nc
 
 if __name__ == "__main__":
-    sys.exit(compare_netlists.main())
+    sys.exit(main())

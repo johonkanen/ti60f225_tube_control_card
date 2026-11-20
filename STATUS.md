@@ -8,8 +8,187 @@ Plan: [PLAN.md](PLAN.md). Playbook: `tools/p2k/CONVERSION_PLAYBOOK.md`.
 | 1 Schematic | **done** 2026-11-20: preparation (Opus 5.5), transcription sessions T1, T2, T3 (Fable 5.2): 12 sheets, 146 of 146 parts, full netlist comparison clean, ERC 0 errors |
 | 2 Footprints | **done** 2026-11-20 (Opus 5.5): 146/146 parts fit the IPC pads (worst 0.030 mm), pin order checked, findings 9 and 12 answered |
 | 3 PCB | **done** 2026-11-20 (Opus 5.5): board built from the schematic + gerbers (make_pcb byte-identical), Proteus copper 0 shorts / 0 orphans / 0 opens (+5 D1), check_board OK; pad decision A applied (Proteus pads on 15 parts, user decision): DRC 0 shorts / 0 clearance / 0 bridges / 0 hole clearance / 0 parity, only the accepted courtyards and the 5 D1 unconnected items left; `check_all.sh` ALL CHECKS PASSED |
-| 4 Verification | not started |
+| 4 Verification | **done** 2026-11-20 (Fable 5.2, fresh session): `ipc356_diff` and `gerber_roundtrip --check` pass with the board's acceptances and are in `check_all.sh`, per-pad drill check, joined-N/C check, all 876 pins of the 12 PDF pages read independently (no difference), 28 negative tests; finding 19 resolved; nothing needs a user decision |
 | 5 Clean-up | not started |
+
+## Phase 4 – independent verification – done (Fable 5.2, fresh session, 2026-11-20)
+
+A clean-context reader re-derived the result from the sources and the generated files (STATUS.md's claims
+were not taken as given). **No disagreement with the conversion was found**; one earlier finding (19) is
+resolved, two blind spots of the shared checks are closed board-locally, one more is recorded. Nothing
+needs a user decision. The conversion (kicad/, lib/, reference/, p2k_config.py) is unchanged.
+
+Note (user information through the coordinating session, 2026-11-20): this card is **not installed in the
+amplifier** (the Agilex 3 card is); the conversion is a reference and a starting point only.
+
+### New checks (all in `tools/check_all.sh`, tools/p2k unchanged at c5682dd)
+
+- **`tools/phase4_wrap.py ipc356_diff`** – `p2k ipc356_diff` runs **unchanged on the unfiltered Proteus
+  records** (no record filter, unlike `pcb_wrap.py`) and its result is judged: exactly the five errors
+  "KiCad net K spans Proteus nets [kept, merged]" of `SPLIT_PIN_MERGES` are accepted (a sixth error, a
+  missing one or another pair fails); on the KiCad export itself: both pad records of every D1 pin on one
+  net and every Proteus pad of the kept and the merged net (R67-1) on that net; 4 `TP<n>` records = 327
+  (SMD), top, no drill, at `SMD_FREE_PADS`; one top SMD record per U10 ball (225, same ball ids); **every
+  `unconnected-(...)` net has exactly one record** (joined N/C pads); the summary counts are the recorded
+  ones. How KiCad writes them: test pads `327<net> TP1 -1 A01 X.. X0280 Y0000 S2` (ordinary SMD records;
+  the shared tool makes them `free_pad` by the refdes prefix and matches them with the Proteus blank-refdes
+  327 records by position, SMD, side and net – no acceptance needed); U10 balls as `327 … U10 -E5 A01 …
+  X0110` (0.28 mm, Proteus 0.30); N/C pads carry their `unconnected-(…)` net name (NNAME alias), only the 4
+  mounting holes are written `N/C`.
+- **`tools/check_drill_smaller.py`** (kipy; after the PI/FX repo's) – own IPC parser + pcbnew: one plated
+  board hole at each of the 377 drilled IPC records and no other hole, the board drills smaller than
+  Proteus are exactly J8-1..3 (1.016 → 1.0), `DRILL_SMALLER` has exactly that pair. Blind spot confirmed:
+  the shared tools match `DRILL_SMALLER` by diameter pair only (negative test `drill_pair`).
+- **`tools/phase4_wrap.py gerber_roundtrip --check`** – the shared tool with `BGAPad` added to
+  `PAD_FUNCTIONS`, plus a count check from its report: per layer the recorded number of KiCad track draws
+  (2152 / 72 / 221 / 928 = the 3373 tracks) and as many KiCad flashes as Proteus flashes (934 / 377 / 377 /
+  575). `reports/roundtrip/` (report + 4 overlay PNGs) is committed; two runs are byte-identical.
+- **`tools/compare_netlists.py`** – + every `unconnected-(...)` net of the schematic netlist must have exactly
+  one pin (joined N/C pins, below). `tools/test_no_connect.py` has two new variants.
+- **`tools/phase4_reading/`** (`reading.py`, `reading_data.py`, `ind.py`) – the reader's own transcript of
+  the PDF against the IPC and the KiCad netlist (below); a check_all step.
+
+### Results
+
+| Check | Result |
+|---|---|
+| `ipc356_diff` | Proteus 1132 records, KiCad 1132, **matched 1132** (884 pads incl. 76 N/C, 240 vias, 4 holes, 4 free pads), worst offset 0.031 mm; 227 Proteus nets mapped; the only mismatches are the 5 accepted D1 merges; KiCad drill larger 32x 0.558→0.65 (J3, J6), 5x 1.016→1.1 (J1); smaller 3x 1.016→1.0 (J8, accepted) |
+| `check_drill_smaller` | 377 records / 377 holes; smaller: exactly J8-1..3 |
+| `gerber_roundtrip --check` | **all 4 copper layers incl. pours: 0 other / 0 clearance / 0 zone-fill clusters, only pad-shape clusters** (F.Cu 118, In1.Cu 43, In2.Cu 55, B.Cu 71: KiCad pads of J3 / J6 / J1 / J8 / FLASH1 / RS1 / R67-R69 / OSC1 / L3 / some 0402-0603, as decided); XOR beyond 0.05 mm: F 4.46 / 8.35, In1 1.07 / 5.26, In2 1.87 / 7.16, B 3.23 / 8.79 mm² (only Proteus / only KiCad), all inside pad shapes; coverage: 0 Proteus and 0 KiCad draws / flashes off the other copper on every layer; **drills 377 = 377, 0 mismatches; Excellon (2025 export) 377 holes 1:1** |
+| Raw shared tools | `p2k ipc356_diff` alone fails only on the 5 D1 "spans" errors; `p2k gerber_roundtrip --check` alone passes, with the same report as with `BGAPad` (0.30 vs 0.28 mm balls are inside the tolerance) |
+| Independent netlist comparison (own IPC parser, no p2k) | 146 / 146 parts, 876 / 876 pins; after joining the two nets of each of the 5 split pins: **222 IPC net groups = 222 KiCad nets, identical partitions**; N/C pins 76 = 76, the same pins; 14 single-pin nets |
+| Values | the Value of all 146 parts found at its refdes in the PDF (135 by the text layer, 11 – the five SN74AXC8T245, TI60F225, SN74LV4051, the four header names – by eye) |
+
+### PDF reading (item 4)
+
+Read by eye from 300 dpi renders of every page (full pages, and enlarged crops of pages 2, 5, 10), without
+the sheet scripts or `fpga_unit()`: **every pin of every part – 876 of 876 pins, 146 parts, all 225 balls of
+U10** (units A-H on pages 2, 5, 6), the five level shifters (120 pins), ADC1, J11 (40), J7 (30), J6, J3 and
+all alias pairs of pages 1, 2, 7, 9, 10, 11 (solid pairs as joins, the three dashed pairs of page 1 as no
+join). The transcript is `tools/phase4_reading/reading_data.py`. `reading.py` joins the labels into classes
+by the alias pairs and compares the partitions: pins read on one label class must be on one IPC net (own
+parser) and one KiCad net, different classes on different nets, an open stub = N/C in the IPC and
+`unconnected-(…)` in KiCad; two-pin parts and resistor-array units by their two nets. Per page (pins /
+parts): 1: 9 / 6; 2: 91 / 19; 3: 71 / 28; 4: 140 / 15; 5: 125 / 1; 6: 92 / 19; 7: 45 / 11; 8: 44 / 3; 9: 90 /
+9; 10: 78 / 9; 11: 45 / 17; 12: 46 / 11. **Result: 222 label classes = 222 nets, 76 N/C, no difference**; every
+IPC net name (not `#…`) is one of the labels of its class; no IPC pin left unread. Negative test: four
+wrong readings put in on purpose (J11 pins 1 / 2 exchanged, U10 K13 / J13 exchanged, R34 on BIASREF, ADC1
+VA / VIN as in the datasheet) → 44 differences reported.
+
+Observations from the reading: (a) the PDF nowhere ties **DGND to GND / gnd** (page 7 ties only AGND – DGND,
+page 1 gnd – ISOGND); the IPC has one net `GND=POWER`, so the tie is Proteus' power-rail configuration
+(extends finding 7; the transcript lists it as an assumption, and the partition only agrees with it).
+(b) page 11 notes "I2C address = 11, 3-state io" at U12 while ADDR (pin 1) is tied to GND, as built.
+(c) GPIOL_10 / GPIOL_11 (balls B5, C5) are single-ball nets with only a test pad (as finding 18 says;
+finding 2's list of lone balls does not name them).
+
+### Earlier findings: confirmed / refuted
+
+| Finding | Phase 4 |
+|---|---|
+| 1 split terminal nets (D1) | **confirmed** from the raw IPC: J2, ISO5V, ISO_G, RS485A, RS485B have their two pads on two nets, J4, J5, J9 on one; `#00671.00262` = RS485B-1 + R67-1 only. The PDF (page 11) draws one node |
+| 2, 11 single-pin nets, page 1 aliases | **confirmed**: 14 single-pin nets (U1 18-21, U9 20-21, U10 A2 B2 B5 C5 C6 D12 G2 G14); the dashed pairs are not joins (the partition agrees only that way) |
+| 3 U10: 12 GND, 62 N/C | **confirmed** (raw IPC and my reading of pages 2, 5, 6) |
+| 4, 26 tight copper | **confirmed** with KiCad's own DRC at a 0.1 mm rule (scratch copy): pad–track min 0.0754, track–via 0.0755, track–track 0.0974 (54 non-zone pairs under 0.1 mm with the KiCad pads). New detail: one KiCad zone fill is 0.0946 mm from a GND via (B.Cu 5V pour 14; Proteus pour–via 0.1015), inside the round-trip tolerance |
+| 9 ADC1 VA / VIN | **confirmed**: page 10 has COM2 "VIN" on 3V3 and A1 "VA" on the R34 / C68 node; the IPC pads A1, A2, COM2 / K2, K1, COM1 run counter-clockwise from A1, i.e. A1 = pad 1 (VA) and COM2 = pad 3 (VIN) |
+| 12 AP61202 pin 6 | wiring **confirmed** (PWR2-6 = 1V_ENABLE with R1 to 5V, PWR1 / PWR3 pin 6 open, PWR2 EN on 5V); the datasheet was not re-read |
+| 13 bias_feedback / biasfeedback | **confirmed** (two nets; `bias_feedback` is on the BIASREF node) |
+| 14, 15, 17, 18, 22, 23 | **confirmed** by the reading (PWR4 3 / 4 / 7 open; multiplexer order ADB2 1 0 3 4 7 5 6; JFET inputs / outputs; configuration pull-ups; 6 x 47n on 1V, 4 x 47n on 3V3, none on 1V8 on page 6) |
+| 16, 20, 21 labels vs IPC | **confirmed**: no name difference beyond the alias pairs |
+| 19 direction table | **resolved – no problem** (TI Table 7-1: DIR1 H, DIR2 L = A to B on all eight bits; text under finding 19) |
+| 24 FLASH1 land pattern | pad rows 9.144 mm, pads 0.635 x 2.032 for FLASH1 and RS1 **confirmed** from the IPC |
+| 25 J11 numbering | **confirmed** from the IPC: pin 1→2 / 1→3 handedness of J11 and J3 is the mirror of J7 and J6; J11 is drawn on the top assembly gerber, J3 on the bottom one |
+| 5, 6, 7, 8, 10 | as recorded (J8 value "1k", the notes and "FIX BUGS!" seen on the pages) |
+
+### Blind spots (item 3)
+
+1. **`DRILL_SMALLER` by pair, not by pad – real.** J1-1 drill 1.1 → 1.0 (same pair as J8): `ipc356_diff` and
+   `gerber_roundtrip` pass ("4x 1.016->1.0"). Closed by `tools/check_drill_smaller.py`.
+2. **Joined N/C pins – real in `compare_netlists` and `ipc356_diff`, already caught by ERC.** Two N/C pins
+   wired together with a no-connect flag anywhere on the wire: KiCad puts both in one `unconnected-(…)` net,
+   the shared compare says OK (it treats each pin of such a net as a singleton); `tools/erc.sh` fails
+   (`no_connect_connected`, fatal since D2). Without a flag the net is `Net-(…)` and the compare fails. An
+   N/C pin wired to a named net fails the compare (and ERC with a flag). On the board, `ipc356_diff` accepts
+   an N/C pad on any `unconnected-(…)` net. Closed in both places by the one-pin / one-pad rule.
+3. **A short track inside two pads is invisible to the round trip – recorded, covered elsewhere.** One of
+   the 17 ball-to-via tracks at U10 removed (0.43 mm, REF_RES_3B1): raw `gerber_roundtrip --check` passes
+   (the 0.08 mm of bare track is within the tolerance and the coverage slack). The Phase 3 copper check
+   fails (1 open: U10-M12 / R35-2), as would `make_pcb --check`; the new draw-count check also fails.
+4. **A moved pad passes the round trip** (pad positions are "pad shape" there by design); `ipc356_diff` and
+   `check_board` check positions (0.05 mm).
+5. `BGAPad` in `PAD_FUNCTIONS` changes nothing measurable on this board (identical report); kept because
+   without it every U10 ball counts as a KiCad-only pad in the classification masks.
+
+### Negative tests (scratch copies build/tmp/neg4_NAME with `P2K_BOARD`; scripts build/tmp/p4/neg.sh, mutate.py, not committed)
+
+Each: one change to the scratch board (pcbnew) or config, then the three Phase 4 checks. i = ipc356_diff
+wrapper, d = check_drill_smaller, r = gerber_roundtrip wrapper; F = fails, p = passes.
+
+| Test | Change | i | d | r | Message |
+|---|---|---|---|---|---|
+| none | – | p | p | p | control |
+| drill_pair | J1-1 drill 1.1 → 1.0 (existing pair) | p | **F** | p | "J1-1: board drill 1.0 < Proteus 1.016, not a decided hole" (shared tools: "4x 1.016->1.0", OK) |
+| drill_other | J3-1 drill 0.65 → 0.5 | F | F | F | "drill Proteus 0.558, KiCad 0.5004 is smaller" |
+| drill_j8_bigger | J8-2 drill 1.0 → 1.016 | p | **F** | p | "J8-2: expected a board drill smaller than Proteus" (the record of the decision is stale) |
+| drill_cfg | extra pair (0.558, 0.5) in `DRILL_SMALLER` | p | **F** | p | "DRILL_SMALLER pairs … != the decided pairs" |
+| padnet | R33-1 3V3 → GND | F | p | p | "Proteus net 3V3 spans KiCad nets ['3V3', 'GND']" … |
+| d1_board | second J2 pad 5V → GND | F | p | p | "Proteus net 5V spans …", "KiCad net GND spans Proteus nets ['5V', 'GND']" not accepted |
+| d1_config | RS485A removed from `SPLIT_PIN_MERGES` | F | p | p | "not accepted: KiCad net NET-(RS1-A) spans Proteus nets ['#00670.00259', '#00670.00260']" |
+| d1_extra | a sixth merge (J4-1: 3V3 + GND) added | F | p | p | "D1: no merge reported for J4-1 ['3V3', 'GND']: the board does not join these two Proteus nets" |
+| tp_moved | TP1 moved 0.3 mm | F | p | p | "Proteus free_pad at (86.7, -26.6): nearest KiCad record 0.300 mm away" (blind spot 4) |
+| tp_net | TP3 JFET_6 → GND | F | p | p | "free_pad at (72.9, -36.0): Proteus net JFET_6 → …, KiCad net GND" |
+| tp_tht | TP2 made a plated THT pad | F | F | F | "Proteus SMD, KiCad THT"; "KiCad ComponentDrill 0.3 mm … has no Proteus drill" |
+| track_removed | longest F.Cu GPIOR_22 track deleted | p | p | F | 1 other cluster, 1 Proteus draw off KiCad copper |
+| track_moved | the same track moved 0.2 mm | p | p | F | 2 other clusters, 1 + 1 draws off copper |
+| track_layer | the same track moved to B.Cu | p | p | F | F.Cu and B.Cu 1 other cluster each |
+| track_thin | a 1.016 mm B.Cu GND track → 0.1 mm | p | p | F | 2 other clusters |
+| via_removed | DATA2 via (49.219, -10.079) deleted | F | F | F | "Proteus via …: nearest KiCad record 4.365 mm away"; other clusters on all 4 layers |
+| via_added | GND via at (60, -30) | F | F | F | "KiCad via … no Proteus record"; "ViaDrill 0.2 mm … has no Proteus drill" |
+| zone_removed | smallest In2.Cu zone (1V, 25.6 mm²) deleted | p | p | F | In2.Cu only Proteus 26.41 mm², 198 draws off copper |
+| zone_unfilled | largest B.Cu zone (GND) unfilled | p | p | F | B.Cu only Proteus 482.5 mm² |
+| ball_moved | U10-H8 moved 0.1 mm | F | p | p | "Proteus pad U10-H8: nearest KiCad record 0.099 mm away" |
+| pad_side | R33 flipped to the bottom | F | p | p | "pad R33-1: side Proteus top, KiCad bottom" |
+| hole_net | H1 on GND | F | p | p | "Proteus hole at (18.0, 9.0): nearest KiCad record 89.000 mm away" |
+| nc_wired | J11-37 N/C → GND | F | p | p | "pad J11-37: N/C in Proteus, KiCad net GND" |
+| nc_joined | U10-C9 put on the unconnected net of U10-C8 | **F** | p | p | "KiCad net unconnected-(U10F-GPIOT_P_10_CLK7_P-PadC8) joins 2 pads (U10-C8 U10-C9)" (shared tool: only the 5 D1 errors) |
+| dogbone | ball-to-via track M12 (0.43 mm) deleted | p | p | **F** | "F.Cu: 2151 KiCad track draws, recorded 2152" (shared round trip: OK; Phase 3 copper check: 1 open) |
+| schematic N/C (`tools/test_no_connect.py`) | PWR4 pins 4, 7 wired together, with / without a flag | | | | `joined_flag`: ERC FAIL, compare FAIL only through the one-pin rule ("KiCad net unconnected-(PWR4-NC-Pad4) joins 2 pins: PWR4-4 PWR4-7"); `joined`: compare FAIL ("N/C mismatch", Net-(PWR4-NC)); the four D2 variants as before |
+
+### Phase 4 verification (`tools/check_all.sh`)
+
+```
+(Phase 0-3 steps as in "Phase 3 verification" below, unchanged)
+== IPC-D-356 from the board vs Proteus (pads, vias, holes, test pads, nets; D1 merges accepted)
+ipc356_diff: Proteus 1132 records, KiCad 1132; matched 1132 (884 pads incl. 76 N/C, 240 vias, 4 holes, 4 free pads), worst position offset 0.031 mm (limit 0.05)
+ipc356_diff: 227 Proteus nets mapped 1:1 onto KiCad nets, 5 mismatches
+ipc356_diff: KiCad drill larger (footprint kept): 32x 0.558->0.65, 5x 1.016->1.1
+ipc356_diff: KiCad drill smaller, accepted (DRILL_SMALLER): 3x 1.016->1.001
+ipc356_diff: pads with another size in KiCad (info): C 90, FLASH 8, J 40, L 8, OSC 4, PWR 18, R 64, RS 8, U 225, V 5
+ipc356_diff: accepted (D1, board-local): KiCad net 5V spans Proteus nets ['5V', '5V.00301']
+(… ISO5V, NET-(RS1-A), NET-(RS1-B), RS485_GND likewise)
+ipc356_diff (board-local): 5 of 5 D1 merges reported and accepted, both pads of each terminal and every pad of its two Proteus nets on one KiCad net; 4 SMD test pads (327, top, no drill); 225 U10 balls; 76 unconnected-(...) nets, one pad each
+ipc356_diff: OK (shared tool alone: FAILED)
+== Smaller board drills are exactly the three decided J8 holes
+check_drill_smaller: 377 IPC drilled records, 377 board holes; smaller board drills: 3 (decided: 3x 1.016->1.0 (J8)); larger (KiCad footprint kept): J1 5x 1.016->1.1, J3 16x 0.558->0.65, J6 16x 0.558->0.65
+check_drill_smaller: OK
+== Gerber round trip vs Proteus (copper XOR incl. pours, coverage, drills, Excellon)
+roundtrip (board-local): BGAPad flashes count as pads (PAD_FUNCTIONS)
+roundtrip: F.Cu   XOR   28.28 mm^2, beyond 0.05 mm: only Proteus   4.46, only KiCad   8.35 mm^2; clusters >= 0.01 mm^2: 118 pad shape; draws/flashes off the other copper: 0 Proteus, 0 KiCad
+roundtrip: In1.Cu XOR   15.35 mm^2, beyond 0.05 mm: only Proteus   1.07, only KiCad   5.26 mm^2; clusters >= 0.01 mm^2: 43 pad shape; draws/flashes off the other copper: 0 Proteus, 0 KiCad
+roundtrip: In2.Cu XOR   18.58 mm^2, beyond 0.05 mm: only Proteus   1.87, only KiCad   7.16 mm^2; clusters >= 0.01 mm^2: 55 pad shape; draws/flashes off the other copper: 0 Proteus, 0 KiCad
+roundtrip: B.Cu   XOR   26.69 mm^2, beyond 0.05 mm: only Proteus   3.23, only KiCad   8.79 mm^2; clusters >= 0.01 mm^2: 71 pad shape; draws/flashes off the other copper: 0 Proteus, 0 KiCad
+roundtrip: drills 0 mismatches; KiCad drill smaller, accepted (DRILL_SMALLER): 3x 1.016->1.0; report reports/roundtrip/roundtrip.txt, overlays reports/roundtrip/*.png
+roundtrip: OK
+roundtrip (board-local): KiCad track draws / flashes per layer F.Cu 2152 / 934, In1.Cu 72 / 377, In2.Cu 221 / 377, B.Cu 928 / 575: as recorded, flashes = Proteus
+== Independent PDF reading vs IPC and KiCad netlist (tools/phase4_reading)
+total 876 pins read of 876 IPC pins on 146 of 146 parts; 222 nets (label classes) of 222 IPC nets (after the D1 union); NC read 76
+reading: no difference
+
+ALL CHECKS PASSED
+```
+
+Not re-derived in Phase 4 (taken from Phases 2-3, covered only through their checks): the footprint
+choices and pin-order renders, the AP61202 / Efinix datasheet readings, `measure_gaps.py`'s full table.
 
 ## Phase 3 – PCB – done (Opus 5.5, 2026-11-20)
 
@@ -1019,6 +1198,12 @@ Reported, not fixed (PLAN.md section 5.3).
    read in this session but its rows came out misaligned, so this is **not confirmed**: check the
    function table by eye (and the built board) before the redesign. Drawn as built; the PDF table
    is a text note on sheet 4.
+   **Phase 4 result (resolved, 2026-11-20):** TI SCES875C (rev. January 2024), Table 7-1, read from the PDF
+   text with the rows intact: OE L / DIR1 L / DIR2 L = B to A (all bits); L / L / H = bits 1:4 B to A, bits
+   5:8 A to B; **L / H / L = A to B (all bits)**; L / H / H = bits 1:4 A to B, bits 5:8 B to A (pin table:
+   "DIR2 ... tie to GND to maintain backward compatibility with SN74AVC8T245"). The table on page 4 is
+   exactly this, and with DIR1 = 1V8, DIR2 = GND all eight bits of the five shifters run A to B, FPGA
+   (1V8) to the 3V3 side. No direction problem; nothing to change.
 20. **Labels of pages 4, 7, 9, 12 vs IPC:** every pin of the 46 parts drawn in T2 was compared with
    its PDF label (pages 9 / 12 by assertions in the scripts): the only differences are the page 9
    alias pairs (JFET_GPIO_n), JFET_1 = A, the case (gnd) and AGND / DGND = GND. `GPIOB_N12`
@@ -1247,6 +1432,22 @@ solved in tools/p2k later (with the ac_psu regression); until then the wrappers 
    the pad-decision negative test N1). The second message should be skipped for refdes already reported
    as "no footprint rule".
 
+30. **Phase 4 acceptances (candidates 1, 3, 21, 24, 27 in `ipc356_diff` / `gerber_roundtrip`)**: board-local
+   `tools/phase4_wrap.py`. `ipc356_diff` needs the `SPLIT_PIN_MERGES` key (accept exactly those "KiCad net
+   spans Proteus nets" pairs, print them as accepted); SMD `free_pad` records already work there (matched by
+   the `FREE_PAD_PREFIX` refdes). `gerber_roundtrip.PAD_FUNCTIONS` lacks `BGAPad`. Both tools end with
+   different conventions (`ipc356_diff.main` returns, `gerber_roundtrip.main` calls `sys.exit`).
+31. **`DRILL_SMALLER` is matched by diameter pair, not by pad** (PI/FX finding, confirmed here): board-local
+   `tools/check_drill_smaller.py`. Needed: pads (refdes, pin) or refdes per entry, checked by both tools.
+32. **Joined N/C pins**: `compare_netlists` treats each pin of an `unconnected-(…)` net as a singleton and
+   `ipc356_diff` accepts an N/C pad on any such net, so N/C pins joined under a no-connect flag pass both
+   (only ERC `no_connect_connected` catches the schematic case). Board-local: one pin / one pad per
+   `unconnected-(…)` net in `tools/compare_netlists.py` and `tools/phase4_wrap.py`. Needed in both tools.
+33. **`gerber_roundtrip` does not compare object counts**: a track lying (almost) inside two pads can be
+   missing without an area or coverage difference (0.43 mm ball-to-via stub). Board-local: recorded KiCad
+   track draws per layer and flashes = Proteus flashes, from the report. Needed: the tool comparing the
+   KiCad track count per layer with the Proteus Conductor draws that became tracks (gerber_to_tracks' count).
+
 ## Decisions
 
 - **Board thickness (user decision, 2026-11-20, through the coordinating session; finding 5): 1.6 mm** (`PCB_THICKNESS = 1.6`); the
@@ -1289,5 +1490,9 @@ solved in tools/p2k later (with the ac_psu regression); until then the wrappers 
   on exactly the 15 parts **U1 U2 U3 U5 U6 U7 U8 U9 U11 U14, ADC1, U4, U12, J7 and J11** (J7 / J11 with
   the Proteus drill 0.558 mm); KiCad pads everywhere else, **U10 keeps the KiCad balls** (0.28 mm).
   Applied in Phase 3: `PROTEUS_PADS` in `tools/gen_footprints.py` ("Phase 3 – PCB – done").
+
+- **Use of this board (user information through the coordinating session, 2026-11-20):** the Ti60F225 control card
+  v2.5 is **not installed in the amplifier** (the Agilex 3 card is). This conversion is a reference and a starting
+  point only; nothing in the verification depends on it.
 
 Open: none.

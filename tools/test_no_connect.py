@@ -10,6 +10,11 @@ in four variants and runs the real checks (tools/erc.sh, tools/compare_netlists.
   wired        pin 4 wired to pin 5, no flag                         -> compare fails
   old_lib      as wired_flag, but pin 4 of type no_connect (the      -> compare PASSES (the blind
                library before D2)                                       spot), ERC fails (fatal warning)
+  joined_flag  pins 4 and 7 (both N/C) wired to each other, a flag   -> ERC fails (fatal warning); compare
+               on pin 4 (KiCad: one unconnected-(...) net, 2 pins)      fails only through the board-local
+                                                                        one-pin rule (Phase 4; the shared
+                                                                        compare alone passes)
+  joined       pins 4 and 7 wired to each other, no flag             -> compare fails (Net-(PWR4-NC))
 
 Exit status 0 when every variant behaves as listed. Not part of check_all.sh (slow, needs the
 scratch copy); run it after a change of tools/erc.sh, tools/gen_symbols.py or the p2k pin.
@@ -26,7 +31,9 @@ SHEET = "11_bias_dac_rs485.kicad_sch"
 EXPECT = {"ok":         (True, True),
           "wired_flag": (False, False),
           "wired":      (None, False),
-          "old_lib":    (False, True)}
+          "old_lib":    (False, True),
+          "joined_flag": (False, False),
+          "joined":     (None, False)}
 
 
 def draw(variant):
@@ -45,11 +52,17 @@ def draw(variant):
         flagged_power(sh, net, *q)
     power_at(sh, "ISO5V", p.pin(5), "right")
     power_at(sh, "RS485_GND", p.pin(6), "right")
-    for pin in (3, 7):
+    joined = variant in ("joined_flag", "joined")
+    for pin in (3,) if joined else (3, 7):
         sh.no_connect(*p.pin(pin))
-    if variant != "wired":
+    if variant not in ("wired", "joined"):
         sh.no_connect(*p.pin(4))
-    if variant != "ok":
+    if joined:
+        x4, y4 = p.pin(4)
+        x7, y7 = p.pin(7)
+        xx = round(x4 + g(8), 4)
+        sh.wire((x4, y4), (xx, y4), (xx, y7), (x7, y7))
+    elif variant != "ok":
         x4, y4 = p.pin(4)
         x5, y5 = p.pin(5)
         sh.wire((x4, y4), (round(x4 + g(2), 4), y4), (round(x4 + g(2), 4), y5))
@@ -91,9 +104,9 @@ def main():
         ok = (erc_ok is None or got[0] == erc_ok) and got[1] == cmp_ok
         bad += not ok
         word = lambda b: "pass" if b else "FAIL"
-        print(f"{variant:11s} ERC {word(got[0])}, compare {word(got[1])}   -> {'as expected' if ok else 'UNEXPECTED'}")
+        print(f"{variant:12s} ERC {word(got[0])}, compare {word(got[1])}   -> {'as expected' if ok else 'UNEXPECTED'}")
         for line in (erc.stdout + cmp_.stdout).splitlines():
-            if "no_connect" in line or "N/C mismatch" in line or line.startswith(("ERROR", "erc:")) or "@(" in line:
+            if "no_connect" in line or "N/C mismatch" in line or "joins" in line or line.startswith(("ERROR", "erc:")) or "@(" in line:
                 print("     " + line.strip())
     print("test_no_connect: " + ("OK" if not bad else f"{bad} variant(s) unexpected"))
     return 1 if bad else 0

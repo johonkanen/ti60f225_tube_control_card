@@ -45,6 +45,17 @@ step "Board pads, holes, test pads, vias vs IPC (position, size, nets 1:1, D1 me
 step "Board copper connectivity after zone fill (assign_nets --check)" python3 tools/drc_check.py copper
 step "DRC with schematic parity" python3 tools/drc_check.py drc
 
+# Phase 4: independent verification (kicad-cli IPC-D-356 export and gerber plot of the board vs Proteus).
+# tools/phase4_wrap.py: the shared tools unchanged; ipc356_diff judged with exactly the five D1 merges
+# accepted (+ test pads, U10 balls, one pad per unconnected-(...) net); gerber_roundtrip with BGAPad
+# flashes counted as pads. DRILL_SMALLER (J8, 1.016 -> 1.0) is accepted by the shared tools by diameter
+# pair; tools/check_drill_smaller.py requires it per pad (exactly J8-1..3).
+step "IPC-D-356 from the board vs Proteus (pads, vias, holes, test pads, nets; D1 merges accepted)" python3 tools/phase4_wrap.py ipc356_diff
+step "Smaller board drills are exactly the three decided J8 holes" tools/p2k/bin/kipy tools/check_drill_smaller.py
+step "Gerber round trip vs Proteus (copper XOR incl. pours, coverage, drills, Excellon)" python3 tools/phase4_wrap.py gerber_roundtrip --check
+# the Phase 4 reader's own transcript of the PDF (every pin, by eye; own IPC parser, no p2k code) vs IPC and KiCad netlist
+step "Independent PDF reading vs IPC and KiCad netlist (tools/phase4_reading)" python3 tools/phase4_reading/reading.py
+
 echo
 pending=$(grep -c "PENDING USER DECISION" "$log")
 if [ $fail -ne 0 ]; then echo "SOME CHECKS FAILED"
