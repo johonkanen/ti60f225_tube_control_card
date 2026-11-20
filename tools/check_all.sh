@@ -24,6 +24,13 @@ step "ERC" tools/erc.sh
 # full comparison: all 146 parts, every IPC net complete (no --allow-missing)
 step "Netlist comparison vs IPC (D1 merges accepted)" python3 tools/compare_netlists.py
 
+# Phase 2: footprints
+step "Footprint library, map and fp-lib-table up to date" python3 tools/gen_footprints.py --check
+step "Footprints vs IPC pad geometry (fit and pcbnew placement)" tools/p2k/bin/kipy -m p2k.check_footprints --pcbnew
+# unmoved KiCad base footprints with the renumbering of gen_footprints (a wrong renumbering passes
+# check_footprints because p2k.footprints.derive moves the pads); U10 ball A1 orientation (180 deg)
+step "Pin order vs unmoved KiCad base footprints" python3 tools/check_pin_order.py
+
 echo
 [ $fail -eq 0 ] && echo "ALL CHECKS PASSED" || echo "SOME CHECKS FAILED"
 exit $fail

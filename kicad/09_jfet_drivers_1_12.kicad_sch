@@ -1092,7 +1092,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus"
 			(at 102.87 67.31 0)
 			(effects
 				(font
@@ -1238,7 +1238,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 81.28 74.422 0)
 			(effects
 				(font
@@ -1373,7 +1373,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 102.87 92.202 0)
 			(effects
 				(font
@@ -1518,7 +1518,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus"
 			(at 168.91 69.85 0)
 			(effects
 				(font
@@ -1664,7 +1664,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 147.32 76.962 0)
 			(effects
 				(font
@@ -1799,7 +1799,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 168.91 94.742 0)
 			(effects
 				(font
@@ -1944,7 +1944,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus"
 			(at 226.06 67.31 0)
 			(effects
 				(font
@@ -2090,7 +2090,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 204.47 74.422 0)
 			(effects
 				(font
@@ -2225,7 +2225,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 226.06 92.202 0)
 			(effects
 				(font
@@ -2382,7 +2382,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus"
 			(at 283.21 67.31 0)
 			(effects
 				(font
@@ -2528,7 +2528,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 261.62 74.422 0)
 			(effects
 				(font
@@ -2663,7 +2663,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 283.21 92.202 0)
 			(effects
 				(font
@@ -2818,7 +2818,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus"
 			(at 102.87 67.31 0)
 			(effects
 				(font
@@ -3058,7 +3058,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus"
 			(at 99.06 120.65 0)
 			(effects
 				(font
@@ -3204,7 +3204,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 77.47 127.762 0)
 			(effects
 				(font
@@ -3339,7 +3339,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 99.06 145.542 0)
 			(effects
 				(font
@@ -3496,7 +3496,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus"
 			(at 163.83 123.19 0)
 			(effects
 				(font
@@ -3642,7 +3642,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 142.24 130.302 0)
 			(effects
 				(font
@@ -3777,7 +3777,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 163.83 148.082 0)
 			(effects
 				(font
@@ -3934,7 +3934,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus"
 			(at 223.52 120.65 0)
 			(effects
 				(font
@@ -4080,7 +4080,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 201.93 127.762 0)
 			(effects
 				(font
@@ -4215,7 +4215,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 223.52 145.542 0)
 			(effects
 				(font
@@ -4360,7 +4360,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus"
 			(at 278.13 120.65 0)
 			(effects
 				(font
@@ -4506,7 +4506,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 256.54 127.762 0)
 			(effects
 				(font
@@ -4641,7 +4641,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 278.13 145.542 0)
 			(effects
 				(font
@@ -4784,7 +4784,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus"
 			(at 99.06 120.65 0)
 			(effects
 				(font
@@ -5024,7 +5024,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus"
 			(at 99.06 166.37 0)
 			(effects
 				(font
@@ -5170,7 +5170,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 77.47 173.482 0)
 			(effects
 				(font
@@ -5305,7 +5305,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 99.06 191.262 0)
 			(effects
 				(font
@@ -5462,7 +5462,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus"
 			(at 163.83 168.91 0)
 			(effects
 				(font
@@ -5608,7 +5608,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 142.24 176.022 0)
 			(effects
 				(font
@@ -5743,7 +5743,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 163.83 193.802 0)
 			(effects
 				(font
@@ -5900,7 +5900,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus"
 			(at 223.52 166.37 0)
 			(effects
 				(font
@@ -6046,7 +6046,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 201.93 173.482 0)
 			(effects
 				(font
@@ -6181,7 +6181,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 223.52 191.262 0)
 			(effects
 				(font
@@ -6338,7 +6338,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus"
 			(at 279.4 166.37 0)
 			(effects
 				(font
@@ -6484,7 +6484,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 257.81 173.482 0)
 			(effects
 				(font
@@ -6619,7 +6619,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:R_Array_Convex_4x0402_Proteus"
 			(at 279.4 191.262 0)
 			(effects
 				(font
@@ -6774,7 +6774,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus"
 			(at 99.06 166.37 0)
 			(effects
 				(font

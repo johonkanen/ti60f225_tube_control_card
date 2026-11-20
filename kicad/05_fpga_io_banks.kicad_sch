@@ -4247,7 +4247,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_BGA:TFBGA-225_10x10mm_Layout15x15_P0.65mm"
 			(at 109.22 77.47 0)
 			(effects
 				(font
@@ -5082,7 +5082,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_BGA:TFBGA-225_10x10mm_Layout15x15_P0.65mm"
 			(at 238.76 76.2 0)
 			(effects
 				(font
@@ -5735,7 +5735,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_BGA:TFBGA-225_10x10mm_Layout15x15_P0.65mm"
 			(at 110.49 171.45 0)
 			(effects
 				(font
@@ -6498,7 +6498,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Package_BGA:TFBGA-225_10x10mm_Layout15x15_P0.65mm"
 			(at 242.57 154.94 0)
 			(effects
 				(font

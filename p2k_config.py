@@ -136,3 +136,18 @@ OUTLINE_RECT = (13.87, -42.75, 97.79, 55.88)  # x, y, width, height
 
 # Excellon drill of the RS-274X export (same 377 hits as the X2 drill gerber, Phase 0).
 DRILL_EXCELLON = "source/cadcam_rs274x/fpga_boardv2.5 - CADCAM Drill.DRL"
+
+# --- Footprints (Phase 2: tools/gen_footprints.py, p2k check_footprints) -------------
+
+# KiCad library pad sizes and drills; pad centres on the Proteus positions. Differences per refdes
+# in STATUS.md "Phase 2 - pad sizes and drills" (open user decision for Phase 3 / 4).
+FOOTPRINT_PAD_SIZES = "kicad"
+
+# Board-only footprints for Phase 3 (p2k.build_pcb): the 4 plated 3.0 mm mounting holes and the
+# 4 SMD test pads (IPC 'free_pad' records; the footprint is an SMD pad, board-local in
+# tools/gen_footprints.py, p2k candidate 2 - build_pcb's handling of it is a Phase 3 check).
+HOLE_FOOTPRINT = "tube_control_card:MountingHole_3.0mm_PTH_Pad6.35mm"
+HOLE_VALUE = "MountingHole_3.0mm_PTH"
+FREE_PAD_FOOTPRINT = "tube_control_card:TestPad_SMD_D0.711mm"
+FREE_PAD_VALUE = "TestPad"
+FREE_PAD_PREFIX = "TP"

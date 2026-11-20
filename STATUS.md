@@ -6,10 +6,237 @@ Plan: [PLAN.md](PLAN.md). Playbook: `tools/p2k/CONVERSION_PLAYBOOK.md`.
 |---|---|
 | 0 Skeleton and inventory | **done** 2026-11-20 (Opus 5.5) |
 | 1 Schematic | **done** 2026-11-20: preparation (Opus 5.5), transcription sessions T1, T2, T3 (Fable 5.2): 12 sheets, 146 of 146 parts, full netlist comparison clean, ERC 0 errors |
-| 2 Footprints | not started |
+| 2 Footprints | **done** 2026-11-20 (Opus 5.5): 146/146 parts fit the IPC pads (worst 0.030 mm), pin order checked, findings 9 and 12 answered |
 | 3 PCB | not started |
 | 4 Verification | not started |
 | 5 Clean-up | not started |
+
+## Phase 2 – done (Opus 5.5, 2026-11-20)
+
+New (all generated; the `--check` steps are in `tools/check_all.sh`):
+
+- **`tools/gen_footprints.py`** (RULES + PROJECT of this board, shared code `p2k.footprints`) →
+  **`lib/footprint_map.csv`** (146 parts, 28 footprints) and **`lib/tube_control_card.pretty`** (15
+  project footprints: 10 derived from KiCad footprints, 3 built from the IPC pads, 2 board-only), plus
+  **`kicad/fp-lib-table`** (board-local helper as on tube_hv_supplies: `footprints.run` does not write
+  it, p2k candidate 22). The board-only **SMD test pad** (`TestPad_SMD_D0.711mm`, F.Cu + F.Mask, pad 1)
+  is built board-locally: `gen_footprints.py` wraps `footprints.build_library` for specs with
+  `smd_pad=` (`footprints.single_pad` makes THT pads only, p2k candidate 2/21), so `run()` writes it and
+  `--check` verifies it like every other footprint.
+- **`p2k_config.py`**: `FOOTPRINT_PAD_SIZES = "kicad"`; for Phase 3 `HOLE_FOOTPRINT` =
+  `tube_control_card:MountingHole_3.0mm_PTH_Pad6.35mm` (plated 3.0 mm, 6.35 mm pad on `*.Cu`, no net),
+  `FREE_PAD_FOOTPRINT` = `tube_control_card:TestPad_SMD_D0.711mm` (prefix `TP`). Whether
+  `p2k.build_pcb` places an SMD footprint at the four `free_pad` records correctly (net, top side) is a
+  Phase 3 check.
+- The 12 sheet scripts re-run (`tools/make_sheets.sh`): **only the Footprint fields changed** (193
+  lines, checked with `git diff`: no other line); `make_sheets --check`, ERC (0 errors, 14 warnings) and
+  the full compare (0 wrong-net pins, 298/298 nets complete) unchanged. gen_symbols / check_symbols /
+  test_no_connect not affected (no symbol change).
+- **`tools/check_pin_order.py`** (board-local, after tube_hv_supplies'): the **unmoved** KiCad base
+  footprints with the Proteus renumbering fitted onto the IPC pads, both mirror states; every footprint
+  is taken **from `gen_footprints.RULES` / `PROJECT`** (`rule()`), so a changed renumbering or rule fails
+  here even though `check_footprints` passes (negative tests T3, T4). New against the HV version: an
+  expected fit **angle** (U10 must fit at 180 deg, else the A1 corner of the footprint graphics is wrong,
+  T4). `--render` draws the fitted KiCad graphics over the Proteus silk / assembly of the part's side
+  (`reports/pin_order/<refdes>.png`, git-ignored; 19 parts compared by eye).
+- **`reports/footprint_fit.csv`** (placement input for Phase 3) and `reports/footprint_pads.csv`.
+
+### Footprints and fit (`p2k check_footprints --pcbnew`)
+
+**146/146 parts fitted, 884 pads, 28 footprints, worst residual 0.030 mm (limit 0.05); pcbnew placement
+of 146 parts, worst pad offset 0.030 mm.** One note: `J3: THT pad pattern fits only mirrored -> bottom
+side` – correct, J3 is drawn on the Proteus **bottom** assembly layer (render). All 80 bottom SMD parts
+fit mirrored; every other THT part fits on top.
+
+| Footprint | Parts | Max res. mm | IPC pattern / why |
+|---|---|---|---|
+| `Package_BGA:TFBGA-225_10x10mm_Layout15x15_P0.65mm` | U10 | **0.000** | KiCad footprint unchanged (its descr cites the Efinix Titanium packaging guide): pad names A1..R15 (no I, O) = the IPC ball ids = the symbol pins; placed at **180 deg** (A1 at IPC (41.573, -18.26)); KiCad pads 0.28 mm (Proteus 0.30), NSMD mask margin 0.075 |
+| `Package_SO:TSSOP-24_4.4x7.8mm_P0.65mm` | U1 U2 U7 U8 U9 | 0.013 | unchanged |
+| `Package_SO:TSSOP-16_4.4x5mm_P0.65mm` | U3 (bottom) | 0.013 | unchanged |
+| `tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus` | U5 U6 U11 U14 | 0.000 | rows 5.85 (KiCad 5.725 = 0.063 off): derived, pads moved |
+| `tube_control_card:SOT-23-5_Proteus` | U4 V4 (bottom) | 0.000 | rows 2.39 (KiCad 2.30, 0.068 off) |
+| `tube_control_card:SOT-23-6_ADC121C027_Proteus` | ADC1 | 0.000 | KiCad pads 1-6 → A1 A2 COM2 K2 K1 COM1 (as tube_hv_supplies), rows 2.65 (KiCad 2.275) |
+| `tube_control_card:SOT-363_SC-70-6_Proteus` | U12 | 0.000 | rows 1.80 (KiCad 1.675, 0.063 off) |
+| `tube_control_card:SOT-563_Proteus` | PWR1 PWR2 PWR3 (bottom) | 0.000 | rows 1.27 (KiCad 1.425, 0.078 off) |
+| `tube_control_card:Texas_X2QFN-8_RUG_1.5x1.5mm_P0.5mm` | AD2 (bottom) | 0.000 | KiCad has no TI RUG: built from the IPC pads (Proteus pad sizes, body 1.5 x 1.5) |
+| `tube_control_card:Oscillator_SMD_2.0x1.6mm_Proteus` | OSC1 | 0.000 | from the SiT 2.0 x 1.6 PQFN-4, pads moved to 1.8 x 1.2 (KiCad 1.5 x 1.1) |
+| `tube_control_card:SOIC-8_7.5x5.85mm_P1.27mm_Proteus` | RS1 | 0.000 | Proteus `SO8W`, pad rows **9.14** (KiCad wide SOIC-8 10.65) |
+| `tube_control_card:SOIC-8_5.3x5.3mm_P1.27mm_Proteus` | FLASH1 | 0.000 | 208 mil SOIC-8 (W25Q64JW**SS**) on the same Proteus `SO8W` pattern, rows 9.14 (KiCad 7.175): finding 24 |
+| `tube_control_card:R_Array_Convex_4x0402_Proteus` | R14 R15 R17 R18 R22-R25 | 0.000 | ROHM MNR04 style, rows 0.95 (KiCad 1.0, 0.056 off) |
+| `Resistor_SMD:R_0201_0603Metric` | R11 R32 R35-R40 (bottom) | 0.030 | Proteus `CAPC0603X33` (0201), 0.70 apart |
+| `Resistor_SMD:R_0402_1005Metric` | 29 (R1-R10, R12, R13, R16, R19-R21, R26-R31, R33, R34, R41-R44, R59) | 0.010 | RESC1005X40 |
+| `Resistor_SMD:R_1206_3216Metric_Pad1.30x1.75mm_HandSolder` | R67 R68 R69 | 0.025 | 1206, 3.15 apart (plain R_1206 0.112 off) |
+| `Capacitor_SMD:C_0201_0603Metric` | C21-C25 C29 C30 C33 C36 C40 (bottom) | 0.030 | CAPC0603X33 |
+| `Capacitor_SMD:C_0402_1005Metric` | 40 | 0.030 | CAPC1005X55 |
+| `Capacitor_SMD:C_0603_1608Metric` | C19 C20 C51 C53 C54 | 0.025 | CAPC1608X87 |
+| `Capacitor_SMD:C_1206_3216Metric` | C55 C58 | 0.025 | CAPC3216X140 |
+| `Inductor_SMD:L_0805_2012Metric` | L1 L3 L4 L5 (bottom) | 0.025 | IND805 |
+| `tube_control_card:PinHeader_2x20_P1.27mm_Vertical_RowsSwapped` | J11 | 0.000 | KiCad 2x20 1.27 mm header, odd / even pad numbers swapped (finding 25); pins 37 / 38 N/C |
+| `Connector_PinHeader_1.27mm:PinHeader_2x15_P1.27mm_Vertical` | J7 | 0.000 | standard numbering, top |
+| `Connector_PinHeader_1.27mm:PinHeader_2x08_P1.27mm_Vertical` | J3 (**bottom**), J6 | 0.000 | standard numbering |
+| `Connector_PinHeader_2.54mm:PinHeader_1x03_P2.54mm_Vertical` | J8 | 0.000 | CON3_1X3_U_FCI |
+| `TerminalBlock_Phoenix:TerminalBlock_Phoenix_MPT-0,5-5-2.54_1x05_P2.54mm_Horizontal` | J1 | 0.000 | TBLOCK-I5, P2.54 (JTAG); see "open questions" |
+| `tube_control_card:Converter_IZB03_SIP7` | PWR4 | 0.000 | built from the IPC pads: 7 pins at 2.54, pin 4 position empty (gap 5.08 between pins 3 and 4) |
+| `tube_control_card:Terminal_2x1_P5.00mm_D2.0mm_Drill1.4mm` | J2 J4 J5 J9 ISO5V ISO_G RS485A RS485B | 0.000 | from the IPC pads (J2): two 1.4 mm holes 5 mm apart, **both pad 1** (D1) |
+| `tube_control_card:MountingHole_3.0mm_PTH_Pad6.35mm` | (board-only, Phase 3 H1-H4) | | plated 3.0 mm, 6.35 mm pad, every copper layer, no net |
+| `tube_control_card:TestPad_SMD_D0.711mm` | (board-only, Phase 3 TP1-TP4) | | 0.711 mm round SMD pad, top (SMD_FREE_PADS) |
+
+**D1 terminals in check_footprints:** the five split terminals need nothing board-local here:
+`fpgeom.ipc_pads_by_refdes` keeps both IPC records of pin 1 (one per net) and `fpgeom.fit` pairs pads
+that share a number by trying the permutations, so both pads of J2, ISO5V, ISO_G, RS485A and RS485B are
+fitted (884 pads = all IPC component pads; residual 0.000). The nets of the two pads are not compared by
+this check; the D1 acceptance is needed in the Phase 3-4 net checks (p2k candidate 1).
+
+### Pin order (`tools/check_pin_order.py`)
+
+| Check | Unmoved KiCad base | Unmirrored | Mirrored | Result |
+|---|---|---|---|---|
+| U10 | TFBGA-225 P0.65 | **0.000 @ 180** | 9.795 | ball ids = KiCad pad names; A1-top-left footprint at 180 deg. The Proteus top silk has a dot next to ball A1, where the KiCad A1 corner mark lands (render) |
+| ADC1, A1 A2 COM2 K2 K1 COM1 = 1-6 | SOT-23-6 | **0.188** (rows) | 1.909 | fits on top |
+| ADC1, COM2 on 1 / A1 on 3 (datasheet wiring) | SOT-23-6 | 1.909 | 0.188 | fits only mirrored: impossible on a top part |
+| U4 V4 (bottom) | SOT-23-5 | 1.906 | **0.068** | chirality right for a bottom part |
+| U12 | SOT-363 SC-70-6 | **0.063** | 1.302 | top |
+| PWR1-3 (bottom) | SOT-563 | 1.003 | **0.078** | bottom |
+| U5 U6 U11 U14 | TSSOP-14 | **0.063** | 3.901 | top |
+| U1 U2 U7 U8 U9 | TSSOP-24 | **0.013** | 7.150 | top |
+| U3 (bottom) | TSSOP-16 | 4.550 | **0.013** | bottom |
+| R14 ... R25 | R_Array_Convex_4x0402 | **0.056** | 0.976 | top |
+| OSC1 | SiT PQFN-4 2.0x1.6 | **0.150** | 1.209 | top (pads 1 EN, 2 GND, 3 OUT, 4 VCC counter-clockwise from the top, as the MC2016) |
+| RS1 / FLASH1 | SOIC-8 wide / 208 mil | **0.753 / 0.985** (rows) | 3.88 / 3.94 | top |
+| J11, KiCad numbering | PinHeader_2x20_P1.27mm | 1.270 | **0.000** | fits only mirrored, but J11 is a top part (finding 25) |
+| J11, odd / even swapped | PinHeader_2x20_P1.27mm | **0.000** | 1.270 | the footprint used |
+| J3 | PinHeader_2x08_P1.27mm | 1.270 | **0.000** | standard numbering on a **bottom** part (Proteus bottom assembly outline + "J3") |
+| J6 / J7 | PinHeader 2x08 / 2x15 | **0.000** | 1.270 | standard, top |
+| J1 / J8 | MPT 1x05 / PinHeader 1x03 | 0.000 | 0.000 | inline (symmetric) |
+
+Without a KiCad base (built from the IPC pads, so the pad ids are the IPC's by construction): AD2
+(X2QFN-8, bottom: pads 1-3 / 4 / 5-7 / 8 run counter-clockwise seen from below = JEDEC order for a
+bottom part; pin 8 AINM on GND, 6 AVDD on #00427 behind L3, 4 DVDD on 1V8, as finding 17), PWR4 (inline),
+the blade terminals. The dual-row SMD patterns are symmetric under 180 deg, so the geometry confirms the
+chirality, and the pin-1 end follows from the nets checked in Phase 1 (supply / GND pins on the
+datasheet pads).
+
+- **Finding 9 – ADC1 (ADC121C027): reproduced exactly and confirmed** (same result as tube_hv_supplies
+  finding 6). The project footprint's pads are the IPC pads; the chirality test puts A1-A2-COM2-K2-K1-COM1
+  counter-clockwise from the top = JEDEC 1-6. With A1 = pad 4 instead, GND would be on SCL, so:
+
+  | SOT-23-6 pad | Proteus id | IPC position | ADC121C027 datasheet pin | IPC net on the board |
+  |---|---|---|---|---|
+  | 1 | A1 | (99.30, -22.10) | **VA** (supply, reference) | **#00660** = filtered BIASFEEDBACK (R34 / C68) |
+  | 2 | A2 | (99.30, -21.15) | GND | GND |
+  | 3 | COM2 | (99.30, -20.20) | **VIN** (analog input) | **3V3** |
+  | 4 | K2 | (96.65, -20.20) | ADR0 | N/C (floating = one of the three address states) |
+  | 5 | K1 | (96.65, -21.15) | SCL | GPIOR_22 |
+  | 6 | COM1 | (96.65, -22.10) | SDA | GPIOR_28 |
+
+  So on the built board **3V3 is on the input pin VIN and the filtered bias-feedback signal on the
+  supply pin VA**: VA / VIN are swapped (unless the board was reworked). The KiCad pin-1 mark lands at
+  A1; the Proteus silk / assembly have no pin-1 mark.
+- **Finding 12 – AP61202 pin 6: resolved.** Diodes datasheet DS44251 (AP61200/1/2/3, "Pin
+  Descriptions"): SOT563 pin 1 FB, 2 GND, 3 VIN, 4 SW, 5 EN, **6 = OUT on AP61200/AP61201, PG
+  (open-drain power good, internal 5 MΩ pull-up to VIN, max 6.0 V) on AP61202/AP61203**. The Proteus ids
+  1-6 are the datasheet pins (chirality: fits mirrored on the bottom parts, 0.078; pin 1 FB on the
+  divider #00148 of PWR2, 2 GND, 3 5V, 4 SW node, 5 EN on 5V). So PWR2 pin 6 is PG and drives 1V_ENABLE
+  (R1 10k to 5V, within the 6.0 V PG rating) = the EN pins of PWR1 / PWR3: a correct power-good
+  sequencing (1V core first, then 1V8 / 3V3). Only the Proteus pin **name** "VOUT" is wrong (the
+  AP61200 name); PG is N/C on PWR1 / PWR3.
+- **J11 (ribbon to the HV supplies board): numbered as the MIRROR of a standard 2x20 header, mounted on
+  top** – exactly like tube_hv_supplies J1 (its finding 12), the other end of the ribbon. See finding 25.
+
+### Pad sizes and drills vs Proteus (OPEN USER DECISION, Phase 3 / 4)
+
+`FOOTPRINT_PAD_SIZES = "kicad"`: KiCad pad sizes and drills everywhere except the footprints built
+from the IPC pads (terminals, IZB03, X2QFN-8, test pad). Per refdes (`reports/footprint_pads.csv`,
+IPC size → KiCad size as written in the files, not rotated):
+
+| Parts | Proteus pad | KiCad pad | Proteus drill | KiCad drill |
+|---|---|---|---|---|
+| U10 | 0.30 round | 0.28 round (NSMD, mask +0.075) | | |
+| J11 J7 J3 J6 | 0.812 round | 1.0 | 0.558 | 0.65 (larger); gap between KiCad pads at 1.27 mm pitch 0.27 (Proteus 0.458) |
+| J8 | 2.032 | 1.7 (pad 1 square) | 1.016 | **1.0 (smaller: needs a `DRILL_SMALLER` entry or the Proteus pads)** |
+| J1 | 2.032 | 2.2 | 1.016 | 1.1 (larger) |
+| PWR4, J2 J4 J5 J9 ISO5V ISO_G RS485A RS485B | 1.27 / 2.0 | same | 0.762 / 1.4 | same |
+| U1 U2 U7 U8 U9, U3, U5 U6 U11 U14 | 0.4 x 1.1 | 0.4 x 1.475 | | |
+| U4 V4 | 0.508 x 0.635 | 0.6 x 1.325 | | |
+| ADC1 | 0.5 x 0.65 | 0.6 x 1.325 | | |
+| U12 | 0.35 x 0.5 | 0.35 x 1.025 | | |
+| PWR1 PWR2 PWR3 | 0.3 x 0.67 | 0.35 x 0.675 | | |
+| RS1 | 0.635 x 2.032 | 0.6 x 1.8 | | |
+| FLASH1 | 0.635 x 2.032 | 0.65 x 1.625 | | |
+| OSC1 | 0.8 x 0.6 | 0.9 x 0.8 (long axis turned 90 deg against Proteus) | | |
+| R14 R15 R17 R18 R22-R25 | 0.4 / 0.3 x 0.5 | 0.5 x 0.4 / 0.3 (same) | | |
+| R67 R68 R69 | 1.016 x 1.524 | 1.3 x 1.75 | | |
+| L1 L3 L4 L5 | 1.016 x 1.524 | 0.875 x 1.2 (smaller) | | |
+| C55 C58 | 1.143 x 1.803 | 1.15 x 1.8 | | |
+| C19 C20 C51 C53 C54 | 0.939 x 0.99 | 0.9 x 0.95 | | |
+| 40 0402 capacitors | 0.609 round | 0.56 x 0.62 | | |
+| 29 0402 resistors | 0.558 x 0.609 | 0.54 x 0.64 | | |
+| 10 0201 capacitors, 8 0201 resistors | 0.406 x 0.457 | 0.46 x 0.4 | | |
+| AD2 | 0.3 x 0.6, 0.55 x 0.2 / 0.25 | same (built from the IPC) | | |
+
+Likely Phase 3 DRC trouble spots (to be measured there, not decided now): the KiCad pads that are
+**much longer** than the Proteus pads – TSSOP (1.475 vs 1.1), SOT-23-5 / SOT-23-6 (1.325 vs 0.635),
+SC-70-6 (1.025 vs 0.5) – reach Proteus tracks / vias between and beyond the pad rows; the 1.0 mm
+header pads at 1.27 mm pitch (0.27 mm between pads, Proteus tracks between header pins?); the BGA
+needs nothing larger (KiCad 0.28 pads make finding 4's gaps 0.010 mm wider: 0.075 → 0.085 mm, still
+far below any normal clearance, so `PCB_RULES.clearance` has to follow the measured Proteus gaps).
+Switching parts to the Proteus pads (`refdes=` rules with `ipc_sizes`, as tube_psu did) is the user's
+call after the Phase 3 DRC.
+
+### Open questions for the user (not blocking Phase 3)
+
+1. **Pad sizes** (table above): KiCad pads kept; which parts switch to the Proteus pads follows from the
+   Phase 3 DRC (record per refdes then).
+2. **J8 drill:** the KiCad 1x03 header has a 1.0 mm drill, Proteus 1.016 (the only KiCad drill smaller
+   than Proteus). Accept it (`DRILL_SMALLER = {(1.016, 1.0): ...}` for Phase 4) or give J8 the Proteus
+   pads / drill.
+3. **J1 (JTAG, Proteus "TBLOCK-I5 / 5 PIN TERMINAL BLOCK"):** the Proteus outline is a 14 x 3.1 mm
+   rectangle centred on the pins (a pin-header-like body), so the KiCad Phoenix MPT terminal block
+   (6.2 mm deep) is a guess; a 1x05 2.54 mm pin header would match the outline better (but has a 1.0 mm
+   drill). Phase 5 choice; the copper is the same either way.
+4. **FLASH1** (finding 24): reproduced on the Proteus SO8W pad rows; nothing to decide for rev A.
+
+### Negative tests (scratch copy `build/tmp/neg`, `P2K_BOARD`, script `build/tmp/negtest.sh`, not committed)
+
+- **T1 a pad moved 0.06 mm** (J11 project footprint, pad 7, x + 0.06 in the .kicad_mod) →
+  `gen_footprints --check` "out of date: …RowsSwapped.kicad_mod"; check_footprints "J11 … residual
+  0.059 mm (pad 7 0.059 …)" and "J11: pcbnew placement off by 0.059 mm", FAILED.
+- **T2 swapped pad numbers in a footprint file** (TSSOP-14 project footprint, pads 3 / 4) →
+  gen_footprints out of date; check_footprints "U5 … residual 0.650 mm (pad 4 0.650, pad 3 0.650)" (and
+  U6, U11, U14), FAILED.
+- **T3 swapped renumbering in `gen_footprints.py`** (ADC A1 ↔ COM2) and regenerated → gen_footprints
+  up to date, **check_footprints passes** (`derive` moves the pads onto the IPC positions),
+  `check_pin_order` "ADC1: unmirrored 1.909, expected unmirrored <= 0.19", FAILED.
+- **T4 wrong rotation** (U10 as a project footprint derived from the KiCad BGA with the ball ids turned
+  by 90 deg) and regenerated → gen_footprints up to date, check_footprints passes (the ids land on the
+  right IPC pads, only the footprint's A1 corner / outline is turned), `check_pin_order` "U10 BGA:
+  unmirrored 0.000 @90 deg, expected unmirrored <= 0.001 @180 deg", FAILED (the angle check is new for
+  this reason).
+- T5 a rule note edited without regenerating → gen_footprints "out of date: lib/footprint_map.csv".
+
+### Phase 2 verification (`tools/check_all.sh`)
+
+```
+(KiCad environment, IPC self-check, X2 vs IPC: unchanged, see Phase 0)
+(Part map, symbol library, symbol pin sets, sheets up to date: unchanged)
+== ERC
+erc: 0 errors, 14 warnings (14 isolated_pin_label) (reports/erc.rpt)
+== Netlist comparison vs IPC (D1 merges accepted)
+compare: parts 146/146 present, 0 missing, 0 extra; pins compared 876, wrong-net pins 0; IPC nets touched 298, complete 298
+compare: OK
+== Footprint library, map and fp-lib-table up to date
+gen_footprints: 146 parts, 28 footprints (15 project), up to date
+== Footprints vs IPC pad geometry (fit and pcbnew placement)
+check_footprints: pcbnew placement of 146 parts, worst pad offset 0.030 mm
+check_footprints: note: J3: THT pad pattern fits only mirrored -> bottom side
+check_footprints: 146/146 parts fitted, 884 pads, 28 footprints, worst residual 0.030 mm (limit 0.05)
+check_footprints: OK
+== Pin order vs unmoved KiCad base footprints
+(table above)
+check_pin_order: OK (results as recorded in STATUS.md)
+
+ALL CHECKS PASSED
+```
 
 ## Phase 0 – done (Opus 5.5)
 
@@ -301,7 +528,7 @@ resistors at an even pitch.
   unused alias added both fail.
 - `tools/check_all.sh`: the netlist comparison runs without `--allow-missing`.
 
-### Last verification (`tools/check_all.sh`)
+### Verification at the end of Phase 1 (`tools/check_all.sh`; latest: Phase 2 above)
 
 ```
 (KiCad environment, IPC self-check, X2 vs IPC: unchanged, see Phase 0 / T1)
@@ -464,6 +691,11 @@ Reported, not fixed (PLAN.md section 5.3).
    is N/C. In the ADC121C027 the supply is VA and the input VIN, so either the Proteus symbol
    swaps the names or the board feeds 3V3 into the input. Phase 2 must map the ids to the
    SOT-23-6 pads from the IPC positions and check which pad gets 3V3.
+   **Phase 2 result (confirmed):** A1 = SOT-23-6 pad 1 = datasheet **VA** carries #00660 (the filtered
+   BIASFEEDBACK input), COM2 = pad 3 = datasheet **VIN** carries **3V3** (A2 = pad 2 GND, K2 = pad 4
+   ADR0 N/C, K1 = pad 5 SCL, COM1 = pad 6 SDA): the supply and the input are swapped on the built board,
+   as on the three ADCs of tube_hv_supplies (its finding 6). Table in "Phase 2 - pin order". A redesign
+   item (and a check of the real board: reworked?).
 10. **J8** (3-pin connector, rx/tx/ISOGND on page 1) has the value "1k" in the schematic.
 11. **Page 1 dashed alias lines** (R11–PWM_G2_ISO, GPIOR_25–ADASEL2_ISO, N14–ADCLK_ISO) are
    not connections in Proteus (the IPC keeps the nets apart); the solid pairs are joins.
@@ -472,6 +704,11 @@ Reported, not fixed (PLAN.md section 5.3).
    PWR2's own EN is tied to 5V: a power-good style sequencing output, so the Proteus name
    "VOUT" is probably wrong (pin type passive in the symbol). Check the AP61202 pinout in
    Phase 2.
+   **Phase 2 result (resolved):** Diodes DS44251: SOT563 pin 6 is **OUT on AP61200/AP61201 and PG
+   (open-drain power good, max 6.0 V) on AP61202/AP61203**; pins 1-5 FB, GND, VIN, SW, EN = the Proteus
+   ids. So the circuit is a correct PG sequencing (PWR2 = 1V core enables PWR1 / PWR3 through R1 10k to
+   5V); only the Proteus pin name "VOUT" is wrong (copied from the AP61200). Nothing to change but the
+   name in the redesign.
 
 13. **Page 11 label `bias_feedback`** sits on the DAC output node together with `biasref`
    (IPC net BIASREF: U12-6, R59, C4, J6-15, J6-16). Page 10 spells the ADC input
@@ -546,6 +783,26 @@ Reported, not fixed (PLAN.md section 5.3).
    of page 4, C51 (page 11), C71 1u (page 7) and the regulator output C16 10u. Whether some of those sit
    at the BGA is a Phase 3 question (placement). The eight REF_RES pins each have their own 10k0 to GND.
    The PDF value is `10k0` for these and `47n` for all FPGA capacitors.
+
+24. **FLASH1 (W25Q64JWSSIQ, 208 mil SOIC-8) sits on a wide-body pad pattern:** both SO8W parts (RS1
+   MAX22025, a 7.5 mm wide-body part, and FLASH1) have pad rows 9.14 mm apart with 2.03 mm long pads
+   (inner pad edges 7.11 mm apart). The W25Q64JW "SS" package is the 208 mil (5.3 mm body) SOIC-8, whose
+   lead tips span about 7.9-8.3 mm, so its feet overlap the pads only by roughly 0.4-0.6 mm at the inner
+   end: solderable by hand, but not the land pattern for that package (IPC: rows about 7.2-7.4 mm).
+   Reproduced as built (KiCad 208 mil body graphics, pads on the Proteus rows). A redesign item.
+25. **J11 (40-pin ribbon to the HV supplies board) is numbered as the mirror image of a standard 2x20
+   header** while mounted on the top side (Proteus top assembly outline and top silk "J11"): the KiCad
+   2x20 1.27 mm header fits only mirrored (1.270 mm unmirrored, 0.000 mirrored); with odd / even pad
+   numbers swapped it fits on top (0.000). tube_hv_supplies J1, the other end of the ribbon, has
+   **the same mirrored numbering, also on top** (its finding 12). With a straight IDC ribbon (pin n to
+   pin n) the two swaps cancel: Proteus pin n of J11 meets Proteus pin n of HV J1, so the as-built
+   cable connects the nets as drawn – **no pin swap on the ribbon**. But neither header follows the
+   standard numbering, so any standard part on this cable (a third board, a breakout, a header with a
+   printed pin 1) would see pairs 1-2, 3-4 … exchanged, and KiCad's pin-1 corner mark lands on the pad
+   numbered 2. Reproduced (`PinHeader_2x20_P1.27mm_Vertical_RowsSwapped`, as on the HV board). The
+   other 1.27 mm headers are standard: J6, J7 on top, J3 (16 pins) on the **bottom** side (Proteus
+   bottom assembly) where the mirrored fit is the standard one. Redesign item: number both ribbon
+   headers as standard together (never only one end).
 
 ## p2k candidates
 
@@ -655,6 +912,27 @@ solved in tools/p2k later (with the ac_psu regression); until then the wrappers 
    global label of the row above. Board-local: `fpga_unit()` puts the global labels of a side beyond
    its longest local label. A shared helper could do the same (or draw local labels below the stub).
 
+19. **Two pads with one number on different nets** (the D1 terminals) need nothing in
+   `footprints` / `check_footprints`: `fpgeom.fit` pairs same-number pads by permutation and fits both
+   (candidate 1 concerns only the net checks of Phases 1, 3, 4).
+20. **`check_pin_order` as a shared tool** (tube_hv_supplies candidate 14): board-local copy here with
+   two additions worth sharing – the footprint of every check taken from the board's RULES (`rule()`),
+   not typed again, and an expected fit **angle** (a pure rotation of all pad ids, e.g. a BGA's ball
+   grid turned by 90 deg, fits with residual 0 and passes check_footprints; only the angle shows that
+   the footprint graphics / A1 mark are turned; negative test T4).
+21. **Board-only SMD pad** (candidate 2): `footprints.single_pad` makes THT pads only. Board-local:
+   `smd_pad=(diameter, side)` specs built by a wrapper around `footprints.build_library` in
+   `tools/gen_footprints.py`. Needed: an `smd=True` (layer F/B) option in `single_pad`, and
+   `build_pcb` / `check_board` / `ipc356_diff` / `gerber_roundtrip` treating SMD `free_pad` records
+   (Phase 3-4).
+22. `footprints.run` does not write `kicad/fp-lib-table` (needed for ERC with project footprints and
+   for pcbnew); board-local `fp_lib_table()` in gen_footprints.py, as tube_hv_supplies / tube_power_amp.
+23. `p2k.footprints.derive` moves base pads onto the IPC positions however far (tube_hv_supplies
+   candidate 12; negative test T3 here); `check_footprints` accepts a THT part that fits only mirrored
+   with a note (tube_hv_supplies 13: J11 with the plain header would silently go to the bottom side;
+   here J3 really is a bottom part). A side source (Proteus assembly layers, as `tools/check_pin_order.py
+   --render` shows) would let the shared check decide.
+
 ## Decisions
 
 - **D1 (decided by the user, 2026-11-20): split terminal nets** (finding 1). The five split
@@ -683,4 +961,5 @@ solved in tools/p2k later (with the ac_psu regression); until then the wrappers 
 
   The 62 N/C balls of U10 already had real pin types (bidirectional GPIOs): flagged in T3 (62 flags).
 
-Open: none.
+Open (not blocking Phase 3): pad sizes per refdes, J8 drill, J1 body – "Phase 2 / open questions";
+the board thickness (finding 5) for Phase 3.

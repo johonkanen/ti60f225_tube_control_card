@@ -1731,7 +1731,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_1.27mm:PinHeader_2x15_P1.27mm_Vertical"
 			(at 107.95 71.12 0)
 			(effects
 				(font
@@ -3018,7 +3018,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_1.27mm:PinHeader_2x08_P1.27mm_Vertical"
 			(at 189.23 67.31 0)
 			(effects
 				(font
@@ -3636,7 +3636,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Connector_PinHeader_1.27mm:PinHeader_2x08_P1.27mm_Vertical"
 			(at 274.32 71.12 0)
 			(effects
 				(font
@@ -4210,7 +4210,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "tube_control_card:SOT-23-6_ADC121C027_Proteus"
 			(at 129.54 157.48 0)
 			(effects
 				(font
@@ -4289,7 +4289,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 85.852 139.7 0)
 			(effects
 				(font
@@ -4434,7 +4434,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 97.282 139.7 0)
 			(effects
 				(font
@@ -4730,7 +4730,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Resistor_SMD:R_0402_1005Metric"
 			(at 171.45 155.702 0)
 			(effects
 				(font
@@ -4827,7 +4827,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 160.3248 166.37 0)
 			(effects
 				(font
@@ -5031,7 +5031,7 @@
 				)
 			)
 		)
-		(property "Footprint" ""
+		(property "Footprint" "Capacitor_SMD:C_0402_1005Metric"
 			(at 171.7548 130.81 0)
 			(effects
 				(font

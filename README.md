@@ -28,7 +28,14 @@ comparison with decision D1 (split terminals drawn as one pin); `tools/check_all
 eight units of U10 with 62 no-connect flags); full netlist comparison against the IPC netlist: 0 missing
 parts, 0 wrong-net pins, every net complete; ERC 0 errors, 14 explained warnings (single-pin nets);
 decision D2 (no pin of type no_connect, ERC `no_connect_connected` fatal).
-Next: Phase 2 = footprints (next_prompt.md).
+**Phase 2 (footprints) done**: `tools/gen_footprints.py` → `lib/footprint_map.csv` and
+`lib/tube_control_card.pretty` (U10 = KiCad's TFBGA-225 P0.65 footprint unchanged, at 180 deg); all 146
+parts fit their IPC pads within 0.030 mm (`p2k check_footprints --pcbnew`), pin order checked against the
+unmoved KiCad footprints (`tools/check_pin_order.py`). Results: ADC1 has VA / VIN swapped on the board
+(finding 9 confirmed); AP61202 pin 6 is PG, the sequencing is correct (finding 12 resolved); J11 is
+numbered as a mirrored header like the HV board's J1, so the ribbon connects as drawn (finding 25).
+Pad sizes stay KiCad's until the Phase 3 DRC (open user question).
+Next: Phase 3 = PCB (next_prompt.md).
 
 v2.5, built 2025. `source/cadcam_rs274x/` is the earlier RS-274X export of the same version (cross-check only). v1 (built 2024, same outline and mounting holes) is not converted.
 
