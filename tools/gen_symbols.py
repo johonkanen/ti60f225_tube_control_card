@@ -4,8 +4,8 @@
 Pin numbers equal the Proteus/IPC pin ids. Box symbols carry the Proteus pin names of the
 device pinouts in ROOT.DSN (STATUS.md "Phase 1 preparation"); the U10 symbol (Efinix
 Ti60F225, 225 balls, units A-H as in the PDF) is generated from the DSN pinout
-`*PINOUT BGA225C65P15X15` read by `ti60_pinout()` below (p2k.pdsprj.dsn_pinouts misses it:
-its PIN lines do not start with "{", STATUS.md p2k candidates). Simple symbols are copied
+`*PINOUT BGA225C65P15X15` (p2k.pdsprj.dsn_pinouts(brace_optional=True): its PIN lines do not
+start with "{") and drawn with p2k.symgen.multi_box. Simple symbols are copied
 from the KiCad 10 standard library (flattened, pins renumbered). Power symbols carry the IPC
 net names of the rails drawn as Proteus power terminals.
 
@@ -38,21 +38,10 @@ BI = "bidirectional"
 def ti60_pinout():
     """{ball: (Proteus pin name, unit letter)} from the BGA225 pinout of ROOT.DSN.
 
-    Lines look like `PIN "GPIOL_N_03_CDI1" = *,*,L1,*,*,*,*,*}` (8 elements = units A-H). The
-    DSN holds eight identical copies; all must agree and cover 225 distinct balls."""
-    lines = pdsprj._strings(pdsprj._read(PRJ, "ROOT.DSN"))
-    copies = []
-    for i, line in enumerate(lines):
-        if line != "*PINOUT BGA225C65P15X15":
-            continue
-        pins = {}
-        j = i + 1
-        while j < len(lines) and (lines[j].startswith("{") or lines[j].startswith("PIN ")):
-            m = re.match(r'\{?PIN "(.*)" = ([^}]*)\}', lines[j])
-            if m:
-                pins[m.group(1)] = m.group(2).split(",")
-            j += 1
-        copies.append(pins)
+    Lines look like `PIN "GPIOL_N_03_CDI1" = *,*,L1,*,*,*,*,*}` (8 elements = units A-H; the "{"
+    is optional: p2k.pdsprj.dsn_pinouts(brace_optional=True)). The DSN holds eight identical
+    copies; all must agree and cover 225 distinct balls."""
+    copies = [e["pins"] for e in pdsprj.dsn_pinouts(PRJ, brace_optional=True) if e["package"] == "BGA225C65P15X15"]
     assert copies and all(c == copies[0] for c in copies), "ti60_pinout: DSN copies differ"
     balls = {}
     for name, elems in copies[0].items():
@@ -138,27 +127,6 @@ def ti60_units():
     return units
 
 
-def multi_box(name, ref, units, desc):
-    """Multi-unit box symbol: unit k = symgen.box(left, right) body k (own rectangle)."""
-    bodies = [box(name, ref, left, right) for left, right in units]
-    sym = bodies[0]
-    subs = []
-    for k, b in enumerate(bodies, 1):
-        rect = find(next(s for s in find_all(b, "symbol") if s[1] == f"{name}_0_1"), "rectangle")
-        pins = find_all(next(s for s in find_all(b, "symbol") if s[1] == f"{name}_1_1"), "pin")
-        subs.append([Sym("symbol"), f"{name}_{k}_1", rect, *pins])
-    head = [c for c in sym if not (isinstance(c, list) and c[0] in ("symbol", "embedded_fonts"))]
-    set_prop(head, "Description", desc)
-    # Reference above the tallest body, Value below the deepest one (fields are per symbol,
-    # not per unit): never over the pin names; sheet scripts place them per unit (ref_at / value_at).
-    for key, pick in (("Reference", max), ("Value", min)):
-        best = pick((find(next(p for p in find_all(b, "property") if p[1] == key), "at") for b in bodies),
-                    key=lambda at: float(at[2]))
-        prop = next(p for p in find_all(head, "property") if p[1] == key)
-        prop[3] = list(best)
-    return head + subs + [[Sym("embedded_fonts"), Sym("no")]]
-
-
 # ---------------------------------------------------------------- library
 
 def build():
@@ -230,7 +198,7 @@ def build():
                         desc=f"{n}-pin dual-row header, 1.27 mm pitch, odd pins left"))
 
     syms.append(multi_box("TI60F225", "U", ti60_units(),
-                          "Efinix Ti60F225 FPGA, BGA-225 0.65 mm; pin numbers = balls; units as in the PDF: "
+                          desc="Efinix Ti60F225 FPGA, BGA-225 0.65 mm; pin numbers = balls; units as in the PDF: "
                           "A config/JTAG, B GPIOL/GPIOR singles, C bank L, D bank R, E bank B, F bank T, "
                           "G power + REF_RES, H GND"))
 

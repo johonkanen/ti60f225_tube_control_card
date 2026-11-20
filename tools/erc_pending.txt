@@ -1,4 +1,0 @@
-# ERC errors that are expected until a later sheet is drawn (read by tools/erc_check.py).
-# One per line: <ERC type> <refdes> <pin>   # why, and which session removes it
-# An entry that ERC no longer reports makes tools/erc.sh fail: remove it then. Must be empty when
-# Phase 1 is done.

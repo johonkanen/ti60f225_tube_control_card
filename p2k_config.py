@@ -1,7 +1,8 @@
 """proteus2kicad configuration of the fpga_boardv2.5 board (tools in tools/p2k, see its README).
 
 Plain Python; every value here is specific to this board. Coordinates in mm, IPC frame (Y up).
-Keys marked "board-local" are read only by this repo's tools/ (not by tools/p2k).
+Every key is read by the shared tools (no board-local keys since the shared-tool migration of
+2026-11-20, STATUS.md).
 """
 
 PROJECT = "tube_control_card"  # KiCad project / library name
@@ -38,6 +39,9 @@ SCH_COMMENT = "Redrawn from Proteus fpga_boardv2.5"
 SCH_NOTE = ("Tube control card v2.5 (Efinix Ti60F225) - redrawn from Proteus. One sheet per Proteus PDF page.\n"
             "Net names follow the IPC-D-356A netlist (reference/pins_by_net.md).")
 
+# ERC (p2k erc): no_connect_connected is fatal (decision D2: a wired N/C pin must not pass).
+ERC_FATAL_WARNINGS = {"no_connect_connected"}
+
 # --- IPC-D-356A fix-ups (ipc356) -----------------------------------------------------
 
 # No truncated refdes: the three 6-character IPC refdes (FLASH1, RS485A, RS485B) are the
@@ -59,22 +63,14 @@ NET_ALIASES = {
     "RS485_GND.00256": "RS485_GND",
 }
 
-# Board-local (tools/ipc356_check.py): two-pad terminals whose two pads (both pin 1) carry
-# different IPC nets; accepted exactly in the "same refdes-pin on different nets" self-check.
-# Raw IPC net names, in IPC file order.
-SPLIT_PIN_NETS = {
-    ("J2", "1"): ("5V.00026", "5V.00301"),
-    ("ISO5V", "1"): ("ISO5V.00299", "ISO5V.00255"),
-    ("ISO_G", "1"): ("RS485_GND.00300", "RS485_GND.00256"),
-    ("RS485A", "1"): ("#00670.00259", "#00670.00260"),
-    ("RS485B", "1"): ("#00671.00261", "#00671.00262"),
-}
-
 # Decision D1 (user, 2026-11-20; STATUS.md "Decisions"): each split terminal is drawn as one
-# pin 1, as in the PDF, so KiCad puts both pads on one net. Board-local
-# (tools/compare_netlists.py, later the PCB checks): the accepted net merges, pin ->
-# (kept IPC net, merged IPC net), IPC names after NET_ALIASES. Exactly these five; on RS485B
-# the merged net also carries R67-1 (the PDF draws R67 on the RS485 B node).
+# pin 1, as in the PDF, so KiCad puts both pads on one net. Two-pad terminals whose two pads (both
+# pin 1) carry different IPC nets: pin -> (kept IPC net, merged IPC net), IPC names after
+# NET_ALIASES. Read by every shared check (ipc356 --check, check_sources, compare_netlists,
+# build_pcb / check_board / assign_nets / drc, ipc356_diff): exactly these five merges are accepted
+# (the IPC split pins must equal the key) and printed as "accepted (SPLIT_PIN_MERGES)"; the second
+# pad of each terminal has no copper to the first, so the open / unconnected item of each D1 net is
+# accepted too. On RS485B the merged net also carries R67-1 (the PDF draws R67 on the RS485 B node).
 SPLIT_PIN_MERGES = {
     ("J2", "1"): ("5V", "5V.00301"),
     ("ISO5V", "1"): ("ISO5V", "ISO5V.00299"),
@@ -90,16 +86,20 @@ FREE_PAD_DRILLS = ()
 HOLE_DRILLS = (3.0,)
 HOLES_PLATED = True
 
-# Board-local (tools/ipc356_check.py, tools/check_sources.py): four SMD pads without a part
-# (327 records with a blank refdes, 0.711 mm round, top: test pads). p2k ipc356 classifies them
-# as `free_pad` (its self-check wants a plated drill) and p2k check_sources expects free pads
-# as OtherPad flashes + drills; the wrappers accept exactly these (x, y) -> raw IPC net.
+# Four SMD pads without a part (327 records with a blank refdes, 0.711 mm round, top: test pads),
+# (x, y) -> raw IPC net. The shared tools treat them as SMD free pads (ipc356 --check, check_sources:
+# SMDPad flashes; build_pcb: board-only FREE_PAD_FOOTPRINT, an SMD pad on F.Cu; gerber_to_tracks,
+# check_board, ipc356_diff: exactly one SMD record per listed position).
 SMD_FREE_PADS = {
     (72.9, -36.0): "JFET_6",
     (74.4, -36.0): "JFET_5",
     (86.7, -26.6): "GPIOL_10",
     (88.3, -26.6): "GPIOL_11",
 }
+
+# U10 balls: Proteus flashes them with the aperture function `BGAPad,CuDef` (treated as SMDPad by the
+# shared tools); check_sources requires per copper layer the BGAPad flashes = the balls of U10, 1:1.
+BGA_REFDES = "U10"
 
 # Expected counts in the Proteus file (PLAN.md section 1).
 EXPECTED_IPC = {
@@ -144,13 +144,19 @@ DRILL_EXCELLON = "source/cadcam_rs274x/fpga_boardv2.5 - CADCAM Drill.DRL"
 FOOTPRINT_PAD_SIZES = "kicad"
 
 # Board-only footprints for Phase 3 (p2k.build_pcb): the 4 plated 3.0 mm mounting holes and the
-# 4 SMD test pads (IPC 'free_pad' records; the footprint is an SMD pad, board-local in
-# tools/gen_footprints.py, p2k candidate 2 - build_pcb's handling of it is a Phase 3 check).
+# 4 SMD test pads (IPC 'free_pad' records, SMD_FREE_PADS; the footprint is an SMD pad, spec smd_pad in
+# tools/gen_footprints.py).
 HOLE_FOOTPRINT = "tube_control_card:MountingHole_3.0mm_PTH_Pad6.35mm"
 HOLE_VALUE = "MountingHole_3.0mm_PTH"
 FREE_PAD_FOOTPRINT = "tube_control_card:TestPad_SMD_D0.711mm"
 FREE_PAD_VALUE = "TestPad"
 FREE_PAD_PREFIX = "TP"
+
+# tools/gen_footprints.py (footprints.run) also writes / --checks kicad/fp-lib-table.
+FP_LIB_TABLE = True
+# THT parts mounted on the bottom side (p2k check_footprints: a THT pattern that fits only mirrored
+# must be listed here, a listed part must fit only mirrored).
+BOTTOM_THT = {"J3": "2x8 1.27 mm header on the bottom side (Proteus bottom assembly)"}
 
 # --- PCB (Phase 3: tools/make_pcb.sh, p2k build_pcb / pours_to_zones / drc) ----------
 
@@ -179,9 +185,17 @@ PCB_RULES = dict(
 )
 
 # KiCad footprint drills smaller than the Proteus drill, accepted (ipc356_diff, gerber_roundtrip).
+# (ipc356_diff, gerber_roundtrip: the accepted smaller drills of the pair must be exactly these pads)
 DRILL_SMALLER = {
-    (1.016, 1.0): "J8 (KiCad PinHeader_1x03_P2.54mm 1.0 mm, Proteus 1.016 mm): user decision 2026-11-20",
+    (1.016, 1.0): ("J8 (KiCad PinHeader_1x03_P2.54mm 1.0 mm, Proteus 1.016 mm): user decision 2026-11-20",
+                   {("J8", "1"), ("J8", "2"), ("J8", "3")}),
 }
+
+# Phase 4: the recorded ipc356_diff summary (STATUS.md "Phase 4"; since the design fixes of 2026-11-20
+# the lone GPIOL_N_10 via is a REMOVED_VIAS entry: KiCad 1131 records, 239 vias, the Proteus record
+# removed as recorded). The KiCad track draws per layer of the round trip (F 2132 / In1 72 / In2 221 /
+# B 922 = gerber_to_tracks without the 26 REMOVED_TRACKS draws) are the strict check roundtrip_counts.
+PHASE4_EXPECTED = dict(proteus=1132, kicad=1131, matched=1131, pads=884, nc=76, vias=239, holes=4, free=4, nets=227)
 
 # Error-severity DRC types that remain by design ({type: reason}, STATUS.md "Phase 3").
 DRC_ACCEPTED = {
@@ -193,8 +207,8 @@ DRC_ACCEPTED = {
 # every draw that dangles once those are gone (the rest of a stub that leads from one pad to nowhere),
 # found iteratively with pcbnew's TestTrackEndpointDangling (scratch script build/tmp/fix26/find.py, not
 # committed). Keys = the gerber draws exactly (IPC frame), in the drawn direction: a draw and its
-# reverse (the zero-length / back-and-forth draws) are separate entries; tools/pcb_wrap.py (patch 5)
-# matches the drawn direction first, so each entry takes exactly its own draw. 26 draws: F.Cu 20, B.Cu 6.
+# reverse (the zero-length / back-and-forth draws) are separate entries; p2k.pcb.removed_track
+# matches the drawn direction first (1e-6 mm), so each entry takes exactly its own draw. 26 draws: F.Cu 20, B.Cu 6.
 REMOVED_TRACKS = {
     # zero-length / back-and-forth draws (copper covered by the joined tracks)
     ("F.Cu", 41.8819, -8.86052, 41.87295, -8.86052): "GND 0.009 mm draw (out)",
@@ -230,3 +244,46 @@ REMOVED_TRACKS = {
 REMOVED_VIAS = {
     (40.5808, -14.018): "GPIOL_N_10 via: connected only to ball G2 on F.Cu (removed with its track)",
 }
+
+# --- Pin order (Phase 2: p2k check_pin_order) ----------------------------------------
+# The UNMOVED KiCad base footprints with the Proteus renumbering (rule= takes the footprint of the
+# symbol's RULES rule in tools/gen_footprints.py: a project footprint as its base + renumber), fitted
+# onto the IPC pads. SMD parts must fit with the mirror of their IPC side (bottom = mirrored), THT
+# parts with the mirror of their side on the Proteus assembly layers (all on top except J3). U10 also
+# checks the fitted angle (180 deg). Two-pad / inline parts and dual-row SMD packages are symmetric
+# under a 180 deg turn: the nets (Phase 1) and the --render overlays decide (STATUS.md "Phase 2 - pin
+# order"). Footprints built from the IPC pads only (blade terminals, IZB03, X2QFN-8 AD2) have no base.
+PIN_ORDER = [
+    dict(name="U10 BGA", refs="U10", rule="TI60F225", mirror=False, res=0.001, angle=180.0,
+         note="ball ids = KiCad pad names, A1-top-left footprint at 180 deg"),
+    dict(name="ADC1", refs="ADC1", rule="ADC121C027", mirror=False, res=0.19,
+         note="A1 A2 COM2 K2 K1 COM1 = JEDEC 1-6: fits (rows 2.65 vs KiCad 2.275 -> 0.1875)"),
+    dict(name="ADC1 datasheet", refs="ADC1", footprint="Package_TO_SOT_SMD:SOT-23-6",
+         renumber={"1": "COM2", "2": "A2", "3": "A1", "4": "COM1", "5": "K1", "6": "K2"}, mirror=None,
+         note="VA / VIN exchanged (COM2 on pad 1, A1 on pad 3, the datasheet wiring): fits only mirrored, "
+              "i.e. not on a top-side part"),
+    dict(name="SOT-23-5", refs="U4 V4", rule="TLV316IDBVR", mirror=True, res=0.07, note="bottom side, rows 2.39 vs 2.30"),
+    dict(name="SC-70-6", refs="U12", rule="AD5622", mirror=False, res=0.07, note="rows 1.80 vs 1.675"),
+    dict(name="SOT-563", refs="PWR1 PWR2 PWR3", rule="AP61202", mirror=True, res=0.08, note="bottom side, rows 1.27 vs 1.425"),
+    dict(name="TSSOP-14", refs="U5 U6 U11 U14", rule="TLV9304PWR", mirror=False, res=0.07, note="rows 5.85 vs 5.725"),
+    dict(name="TSSOP-24", refs="U1 U2 U7 U8 U9", rule="SN74AXC8T245", mirror=False, res=0.02,
+         note="KiCad pad positions (Proteus pad size, PROTEUS_PADS)"),
+    dict(name="TSSOP-16", refs="U3", rule="SN74LV4051", mirror=True, res=0.02,
+         note="bottom side, KiCad pad positions (Proteus pad size)"),
+    dict(name="R array", refs="R14 R15 R17 R18 R22 R23 R24 R25", rule="R_ARRAY4", mirror=False, res=0.06,
+         note="rows 0.95 vs 1.0"),
+    dict(name="OSC1", refs="OSC1", rule="MC2016K_OSC", mirror=False, res=0.16, note="pads 1.8 x 1.2 vs KiCad 1.5 x 1.1"),
+    dict(name="SO8W RS1", refs="RS1", rule="MAX22025", mirror=False, res=0.76, note="rows 9.14 vs KiCad 10.65"),
+    dict(name="SO8W FLASH1", refs="FLASH1", rule="W25Q64JWSSIQ", mirror=False, res=0.99, note="rows 9.14 vs KiCad 7.175"),
+    dict(name="J11 rows swapped", refs="J11", rule="HEADER_2X20_50MIL", mirror=False, res=0.01,
+         note="odd / even swapped: fits on top"),
+    dict(name="J11 KiCad", refs="J11", footprint="Connector_PinHeader_1.27mm:PinHeader_2x20_P1.27mm_Vertical",
+         mirror=True, res=0.01,
+         note="standard numbering fits only MIRRORED (bottom), but J11 is on top (as tube_hv_supplies J1)"),
+    dict(name="J3", refs="J3", rule="HEADER_2X8_50MIL", mirror=True, res=0.01,
+         note="standard numbering, fits mirrored: J3 is a bottom-side part (Proteus bottom assembly)"),
+    dict(name="J6", refs="J6", rule="HEADER_2X8_50MIL", mirror=False, res=0.01, note="standard numbering fits on top"),
+    dict(name="J7", refs="J7", rule="HEADER_2X15_50MIL", mirror=False, res=0.01, note="standard numbering fits on top"),
+    dict(name="J1", refs="J1", rule="TBLOCK-I5", mirror=False, res=0.01, note="inline: body side by render"),
+    dict(name="J8", refs="J8", rule="CONN_01X03", mirror=False, res=0.01, note="inline"),
+]

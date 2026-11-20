@@ -88,11 +88,11 @@ tie(sh, "RS485_GND", b, "down", 2)
 sh.wire(rs1.pin(7), P(81, 98), P(81, YB), P(XB, YB))
 sh.wire(rs1.pin(6), P(81, 100), P(81, YA), P(XB, YA))
 for ref, y in (("RS485B", YB), ("RS485A", YA)):
-    t = term(sh, ref, *P(109, y), "right")
+    t = terminal(sh, ref, *P(109, y), "right", symbol=sym(ref), value=sh_value(ref), justify="away")
     sh.wire(P(XB, y), t.pin(1))
     sh.junction(*P(XB, y))
 for ref, y in (("ISO5V", 95), ("ISO_G", 109)):
-    t = term(sh, ref, *P(138, y), "right")
+    t = terminal(sh, ref, *P(138, y), "right", symbol=sym(ref), value=sh_value(ref), justify="away")
     sh.wire(t.pin(1), P(129, y))
     tie(sh, net(ref, 1), P(129, y), n=0)
 

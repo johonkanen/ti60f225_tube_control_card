@@ -11,6 +11,102 @@ Plan: [PLAN.md](PLAN.md). Playbook: `tools/p2k/CONVERSION_PLAYBOOK.md`.
 | 4 Verification | **done** 2026-11-20 (Fable 5.2, fresh session): `ipc356_diff` and `gerber_roundtrip --check` pass with the board's acceptances and are in `check_all.sh`, per-pad drill check, joined-N/C check, all 876 pins of the 12 PDF pages read independently (no difference), 28 negative tests; finding 19 resolved; nothing needs a user decision |
 | 5 Clean-up | **done** 2026-11-20 (Opus 5.5, clean context): user decisions (through the coordinating session) implemented in the generator: `p2k place_refdes` as the last `make_pcb.sh` step; dangling copper, J1 body, FLASH1, pads and drills kept as built; DRC 370 → 83 violations (0 shorts / 0 parity; 32 accepted courtyards, + the 5 accepted D1 unconnected items; silk 326 → 39 warnings, none a reference); ALL CHECKS PASSED. **Conversion complete**: a reference / starting point only (card not installed, no submodule in the master repo); rev A stays generated until the user's first manual layout change |
 | Design fixes | **done** 2026-11-20 (Opus 5.5): user decisions: AP61202 pin 6 VOUT → PG (finding 12), PDF sheet notes tidied (finding 6), dangling Proteus copper removed (finding 26: 26 draws + 1 via; reverses Phase 5 decision 2); values unchanged; findings 9 / 25 later; DRC 71 violations (0 dangling); ALL CHECKS PASSED |
+| Shared-tool migration | **done** 2026-11-20 (Opus 5.5): tools/p2k c5682dd → a9a286c, every board-local check / wrapper replaced by the shared tools and config keys (14 tools deleted), byte-identical except the accepted re-baselines D-R and D-TC7b; no strict opt-outs; then J11 renumbered to standard (finding 25, D-PIN, with tube_hv_supplies J1); ALL CHECKS PASSED, regress.sh PASS after each commit |
+
+## Shared-tool migration 2026-11-20 – done (Opus 5.5)
+
+The coordinated board migration of proteus2kicad (`tools/p2k/docs/CANDIDATES.md` section 7.5; decisions
+D-R, D-TC7b, D-Z, D-PIN, ribbon in its "Decisions"). Pin: **tools/p2k a9a286c** (newest proteus2kicad main;
+all code is in 2fb1563 = batch Z, later commits docs only). After every commit
+`~/dev/proteus2kicad/tools/regress.sh a9a286c ti60f225_tube_control_card` (clean clone of the committed
+board, full regenerate, `check_all.sh`, clean tree) **PASS**.
+
+### Commits
+
+1. **Bump c5682dd → a9a286c** (+ D-R re-baseline). `p2k ipc356` report texts (batch R):
+   `reference/pin_nets_by_component.md` 2 lines (`Refdes restored from 6-char truncation: none.`, `Index:`
+   with `AD2 ADC1 FLASH1 ISO5V OSC1 V4`), `reference/pins_by_net.md` 3 lines (12V, GND, OPAMP_-15V: the
+   two-hole pins J5-1, J4-1, J9-1 listed once). Strict checks on by default (D-Z): `derive_max_move` fails
+   on the two intended SO8W row moves, so the specs carry `max_move` (check only, no file changes):
+   `SOIC-8_7.5x5.85mm_P1.27mm_Proteus` `max_move=0.8` (RS1 pad 8 moves 0.753 mm),
+   `SOIC-8_5.3x5.3mm_P1.27mm_Proteus` `max_move=1.0` (FLASH1 0.985 mm). No `STRICT_CHECKS_OFF`.
+2. **Migration** (p2k batches 2-6, then 7b + 8 + 9 together). Byte-identical except **D-TC7b**: the 14
+   `accepted open` lines of `reports/assign_nets.txt` (stage A 4, stage B 5, after zone fill 5) change their tag `(D1, board-local)` →
+   `(SPLIT_PIN_MERGES)`; nothing else changes (sheets, library, footprints, board file, reports/drc.json,
+   reports/roundtrip/*, reference/* identical).
+   | Board-local (deleted) | Shared tool | Config key |
+   |---|---|---|
+   | `lyt_packages()` etc. in `tools/make_part_map.py` (kept as a SPEC) | `part_map.run` | `LAYOUT = "ref"`, `SYMBOL_BY_VALUE` / `_REFDES` / `_PACKAGE` {RESISTOR ARRAY 2X1MM: R_ARRAY4} / `_PREFIX` {R, C, L}, `UNIT_PAGES`, `FIELDS` (+ package, units), `COMMENT` |
+   | `ti60_pinout()` regex, `multi_box()` in `tools/gen_symbols.py` | `pdsprj.dsn_pinouts(brace_optional=True)`, `symgen.multi_box` | – |
+   | `term()`, `place_mirrored()` in `tools/sheets/_common.py` | `sheetkit.terminal(..., justify="away")`, `Sheet.place(mirror=)` | – |
+   | `tools/make_sheets.sh` | `p2k sheets --check` | – |
+   | `tools/erc.sh`, `tools/erc_check.py`, `tools/erc_pending.txt` (empty) | `p2k erc` | `ERC_FATAL_WARNINGS = {"no_connect_connected"}` (no `ERC_PENDING`) |
+   | `smd_pad()` / `build_library` wrapper, `fp_lib_table()` in `tools/gen_footprints.py` | spec `smd_pad=(0.711, "F")`, `footprints.run` | `FP_LIB_TABLE = True`, `BOTTOM_THT = {"J3": …}` |
+   | `tools/check_pin_order.py` | `p2k check_pin_order` | `PIN_ORDER` (20 entries, `rule=`, U10 `angle=180`) |
+   | `tools/ipc356_check.py` | `p2k ipc356 --check` | `SPLIT_PIN_MERGES`, `SMD_FREE_PADS` (`SPLIT_PIN_NETS` dropped) |
+   | `tools/check_sources.py` | `p2k check_sources` | `BGA_REFDES = "U10"`, `SMD_FREE_PADS` |
+   | `tools/compare_netlists.py` | `p2k compare_netlists` | `SPLIT_PIN_MERGES`, strict `nc_joined` (default) |
+   | `tools/pcb_wrap.py` (patches 1-5) | `build_pcb`, `gerber_to_tracks`, `assign_nets`, `pours_to_zones`, `check_board` | `SPLIT_PIN_MERGES`, `SMD_FREE_PADS`, `REMOVED_TRACKS` (direction-exact first) |
+   | `tools/drc_check.py` | `p2k drc`, `kipy -m p2k.assign_nets --check` | `SPLIT_PIN_MERGES`, `DRC_ACCEPTED` |
+   | `tools/phase4_wrap.py` | `p2k ipc356_diff`, `p2k gerber_roundtrip --check` | `PHASE4_EXPECTED` (its `EXPECT`), strict `roundtrip_counts` (its `RT_DRAWS`), `SPLIT_PIN_MERGES`, `SMD_FREE_PADS` |
+   | `tools/check_drill_smaller.py` | `ipc356_diff`, `gerber_roundtrip` | `DRILL_SMALLER` pad set `{("J8", "1"), ("J8", "2"), ("J8", "3")}` |
+   | `tools/drc_pads.py` | `p2k drc --by-refdes` | – |
+   | `tools/measure_gaps.py` | `kipy -m p2k.measure_gaps --per-layer` | – |
+   | `tools/make_pcb.sh` (5 wrapped steps) | `p2k make_pcb` (default steps, pours detected) | kept as the one-liner `exec tools/p2k/bin/p2k make_pcb "$@"` |
+
+   Kept: `tools/phase4_reading/` (the independent PDF reading), `tools/test_no_connect.py` (now on `p2k erc`
+   / `p2k compare_netlists`; `joined_flag` fails through the default strict `nc_joined`), the hand-written
+   `_ProteusPads` specs (not `PROTEUS_PADS` of p2k: other names / descr / `ipc` refdes, as the design allows).
+   Strict opt-outs: **none** (`STRICT_CHECKS` not set; the two spec `max_move` keys keep `derive_max_move` on).
+
+   Negative tests (scratch board build/tmp/negpo, build/tmp/neg7 with `P2K_BOARD`, not committed): PIN_ORDER
+   U10 `angle=90` → "unmirrored 0.000 @180 deg, expected … @90 deg"; "J11 KiCad" expected unmirrored → fails;
+   J11 renumbering dropped in gen_footprints → "J11 rows swapped: mirrored 0.000" fails; ADC1 A1 / COM2
+   exchanged → "ADC1: unmirrored 1.909" fails. `SPLIT_PIN_MERGES` without J2 → `ipc356 --check` "IPC pin J2-1
+   has pads on ['5V', '5V.00301'], not in SPLIT_PIN_MERGES", compare exit 1; `BGA_REFDES = "U3"` → 225 "is
+   not a U3 ball"; one `SMD_FREE_PADS` entry dropped → "(88.3, -26.6) has no flash"; `PHASE4_EXPECTED` vias
+   240 → "PHASE4_EXPECTED: vias 239 (recorded 240)"; `DRILL_SMALLER` without J8-3 → "J8-3: KiCad drill
+   smaller, not in the entry's pad set"; `ERC_FATAL_WARNINGS` + isolated_pin_label → 14 FATAL WARNING, exit 1.
+   `tools/test_no_connect.py`: all six variants as expected.
+
+### p2k candidates (section "p2k candidates" below): state at p2k a9a286c
+
+| # | State |
+|---|---|
+| 1 | solved in p2k a9a286c (B5 `SPLIT_PIN_MERGES` in ipc356 / compare_netlists) |
+| 2 | solved in p2k a9a286c (B4 `SMD_FREE_PADS`) |
+| 3 | solved in p2k a9a286c (B3 `BGAPad` = SMDPad, `BGA_REFDES`) |
+| 4 | solved in p2k a9a286c (P3 `pdsprj.lyt_parts_ref`, part_map `LAYOUT = "ref"`) |
+| 5 | solved in p2k a9a286c (I3; re-baselined with the bump, D-R) |
+| 6 | solved in p2k a9a286c (P4 `dsn_pinouts(brace_optional=True)`) |
+| 7 | solved in p2k a9a286c (S3 `symgen.multi_box`) |
+| 8 | solved in p2k a9a286c (C3 per-unit pages, part-map column `units`) |
+| 9 | solved in p2k a9a286c (K1 `place(mirror=)`, K4 `terminal(justify="away")`) |
+| 10 | solved in p2k a9a286c (S7 strict `no_connect_pin_type`, `ERC_FATAL_WARNINGS`, playbook G3); the board's assert in gen_symbols.py stays |
+| 11 | solved in p2k a9a286c (E1 `p2k erc`) |
+| 12 | `make_sheets --check` part solved (K8 `p2k sheets --check`); the IPC-driven sheet helpers not migrated: p2k K6 is deferred (they stay in tools/sheets/_common.py) |
+| 13 | solved in p2k a9a286c (C1 type-safe keys; never hit here) |
+| 14 | solved in p2k a9a286c (K7 warning / `split_wires`; no warning on this board) |
+| 15 | solved in p2k a9a286c (S5 `box(tb_margin=)`); not applied: the drawn sheets are final, the option would change the library and sheets 4 / 7 |
+| 16 | not migrated: p2k K6 deferred (helpers stay board-local) |
+| 17 | not migrated: p2k K9 (PDF row lookup) deferred; the rest is FPGA-specific layout code (X3) |
+| 18 | not migrated: board-specific layout code (X3) |
+| 19 | nothing needed (X2) |
+| 20 | solved in p2k a9a286c (F11 `p2k check_pin_order`, `rule=`, `angle=`) |
+| 21 | solved in p2k a9a286c (F7 spec `smd_pad`; B4 in the PCB tools) |
+| 22 | solved in p2k a9a286c (F1 `FP_LIB_TABLE`) |
+| 23 | solved in p2k a9a286c (strict `derive_max_move` + spec `max_move` on RS1 / FLASH1; side source: `BOTTOM_THT` (CF1, X5) lists J3) |
+| 24 | solved in p2k a9a286c (B5 in build_pcb / assign_nets / check_board / drc) |
+| 25 | solved in p2k a9a286c (B2 `{slash}` in unconnected names) |
+| 26 | solved in p2k a9a286c (B12 `p2k make_pcb` stops at the first failing step; playbook G3) |
+| 27 | solved in p2k a9a286c (B3 / B4 in gerber_to_tracks / check_board) |
+| 28 | solved in p2k a9a286c for `drc_pads.py` (B13 `p2k drc --by-refdes`), `measure_gaps.py` (B11 `--per-layer`) and the pending mechanism (B9 `PENDING`); `PROTEUS_PADS` (F8) not migrated: the hand-written `_ProteusPads` specs stay |
+| 29 | solved in p2k a9a286c (F10) |
+| 30 | solved in p2k a9a286c (Phase 4 parts of B3 / B4 / B5, R9, R10 `PHASE4_EXPECTED`) |
+| 31 | solved in p2k a9a286c (R3 `DRILL_SMALLER` pad sets) |
+| 32 | solved in p2k a9a286c (C2 / R4 strict `nc_joined` in compare_netlists and ipc356_diff) |
+| 33 | solved in p2k a9a286c (R7 strict `roundtrip_counts`) |
+| 34 | solved in p2k a9a286c (I7 `REMOVED_TRACKS` direction-exact first; the REMOVED_VIAS note of check_drill_smaller.py is moot, R3 replaces it) |
 
 ## Design fixes 2026-11-20 – done (Opus 5.5)
 
@@ -1501,8 +1597,9 @@ and 26 (dangling copper) are fixed in the KiCad design, the others stay as marke
 
 ## p2k candidates
 
-Shared-tool limitations met on this board, with the board-local workaround used. To be
-solved in tools/p2k later (with the ac_psu regression); until then the wrappers stay.
+Shared-tool limitations met on this board, with the board-local workaround used at the time. Their state
+after the shared-tool migration (p2k a9a286c; the wrappers named below are deleted): table in "Shared-tool
+migration 2026-11-20".
 
 1. **Two-pad pins on different nets** (Proteus `<net>.<id>` names on the two pads of one
    pin): `ipc356 --check` fails "same refdes-pin on different nets". Workaround:

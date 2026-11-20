@@ -9,7 +9,7 @@ sh = sheet("01_net_aliases_power_inputs.kicad_sch")
 
 # power input terminals (PDF: label - wire - terminal); the rails enter the board here
 for ref, y in (("J4", 70), ("J2", 79), ("J5", 88), ("J9", 98)):
-    t = term(sh, ref, *P(155, y), "right")
+    t = terminal(sh, ref, *P(155, y), "right", symbol=sym(ref), value=sh_value(ref), justify="away")
     q = P(140, y)
     sh.wire(t.pin(1), P(147, y), q)          # two segments: a pin connects only at a wire end
     tie(sh, net(ref, 1), q, n=0)

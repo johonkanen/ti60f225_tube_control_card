@@ -7,8 +7,7 @@ Writes (through the shared generator tools/p2k/p2k/footprints.py)
                                   renumbered to the Proteus ids, pad centres moved onto the Proteus
                                   positions), built from the IPC-D-356A pads where KiCad has nothing,
                                   and the board-only footprints of Phase 3 (mounting hole, SMD test pad)
-  kicad/fp-lib-table              registers the project library (board-local: footprints.run does not
-                                  write it; STATUS.md "p2k candidates")
+  kicad/fp-lib-table              registers the project library (p2k_config.py FP_LIB_TABLE = True)
 
 Usage: python3 tools/gen_footprints.py [--check]      (needs the KiCad AppImage mount)
 
@@ -22,9 +21,7 @@ Proteus pads), except the PROTEUS_PADS parts (user decision, Phase 3: "_ProteusP
 ipc_sizes=True, Proteus pad size and drill). tools/p2k check_footprints verifies every footprint against the IPC pads (residual
 < 0.05 mm per pad) and reports the pad size / drill differences (STATUS.md "Phase 2").
 
-Board-local extension (p2k candidate 2): a PROJECT spec with `smd_pad=(diameter, layer)` and
-board_only=True is a one-pad SMD footprint (footprints.single_pad only makes THT pads); it is built
-here by wrapping footprints.build_library, so run() writes and --check verifies it like the others.
+The SMD test pad is a board-only spec with `smd_pad=(diameter, side)` (p2k.footprints).
 """
 import os
 import sys
@@ -32,7 +29,6 @@ import sys
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.insert(0, os.path.join(ROOT, "tools", "p2k"))  # proteus2kicad
 from p2k import footprints  # noqa: E402
-from p2k.sexpr import Sym  # noqa: E402
 
 P = "tube_control_card:"
 
@@ -176,64 +172,5 @@ PROJECT = {
         descr="SMD test pad, 0.711 mm round, top copper (the 4 Proteus SMD pads without a part)"),
 }
 
-FP_LIB_TABLE = """(fp_lib_table
-\t(version 7)
-\t(lib (name "tube_control_card")(type "KiCad")(uri "${KIPRJMOD}/../lib/tube_control_card.pretty")(options "")(descr "Project footprints, pad numbers = IPC pin ids (tools/gen_footprints.py)"))
-)
-"""
-
-
-def smd_pad(name, spec):
-    """Board-only one-pad SMD footprint (board-local; footprints.single_pad is THT only)."""
-    dia, side = spec["smd_pad"]
-    r = dia / 2
-    lay = lambda l: f"{side}.{l}"  # noqa: E731
-    eff = footprints._eff
-    return [Sym("footprint"), name, [Sym("version"), footprints.FILE_VERSION],
-            [Sym("generator"), f"{footprints.project()}_gen_footprints"],
-            [Sym("layer"), lay("Cu")], [Sym("descr"), f"{spec['descr']} ({footprints.project()}, board-only)"],
-            [Sym("property"), "Reference", "REF**", [Sym("at"), 0, footprints._r4(-r - 1.0), 0],
-             [Sym("layer"), lay("SilkS")], eff(0.8, 0.12)],
-            [Sym("property"), "Value", name, [Sym("at"), 0, footprints._r4(r + 1.0), 0], [Sym("layer"), lay("Fab")], eff(0.8, 0.12)],
-            [Sym("attr"), Sym("smd"), Sym("board_only"), Sym("exclude_from_pos_files"), Sym("exclude_from_bom")],
-            footprints._circle(r + 0.25, "CrtYd", 0.05),
-            [Sym("pad"), "1", Sym("smd"), Sym("circle"), [Sym("at"), 0, 0], [Sym("size"), dia, dia],
-             [Sym("layers"), lay("Cu"), lay("Mask")]],
-            [Sym("embedded_fonts"), Sym("no")]]
-
-
-_build_library = footprints.build_library
-
-
-def build_library(project_fps, ipc=None):
-    plain = {k: v for k, v in project_fps.items() if not v.get("smd_pad")}
-    out = _build_library(plain, ipc)
-    for name, spec in project_fps.items():
-        if spec.get("smd_pad"):
-            out[name + ".kicad_mod"] = footprints.sexpr.dump(smd_pad(name, spec)) + "\n"
-    return out
-
-
-footprints.build_library = build_library
-
-
-def fp_lib_table(check):
-    path = os.path.join(ROOT, "kicad", "fp-lib-table")
-    cur = open(path).read() if os.path.exists(path) else None
-    if cur == FP_LIB_TABLE:
-        return True
-    if check:
-        print("gen_footprints: out of date: kicad/fp-lib-table")
-        return False
-    with open(path, "w") as f:
-        f.write(FP_LIB_TABLE)
-    print("gen_footprints: wrote kicad/fp-lib-table")
-    return True
-
-
 if __name__ == "__main__":
-    ok = fp_lib_table("--check" in sys.argv[1:])
-    try:
-        footprints.run(RULES, PROJECT)
-    except SystemExit as e:
-        sys.exit(e.code if ok else 1)
+    footprints.run(RULES, PROJECT)

@@ -3,7 +3,7 @@
 
 Builds a scratch copy of the board in build/tmp/nctest (kicad/, lib/, reference/,
 p2k_config.py), redraws sheet 11 there with only PWR4 (IZB03; pin 4 "NC" is N/C in the IPC)
-in four variants and runs the real checks (tools/erc.sh, tools/compare_netlists.py) on it:
+in six variants and runs the real checks (p2k erc, p2k compare_netlists) on it:
 
   ok           pin 4 open with a no-connect flag                     -> ERC and compare pass
   wired_flag   pin 4 wired to pin 5 (ISO5V), flag kept               -> ERC fails, compare fails
@@ -11,13 +11,12 @@ in four variants and runs the real checks (tools/erc.sh, tools/compare_netlists.
   old_lib      as wired_flag, but pin 4 of type no_connect (the      -> compare PASSES (the blind
                library before D2)                                       spot), ERC fails (fatal warning)
   joined_flag  pins 4 and 7 (both N/C) wired to each other, a flag   -> ERC fails (fatal warning); compare
-               on pin 4 (KiCad: one unconnected-(...) net, 2 pins)      fails only through the board-local
-                                                                        one-pin rule (Phase 4; the shared
-                                                                        compare alone passes)
+               on pin 4 (KiCad: one unconnected-(...) net, 2 pins)      fails through the strict check
+                                                                        nc_joined (on by default)
   joined       pins 4 and 7 wired to each other, no flag             -> compare fails (Net-(PWR4-NC))
 
 Exit status 0 when every variant behaves as listed. Not part of check_all.sh (slow, needs the
-scratch copy); run it after a change of tools/erc.sh, tools/gen_symbols.py or the p2k pin.
+scratch copy); run it after a change of ERC_FATAL_WARNINGS, tools/gen_symbols.py or the p2k pin.
 """
 import os
 import shutil
@@ -86,11 +85,11 @@ def run(variant):
         open(path, "w").write(s)
     env = dict(os.environ, P2K_BOARD=SCRATCH)
     subprocess.run([sys.executable, __file__, "--draw", variant], env=env, check=True)
-    erc = subprocess.run([os.path.join(ROOT, "tools", "erc.sh"),
-                          os.path.join(SCRATCH, "kicad", "tube_control_card.kicad_sch"),
-                          os.path.join(SCRATCH, "erc.rpt")], capture_output=True, text=True)
-    cmp_ = subprocess.run([sys.executable, os.path.join(ROOT, "tools", "compare_netlists.py"),
-                           "--allow-missing", "--sheet", "11"], env=env, capture_output=True, text=True)
+    p2k = os.path.join(ROOT, "tools", "p2k", "bin", "p2k")
+    erc = subprocess.run([p2k, "erc", "--no-pending", os.path.join(SCRATCH, "kicad", "tube_control_card.kicad_sch"),
+                          os.path.join(SCRATCH, "erc.rpt")], env=env, capture_output=True, text=True)
+    cmp_ = subprocess.run([p2k, "compare_netlists", "--allow-missing", "--sheet", "11"],
+                          env=env, capture_output=True, text=True)
     return erc, cmp_
 
 

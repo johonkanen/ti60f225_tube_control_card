@@ -5,23 +5,23 @@ items 4478, groups 442, shorts 0, orphans 0, opens 5
   open 3V3: 11 groups [C27-2 C31-2 C36-1 C37-2 C54-1 ...] [C30-1 C33-1 L5-2 U10-B13 U10-B4] [C29-1 U10-N15] [C34-2 C38-2 U8-23 U8-24] [C62-2 C64-2 C66-2 R19-2 R26-2 ...] [ADC1-COM2 C67-2 J6-1 J6-2 R31-1 ...] [J7-29 J7-30] [C60-2 U14-4] [R29-2] [C12-2] [C56-2]
   open 5V: 3 groups [C11-2 C13-2 C15-2 C19-1 C55-2 ...] [J2-1] [R1-1]
   open GND: 83 groups [C1-1 FLASH1-4] [C2-1 OSC1-2] [J8-3] [J1-5] [C30-2 U10-A1] [C33-2 R36-1 U10-A15] [R38-1 U10-D3] [C22-2 U10-G6] [U10-G8] [C21-2 U10-H7] [C24-2 U10-H9] [C23-2 U10-J6] [C25-2 R40-1 U10-J8] [R32-1 R35-1 U10-M13] [C36-2 R11-1 U10-R1] [C29-2 U10-R15] [U1-11 U1-12] [U1-13] [U1-22] [U2-11 U2-12] [U2-13] [C27-1 U2-22] [C32-1 U7-11 U7-12] [C28-1 U7-13] [C31-1 U7-22] [C38-1 C39-1 U8-11 U8-12] [U8-13] [C34-1 U8-22] [U9-11 U9-12] [U9-13] [U9-22] [C53-2 C55-1 J11-33 PWR4-1] [C54-2 J11-34] [C4-1 R59-1 U12-1 U12-5] [J6-3] [J6-4] [J7-27] [J7-28] [J3-2] [J3-4] [J3-6] [J3-8] [J3-10] [J3-12] [J3-14] [J3-16] [C51-2 RS1-4] [J4-1] [J4-1] [ADC1-A2 C67-1 C68-1] [U11-3] [C66-1 U11-5] [U11-10] [U11-12] [C62-1 U5-3] [U5-5] [C61-2 U5-10] [U5-12] [C64-1 U6-3] [U6-5] [U6-10] [C63-2 U6-12] [C60-1 U14-3] [U14-5] [U14-10] [C59-2 U14-12] [AD2-5 C10-1 C5-1 C6-1 C7-1 ...] [C9-1] [V4-2] [C19-2] [C20-2] [AD2-8] [R37-1] [C17-1 R39-1] [C15-1 C16-1 PWR1-2 R9-2] [C13-1 C14-1 C18-1 PWR2-2 R2-2 ...] [C11-1 C12-1 PWR3-2 R13-2 R30-2] [C40-2] [C26-1] [C35-1] [C37-1] [C71-1] [C65-2]
-  accepted open (D1, board-local): ISO5V: ISO5V-1 pads in two groups
-  accepted open (D1, board-local): Net-(RS1-A): RS485A-1 pads in two groups
-  accepted open (D1, board-local): Net-(RS1-B): RS485B-1 pads in two groups
-  accepted open (D1, board-local): RS485_GND: ISO_G-1 pads in two groups
+  accepted open (SPLIT_PIN_MERGES): ISO5V: ISO5V-1 pads in two groups
+  accepted open (SPLIT_PIN_MERGES): Net-(RS1-A): RS485A-1 pads in two groups
+  accepted open (SPLIT_PIN_MERGES): Net-(RS1-B): RS485B-1 pads in two groups
+  accepted open (SPLIT_PIN_MERGES): RS485_GND: ISO_G-1 pads in two groups
 == stage B: + Proteus pours
 items 4498, groups 307, shorts 0, orphans 0, opens 0
-  accepted open (D1, board-local): 5V: J2-1 pads in two groups
-  accepted open (D1, board-local): ISO5V: ISO5V-1 pads in two groups
-  accepted open (D1, board-local): Net-(RS1-A): RS485A-1 pads in two groups
-  accepted open (D1, board-local): Net-(RS1-B): RS485B-1 pads in two groups
-  accepted open (D1, board-local): RS485_GND: ISO_G-1 pads in two groups
+  accepted open (SPLIT_PIN_MERGES): 5V: J2-1 pads in two groups
+  accepted open (SPLIT_PIN_MERGES): ISO5V: ISO5V-1 pads in two groups
+  accepted open (SPLIT_PIN_MERGES): Net-(RS1-A): RS485A-1 pads in two groups
+  accepted open (SPLIT_PIN_MERGES): Net-(RS1-B): RS485B-1 pads in two groups
+  accepted open (SPLIT_PIN_MERGES): RS485_GND: ISO_G-1 pads in two groups
 == assignment: 3586 tracks/vias got a net, 0 without
 == after zone fill (KiCad pads, tracks, vias, filled zones)
 items 4498, groups 307, shorts 0, orphans 0, opens 0
-  accepted open (D1, board-local): 5V: J2-1 pads in two groups
-  accepted open (D1, board-local): ISO5V: ISO5V-1 pads in two groups
-  accepted open (D1, board-local): Net-(RS1-A): RS485A-1 pads in two groups
-  accepted open (D1, board-local): Net-(RS1-B): RS485B-1 pads in two groups
-  accepted open (D1, board-local): RS485_GND: ISO_G-1 pads in two groups
+  accepted open (SPLIT_PIN_MERGES): 5V: J2-1 pads in two groups
+  accepted open (SPLIT_PIN_MERGES): ISO5V: ISO5V-1 pads in two groups
+  accepted open (SPLIT_PIN_MERGES): Net-(RS1-A): RS485A-1 pads in two groups
+  accepted open (SPLIT_PIN_MERGES): Net-(RS1-B): RS485B-1 pads in two groups
+  accepted open (SPLIT_PIN_MERGES): RS485_GND: ISO_G-1 pads in two groups
 items carrying another net than their group: 0
