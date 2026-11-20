@@ -15,8 +15,8 @@ in six variants and runs the real checks (p2k erc, p2k compare_netlists) on it:
                                                                         nc_joined (on by default)
   joined       pins 4 and 7 wired to each other, no flag             -> compare fails (Net-(PWR4-NC))
 
-Exit status 0 when every variant behaves as listed. Not part of check_all.sh (slow, needs the
-scratch copy); run it after a change of ERC_FATAL_WARNINGS, tools/gen_symbols.py or the p2k pin.
+Exit status 0 when every variant behaves as listed. Part of check_all.sh since generation stopped (~30 s; it
+draws in a scratch copy with the frozen tools/generate/sheets/_common.py helpers).
 """
 import os
 import shutil
@@ -37,7 +37,7 @@ EXPECT = {"ok":         (True, True),
 
 def draw(variant):
     """Runs in a subprocess with P2K_BOARD = the scratch board."""
-    sys.path.insert(0, os.path.join(ROOT, "tools", "sheets"))
+    sys.path.insert(0, os.path.join(ROOT, "tools", "generate", "sheets"))
     from _common import sheet, flagged_power, power_at, g, sym, sh_value
     from p2k import board
     for _, _, fname in board.config().SHEETS:      # the test does not depend on what is drawn so far

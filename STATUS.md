@@ -12,6 +12,41 @@ Plan: [PLAN.md](PLAN.md). Playbook: `tools/p2k/CONVERSION_PLAYBOOK.md`.
 | 5 Clean-up | **done** 2026-11-20 (Opus 5.5, clean context): user decisions (through the coordinating session) implemented in the generator: `p2k place_refdes` as the last `make_pcb.sh` step; dangling copper, J1 body, FLASH1, pads and drills kept as built; DRC 370 → 83 violations (0 shorts / 0 parity; 32 accepted courtyards, + the 5 accepted D1 unconnected items; silk 326 → 39 warnings, none a reference); ALL CHECKS PASSED. **Conversion complete**: a reference / starting point only (card not installed, no submodule in the master repo); rev A stays generated until the user's first manual layout change |
 | Design fixes | **done** 2026-11-20 (Opus 5.5): user decisions: AP61202 pin 6 VOUT → PG (finding 12), PDF sheet notes tidied (finding 6), dangling Proteus copper removed (finding 26: 26 draws + 1 via; reverses Phase 5 decision 2); values unchanged; findings 9 / 25 later; DRC 71 violations (0 dangling); ALL CHECKS PASSED |
 | Shared-tool migration | **done** 2026-11-20 (Opus 5.5): tools/p2k c5682dd → a9a286c, every board-local check / wrapper replaced by the shared tools and config keys (14 tools deleted), byte-identical except the accepted re-baselines D-R and D-TC7b; no strict opt-outs; then J11 renumbered to standard (finding 25, D-PIN, with tube_hv_supplies J1); ALL CHECKS PASSED, regress.sh PASS after each commit |
+| Generation stopped | **done** 2026-11-20 (Opus 5.5): user decision; last generated commit **827b0b7**; generators frozen in `tools/generate/` (`make_pcb.sh` refuses without `--force-regenerate`); `check_all.sh` keeps only the checks of the committed files against Proteus and the KiCad rules; ALL CHECKS PASSED |
+
+## Generation stopped 2026-11-20 – done (Opus 5.5)
+
+User decision 2026-11-20 (through the coordinating session; "Decisions"): this board is no longer generated
+from the Proteus data. **Last generated commit: 827b0b7** (every generated file byte-identical with its
+generator there: `make_part_map --check`, `gen_symbols --check`, the 12 sheet scripts (no diff),
+`gen_footprints --check`, `make_pcb --check` "byte-identical"; repeated from `tools/generate/` in the freeze
+commit, same result). From the freeze commit on, the committed `lib/` and `kicad/` files are the source; hand
+edits are made with pcbnew / sexpr scripts in build/tmp and listed in "Hand edits after generation stopped".
+
+- **Generators frozen** in `tools/generate/` (`git mv`, only the path lines changed so they would still run on
+  a checkout of the freeze commit): `make_part_map.py`, `gen_symbols.py`, `sheets/` (`sheetNN.py`,
+  `_common.py`), `gen_footprints.py`, `make_pcb.sh`. `tools/generate/README.md`: "frozen history, do not run".
+  `make_pcb.sh` refuses (exit 2) without `--force-regenerate`.
+- **Still read by checks**: `p2k check_pin_order` imports the footprint RULES of
+  `tools/generate/gen_footprints.py` (new config key `FOOTPRINT_SCRIPT`, an existing p2k key; nothing is
+  written); `tools/test_no_connect.py` draws its scratch sheets with `tools/generate/sheets/_common.py`.
+- **`tools/check_all.sh`**: removed the steps that regenerate / byte-compare generated files:
+  `make_part_map.py --check`, `gen_symbols.py --check`, `p2k sheets --check`, `gen_footprints.py --check`,
+  `make_pcb.sh --check`. Kept (they check the committed files against the Proteus sources and the KiCad
+  rules): KiCad environment, `p2k ipc356 --check`, `check_sources`, `check_symbols`, ERC, `compare_netlists`,
+  `check_footprints --pcbnew`, `check_pin_order`, `check_board`, `assign_nets --check`, DRC (strict defaults),
+  `ipc356_diff`, `gerber_roundtrip --check`, the PDF reading. Added: `tools/test_no_connect.py` (decision D2
+  negative test, ~30 s; it was a separate run before).
+  `p2k ipc356 --check` is **kept on purpose**: `reference/*` is the parsed Proteus netlist, not a design file;
+  it never changes after the freeze, and the step keeps it equal to `source/` (besides the parser self-check),
+  so a hand edit cannot be hidden by editing the reference. Drop it if the coordinating session prefers.
+- **Negative tests** (scratch copies of the repo in build/tmp/neg1_*, script build/tmp/neg_mut.py, not
+  committed): a B.Cu BIASREF track moved 0.3 mm sideways → `assign_nets --check` (1 orphan, 1 open), DRC
+  (2 unconnected), `gerber_roundtrip` (2 other clusters, 2 uncovered) **FAILED**; the R34 reference text moved
+  (0.5, 0.3) mm (copper-neutral) → **ALL CHECKS PASSED**. (A first try moved a 1 mm GND track 0.3 mm along its
+  own axis between two wide GND items: copper-equivalent, and it passed, as it should.)
+- `~/dev/proteus2kicad/tools/regress.sh` regenerates every board with `tools/gen_symbols.py`, `tools/sheets/`,
+  `tools/make_pcb.sh` …: for this board it now fails at the regenerate step by design (p2k candidate 35).
 
 ## Shared-tool migration 2026-11-20 – done (Opus 5.5)
 
@@ -1882,6 +1917,13 @@ migration 2026-11-20".
    first entry and gerber_to_tracks fails on the duplicate. Board-local: `tools/pcb_wrap.py` patch 5 (drawn
    direction first, 1e-6 mm). Needed: a direction-exact match first in the shared tool. Also: board-local
    `check_drill_smaller.py` had to learn `REMOVED_VIAS`.
+35. **`tools/regress.sh` cannot run a frozen board** (generation stopped 2026-11-20): its `regen()` runs
+   `tools/gen_symbols.py`, `tools/sheets/sheet*.py`, `tools/gen_footprints.py`, `tools/make_pcb.sh` of every tube
+   board; here they are frozen in `tools/generate/` (`make_pcb.sh` refuses), so the regenerate step fails and the
+   board FAILs although `check_all.sh` passes and the tree is clean. Needed: a frozen-board marker (e.g.
+   `tools/generate/README.md` present, or a config key `GENERATION_STOPPED = "<commit>"`) that makes `regen()` skip
+   the regenerate step and run only `check_all.sh` + the clean-tree test. Until then: run `tools/check_all.sh` on a
+   clean clone with the candidate pin by hand.
 
 ## Decisions
 
@@ -1939,6 +1981,7 @@ migration 2026-11-20".
      as built.
   4. Pad sizes / drills: **keep as they are** (no Proteus pads on further parts).
   5. Rev A **stays generated**; stopping generation is the user's call at the first hand edit.
+     **Replaced on 2026-11-20**: generation stopped (decision "Generation stopped" below).
   The card is not installed, so the amplifier master repo does **not** add this repo as a submodule;
   the finished conversion is a reference / starting point only.
 
@@ -1966,5 +2009,12 @@ migration 2026-11-20".
 - **Shared-tool migration (coordinating session, 2026-11-20; proteus2kicad CANDIDATES.md section 7.5):** accepted
   re-baselines D-R (reference/*.md report texts, with the bump) and D-TC7b (the 14 `accepted open` tags of
   reports/assign_nets.txt); strict checks on by default (D-Z) with no opt-out (spec `max_move` on RS1 / FLASH1).
+- **Generation stopped (user decision 2026-11-20, through the coordinating session):** rev A is no longer
+  generated from the Proteus data. **Last generated commit 827b0b7**; the freeze commit (generators moved to
+  `tools/generate/`, check list reduced) is the next one ("Generation stopped 2026-11-20"). From then on the
+  committed `lib/` and `kicad/` files are the source and are edited directly; every hand edit is listed in
+  "Hand edits after generation stopped" and accepted exactly by the checks. This replaces Phase 5 decision 5
+  ("rev A stays generated") and PLAN.md rule 4. First hand edit: finding 9 (ADC1 VA / VIN), component values
+  unchanged.
 
 Open: none.

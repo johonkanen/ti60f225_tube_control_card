@@ -17,7 +17,7 @@ Sources (STATUS.md "Phase 1 preparation"):
 import os
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "p2k"))  # proteus2kicad
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "p2k"))  # proteus2kicad (tools/p2k)
 from p2k import part_map  # noqa: E402
 
 SPEC = dict(

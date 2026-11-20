@@ -26,7 +26,7 @@ The SMD test pad is a board-only spec with `smd_pad=(diameter, side)` (p2k.footp
 import os
 import sys
 
-ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+ROOT = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))  # tools/generate/ -> repo root
 sys.path.insert(0, os.path.join(ROOT, "tools", "p2k"))  # proteus2kicad
 from p2k import footprints  # noqa: E402
 

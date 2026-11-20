@@ -143,7 +143,7 @@ OUTLINE_RECT = (13.87, -42.75, 97.79, 55.88)  # x, y, width, height
 # Excellon drill of the RS-274X export (same 377 hits as the X2 drill gerber, Phase 0).
 DRILL_EXCELLON = "source/cadcam_rs274x/fpga_boardv2.5 - CADCAM Drill.DRL"
 
-# --- Footprints (Phase 2: tools/gen_footprints.py, p2k check_footprints) -------------
+# --- Footprints (Phase 2: tools/generate/gen_footprints.py, p2k check_footprints) ----
 
 # KiCad library pad sizes and drills; pad centres on the Proteus positions. Differences per refdes
 # in STATUS.md "Phase 2 - pad sizes and drills" (open user decision for Phase 3 / 4).
@@ -151,20 +151,20 @@ FOOTPRINT_PAD_SIZES = "kicad"
 
 # Board-only footprints for Phase 3 (p2k.build_pcb): the 4 plated 3.0 mm mounting holes and the
 # 4 SMD test pads (IPC 'free_pad' records, SMD_FREE_PADS; the footprint is an SMD pad, spec smd_pad in
-# tools/gen_footprints.py).
+# tools/generate/gen_footprints.py).
 HOLE_FOOTPRINT = "tube_control_card:MountingHole_3.0mm_PTH_Pad6.35mm"
 HOLE_VALUE = "MountingHole_3.0mm_PTH"
 FREE_PAD_FOOTPRINT = "tube_control_card:TestPad_SMD_D0.711mm"
 FREE_PAD_VALUE = "TestPad"
 FREE_PAD_PREFIX = "TP"
 
-# tools/gen_footprints.py (footprints.run) also writes / --checks kicad/fp-lib-table.
+# tools/generate/gen_footprints.py (footprints.run) also writes / --checks kicad/fp-lib-table.
 FP_LIB_TABLE = True
 # THT parts mounted on the bottom side (p2k check_footprints: a THT pattern that fits only mirrored
 # must be listed here, a listed part must fit only mirrored).
 BOTTOM_THT = {"J3": "2x8 1.27 mm header on the bottom side (Proteus bottom assembly)"}
 
-# --- PCB (Phase 3: tools/make_pcb.sh, p2k build_pcb / pours_to_zones / drc) ----------
+# --- PCB (Phase 3: tools/generate/make_pcb.sh (frozen), p2k build_pcb / pours_to_zones / drc)
 
 # Board thickness: 1.6 mm (user decision 2026-11-20, finding 5; the CADCAM READ-ME stack of
 # 2.34 mm is a Proteus default). Stack-up (agent's choice, a common 4-layer 1.6 mm build; only
@@ -253,12 +253,15 @@ REMOVED_VIAS = {
 
 # --- Pin order (Phase 2: p2k check_pin_order) ----------------------------------------
 # The UNMOVED KiCad base footprints with the Proteus renumbering (rule= takes the footprint of the
-# symbol's RULES rule in tools/gen_footprints.py: a project footprint as its base + renumber), fitted
+# symbol's RULES rule in tools/generate/gen_footprints.py: a project footprint as its base + renumber), fitted
 # onto the IPC pads. SMD parts must fit with the mirror of their IPC side (bottom = mirrored), THT
 # parts with the mirror of their side on the Proteus assembly layers (all on top except J3). U10 also
 # checks the fitted angle (180 deg). Two-pad / inline parts and dual-row SMD packages are symmetric
 # under a 180 deg turn: the nets (Phase 1) and the --render overlays decide (STATUS.md "Phase 2 - pin
 # order"). Footprints built from the IPC pads only (blade terminals, IZB03, X2QFN-8 AD2) have no base.
+# The generators are frozen in tools/generate/ (generation stopped 2026-11-20); check_pin_order imports the
+# RULES from there (read only, nothing is written).
+FOOTPRINT_SCRIPT = "tools/generate/gen_footprints.py"
 PIN_ORDER = [
     dict(name="U10 BGA", refs="U10", rule="TI60F225", mirror=False, res=0.001, angle=180.0,
          note="ball ids = KiCad pad names, A1-top-left footprint at 180 deg"),

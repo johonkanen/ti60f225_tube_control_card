@@ -83,7 +83,11 @@ independent:
 3. **Reproduce Proteus.** Problems in the original design are reported in STATUS.md
    ("Findings"), not fixed. The redesign happens later, from this baseline.
 4. **Generate, don't hand-edit** (playbook section 1): every file in `kicad/`, `lib/` and
-   `reference/` is written by a script and is reproducible.
+   `reference/` is written by a script and is reproducible. **Ended 2026-11-20** (user decision,
+   STATUS.md "Decisions"): generation stopped, the committed `kicad/` and `lib/` files are the source
+   and are edited directly (scripts in `build/tmp`, every edit recorded in STATUS.md "Hand edits after
+   generation stopped" and accepted exactly by the checks); the generators are frozen in
+   `tools/generate/`. `reference/` stays the parsed Proteus netlist (never edited).
 5. **Temporary files in `build/tmp/`** (git-ignored). Never run the KiCad AppImage with
    `--version` (it starts the GUI and hangs); use `tools/p2k/bin/kipy` and `tools/p2k/bin/kicad-cli`.
 6. **Commit and push at the end of every phase** (and at the end of a session), with

@@ -16,7 +16,7 @@ import os
 import re
 import sys
 
-sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "p2k"))  # proteus2kicad
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), "p2k"))  # proteus2kicad (tools/p2k)
 from p2k import board, pdsprj  # noqa: E402
 from p2k.symgen import *  # noqa: E402,F401,F403
 from p2k.symgen import run  # noqa: E402
