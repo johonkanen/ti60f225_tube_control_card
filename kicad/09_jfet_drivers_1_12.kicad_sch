@@ -1,0 +1,15 @@
+(kicad_sch
+	(version 20260101)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "1f8498d0-5a68-4e8f-9199-70c5ece302b1")
+	(paper "A3")
+	(title_block
+		(title "Tube control card (Ti60F225) - JFET drivers 1-12")
+		(company "Tube amplifier")
+		(rev "rev A (as built)")
+		(comment 1 "Redrawn from Proteus fpga_boardv2.5")
+	)
+	(lib_symbols)
+	(embedded_fonts no)
+)

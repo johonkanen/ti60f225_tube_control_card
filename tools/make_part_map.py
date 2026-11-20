@@ -1,0 +1,164 @@
+#!/usr/bin/env python3
+"""Generate lib/part_map.csv: refdes -> PDF page, symbol, value, Proteus package.
+
+Sources (STATUS.md "Phase 1 preparation"):
+  refdes   reference/ipc356_pads.json (no renamed refdes on this board: KICAD_REFDES is empty)
+  value    schematic value from ROOT.DSN (p2k.pdsprj.dsn_values, all 146 found)
+  package  layout record in ROOT.LYT, read by lyt_packages() below: p2k.pdsprj.lyt_parts finds
+           nothing in this ROOT.LYT (no EID markers; STATUS.md p2k candidate 4)
+  sheet    PDF page whose text layer has the refdes; PAGE_OVERRIDES for the ambiguous ones
+           (many refdes-like words are FPGA ball names: C4, J5, R10 ... in the U10 units of
+           pages 2, 5 and 6, or alias labels on page 1) - resolved on the page renders
+  lib_id   SYMBOL_BY_VALUE (schematic value -> lib/tube_control_card.kicad_sym symbol), else
+           by refdes prefix (R, C, L; resistor arrays by package)
+
+  tools/make_part_map.py           write lib/part_map.csv
+  tools/make_part_map.py --check   fail if lib/part_map.csv is not up to date
+"""
+import csv
+import io
+import json
+import os
+import re
+import sys
+
+sys.path.insert(0, os.path.join(os.path.dirname(os.path.abspath(__file__)), "p2k"))  # proteus2kicad
+from p2k import board, pdftext, pdsprj  # noqa: E402
+
+PRJ = board.path("source", "fpga_boardv2.5.pdsprj")
+PDF = board.path("source", "schematic_pdf", "fpga_boardv2.5.PDF")
+OUT = board.path("lib", "part_map.csv")
+LIB = board.config().PROJECT
+
+SYMBOL_BY_VALUE = {
+    "TI60F225": "TI60F225",
+    "ADS7056": "ADS7056", "ADC121C027": "ADC121C027", "AD5622": "AD5622",
+    "W25Q64JWSSIQ": "W25Q64JWSSIQ", "MC2016K OSC": "MC2016K_OSC",
+    "AP61202": "AP61202", "IZB03": "IZB03", "TPS73030": "TPS73030",
+    "MAX22025": "MAX22025", "SN74AXC8T245": "SN74AXC8T245", "SN74LV4051": "SN74LV4051",
+    "TLV316IDBVR": "TLV316IDBVR", "TLV9304PWR": "TLV9304PWR", "TL084HIDYYR": "TL084HIDYYR",
+    "TERMINAL": "TERMINAL", "TBLOCK-I5": "TBLOCK-I5",
+    "16 PIN HEADER 50TH": "HEADER_2X8_50MIL", "30 PIN HEADER 50TH": "HEADER_2X15_50MIL",
+    "40 PIN HEADER 50TH": "HEADER_2X20_50MIL",
+}
+SYMBOL_BY_REFDES = {"J8": "CONN_01X03"}   # 3-pin connector; its schematic value is "1k" (finding)
+R_ARRAY_PACKAGE = "RESISTOR ARRAY 2X1MM"   # 4 x R, units A-D as drawn in the PDF
+
+# Refdes whose PDF text-layer hits are ambiguous (resolved on build/tmp/pdf/hi-NN.png): the
+# other hits are FPGA ball names in the U10 units (pages 2, 5, 6), alias labels of page 1
+# (L1, R10-R14, ...) or the J8/J9 balls (page 6).
+PAGE_OVERRIDES = {
+    "C4": 11, "C5": 7, "C6": 7, "C7": 7, "C9": 7, "C10": 7,
+    "C11": 3, "C12": 3, "C13": 3, "C14": 3, "C15": 3,
+    "J2": 1, "J4": 1, "J5": 1, "J8": 1, "J9": 1,      # power-input terminals and J8 on page 1
+    "J3": 10, "J6": 10, "J7": 10, "J11": 8,
+    "L1": 3, "L3": 7, "L4": 3, "L5": 3,
+    "R1": 3, "R2": 3, "R3": 2, "R4": 2, "R5": 2, "R6": 2, "R7": 2, "R8": 3, "R9": 3,
+    "R10": 3, "R11": 6, "R12": 7, "R13": 3, "R14": 9, "R15": 9,
+    "U10": 2,   # units A, C on page 2; B, D, E, F on page 5; G, H on page 6 (column `units`)
+}
+UNIT_PAGES = {"U10": "A:2 B:5 C:2 D:5 E:5 F:5 G:6 H:6"}
+
+FIELDS = ["refdes", "sheet", "lib_id", "value", "package", "units"]
+
+
+def lyt_packages(prj, refs, values):
+    """{refdes: package} from the ROOT.LYT part records.
+
+    Board-local reader (p2k candidate 4): a record is `<package> <refdes><junk> ...
+    PART REFERENCE <value><junk> ... PART VALUE <nets>`; the refdes token often carries binary
+    junk, so it is matched as the longest known refdes the token starts with, and accepted
+    only when the value token after PART REFERENCE starts with the schematic value."""
+    toks = pdsprj._strings(pdsprj._read(prj, "ROOT.LYT"))
+    out = {}
+    for k, t in enumerate(toks):
+        if t != "PART REFERENCE" or k + 1 >= len(toks):
+            continue
+        for j in range(k - 1, max(0, k - 7), -1):
+            cand = [r for r in refs if toks[j].strip().startswith(r)]
+            if not cand:
+                continue
+            ref = max(cand, key=len)
+            if toks[k + 1].strip().startswith(values[ref]):
+                if ref in out:
+                    raise ValueError(f"lyt_packages: two layout records for {ref}")
+                out[ref] = toks[j - 1].strip()
+                break
+    return out
+
+
+def natkey(s):
+    return [(0, int(t), "") if t.isdigit() else (1, 0, t) for t in re.findall(r"\d+|\D+", s)]
+
+
+def build():
+    ipc = json.load(open(board.path("reference", "ipc356_pads.json")))
+    kicad = {p["refdes_proteus"]: p["refdes"] for p in ipc["pads"] if p["kind"] == "pad"}
+    refs = set(kicad)
+    values = pdsprj.dsn_values(PRJ, refs)
+    packages = lyt_packages(PRJ, refs, values)
+    pages = pdftext.refdes_pages(pdftext.pdf_words(PDF), refs)
+    errors = []
+    rows = []
+    for ref in sorted(refs):
+        if ref not in values or not values[ref]:
+            errors.append(f"{ref}: no schematic value in ROOT.DSN")
+            continue
+        if ref not in packages:
+            errors.append(f"{ref}: no layout record in ROOT.LYT")
+            continue
+        page = PAGE_OVERRIDES.get(ref)
+        if page is None:
+            if len(pages[ref]) != 1:
+                errors.append(f"{ref}: PDF pages {pages[ref]} (add to PAGE_OVERRIDES)")
+                continue
+            page = pages[ref][0]
+        elif page not in pages[ref]:
+            errors.append(f"{ref}: PAGE_OVERRIDES page {page} not among the PDF pages {pages[ref]}")
+        val, pkg = values[ref], packages[ref]
+        prefix = re.match(r"[A-Z_]+", ref).group(0)
+        if ref in SYMBOL_BY_REFDES:
+            sym = SYMBOL_BY_REFDES[ref]
+        elif val in SYMBOL_BY_VALUE:
+            sym = SYMBOL_BY_VALUE[val]
+        elif prefix == "R":
+            sym = "R_ARRAY4" if pkg == R_ARRAY_PACKAGE else "R"
+        elif prefix in ("C", "L"):
+            sym = prefix
+        else:
+            errors.append(f"{ref}: no symbol for value {val!r} (package {pkg!r})")
+            continue
+        rows.append({"refdes": kicad[ref], "sheet": page, "lib_id": f"{LIB}:{sym}", "value": val,
+                     "package": pkg, "units": UNIT_PAGES.get(ref, "")})
+    for ref in sorted(set(PAGE_OVERRIDES) - refs):
+        errors.append(f"PAGE_OVERRIDES: {ref} is not an IPC refdes")
+    if errors:
+        sys.exit("make_part_map:\n  " + "\n  ".join(errors))
+    rows.sort(key=lambda r: (r["sheet"], natkey(r["refdes"])))
+    buf = io.StringIO()
+    buf.write("# Generated by tools/make_part_map.py - do not edit. sheet = Proteus PDF page;"
+              " value = schematic value (ROOT.DSN); package = Proteus layout record (ROOT.LYT);"
+              " units = PDF page of each unit of a symbol drawn on several pages\n")
+    w = csv.DictWriter(buf, fieldnames=FIELDS, lineterminator="\n")
+    w.writeheader()
+    w.writerows(rows)
+    return buf.getvalue(), rows
+
+
+def main():
+    text, rows = build()
+    rel = os.path.relpath(OUT, board.root())
+    if "--check" in sys.argv:
+        if not os.path.exists(OUT) or open(OUT).read() != text:
+            print(f"make_part_map: {rel} is out of date, run tools/make_part_map.py")
+            return 1
+        print(f"make_part_map: {rel} up to date ({len(rows)} parts)")
+        return 0
+    os.makedirs(os.path.dirname(OUT), exist_ok=True)
+    open(OUT, "w").write(text)
+    print(f"wrote {rel}: {len(rows)} parts")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

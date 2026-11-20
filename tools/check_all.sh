@@ -13,6 +13,14 @@ step "KiCad environment" tools/p2k/bin/kipy -c "import pcbnew; v = pcbnew.GetBui
 # nets, the SMD test pads and the BGAPad flashes (STATUS.md "p2k candidates")
 step "IPC-D-356A parser self-check (p2k ipc356 --check + board exceptions)" python3 tools/ipc356_check.py
 step "Gerber X2 export vs IPC (p2k check_sources + board exceptions)" python3 tools/check_sources.py
+# Phase 1
+step "Part map up to date" python3 tools/make_part_map.py --check
+step "Symbol library up to date" python3 tools/gen_symbols.py --check
+step "Symbol pin sets vs IPC" tools/p2k/bin/p2k check_symbols
+step "ERC" tools/erc.sh
+# p2k compare_netlists with the five split terminal nets of decision D1 accepted (board-local);
+# --allow-missing until all 12 sheets are drawn
+step "Netlist comparison vs IPC (D1 merges accepted)" python3 tools/compare_netlists.py --allow-missing
 
 echo
 [ $fail -eq 0 ] && echo "ALL CHECKS PASSED" || echo "SOME CHECKS FAILED"

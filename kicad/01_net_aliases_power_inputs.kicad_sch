@@ -1,0 +1,15 @@
+(kicad_sch
+	(version 20260101)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "f5932c84-52fc-4a0d-b714-6063d99a878a")
+	(paper "A3")
+	(title_block
+		(title "Tube control card (Ti60F225) - Net aliases and power inputs")
+		(company "Tube amplifier")
+		(rev "rev A (as built)")
+		(comment 1 "Redrawn from Proteus fpga_boardv2.5")
+	)
+	(lib_symbols)
+	(embedded_fonts no)
+)

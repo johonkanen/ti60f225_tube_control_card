@@ -70,6 +70,19 @@ SPLIT_PIN_NETS = {
     ("RS485B", "1"): ("#00671.00261", "#00671.00262"),
 }
 
+# Decision D1 (user, 2026-11-20; STATUS.md "Decisions"): each split terminal is drawn as one
+# pin 1, as in the PDF, so KiCad puts both pads on one net. Board-local
+# (tools/compare_netlists.py, later the PCB checks): the accepted net merges, pin ->
+# (kept IPC net, merged IPC net), IPC names after NET_ALIASES. Exactly these five; on RS485B
+# the merged net also carries R67-1 (the PDF draws R67 on the RS485 B node).
+SPLIT_PIN_MERGES = {
+    ("J2", "1"): ("5V", "5V.00301"),
+    ("ISO5V", "1"): ("ISO5V", "ISO5V.00299"),
+    ("ISO_G", "1"): ("RS485_GND", "RS485_GND.00300"),
+    ("RS485A", "1"): ("#00670.00259", "#00670.00260"),
+    ("RS485B", "1"): ("#00671.00261", "#00671.00262"),
+}
+
 # Blank-refdes records: a net and one of these drills = via; no net = hole (4 plated
 # 3.0 mm mounting holes, 6.35 mm copper on every layer, in the plated drill file).
 VIA_DRILLS = (0.2,)

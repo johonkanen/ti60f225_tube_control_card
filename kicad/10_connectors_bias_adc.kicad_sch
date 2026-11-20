@@ -1,0 +1,15 @@
+(kicad_sch
+	(version 20260101)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "cea8b227-2663-4846-968f-d4b688a6c052")
+	(paper "A3")
+	(title_block
+		(title "Tube control card (Ti60F225) - Connectors and bias ADC")
+		(company "Tube amplifier")
+		(rev "rev A (as built)")
+		(comment 1 "Redrawn from Proteus fpga_boardv2.5")
+	)
+	(lib_symbols)
+	(embedded_fonts no)
+)

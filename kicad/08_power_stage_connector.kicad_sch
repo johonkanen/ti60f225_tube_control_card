@@ -1,0 +1,15 @@
+(kicad_sch
+	(version 20260101)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "76f3de60-4082-46ac-be53-ddda1b088543")
+	(paper "A3")
+	(title_block
+		(title "Tube control card (Ti60F225) - Power stage connector J11")
+		(company "Tube amplifier")
+		(rev "rev A (as built)")
+		(comment 1 "Redrawn from Proteus fpga_boardv2.5")
+	)
+	(lib_symbols)
+	(embedded_fonts no)
+)

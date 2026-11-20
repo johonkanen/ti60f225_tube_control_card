@@ -1,0 +1,15 @@
+(kicad_sch
+	(version 20260101)
+	(generator "eeschema")
+	(generator_version "10.0")
+	(uuid "dc370b14-5d00-4ebc-aee8-02e7da7e6e46")
+	(paper "A3")
+	(title_block
+		(title "Tube control card (Ti60F225) - FPGA power")
+		(company "Tube amplifier")
+		(rev "rev A (as built)")
+		(comment 1 "Redrawn from Proteus fpga_boardv2.5")
+	)
+	(lib_symbols)
+	(embedded_fonts no)
+)
