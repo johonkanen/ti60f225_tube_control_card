@@ -1247,7 +1247,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus"
+		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus_ProteusPads"
 			(at 96.52 85.09 0)
 			(effects
 				(font
@@ -1685,7 +1685,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus"
+		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus_ProteusPads"
 			(at 160.02 87.63 0)
 			(effects
 				(font
@@ -2123,7 +2123,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus"
+		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus_ProteusPads"
 			(at 218.44 85.09 0)
 			(effects
 				(font
@@ -2561,7 +2561,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus"
+		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus_ProteusPads"
 			(at 274.32 85.09 0)
 			(effects
 				(font
@@ -2997,7 +2997,7 @@
 				)
 			)
 		)
-		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus"
+		(property "Footprint" "tube_control_card:TSSOP-14_4.4x5mm_P0.65mm_Proteus_ProteusPads"
 			(at 96.52 85.09 0)
 			(effects
 				(font

@@ -18,33 +18,10 @@ items 4525, groups 307, shorts 0, orphans 0, opens 0
   accepted open (D1, board-local): RS485_GND: ISO_G-1 pads in two groups
 == assignment: 3613 tracks/vias got a net, 0 without
 == after zone fill (KiCad pads, tracks, vias, filled zones)
-items 4525, groups 294, shorts 6, orphans 0, opens 0
-  SHORT group 2: 1V8: AD2-4 C1-2 C16-2 C2-2 C26-2 C28-2; MOS_GATE_4: J7-26 U8-21; MOS_GATE_1: J7-25 U10-N13
-  SHORT group 14: GND: AD2-5 AD2-8 ADC1-A2 C1-1 C10-1 C11-1; ADASEL1_ISO: J11-9 U7-21; 3V3: ADC1-COM2 C12-2 C27-2 C29-1 C30-1 C31-2; Net-(R14A-R1.1): R14-1 R15-8 U5-2 via(81.508,-33.472) via(82.364,-33.937); Net-(ADC1-VA): ADC1-A1 C68-2 R34-2; JFET_7: J7-10 R23-1 U6-1; Net-(R22A-R1.1): R22-1 R23-8 U6-2 via(68.433,-31.568) via(70.262,-32.245); GPIOL_N_06: U1-10 U10-K2
-  SHORT group 28: /09 JFET drivers 1-12/JFET_5: R23-4 TP4-1 U6-14; Net-(R22D-R4.1): R22-4 R23-5 U6-13 via(73.401,-30.023) via(73.736,-32.493)
-  SHORT group 92: GPIOR_22: ADC1-K1 R33-2 U10-P14 via(80.590,-13.379) via(81.999,-20.049); unconnected-(ADC1-ADR0-PadK2): ADC1-K2
-  SHORT group 94: JFET_11: J7-14 R25-1 U11-1; Net-(R24A-R1.1): R24-1 R25-8 U11-2 via(61.345,-34.227) via(61.366,-30.326)
-  SHORT group 455: Net-(R17A-R1.1): R17-1 R18-8 U14-2; JFET_14: J3-5 R18-1 U14-1 via(90.883,-36.569) via(90.946,-37.797)
+items 4525, groups 307, shorts 0, orphans 0, opens 0
   accepted open (D1, board-local): 5V: J2-1 pads in two groups
   accepted open (D1, board-local): ISO5V: ISO5V-1 pads in two groups
   accepted open (D1, board-local): Net-(RS1-A): RS485A-1 pads in two groups
   accepted open (D1, board-local): Net-(RS1-B): RS485B-1 pads in two groups
   accepted open (D1, board-local): RS485_GND: ISO_G-1 pads in two groups
-  touching on F.Cu: U8-1 [1V8] - track F.Cu(28.998,-10.020)-(28.058,-10.020) [MOS_GATE_1]
-  touching on F.Cu: U8-2 [1V8] - track F.Cu(28.998,-10.020)-(28.058,-10.020) [MOS_GATE_1]
-  touching on F.Cu: U8-2 [1V8] - track F.Cu(28.058,-10.020)-(26.538,-8.500) [MOS_GATE_1]
-  touching on F.Cu: J7-25 [MOS_GATE_1] - track F.Cu(57.105,-38.505)-(57.105,-39.725) [MOS_GATE_4]
-  touching on F.Cu: U7-22 [GND] - track F.Cu(62.048,7.190)-(62.048,3.690) [ADASEL1_ISO]
-  touching on F.Cu: U7-23 [3V3] - track F.Cu(62.048,7.190)-(62.048,3.690) [ADASEL1_ISO]
-  touching on F.Cu: U7-24 [3V3] - track F.Cu(62.048,7.190)-(62.048,3.690) [ADASEL1_ISO]
-  touching on F.Cu: U5-3 [GND] - track F.Cu(81.712,-29.483)-(80.780,-28.550) [Net-(R14A-R1.1)]
-  touching on F.Cu: ADC1-A1 [Net-(ADC1-VA)] - via(98.457,-22.206) [GND]
-  touching on F.Cu: U6-2 [Net-(R22A-R1.1)] - track F.Cu(67.900,-27.420)-(68.820,-26.500) [JFET_7]
-  touching on F.Cu: U6-3 [GND] - track F.Cu(68.218,-27.753)-(68.820,-27.150) [Net-(R22A-R1.1)]
-  touching on F.Cu: U1-11 [GND] - track F.Cu(72.448,-1.135)-(72.448,-3.662) [GPIOL_N_06]
-  touching on F.Cu: U1-12 [GND] - track F.Cu(72.448,-1.135)-(72.448,-3.662) [GPIOL_N_06]
-  touching on F.Cu: U6-13 [Net-(R22D-R4.1)] - track F.Cu(75.798,-27.068)-(75.230,-26.500) [/09 JFET drivers 1-12/JFET_5]
-  touching on F.Cu: ADC1-K2 [unconnected-(ADC1-ADR0-PadK2)] - track F.Cu(97.329,-19.704)-(97.329,-20.563) [GPIOR_22]
-  touching on F.Cu: U11-2 [Net-(R24A-R1.1)] - track F.Cu(59.002,-29.618)-(60.120,-28.500) [JFET_11]
-  touching on F.Cu: U14-2 [Net-(R17A-R1.1)] - track F.Cu(90.183,-29.196)-(89.487,-28.500) [JFET_14]
 items carrying another net than their group: 0

@@ -1376,7 +1376,7 @@
 				)
 			)
 		)
-		(property "Footprint" "tube_control_card:PinHeader_2x20_P1.27mm_Vertical_RowsSwapped"
+		(property "Footprint" "tube_control_card:PinHeader_2x20_P1.27mm_Vertical_RowsSwapped_ProteusPads"
 			(at 123.19 101.6 0)
 			(effects
 				(font

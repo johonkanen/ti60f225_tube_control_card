@@ -39,7 +39,7 @@ step "Pin order vs unmoved KiCad base footprints" python3 tools/check_pin_order.
 
 # Phase 3: PCB. Every step through the board-local wrappers (tools/pcb_wrap.py: D1 split terminals,
 # U10 BGAPad flashes, SMD test pads, "/" in unconnected net names; tools/drc_check.py: D1
-# unconnected items, and the pad conflicts of the open pad-size decision as PENDING USER DECISION)
+# unconnected items; the pad-size decision is applied, PENDING is empty)
 step "PCB rebuilt from schematic + gerbers, up to date (make_pcb --check)" tools/make_pcb.sh --check
 step "Board pads, holes, test pads, vias vs IPC (position, size, nets 1:1, D1 merges accepted)" tools/p2k/bin/kipy tools/pcb_wrap.py check_board
 step "Board copper connectivity after zone fill (assign_nets --check)" python3 tools/drc_check.py copper

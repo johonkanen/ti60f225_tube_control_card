@@ -34,15 +34,16 @@ parts fit their IPC pads within 0.030 mm (`p2k check_footprints --pcbnew`), pin 
 unmoved KiCad footprints (`tools/check_pin_order.py`). Results: ADC1 has VA / VIN swapped on the board
 (finding 9 confirmed); AP61202 pin 6 is PG, the sequencing is correct (finding 12 resolved); J11 is
 numbered as a mirrored header like the HV board's J1, so the ribbon connects as drawn (finding 25).
-**Phase 3 (PCB) generated, waiting for a user decision**: `tools/make_pcb.sh` rebuilds
+**Phase 3 (PCB) done**: `tools/make_pcb.sh` rebuilds
 `kicad/tube_control_card.kicad_pcb` (4 layers, 1.6 mm, 3373 tracks, 240 vias, 20 zones, U10 BGA, SMD test
 pads TP1-TP4) byte-identically; the Proteus copper is clean (0 shorts / 0 orphans / 0 opens besides the
 five D1 split terminals), every pad / via / hole on its IPC position and net (`check_board`). Design rules
-follow the measured Proteus copper (clearance 0.07 mm: 75 gaps under 0.1 mm on F.Cu, finding 26). The KiCad
-pads of 15 parts (TSSOP U1-U3 U5-U9 U11 U14, ADC1, U4, U12, headers J7 J11) collide with Proteus tracks:
-Proteus pads for those 15 (option A) or for the whole families (option B, 18 parts)? Both tested clean
-(STATUS.md "Phase 3 – pad sizes"). `tools/check_all.sh` passes except for that pending decision.
-Next: apply the decision and finish Phase 3 (next_prompt.md), then Phase 4 (verification).
+follow the measured Proteus copper (clearance 0.07 mm: 75 gaps under 0.1 mm on F.Cu, finding 26). Pad
+decision (user, option A): the 15 parts whose KiCad pads reached Proteus tracks (TSSOP U1-U3 U5-U9 U11
+U14, ADC1, U4, U12, headers J7 J11) have the Proteus pads; KiCad pads everywhere else. DRC: 0 shorts, 0
+clearance, 0 mask bridges, 0 parity; only the accepted courtyard overlaps and the five D1 unconnected
+items remain. `tools/check_all.sh`: ALL CHECKS PASSED.
+Next: Phase 4, independent verification in a fresh session (next_prompt.md).
 
 v2.5, built 2025. `source/cadcam_rs274x/` is the earlier RS-274X export of the same version (cross-check only). v1 (built 2024, same outline and mounting holes) is not converted.
 

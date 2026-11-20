@@ -1731,7 +1731,7 @@
 				)
 			)
 		)
-		(property "Footprint" "Connector_PinHeader_1.27mm:PinHeader_2x15_P1.27mm_Vertical"
+		(property "Footprint" "tube_control_card:PinHeader_2x15_P1.27mm_Vertical_ProteusPads"
 			(at 107.95 71.12 0)
 			(effects
 				(font
@@ -4210,7 +4210,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "tube_control_card:SOT-23-6_ADC121C027_Proteus"
+		(property "Footprint" "tube_control_card:SOT-23-6_ADC121C027_Proteus_ProteusPads"
 			(at 129.54 157.48 0)
 			(effects
 				(font

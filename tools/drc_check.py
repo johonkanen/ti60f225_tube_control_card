@@ -17,8 +17,8 @@
         a PENDING part, exactly PENDING_TOUCH of them, 0 orphans / opens / foreign nets
         -> PENDING USER DECISION.
 
-Anything else fails. Once the pad-size decision is applied, PENDING becomes empty (then any
-pad conflict fails) and only the D1 acceptance remains.
+Anything else fails. The pad-size decision is applied (PENDING is empty): any pad conflict
+fails and only the D1 acceptance remains.
 """
 import json
 import os
@@ -35,11 +35,13 @@ os.environ.setdefault("P2K_BOARD", ROOT)
 
 import drc_pads  # noqa: E402
 
-# Pad-size decision (STATUS.md "Phase 3 - pad sizes"): the parts whose KiCad pads collide with
-# Proteus copper, and the DRC / copper-check items they cause with FOOTPRINT_PAD_SIZES = "kicad".
-PENDING = ("ADC1", "J7", "J11", "U1", "U2", "U3", "U4", "U5", "U6", "U7", "U8", "U9", "U11", "U12", "U14")
-PENDING_DRC = {"clearance": 85, "hole_clearance": 2, "shorting_items": 13, "solder_mask_bridge": 17}
-PENDING_TOUCH = 17
+# Pad-size decision (STATUS.md "Phase 3 - pad sizes"): applied (user, 2026-11-20, option A:
+# PROTEUS_PADS in tools/gen_footprints.py), so nothing is pending any more and any pad conflict
+# fails. The mechanism stays for a future open decision: PENDING = parts, PENDING_DRC = DRC error
+# counts per type, PENDING_TOUCH = touching pairs in the copper check.
+PENDING = ()
+PENDING_DRC = {}
+PENDING_TOUCH = 0
 
 NET = re.compile(r"\[([^]]*)\]")
 

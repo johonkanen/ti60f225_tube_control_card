@@ -1828,7 +1828,7 @@
 				(justify left)
 			)
 		)
-		(property "Footprint" "tube_control_card:SOT-363_SC-70-6_Proteus"
+		(property "Footprint" "tube_control_card:SOT-363_SC-70-6_Proteus_ProteusPads"
 			(at 113.03 86.36 0)
 			(effects
 				(font
