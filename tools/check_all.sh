@@ -21,8 +21,8 @@ step "Sheets up to date (tools/sheets/sheetNN.py)" tools/make_sheets.sh --check
 # fails on errors (except tools/erc_pending.txt) and on no_connect_connected (decision D2)
 step "ERC" tools/erc.sh
 # p2k compare_netlists with the five split terminal nets of decision D1 accepted (board-local);
-# --allow-missing until all 12 sheets are drawn
-step "Netlist comparison vs IPC (D1 merges accepted)" python3 tools/compare_netlists.py --allow-missing
+# full comparison: all 146 parts, every IPC net complete (no --allow-missing)
+step "Netlist comparison vs IPC (D1 merges accepted)" python3 tools/compare_netlists.py
 
 echo
 [ $fail -eq 0 ] && echo "ALL CHECKS PASSED" || echo "SOME CHECKS FAILED"

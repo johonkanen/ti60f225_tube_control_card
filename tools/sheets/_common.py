@@ -397,3 +397,115 @@ def level_shifter(sh, ref, x, y, c_a, c_b):
         pin_tie(sh, u, 3 + k, "left", 6)
         pin_tie(sh, u, 21 - k, "right", 6)
     return u
+
+
+# --- U10 (TI60F225) units: pages 2, 5, 6 ----------------------------------------------------------------
+PDF = board.path("source", "schematic_pdf", "fpga_boardv2.5.PDF")
+FPGA_UNIT_PAGE = {1: 2, 3: 2, 2: 5, 4: 5, 5: 5, 6: 5, 7: 6, 8: 6}     # unit number (A = 1) -> PDF page
+_BALL_TEXT = None
+
+
+def ball_texts():
+    """{ball: (pin name, label or None)} of U10 as printed in the PDF (text layer, positions at 200 dpi):
+    the ball id stands on the pin stub of its unit, the pin name 30 px away inside the body, the
+    terminal label (if the pin is wired to one) up to 120 px away on the other side."""
+    global _BALL_TEXT
+    if _BALL_TEXT is None:
+        from p2k.pdftext import pdf_words
+        s = 200 / 72
+        words = pdf_words(PDF)
+        _BALL_TEXT = {}
+        for ball in (p for (r, p) in _ipc()[0] if r == "U10"):
+            page = FPGA_UNIT_PAGE[unit_of("U10", ball)]
+            ws = [(x0 * s, (y0 + y1) / 2 * s, x1 * s, t) for n, x0, y0, x1, y1, t in words if n == page]
+            hits = []
+            for n, x0, y0, x1, y1, t in words:
+                if n != page or t != ball:
+                    continue
+                yl = y1 * s + 2                               # the pin line runs just below the ball id
+                row = [w for w in ws if abs(w[1] - yl) < 9 and w[3] != ball]
+                lft = max((w for w in row if w[2] < x0 * s), key=lambda w: w[2], default=None)
+                rgt = min((w for w in row if w[0] > x1 * s), key=lambda w: w[0], default=None)
+                dl = x0 * s - lft[2] if lft else 1e9
+                dr = rgt[0] - x1 * s if rgt else 1e9
+                if min(dl, dr) <= 32:                         # a pin stub (other hits: refdes C1, J1 ... elsewhere)
+                    inner, outer, d = (lft, rgt, dr) if dl < dr else (rgt, lft, dl)
+                    hits.append((inner[3], outer[3] if outer and d <= 120 else None))
+            assert len(hits) == 1, f"U10 ball {ball}: PDF hits {hits}"
+            _BALL_TEXT[ball] = hits[0]
+    return _BALL_TEXT
+
+
+def fpga_unit(sh, unit, x, y, n=4, skip=(), alias=None, ref="U10"):
+    """Unit `unit` (1-8 = A-H) of U10 with its symbol origin at PDF position (x, y); "U10x" above and
+    the value below the left edge of the body, as in the PDF. Every ball not in `skip` gets its IPC net
+    by pin_tie() on the side it points to (label n grid units out - global labels further out on a side
+    that also has local labels -, sideways power symbol, no-connect
+    flag on an N/C pad, nothing for an auto-named net: the sheet draws those wires).
+
+    Every ball of the unit is compared with the PDF (ball_texts()): the pin name must be the symbol's;
+    a ball without a terminal label must be N/C, on a rail or on an auto-named net (wired by the
+    sheet); a label must be the IPC net (case-insensitive) or the Proteus alias given in `alias`
+    {PDF label: IPC net}, and every alias must be used. Returns the placed unit."""
+    alias = dict(alias or {})
+    sub = next(s for s in find_all(lib()[sym(ref)], "symbol") if s[1].endswith(f"_{unit}_1"))
+    rect = find(sub, "rectangle")
+    xs = [float(find(rect, k)[1]) for k in ("start", "end")]
+    ys = [float(find(rect, k)[2]) for k in ("start", "end")]
+    ox, oy = P(x, y)
+    u = sh.place(sym(ref), ref, ox, oy, unit=unit, value=sh_value(ref),
+                 ref_at=(round(ox + min(xs), 4), round(oy - max(ys) - 1.27, 4), 0, "left"),
+                 value_at=(round(ox + min(xs), 4), round(oy - min(ys) + 1.905, 4), 0, "left"))
+    names = {num: name for name, num in ((find(p, "name")[1], find(p, "number")[1]) for p in find_all(sub, "pin"))}
+    assert set(names) == set(u.pins), (unit, sorted(set(names) ^ set(u.pins)))
+    used = set()
+    # local labels stand n units out; the global labels of that side start beyond the longest local
+    # label (at the 2.54 mm pin pitch a local label's text would lie on the global label one row up)
+    kinds = {b: (net_kind(net(ref, b)) if net(ref, b) != NC else None, "left" if pt[0] < ox else "right")
+             for b, pt in u.pins.items() if b not in skip}
+    far = {}
+    for b, (kind, side) in kinds.items():
+        if kind == "local":
+            far[side] = max(far.get(side, 0), n + 2 + -(-len(net(ref, b)) * 85 // 100))
+    for ball, pt in u.pins.items():
+        ipc = net(ref, ball)
+        name, label = ball_texts()[ball]
+        if ipc != NC and net_kind(ipc) == "wire":
+            label = None                                      # wired to parts: the next text is not a terminal
+        assert name == names[ball], f"{ref}-{ball}: PDF pin name {name}, symbol {names[ball]}"
+        if label is None or ipc in RAILS:
+            assert ipc == NC or ipc in RAILS or net_kind(ipc) == "wire", f"{ref}-{ball}: no PDF label, IPC net {ipc}"
+            assert label is None or label.upper() == ipc, f"{ref}-{ball}: PDF label {label}, IPC net {ipc}"
+        elif label in alias:
+            assert alias[label] == ipc, f"{ref}-{ball}: alias {label} = {alias[label]}, IPC net {ipc}"
+            used.add(label)
+        else:
+            assert label.upper() == ipc.upper(), f"{ref}-{ball}: PDF label {label}, IPC net {ipc} (finding?)"
+        if ball in skip:
+            continue
+        kind, side = kinds[ball]
+        pin_tie(sh, u, ball, side, far.get(side, n) if kind == "global" else n, body=side)
+    assert used == set(alias), f"unit {unit}: unused aliases {sorted(set(alias) - used)}"
+    return u
+
+
+def rail_bus(sh, placed, pins, at, side, n=3, m=4):
+    """The PDF's supply bus: the vertically stacked pins `pins` of a placed part, all on one IPC rail,
+    joined by a line n grid units out on `side`; from the row of pin `at` a stub of m more units to the
+    power symbol (pointing sideways). Junctions where a middle pin row meets the line."""
+    rail = net(placed.ref, pins[0])
+    assert rail in RAILS and all(net(placed.ref, p) == rail for p in pins), (placed.ref, pins, rail)
+    pts = sorted((placed.pin(p) for p in pins), key=lambda q: q[1])
+    assert len({q[0] for q in pts}) == 1, pts
+    xv = _STEP[side](pts[0], n)[0]
+    ya = placed.pin(at)[1]
+    for q in pts:
+        sh.wire(q, (xv, q[1]))
+    for a, b in zip(pts, pts[1:]):
+        sh.wire((xv, a[1]), (xv, b[1]))
+    for q in pts[1:-1]:
+        if q[1] != ya:
+            sh.junction(xv, q[1])
+    if len(pts) > 1:
+        sh.junction(xv, ya)
+    return tie(sh, rail, (xv, ya), side, m, body=side)

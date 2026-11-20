@@ -86,6 +86,8 @@ def ti60_type(name):
 
 # first index on the right-hand side of the IO bank units (as drawn in the PDF)
 SPLIT = {"C": 10, "D": 10, "E": 9, "F": 8}
+# pairs that the PDF draws N before P (unit C: GPIOL 15, 16, 18)
+N_FIRST = {("C", 15), ("C", 16), ("C", 18)}
 POWER_LEFT = [["VCC"], ["VCCIO33_BL", "VCCIO33_BR", "VCCIO33_TL", "VCCIO33_TR"], ["VCCIO1A", "VCCIO1B"],
               ["VCCIO2A", "VCCIO2B"], ["VCCIO3A", "VCCIO3B"], ["VCCIO4A", "VCCIO4B"]]
 POWER_RIGHT = [["VCCAUX"], ["VCCA_BL", "VCCA_BR", "VCCA_TL", "VCCA_TR"], ["REF_RES_1A1", "REF_RES_1B1"],
@@ -121,7 +123,10 @@ def ti60_units():
             units.append(([pin(b, n) for b, n in srt if n.startswith("GPIOL")],
                           [pin(b, n) for b, n in srt if n.startswith("GPIOR")]))
         elif u in SPLIT:
-            srt = sorted(pins, key=lambda p: gpio_key(p[1]))
+            def pdf_key(p, u=u):
+                idx, pn = gpio_key(p[1])
+                return (idx, 1 - pn if (u, idx) in N_FIRST else pn)
+            srt = sorted(pins, key=pdf_key)
             units.append(([pin(b, n) for b, n in srt if gpio_key(n)[0] < SPLIT[u]],
                           [pin(b, n) for b, n in srt if gpio_key(n)[0] >= SPLIT[u]]))
         elif u == "G":
